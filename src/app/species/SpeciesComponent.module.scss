@@ -1,0 +1,57 @@
+@font-face {
+  font-family: "ToJapan";
+  src: url("../../assets/fonts/To_Japan.ttf");
+}
+
+.MainContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.speciesContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+
+.buttonStyles {
+  width: 300px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  border-radius: 40px;
+  margin-top: 50px;
+  font-family: ToJapan;
+  font-size: large;
+  letter-spacing: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    transform: scaleX(1.1) scaleY(1.1);
+  }
+  &:active {
+    transform: scaleX(0.9) scaleY(0.9);
+  }
+}
+
+.lanniesLogo {
+  width: 60%;
+}
+
+.cloudyStarsLogo {
+  width: 80%;
+}
+
+.pluniesLogo {
+  width: 80%;
+}
+
+.spectraLumenLogo {
+  width: 60%;
+}
