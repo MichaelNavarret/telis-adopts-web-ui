@@ -1,8 +1,22 @@
 import Button from "../../components/Button";
+import CustomizedSnackbar from "../../components/CustomizeSnackBar";
 import styles from "./SpeciesComponent.module.scss";
 import ImageExpositor from "./components/ImageExpositor";
+import { TypeSnackBar } from "../../types/commons";
+import { useEffect, useState } from "react";
+import { isDefined } from "../../tools/commons";
 
 export const SpeciesComponent = () => {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const loginSuccess = localStorage.getItem("loginSuccess");
+    if (isDefined(loginSuccess)) {
+      localStorage.removeItem("loginSuccess");
+      setOpen(true);
+    }
+  });
+
   return (
     <div className={styles.MainContainer}>
       <div className={styles.speciesContainer}>
@@ -31,6 +45,12 @@ export const SpeciesComponent = () => {
         <p>Nonspecies</p>
         <p>Adopts</p>
       </Button>
+      <CustomizedSnackbar
+        type="success"
+        subTitle="Login Successfully!"
+        open={open}
+        handleClose={() => setOpen(false)}
+      />
     </div>
   );
 };

@@ -2,18 +2,40 @@ import { TextField } from "@mui/material";
 import styles from "./ForgotPasswordForm.module.scss";
 import { useState } from "react";
 import Button from "../../components/Button";
+import { useMutation } from "react-query";
+import { OnwerRequest } from "../../types/owner";
+import { resetPasswordLink } from "../../api/login";
+import CustomizedSnackbar from "../../components/CustomizeSnackBar";
+import { CustomizedSnackbarProps } from "../../types/commons";
 
 type ResetPasswordFormProps = {
   handleStep: (val: number) => void;
+  handleSnackBar: (props: CustomizedSnackbarProps) => void;
 };
 export const ForgotPasswordForm = (props: ResetPasswordFormProps) => {
-  const { handleStep } = props;
-
+  const { handleStep, handleSnackBar } = props;
   const [email, setEmail] = useState("");
+
+  const { mutate: resetPasswordLinkMutation, isLoading: resetPasswordLoading } =
+    useMutation({
+      mutationFn: (data: OnwerRequest) => {
+        return resetPasswordLink(data);
+      },
+      onSuccess: () => {
+        handleSnackBar({
+          type: "success",
+          subTitle: "Check our email for the reset passwor link!",
+        });
+        handleStep(0);
+      },
+    });
 
   const onSubmit = (e: any) => {
     e.preventDefault();
-    console.log(email);
+    const payload: OnwerRequest = {
+      username: email,
+    };
+    resetPasswordLinkMutation(payload);
   };
 
   return (
@@ -40,7 +62,11 @@ export const ForgotPasswordForm = (props: ResetPasswordFormProps) => {
             Back to Login
           </div>
         </div>
-        <Button height="90px">
+        <Button
+          height="90px"
+          disabled={resetPasswordLoading}
+          loading={resetPasswordLoading}
+        >
           <p>Recover Password</p>
         </Button>
       </form>

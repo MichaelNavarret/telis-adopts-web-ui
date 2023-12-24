@@ -48,5 +48,26 @@
         color: #f784a1;
       }
     }
+
+    .footerMultiFactorContainer {
+      display: grid;
+      grid-template-columns: auto auto;
+      margin: auto;
+      grid-gap: 50px;
+      margin-bottom: 50px;
+      .footerMultiFactorField {
+        transition: all 0.3s ease-in-out;
+        font-family: ToJapan;
+        color: #f784a1;
+        &:hover {
+          color: #ff95af;
+          cursor: pointer;
+          transform: scaleX(1.1) scaleY(1.1);
+        }
+        &:active {
+          transform: scaleX(0.9) scaleY(0.9);
+        }
+      }
+    }
   }
 }

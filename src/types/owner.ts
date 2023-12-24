@@ -9,3 +9,7 @@ export type OwnerInfo = {
 export type OwnerSingletonResponse = {
   owner: OwnerInfo;
 };
+
+export type OnwerRequest = {
+  username: string;
+};

@@ -2,21 +2,45 @@ import { TextField, Typography } from "@mui/material";
 import styles from "./LoginForm.module.scss";
 import { FormEvent, useState } from "react";
 import Button from "../../components/Button";
+import useUserSession from "../../hooks/useUserSession";
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "react-query";
+import { LoginRequest } from "../../types/login";
+import { login } from "../../api/login";
+import { saveFirstToken } from "../../context/UserSession/userSessionReducer";
+import { CustomizedSnackbarProps } from "../../types/commons";
 
 type LoginFormProps = {
   handleStep: (val: number) => void;
   handleFormValue: (data: { email: string; password: string }) => void;
+  handleSnackBar: (props: CustomizedSnackbarProps) => void;
 };
 
 export const LoginForm = (props: LoginFormProps) => {
-  const { handleStep, handleFormValue } = props;
+  const { handleStep, handleFormValue, handleSnackBar } = props;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { _setLoginToken } = useUserSession();
+  const navigate = useNavigate();
+
+  const { mutate: loginMutation, isLoading: isLoginLoading } = useMutation({
+    mutationFn: (data: LoginRequest) => {
+      return login(data);
+    },
+    onSuccess: (data) => {
+      saveFirstToken(data.token);
+      handleFormValue({ email: email, password: password });
+      handleStep(4);
+    },
+  });
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(email, password);
-    handleStep(4);
+    const payload: LoginRequest = {
+      username: email,
+      password: password,
+    };
+    loginMutation(payload);
   };
 
   return (
@@ -35,6 +59,7 @@ export const LoginForm = (props: LoginFormProps) => {
             className={styles.textField}
             required
             onChange={(e) => setEmail(e.target.value)}
+            disabled={isLoginLoading}
           />
           <TextField
             id="passwordLoginForm"
@@ -43,15 +68,16 @@ export const LoginForm = (props: LoginFormProps) => {
             className={styles.textField}
             required
             onChange={(e) => setPassword(e.target.value)}
+            disabled={isLoginLoading}
           />
           <div
             className={styles.forgotPasswordContainer}
-            onClick={() => handleStep(1)}
+            onClick={() => !isLoginLoading && handleStep(1)}
           >
             Forgot Password?
           </div>
         </div>
-        <Button>
+        <Button disabled={isLoginLoading} loading={isLoginLoading}>
           <p>Login</p>
         </Button>
       </form>

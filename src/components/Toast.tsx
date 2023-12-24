@@ -1,12 +1,13 @@
-import { Container, Typography } from "@mui/material";
 import {
   ToastContainer as RtToastContainer,
   toast as RtToast,
 } from "react-toastify";
+import { Container, TypoGraph } from ".";
 
 type ToastContainerProps = {
+  /** The position is an optional prop that determines the position of the toast container on the screen. The only possible value is "bottom-right".*/
   position?: "bottom-right";
-
+  /** The autoClose is an optional prop that determines the time in milliseconds after which the toast notification will automatically close. If set to false ,the notification will not automatically close.*/
   autoClose?: number | false;
 
   closeOnClick?: boolean;
@@ -46,8 +47,8 @@ const ToastContent = (props: ToastContentProps) => {
   const { title, subTitle, customContent } = props;
   return (
     <Container>
-      <Typography content={title} sx={{ textTransform: "capitalize" }} />
-      {subTitle && <Typography variant="subtitle2" content={subTitle} />}
+      <TypoGraph content={title} sx={{ textTransform: "capitalize" }} />
+      {subTitle && <TypoGraph variant="subtitle2" content={subTitle} />}
       {customContent && customContent}
     </Container>
   );

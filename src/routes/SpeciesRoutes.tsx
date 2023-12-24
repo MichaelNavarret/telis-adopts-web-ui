@@ -6,7 +6,7 @@ const Species = lazy(() => import("../pages/species/page"));
 const SpeciesRoutes: React.FunctionComponent<RouteProps> = () => {
   return (
     <Routes>
-      <Route path="/species" element={<Species />} />
+      <Route path="/" element={<Species />} />
     </Routes>
   );
 };

@@ -1,3 +1,4 @@
+import { CircularProgress } from "@mui/material";
 import styles from "./Button.module.scss";
 
 type ButtonProps = {
@@ -10,6 +11,7 @@ type ButtonProps = {
   height?: string;
   disabled?: boolean;
   onClick?: () => void;
+  loading?: boolean;
 };
 
 export const Button = (props: ButtonProps) => {
@@ -22,6 +24,7 @@ export const Button = (props: ButtonProps) => {
     width = "300px",
     height = "60px",
     disabled = false,
+    loading = false,
   } = props;
   return (
     <button
@@ -32,12 +35,16 @@ export const Button = (props: ButtonProps) => {
         width: width,
         height: height,
         boxShadow: `0 0 10px ${buttonColorShadow}`,
+        //grayFilter when disabled
+        filter: disabled ? "grayscale(100%)" : "none",
+        //disabled cursor pointer when disabled
+        cursor: disabled ? "not-allowed" : "pointer",
       }}
       type={type}
       disabled={disabled}
       onClick={props.onClick}
     >
-      {children}
+      {loading ? <CircularProgress /> : children}
     </button>
   );
 };

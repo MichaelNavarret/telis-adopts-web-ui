@@ -8,7 +8,7 @@ type ApplacationRouteProps = RouteProps & {
   isAuth: boolean;
 };
 
-const ApplicationRoute = (props: ApplacationRouteProps) => {
+const ApplicationRoutes = (props: ApplacationRouteProps) => {
   const { isAuth } = props;
   return (
     <Routes>
@@ -26,4 +26,4 @@ const ApplicationRoute = (props: ApplacationRouteProps) => {
   );
 };
 
-export default ApplicationRoute;
+export default ApplicationRoutes;
