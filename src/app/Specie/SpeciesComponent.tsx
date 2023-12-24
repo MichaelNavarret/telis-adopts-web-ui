@@ -1,18 +1,8 @@
+import Button from "../../components/Button";
 import styles from "./SpeciesComponent.module.scss";
 import ImageExpositor from "./components/ImageExpositor";
 
-type SpeciesComponentProps = {
-  colorButton?: string;
-  colorTextButton?: string;
-  buttonColorShadow?: string;
-};
-
-export const SpeciesComponent = (props: SpeciesComponentProps) => {
-  const {
-    colorButton = "#F784A1",
-    colorTextButton = "#fef1df",
-    buttonColorShadow = "#BB6D9B",
-  } = props;
+export const SpeciesComponent = () => {
   return (
     <div className={styles.MainContainer}>
       <div className={styles.speciesContainer}>
@@ -37,17 +27,10 @@ export const SpeciesComponent = (props: SpeciesComponentProps) => {
           classNameImage={styles.spectraLumenLogo}
         />
       </div>
-      <div
-        className={styles.buttonStyles}
-        style={{
-          backgroundColor: colorButton,
-          color: colorTextButton,
-          boxShadow: `0 0 10px ${buttonColorShadow}`,
-        }}
-      >
+      <Button>
         <p>Nonspecies</p>
         <p>Adopts</p>
-      </div>
+      </Button>
     </div>
   );
 };

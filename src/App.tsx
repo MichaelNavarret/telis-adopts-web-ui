@@ -1,11 +1,11 @@
-import SpeciesComponent from "./app/species/SpeciesComponent";
-import MainContainer from "./components/MainContainer";
+import { BrowserRouter } from "react-router-dom";
+import MainContainer from "./app/EntryPoint/MainContainer";
 
 function App() {
   return (
-    <MainContainer>
-      <SpeciesComponent />
-    </MainContainer>
+    <BrowserRouter>
+      <MainContainer />
+    </BrowserRouter>
   );
 }
 
