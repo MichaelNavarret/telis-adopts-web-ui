@@ -9,17 +9,17 @@ import { useNavigate } from "react-router-dom";
 import useUserSession from "../../hooks/useUserSession";
 import { useMutation } from "react-query";
 import { verifyOtp } from "../../api/login";
-import Toast from "../../components/Toast";
 import { DEFAULT_PATH } from "../../routes";
-import { CustomizedSnackbarProps } from "../../types/commons";
+import { CustomizedSnackbarProps, ErrorInfo } from "../../types/commons";
 
 type MultiFactorAuthProps = {
   formValue: { email: string; password: string };
   handleStep: (value: number) => void;
+  handleSnackBar: (props: CustomizedSnackbarProps) => void;
 };
 
 const MultiFactorAuth = (props: MultiFactorAuthProps) => {
-  const { formValue, handleStep } = props;
+  const { formValue, handleStep, handleSnackBar } = props;
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   const { _setLoginToken } = useUserSession();
@@ -34,6 +34,12 @@ const MultiFactorAuth = (props: MultiFactorAuthProps) => {
         localStorage.removeItem("telisWeb_firstToken");
         localStorage.setItem("loginSuccess", "yes");
         navigate(DEFAULT_PATH);
+      },
+      onError: (error: ErrorInfo) => {
+        handleSnackBar({
+          type: "error",
+          subTitle: error.response.data.message,
+        });
       },
     });
 

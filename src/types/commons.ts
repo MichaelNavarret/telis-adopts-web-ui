@@ -8,3 +8,13 @@ export type CustomizedSnackbarProps = {
   backgroundColor?: string;
   color?: string;
 };
+
+export type ErrorInfo = {
+  response: ErrorResponse;
+};
+
+export type ErrorResponse = {
+  data: {
+    message: string;
+  };
+};

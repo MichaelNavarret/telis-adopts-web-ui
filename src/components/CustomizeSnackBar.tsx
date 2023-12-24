@@ -11,15 +11,10 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 });
 
 export const CustomizedSnackbar = (props: CustomizedSnackbarProps) => {
-  const {
-    type = "success",
-    subTitle,
-    open = false,
-    handleClose,
-    backgroundColor = "#F784A1",
-    color = "#FEF1DF",
-  } = props;
+  const { type = "success", subTitle, open = false, handleClose } = props;
 
+  const backgroundColor = type === "error" ? "#000100" : "#F784A1";
+  const color = type === "error" ? "#FA65FF" : "#F784A1";
   return (
     <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
       <Alert

@@ -8,7 +8,7 @@ import { useMutation } from "react-query";
 import { LoginRequest } from "../../types/login";
 import { login } from "../../api/login";
 import { saveFirstToken } from "../../context/UserSession/userSessionReducer";
-import { CustomizedSnackbarProps } from "../../types/commons";
+import { CustomizedSnackbarProps, ErrorInfo } from "../../types/commons";
 
 type LoginFormProps = {
   handleStep: (val: number) => void;
@@ -23,7 +23,11 @@ export const LoginForm = (props: LoginFormProps) => {
   const { _setLoginToken } = useUserSession();
   const navigate = useNavigate();
 
-  const { mutate: loginMutation, isLoading: isLoginLoading } = useMutation({
+  const {
+    mutate: loginMutation,
+    isLoading: isLoginLoading,
+    isError,
+  } = useMutation({
     mutationFn: (data: LoginRequest) => {
       return login(data);
     },
@@ -31,6 +35,12 @@ export const LoginForm = (props: LoginFormProps) => {
       saveFirstToken(data.token);
       handleFormValue({ email: email, password: password });
       handleStep(4);
+    },
+    onError: (error: ErrorInfo) => {
+      handleSnackBar({
+        type: "error",
+        subTitle: error.response.data.message,
+      });
     },
   });
 
@@ -77,7 +87,10 @@ export const LoginForm = (props: LoginFormProps) => {
             Forgot Password?
           </div>
         </div>
-        <Button disabled={isLoginLoading} loading={isLoginLoading}>
+        <Button
+          disabled={isLoginLoading && !isError}
+          loading={isLoginLoading && !isError}
+        >
           <p>Login</p>
         </Button>
       </form>
