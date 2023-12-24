@@ -12,7 +12,11 @@ export const SocialNetworksMenu = (props: SocialNetworkMenuProps) => {
 
   return (
     <div className={styles.socialNetworkContainer}>
-      <Bubble colorIcon={colorIcon} colorBubble={colorBubble}>
+      <Bubble
+        colorIcon={colorIcon}
+        colorBubble={colorBubble}
+        link="https://www.deviantart.com/teliwis"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           height={height}

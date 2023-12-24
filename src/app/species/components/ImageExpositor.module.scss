@@ -2,9 +2,10 @@
   width: 40%;
   .imgStyles {
     object-fit: cover;
-    -webkit-filter: drop-shadow(5px 5px 5px #8b457e);
+    -webkit-filter: drop-shadow(5px 5px 5px #d489b5b7);
     transition: all 0.2s ease-in-out;
-    filter: drop-shadow(5px 5px 5px #8b457e);
+    margin-bottom: 15px;
+    filter: drop-shadow(5px 5px 5px #d489b5b7);
     &:hover {
       cursor: pointer;
       transform: scaleX(1.1) scaleY(1.1);

@@ -48,7 +48,9 @@ export const Bubble = (props: BubbleProps) => {
           boxShadow: `0 0 10px ${shadowColor}`,
         }}
       >
-        <a href={link}>{children}</a>
+        <a href={link} target="_blank">
+          {children}
+        </a>
       </div>
     </Tooltip>
   );

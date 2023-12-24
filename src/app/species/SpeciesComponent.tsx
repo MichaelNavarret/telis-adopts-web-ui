@@ -11,7 +11,7 @@ export const SpeciesComponent = (props: SpeciesComponentProps) => {
   const {
     colorButton = "#F784A1",
     colorTextButton = "#fef1df",
-    buttonColorShadow = "#8B457E",
+    buttonColorShadow = "#BB6D9B",
   } = props;
   return (
     <div className={styles.MainContainer}>
