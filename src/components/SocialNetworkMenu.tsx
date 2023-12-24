@@ -7,19 +7,16 @@ export type SocialNetworkMenuProps = {
 
 export const SocialNetworksMenu = (props: SocialNetworkMenuProps) => {
   const { colorIcon = "#fef1df", colorBubble = "#FA688D" } = props;
+  const width = "23";
+  const height = "23";
 
   return (
     <div className={styles.socialNetworkContainer}>
-      <Bubble
-        colorIcon={colorIcon}
-        colorBubble={colorBubble}
-        tooltip
-        tooltipText={"DevianArt"}
-      >
+      <Bubble colorIcon={colorIcon} colorBubble={colorBubble}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          height="35"
-          width="35"
+          height={height}
+          width={width}
           viewBox="0 0 320 512"
           fill={colorIcon}
         >
@@ -27,30 +24,37 @@ export const SocialNetworksMenu = (props: SocialNetworkMenuProps) => {
         </svg>
       </Bubble>
 
-      <Bubble
-        colorIcon={colorIcon}
-        colorBubble={colorBubble}
-        tooltip
-        tooltipText={"Toyhouse"}
-      >
-        <svg height="35" width="35" viewBox="0 70 190 180" fill={colorIcon}>
-          <path
-            fill=""
-            d="M -6.2923729,154.22213 92.377447,54.858845 121.69053,84.093271 V 69.076617 h 31.14565 v 46.273543 l 38.59837,38.59837 h -32.36923 v 91.21228 H 25.02776 v -91.10105 z"
-          />
-          <path d="m 54.338047,170.6337 v 8.39821 H 70.80075 v 53.94872 h 11.012215 v -54.00434 h 17.920872 c 0,0 2.72e-4,-0.23357 2.72e-4,2.12606 v 51.91208 h 8.966631 v -29.12162 h 26.03469 v 28.76768 h 9.28125 v -61.66526 h -8.96663 v 25.72008 h -26.42796 l 0.22247,-26.09986 z" />{" "}
+      <Bubble colorIcon={colorIcon} colorBubble={colorBubble} tooltip>
+        <svg
+          version="1.0"
+          xmlns="http://www.w3.org/2000/svg"
+          height={height}
+          width={width}
+          viewBox="0 0 250.000000 241.000000"
+          preserveAspectRatio="xMidYMid meet"
+        >
+          <g
+            transform="translate(0.000000,241.000000) scale(0.100000,-0.100000)"
+            fill={colorIcon}
+            stroke="none"
+          >
+            <path
+              d="M627 1785 c-339 -342 -617 -625 -617 -629 0 -3 88 -6 195 -6 l195 0
+                0 -575 0 -575 845 0 845 0 0 575 0 575 200 0 c110 0 200 3 200 8 0 4 -108 115
+                -240 247 l-240 240 0 292 0 293 -195 0 -195 0 0 -90 c0 -49 -3 -90 -7 -90 -4
+                0 -89 81 -188 179 l-180 179 -618 -623z m831 -1005 l2 -165 163 2 162 2 3 160
+                2 161 55 0 55 0 0 -390 0 -390 -60 0 -60 0 0 180 0 180 -160 0 -160 0 0 -185
+                0 -185 -60 0 -60 0 0 345 0 345 -110 0 -110 0 0 -345 0 -345 -75 0 -75 0 0
+                343 0 342 -102 0 -103 0 -3 44 c-6 77 -31 72 350 69 l343 -3 3 -165z"
+            />
+          </g>
         </svg>
       </Bubble>
 
-      <Bubble
-        colorIcon={colorIcon}
-        colorBubble={colorBubble}
-        tooltip
-        tooltipText={"Discord"}
-      >
+      <Bubble colorIcon={colorIcon} colorBubble={colorBubble}>
         <svg
-          height="35"
-          width="35"
+          height={height}
+          width={width}
           viewBox="0 0 640 512"
           xmlns="http://www.w3.org/2000/svg"
           fill={colorIcon}
@@ -59,15 +63,10 @@ export const SocialNetworksMenu = (props: SocialNetworkMenuProps) => {
         </svg>
       </Bubble>
 
-      <Bubble
-        colorIcon={colorIcon}
-        colorBubble={colorBubble}
-        tooltip
-        tooltipText={"Twitter"}
-      >
+      <Bubble colorIcon={colorIcon} colorBubble={colorBubble}>
         <svg
-          height="35"
-          width="35"
+          height={height}
+          width={width}
           viewBox="0 0 512 512"
           xmlns="http://www.w3.org/2000/svg"
           fill={colorIcon}
@@ -76,20 +75,26 @@ export const SocialNetworksMenu = (props: SocialNetworkMenuProps) => {
         </svg>
       </Bubble>
 
-      <Bubble
-        colorIcon={colorIcon}
-        colorBubble={colorBubble}
-        tooltip
-        tooltipText={"Kofi"}
-      >
+      <Bubble colorIcon={colorIcon} colorBubble={colorBubble}>
         <svg
-          height="35"
-          width="35"
+          height={height}
+          width={width}
           viewBox="-1 -1 24 24"
           xmlns="http://www.w3.org/2000/svg"
           fill={colorIcon}
         >
           <path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.352.24 7.422-2.831 6.649-6.916zm-11.062 3.511c-1.246 1.453-4.011 3.976-4.011 3.976s-.121.119-.31.023c-.076-.057-.108-.09-.108-.09-.443-.441-3.368-3.049-4.034-3.954-.709-.965-1.041-2.7-.091-3.71.951-1.01 3.005-1.086 4.363.407 0 0 1.565-1.782 3.468-.963 1.904.82 1.832 3.011.723 4.311zm6.173.478c-.928.116-1.682.028-1.682.028V7.284h1.77s1.971.551 1.971 2.638c0 1.913-.985 2.667-2.059 3.015z" />
+        </svg>
+      </Bubble>
+      <Bubble colorIcon={colorIcon} colorBubble={colorBubble}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 64 64"
+          height={height}
+          width={width}
+          fill={colorIcon}
+        >
+          <path d="M 21.580078 7 C 13.541078 7 7 13.544938 7 21.585938 L 7 42.417969 C 7 50.457969 13.544938 57 21.585938 57 L 42.417969 57 C 50.457969 57 57 50.455062 57 42.414062 L 57 21.580078 C 57 13.541078 50.455062 7 42.414062 7 L 21.580078 7 z M 47 15 C 48.104 15 49 15.896 49 17 C 49 18.104 48.104 19 47 19 C 45.896 19 45 18.104 45 17 C 45 15.896 45.896 15 47 15 z M 32 19 C 39.17 19 45 24.83 45 32 C 45 39.17 39.169 45 32 45 C 24.83 45 19 39.169 19 32 C 19 24.831 24.83 19 32 19 z M 32 23 C 27.029 23 23 27.029 23 32 C 23 36.971 27.029 41 32 41 C 36.971 41 41 36.971 41 32 C 41 27.029 36.971 23 32 23 z" />
         </svg>
       </Bubble>
     </div>

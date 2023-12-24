@@ -8,6 +8,7 @@ type BubbleProps = {
   children: React.ReactNode;
   tooltip?: boolean;
   tooltipText?: string;
+  shadowColor?: string;
 };
 
 export const Bubble = (props: BubbleProps) => {
@@ -18,6 +19,7 @@ export const Bubble = (props: BubbleProps) => {
     children,
     tooltip,
     tooltipText,
+    shadowColor = "#8B457E",
   } = props;
   return (
     <Tooltip
@@ -41,7 +43,10 @@ export const Bubble = (props: BubbleProps) => {
     >
       <div
         className={styles.svgContainer}
-        style={{ backgroundColor: colorBubble }}
+        style={{
+          backgroundColor: colorBubble,
+          boxShadow: `0 0 10px ${shadowColor}`,
+        }}
       >
         <a href={link}>{children}</a>
       </div>
