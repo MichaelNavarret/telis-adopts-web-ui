@@ -1,18 +1,22 @@
+import Button from "../../components/Button";
+import CustomizedSnackbar from "../../components/CustomizeSnackBar";
 import styles from "./SpeciesComponent.module.scss";
 import ImageExpositor from "./components/ImageExpositor";
+import { TypeSnackBar } from "../../types/commons";
+import { useEffect, useState } from "react";
+import { isDefined } from "../../tools/commons";
 
-type SpeciesComponentProps = {
-  colorButton?: string;
-  colorTextButton?: string;
-  buttonColorShadow?: string;
-};
+export const SpeciesComponent = () => {
+  const [open, setOpen] = useState(false);
 
-export const SpeciesComponent = (props: SpeciesComponentProps) => {
-  const {
-    colorButton = "#F784A1",
-    colorTextButton = "#fef1df",
-    buttonColorShadow = "#BB6D9B",
-  } = props;
+  useEffect(() => {
+    const loginSuccess = localStorage.getItem("loginSuccess");
+    if (isDefined(loginSuccess)) {
+      localStorage.removeItem("loginSuccess");
+      setOpen(true);
+    }
+  });
+
   return (
     <div className={styles.MainContainer}>
       <div className={styles.speciesContainer}>
@@ -37,17 +41,16 @@ export const SpeciesComponent = (props: SpeciesComponentProps) => {
           classNameImage={styles.spectraLumenLogo}
         />
       </div>
-      <div
-        className={styles.buttonStyles}
-        style={{
-          backgroundColor: colorButton,
-          color: colorTextButton,
-          boxShadow: `0 0 10px ${buttonColorShadow}`,
-        }}
-      >
+      <Button>
         <p>Nonspecies</p>
         <p>Adopts</p>
-      </div>
+      </Button>
+      <CustomizedSnackbar
+        type="success"
+        subTitle="Login Successfully!"
+        open={open}
+        handleClose={() => setOpen(false)}
+      />
     </div>
   );
 };

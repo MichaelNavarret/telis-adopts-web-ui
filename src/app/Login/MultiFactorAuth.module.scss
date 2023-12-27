@@ -1,0 +1,73 @@
+@font-face {
+  font-family: "ToJapan";
+  src: url("../../assets/fonts/To_Japan.ttf");
+}
+
+.multiFactorContainer {
+  margin: auto;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  font-family: Tka;
+  .logo {
+    margin: auto;
+    margin-top: 20px;
+    width: 40%;
+    margin-bottom: 20px;
+  }
+  .formContainer {
+    background-color: #f784a173;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    border-radius: 40px;
+    .multiFactorSubtitle {
+      margin-top: 50px;
+      font-family: ToJapan;
+      color: #f784a1;
+      margin-bottom: 50px;
+    }
+    .otpContainer {
+      margin: auto;
+      margin-bottom: 50px;
+      padding: 1rem;
+      .otpStyles {
+        width: 3rem !important;
+        height: 3rem !important;
+        font-size: 35px;
+        border-radius: 40px;
+        border: none !important;
+        color: #f784a1;
+        margin: 4px;
+        &:focus {
+          outline: none;
+        }
+      }
+      .sparksIcon {
+        color: #f784a1;
+      }
+    }
+
+    .footerMultiFactorContainer {
+      display: grid;
+      grid-template-columns: auto auto;
+      margin: auto;
+      grid-gap: 50px;
+      margin-bottom: 50px;
+      .footerMultiFactorField {
+        transition: all 0.3s ease-in-out;
+        font-family: ToJapan;
+        color: #f784a1;
+        &:hover {
+          color: #ff95af;
+          cursor: pointer;
+          transform: scaleX(1.1) scaleY(1.1);
+        }
+        &:active {
+          transform: scaleX(0.9) scaleY(0.9);
+        }
+      }
+    }
+  }
+}
