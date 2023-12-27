@@ -37,8 +37,8 @@ export const MainContainer = () => {
   if (isAuth === false) {
     mainContent = (
       <Routes>
-        <Route path="/login" element={<LoginPage currentSetp={0} />} />
-        <Route path="/reset-password" element={<LoginPage currentSetp={2} />} />
+        <Route path="/login" element={<LoginPage currentStep={0} />} />
+        <Route path="/reset-password" element={<LoginPage currentStep={2} />} />
         <Route path="*" element={<Navigate to={"/login"} />} />
       </Routes>
     );

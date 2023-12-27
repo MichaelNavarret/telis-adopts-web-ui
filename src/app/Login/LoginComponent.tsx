@@ -7,18 +7,17 @@ import CustomizedSnackbar from "../../components/CustomizeSnackBar";
 import { CustomizedSnackbarProps } from "../../types/commons";
 
 type LoginComponentProps = {
-  currentSetp: number;
+  currentStep: number;
 };
 
 export const LoginComponent = (props: LoginComponentProps) => {
-  const { currentSetp } = props;
-  const [step, setStep] = useState(currentSetp || 0);
+  const { currentStep } = props;
+  const [step, setStep] = useState(currentStep || 0);
   const [formValue, setFormValue] = useState({ email: "", password: "" });
   const [snackElements, setSnackElements] = useState<CustomizedSnackbarProps>();
   const [open, setOpen] = useState(false);
 
   const handleSnackBar = (props: CustomizedSnackbarProps) => {
-    console.log("Entrnado al metodo del componente...");
     setSnackElements({
       type: props.type,
       subTitle: props.subTitle,
