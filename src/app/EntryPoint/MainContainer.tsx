@@ -50,10 +50,7 @@ export const MainContainer = () => {
     <Container>
       <div className={styles.backgroundContainer}>
         <SocialNetworksMenu />
-        <div className={styles.mainContainer}>
-          <ToastContainer />
-          {mainContent}
-        </div>
+        <div className={styles.mainContainer}>{mainContent}</div>
       </div>
     </Container>
   );

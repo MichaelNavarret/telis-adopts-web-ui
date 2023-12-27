@@ -10,6 +10,6 @@ export type OwnerSingletonResponse = {
   owner: OwnerInfo;
 };
 
-export type OnwerRequest = {
+export type OwnerRequest = {
   username: string;
 };

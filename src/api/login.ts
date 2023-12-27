@@ -1,6 +1,6 @@
 import request from "../tools/request";
 import { LoginRequest, LoginResponse, VerifyOtpRequest } from "../types/login";
-import { OnwerRequest } from "../types/owner";
+import { OwnerRequest } from "../types/owner";
 
 export const login = async (loginRequest: LoginRequest) => {
   const data = await request
@@ -16,7 +16,7 @@ export const verifyOtp = async (verifyOtpRequest: VerifyOtpRequest) => {
   return data;
 };
 
-export const resetPasswordLink = async (ownerRequest: OnwerRequest) => {
+export const resetPasswordLink = async (ownerRequest: OwnerRequest) => {
   console.log("Entrnado al metodo");
   const data = await request
     .post<LoginResponse>("auth/reset-password-link", ownerRequest)

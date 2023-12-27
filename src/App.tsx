@@ -1,17 +1,94 @@
+import { useCallback, useState } from "react";
 import MainContainer from "./app/EntryPoint/MainContainer";
 import { UserSessionProvider } from "./context/UserSession/UserSessionProvider";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider, useQueryClient } from "react-query";
+import CustomizedSnackbar from "./components/CustomizeSnackBar";
+import useUserSession from "./hooks/useUserSession";
+import { RouteProps } from "react-router-dom";
+import ErrorBoundary from "./ErrorBoundary";
 
-const queryClient = new QueryClient();
+const App: React.FunctionComponent<RouteProps> = () => {
+  const [showSnackBars, setShowSnackBars] = useState(false);
+  const [snackMessage, setSnackMessage] = useState<string>("");
 
-function App() {
+  const queryClient = new QueryClient({});
+
+  function isError(_args: unknown): _args is unknown {
+    return true;
+  }
+
+  function errorMsg(error: any, def = "Something went wrong") {
+    let message = error?.response?.data?.message;
+    if (!message) message = error?.response?.data?.message;
+    return message ?? def;
+  }
+
+  function setSnackBar(error: unknown) {
+    setSnackMessage(errorMsg(error));
+    setShowSnackBars(true);
+  }
+
+  function onErrorHandler(error: unknown) {
+    console.log("onErrorHandler");
+    if (isError(error)) {
+      setSnackBar(error);
+      return Promise.reject(error);
+    }
+    return error;
+  }
+
+  const QueryConfig = () => {
+    const queryClient = useQueryClient();
+    const { logout } = useUserSession();
+
+    const retryHandler = useCallback(
+      (failureCount: number, error: unknown) => {
+        console.log("retryHandler", failureCount, error);
+        if (isError(error)) {
+          if ((error as any).response?.status === 401) {
+            logout();
+            setSnackBar(error);
+            return false;
+          } else if ((error as any).response?.status === 403) {
+            return false;
+          }
+          return failureCount < 3;
+        }
+        return true;
+      },
+      [logout]
+    );
+
+    queryClient.setDefaultOptions({
+      queries: {
+        retry: retryHandler,
+        onError: onErrorHandler,
+      },
+      mutations: {
+        retry: false,
+        onError: onErrorHandler,
+      },
+    });
+
+    return <></>;
+  };
+
   return (
-    <UserSessionProvider>
-      <QueryClientProvider client={queryClient}>
-        <MainContainer />
-      </QueryClientProvider>
-    </UserSessionProvider>
+    <ErrorBoundary>
+      <UserSessionProvider>
+        <QueryClientProvider client={queryClient}>
+          <MainContainer />
+          <QueryConfig />
+        </QueryClientProvider>
+      </UserSessionProvider>
+      <CustomizedSnackbar
+        type="error"
+        subTitle={snackMessage}
+        open={showSnackBars}
+        handleClose={() => setShowSnackBars(false)}
+      />
+    </ErrorBoundary>
   );
-}
+};
 
 export default App;

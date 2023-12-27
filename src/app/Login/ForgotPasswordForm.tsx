@@ -3,9 +3,8 @@ import styles from "./ForgotPasswordForm.module.scss";
 import { useState } from "react";
 import Button from "../../components/Button";
 import { useMutation } from "react-query";
-import { OnwerRequest } from "../../types/owner";
+import { OwnerRequest } from "../../types/owner";
 import { resetPasswordLink } from "../../api/login";
-import CustomizedSnackbar from "../../components/CustomizeSnackBar";
 import { CustomizedSnackbarProps } from "../../types/commons";
 
 type ResetPasswordFormProps = {
@@ -18,13 +17,13 @@ export const ForgotPasswordForm = (props: ResetPasswordFormProps) => {
 
   const { mutate: resetPasswordLinkMutation, isLoading: resetPasswordLoading } =
     useMutation({
-      mutationFn: (data: OnwerRequest) => {
+      mutationFn: (data: OwnerRequest) => {
         return resetPasswordLink(data);
       },
       onSuccess: () => {
         handleSnackBar({
           type: "success",
-          subTitle: "Check our email for the reset passwor link!",
+          subTitle: "Check our email for the reset password link!",
         });
         handleStep(0);
       },
@@ -32,7 +31,7 @@ export const ForgotPasswordForm = (props: ResetPasswordFormProps) => {
 
   const onSubmit = (e: any) => {
     e.preventDefault();
-    const payload: OnwerRequest = {
+    const payload: OwnerRequest = {
       username: email,
     };
     resetPasswordLinkMutation(payload);

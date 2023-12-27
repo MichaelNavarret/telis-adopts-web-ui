@@ -10,16 +10,14 @@ import useUserSession from "../../hooks/useUserSession";
 import { useMutation } from "react-query";
 import { verifyOtp } from "../../api/login";
 import { DEFAULT_PATH } from "../../routes";
-import { CustomizedSnackbarProps, ErrorInfo } from "../../types/commons";
 
 type MultiFactorAuthProps = {
   formValue: { email: string; password: string };
   handleStep: (value: number) => void;
-  handleSnackBar: (props: CustomizedSnackbarProps) => void;
 };
 
 const MultiFactorAuth = (props: MultiFactorAuthProps) => {
-  const { formValue, handleStep, handleSnackBar } = props;
+  const { formValue, handleStep } = props;
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   const { _setLoginToken } = useUserSession();
@@ -35,12 +33,6 @@ const MultiFactorAuth = (props: MultiFactorAuthProps) => {
         localStorage.setItem("loginSuccess", "yes");
         navigate(DEFAULT_PATH);
       },
-      onError: (error: ErrorInfo) => {
-        handleSnackBar({
-          type: "error",
-          subTitle: error.response.data.message,
-        });
-      },
     });
 
   const handleOtpVerify = () => {
@@ -53,7 +45,7 @@ const MultiFactorAuth = (props: MultiFactorAuthProps) => {
   };
 
   return (
-    <div className={styles.multifactorContainer}>
+    <div className={styles.multiFactorContainer}>
       <img
         src="src/assets/logos/lannies.png"
         alt="logo"

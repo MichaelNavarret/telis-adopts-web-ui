@@ -2,7 +2,7 @@ import {
   ToastContainer as RtToastContainer,
   toast as RtToast,
 } from "react-toastify";
-import { Container, TypoGraph } from ".";
+import { Container, TypoGraph } from "..";
 
 type ToastContainerProps = {
   /** The position is an optional prop that determines the position of the toast container on the screen. The only possible value is "bottom-right".*/

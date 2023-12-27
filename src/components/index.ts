@@ -1,6 +1,6 @@
-import Toast, { ToastContainer } from "./Toast";
-import TypoGraph from "./TypoGraph";
-import Container from "./Container";
+import Toast, { ToastContainer } from "./fc_components/Toast";
+import TypoGraph from "./fc_components/TypoGraph";
+import Container from "./fc_components/Container";
 import PasswordValidator from "./utils/PasswordValidator";
 import Bubble from "./Bubble";
 import Button from "./Button";

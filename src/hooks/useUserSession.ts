@@ -3,7 +3,6 @@ import { useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { UserSessionContext } from "../context/UserSession/UserSessionContext";
 import { isDefined } from "../tools/commons";
-import Toast, { ToastProps } from "../components/Toast";
 import { jwtDecode } from "jwt-decode";
 
 const useUserSession = () => {
@@ -33,11 +32,10 @@ const useUserSession = () => {
     }
   }, [ownerInfo, permissions, updatePermissions]);
 
-  const logout = (toastMessage?: ToastProps) => {
+  const logout = () => {
     queryClient.clear();
     localStorage.clear();
     navigate("/login");
-    if (toastMessage) Toast(toastMessage);
     clearSession();
   };
 

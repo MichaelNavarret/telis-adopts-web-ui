@@ -33,7 +33,6 @@ export const LoginComponent = (props: LoginComponentProps) => {
           <LoginForm
             handleStep={(val) => setStep(val)}
             handleFormValue={(form) => setFormValue(form)}
-            handleSnackBar={handleSnackBar}
           />
         );
       case 1:
@@ -50,7 +49,6 @@ export const LoginComponent = (props: LoginComponentProps) => {
           <MultiFactorAuth
             formValue={formValue}
             handleStep={(val) => setStep(val)}
-            handleSnackBar={handleSnackBar}
           />
         );
     }

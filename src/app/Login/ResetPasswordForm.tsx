@@ -6,6 +6,7 @@ import PasswordValidator from "../../components/utils/PasswordValidator";
 import { useSearchParams } from "react-router-dom";
 import { loadToken } from "../../context/UserSession/userSessionReducer";
 import { ChangePasswordRequest } from "../../types/login";
+import { TypoGraph } from "../../components";
 
 type ResetPasswordFormProps = {
   handleStep: (val: number) => void;
@@ -79,11 +80,13 @@ export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
               type="password"
               className={styles.textField}
               required
-              helperText={error2}
               error={Boolean(error2)}
               onChange={(e) => handleFormChange(e, "password")}
             />
           </PasswordValidator>
+          {Boolean(error2) && (
+            <TypoGraph variant="body2" color="error" content={error2} />
+          )}
           <TextField
             id="confirmNewPasswordResetPasswordForm"
             label="ConfirmPassword"
