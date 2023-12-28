@@ -2,7 +2,6 @@ import Button from "../../components/Button";
 import CustomizedSnackbar from "../../components/CustomizeSnackBar";
 import styles from "./SpeciesComponent.module.scss";
 import ImageExpositor from "./components/ImageExpositor";
-import { TypeSnackBar } from "../../types/commons";
 import { useEffect, useState } from "react";
 import { isDefined } from "../../tools/commons";
 
