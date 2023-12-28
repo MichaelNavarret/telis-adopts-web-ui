@@ -68,6 +68,15 @@
           transform: scaleX(0.9) scaleY(0.9);
         }
       }
+      .footerMultiFactorFieldDisabled {
+        transition: all 0.3s ease-in-out;
+        font-family: ToJapan;
+        color: #7a5861;
+        opacity: 0.5;
+        &:hover {
+          cursor: not-allowed;
+        }
+      }
     }
   }
 }

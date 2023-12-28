@@ -37,3 +37,10 @@ export const updatePasswordByLink = async (
     .then((res) => res.data);
   return data;
 };
+
+export const resentOtp = async (ownerRequest: OwnerRequest) => {
+  const data = await request
+    .post<BaseResponse>("auth/resend-otp-code", ownerRequest)
+    .then((res) => res.data);
+  return data;
+};

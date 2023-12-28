@@ -53,6 +53,7 @@ export const LoginComponent = (props: LoginComponentProps) => {
         return (
           <MultiFactorAuth
             formValue={formValue}
+            handleSnackBar={handleSnackBar}
             handleStep={(val) => setStep(val)}
           />
         );
