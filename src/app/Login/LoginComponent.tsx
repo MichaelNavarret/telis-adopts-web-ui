@@ -6,6 +6,7 @@ import MultiFactorAuth from "./MultiFactorAuth";
 import CustomizedSnackbar from "../../components/CustomizeSnackBar";
 import { CustomizedSnackbarProps } from "../../types/commons";
 import styles from "./LoginComponent.module.scss";
+import logo from "../../assets/logos/lannies.png";
 
 type LoginComponentProps = {
   currentStep: number;
@@ -64,11 +65,7 @@ export const LoginComponent = (props: LoginComponentProps) => {
   return (
     <>
       <div className={styles.loginComponentContainer}>
-        <img
-          src="../../assets/logos/lannies.png"
-          alt="logo"
-          className={styles.logo}
-        />
+        <img src={logo} alt="logo" className={styles.logo} />
         <div className={styles.formContainer}>
           <FormComponent step={step} />
         </div>
