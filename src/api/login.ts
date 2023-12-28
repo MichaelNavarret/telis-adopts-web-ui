@@ -1,5 +1,11 @@
 import request from "../tools/request";
-import { LoginRequest, LoginResponse, VerifyOtpRequest } from "../types/login";
+import { BaseResponse } from "../types/commons";
+import {
+  ChangePasswordRequest,
+  LoginRequest,
+  LoginResponse,
+  VerifyOtpRequest,
+} from "../types/login";
 import { OwnerRequest } from "../types/owner";
 
 export const login = async (loginRequest: LoginRequest) => {
@@ -17,9 +23,17 @@ export const verifyOtp = async (verifyOtpRequest: VerifyOtpRequest) => {
 };
 
 export const resetPasswordLink = async (ownerRequest: OwnerRequest) => {
-  console.log("Entrnado al metodo");
   const data = await request
     .post<LoginResponse>("auth/reset-password-link", ownerRequest)
+    .then((res) => res.data);
+  return data;
+};
+
+export const updatePasswordByLink = async (
+  changePasswordRequest: ChangePasswordRequest
+) => {
+  const data = await request
+    .post<BaseResponse>("auth/update-password", changePasswordRequest)
     .then((res) => res.data);
   return data;
 };

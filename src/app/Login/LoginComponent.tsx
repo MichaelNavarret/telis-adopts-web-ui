@@ -43,7 +43,12 @@ export const LoginComponent = (props: LoginComponentProps) => {
           />
         );
       case 2:
-        return <ResetPasswordForm handleStep={(val) => setStep(val)} />;
+        return (
+          <ResetPasswordForm
+            handleStep={(val) => setStep(val)}
+            handleSnackBar={handleSnackBar}
+          />
+        );
       default:
         return (
           <MultiFactorAuth

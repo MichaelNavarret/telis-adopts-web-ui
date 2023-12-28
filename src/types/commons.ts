@@ -18,3 +18,9 @@ export type ErrorResponse = {
     message: string;
   };
 };
+
+export type BaseResponse = {
+  status: string;
+  code: number;
+  message: string;
+};
