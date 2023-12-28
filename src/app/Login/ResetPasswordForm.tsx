@@ -3,26 +3,31 @@ import Button from "../../components/Button";
 import styles from "./ResetPasswordForm.module.scss";
 import { FormEvent, useEffect, useState } from "react";
 import PasswordValidator from "../../components/utils/PasswordValidator";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { loadToken } from "../../context/UserSession/userSessionReducer";
 import { ChangePasswordRequest } from "../../types/login";
-import { TypoGraph } from "../../components";
+import { useMutation } from "react-query";
+import { updatePasswordByLink } from "../../api/login";
+import { CustomizedSnackbarProps } from "../../types/commons";
 
 type ResetPasswordFormProps = {
   handleStep: (val: number) => void;
+  handleSnackBar: (props: CustomizedSnackbarProps) => void;
 };
 
 export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
-  const { handleStep } = props;
+  const { handleStep, handleSnackBar } = props;
   const [formValues, setFormValues] = useState({
     password: "",
     confirmPassword: "",
   });
   const [error, setError] = useState<string>();
   const [error2, setError2] = useState<string>();
+  const [isValid, setIsValid] = useState<boolean>(false);
   const [searchParams] = useSearchParams();
   const { password, confirmPassword } = formValues;
   const resetToken: string | null = searchParams.get("token");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (loadToken()) {
@@ -31,22 +36,31 @@ export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
     }
   }, [resetToken]);
 
+  const { mutate: passwordUpdateMutation, isLoading: isPasswordUpdateLoading } =
+    useMutation({
+      mutationFn: (payload: ChangePasswordRequest) => {
+        return updatePasswordByLink(payload);
+      },
+      onSuccess: () => {
+        handleStep(0);
+        handleSnackBar({
+          type: "success",
+          subTitle: "Password updated successfully!",
+        });
+        navigate("/login");
+      },
+    });
+
   const handleFormChange = (e: React.ChangeEvent<any>, name: string) => {
     setFormValues({ ...formValues, [name]: e.target.value });
   };
 
-  const handlePassValidation = (bool: boolean) => {
-    if (bool) {
-      setError2("");
-    } else {
-      setError2("Password does not meet the requirements!");
-    }
-  };
-
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(formValues);
-    if (error2) return;
+    if (!isValid) {
+      setError2("Password does not meet the requirements!");
+      return;
+    }
     if (
       formValues.password === formValues.confirmPassword &&
       resetToken &&
@@ -56,8 +70,9 @@ export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
         token: resetToken,
         newPassword: formValues.password,
       };
+      passwordUpdateMutation(payload);
     } else {
-      setError2("Passwords do not match!");
+      setError("Passwords do not match!");
     }
   };
 
@@ -72,7 +87,7 @@ export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
         <div className={styles.formContainer}>
           <PasswordValidator
             password={formValues.password}
-            isValid={handlePassValidation}
+            isValid={(val) => setIsValid(val)}
           >
             <TextField
               id="newPasswordResetPasswordForm"
@@ -80,13 +95,10 @@ export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
               type="password"
               className={styles.textField}
               required
-              error={Boolean(error2)}
+              error={!isValid}
               onChange={(e) => handleFormChange(e, "password")}
             />
           </PasswordValidator>
-          {Boolean(error2) && (
-            <TypoGraph variant="body2" color="error" content={error2} />
-          )}
           <TextField
             id="confirmNewPasswordResetPasswordForm"
             label="ConfirmPassword"
@@ -99,7 +111,9 @@ export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
           />
         </div>
         <Button
-          disabled={password === "" || confirmPassword === ""}
+          disabled={
+            password === "" || confirmPassword === "" || isPasswordUpdateLoading
+          }
           height="80px"
           width="350px"
         >

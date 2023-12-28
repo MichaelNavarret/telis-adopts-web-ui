@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import useUserSession from "../../hooks/useUserSession";
 import { jwtDecode } from "jwt-decode";
 import ApplicationRoutes from "../../routes";
-import { Container, ToastContainer } from "../../components";
+import { Container } from "../../components";
 
 export const MainContainer = () => {
   const { _loadTokenFromStorage, logout, isAuth, _token } = useUserSession();
@@ -18,10 +18,7 @@ export const MainContainer = () => {
         const currentTime = Math.floor(Date.now() / 1000);
         const remainingTime = decodedToken.exp - currentTime;
         if (remainingTime < 0) {
-          logout({
-            title: "Session has timed out",
-            subTitle: "Please login again",
-          });
+          logout();
         }
       }
     }, 1000);

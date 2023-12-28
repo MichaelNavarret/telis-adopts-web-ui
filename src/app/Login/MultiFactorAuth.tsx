@@ -8,30 +8,46 @@ import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { useNavigate } from "react-router-dom";
 import useUserSession from "../../hooks/useUserSession";
 import { useMutation } from "react-query";
-import { verifyOtp } from "../../api/login";
+import { resentOtp, verifyOtp } from "../../api/login";
 import { DEFAULT_PATH } from "../../routes";
+import { OwnerRequest } from "../../types/owner";
+import { CustomizedSnackbarProps } from "../../types/commons";
 
 type MultiFactorAuthProps = {
   formValue: { email: string; password: string };
   handleStep: (value: number) => void;
+  handleSnackBar: (props: CustomizedSnackbarProps) => void;
 };
 
 const MultiFactorAuth = (props: MultiFactorAuthProps) => {
-  const { formValue, handleStep } = props;
+  const { formValue, handleStep, handleSnackBar } = props;
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   const { _setLoginToken } = useUserSession();
 
   const { mutate: verifyOtpMutation, isLoading: isVerifyOtpLoading } =
     useMutation({
-      mutationFn: (data: VerifyOtpRequest) => {
-        return verifyOtp(data);
+      mutationFn: (payload: VerifyOtpRequest) => {
+        return verifyOtp(payload);
       },
       onSuccess: (data) => {
         _setLoginToken(data.token);
         localStorage.removeItem("telisWeb_firstToken");
         localStorage.setItem("loginSuccess", "yes");
         navigate(DEFAULT_PATH);
+      },
+    });
+
+  const { mutate: resendOtpMutation, isLoading: isResendOtpLoading } =
+    useMutation({
+      mutationFn: (payload: OwnerRequest) => {
+        return resentOtp(payload);
+      },
+      onSuccess: () => {
+        handleSnackBar({
+          type: "success",
+          subTitle: "OTP resent successfully!",
+        });
       },
     });
 
@@ -42,6 +58,15 @@ const MultiFactorAuth = (props: MultiFactorAuthProps) => {
       otpCode: otp,
     };
     verifyOtpMutation(payload);
+  };
+
+  const handleResendOtp = () => {
+    if (!isResendOtpLoading) {
+      const payload: OwnerRequest = {
+        username: formValue.email,
+      };
+      resendOtpMutation(payload);
+    }
   };
 
   return (
@@ -72,9 +97,14 @@ const MultiFactorAuth = (props: MultiFactorAuthProps) => {
 
         <div className={styles.footerMultiFactorContainer}>
           <Typography
-            className={styles.footerMultiFactorField}
+            className={
+              isResendOtpLoading || isVerifyOtpLoading
+                ? styles.footerMultiFactorFieldDisabled
+                : styles.footerMultiFactorField
+            }
             variant="body2"
             align="center"
+            onClick={handleResendOtp}
           >
             Resend code
           </Typography>
