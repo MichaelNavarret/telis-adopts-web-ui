@@ -77,50 +77,43 @@ export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
   };
 
   return (
-    <div className={styles.resetPasswordContainer}>
-      <img
-        src="src/assets/logos/lannies.png"
-        alt="logo"
-        className={styles.logo}
-      />
-      <form onSubmit={onSubmit}>
-        <div className={styles.formContainer}>
-          <PasswordValidator
-            password={formValues.password}
-            isValid={(val) => setIsValid(val)}
-          >
-            <TextField
-              id="newPasswordResetPasswordForm"
-              label="Password"
-              type="password"
-              className={styles.textField}
-              required
-              error={!isValid}
-              onChange={(e) => handleFormChange(e, "password")}
-            />
-          </PasswordValidator>
+    <form onSubmit={onSubmit}>
+      <div className={styles.formContainer}>
+        <PasswordValidator
+          password={formValues.password}
+          isValid={(val) => setIsValid(val)}
+        >
           <TextField
-            id="confirmNewPasswordResetPasswordForm"
-            label="ConfirmPassword"
+            id="newPasswordResetPasswordForm"
+            label="Password"
             type="password"
             className={styles.textField}
             required
-            helperText={error}
-            error={Boolean(error)}
-            onChange={(e) => handleFormChange(e, "confirmPassword")}
+            error={!isValid}
+            onChange={(e) => handleFormChange(e, "password")}
           />
-        </div>
-        <Button
-          disabled={
-            password === "" || confirmPassword === "" || isPasswordUpdateLoading
-          }
-          height="80px"
-          width="350px"
-        >
-          <p>Reset Password</p>
-        </Button>
-      </form>
-    </div>
+        </PasswordValidator>
+        <TextField
+          id="confirmNewPasswordResetPasswordForm"
+          label="ConfirmPassword"
+          type="password"
+          className={styles.textField}
+          required
+          helperText={error}
+          error={Boolean(error)}
+          onChange={(e) => handleFormChange(e, "confirmPassword")}
+        />
+      </div>
+      <Button
+        disabled={
+          password === "" || confirmPassword === "" || isPasswordUpdateLoading
+        }
+        height="80px"
+        width="350px"
+      >
+        <p>Reset Password</p>
+      </Button>
+    </form>
   );
 };
 

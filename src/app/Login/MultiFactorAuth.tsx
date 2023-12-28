@@ -70,12 +70,7 @@ const MultiFactorAuth = (props: MultiFactorAuthProps) => {
   };
 
   return (
-    <div className={styles.multiFactorContainer}>
-      <img
-        src="src/assets/logos/lannies.png"
-        alt="logo"
-        className={styles.logo}
-      />
+    <>
       <div className={styles.formContainer}>
         <Typography
           className={styles.multiFactorSubtitle}
@@ -126,7 +121,7 @@ const MultiFactorAuth = (props: MultiFactorAuthProps) => {
       >
         Login
       </Button>
-    </div>
+    </>
   );
 };
 

@@ -48,11 +48,6 @@ export const LoginForm = (props: LoginFormProps) => {
 
   return (
     <div className={styles.loginContainer}>
-      <img
-        src="src/assets/logos/lannies.png"
-        alt="logo"
-        className={styles.logo}
-      />
       <form onSubmit={onSubmit}>
         <div className={styles.formContainer}>
           <TextField

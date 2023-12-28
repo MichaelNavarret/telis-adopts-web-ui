@@ -34,12 +34,13 @@ RUN npm run build
 RUN npm prune --omit=dev
 
 
-# Final stage for app image
-FROM nginx
+FROM nginx:1.21.0-alpine
+# Copy the ngnix.conf to the container
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy built application
 COPY --from=build /app/dist /usr/share/nginx/html
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 80
-CMD [ "/usr/sbin/nginx", "-g", "daemon off;" ]
+CMD ["nginx", "-g", "daemon off;"]

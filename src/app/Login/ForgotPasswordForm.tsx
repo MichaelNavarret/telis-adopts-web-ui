@@ -38,38 +38,31 @@ export const ForgotPasswordForm = (props: ResetPasswordFormProps) => {
   };
 
   return (
-    <div className={styles.forgotPasswordContainer}>
-      <img
-        src="src/assets/logos/lannies.png"
-        alt="logo"
-        className={styles.logo}
-      />
-      <form onSubmit={onSubmit}>
-        <div className={styles.formContainer}>
-          <TextField
-            id="emailAddressForgotForm"
-            label="Email Address"
-            type="text"
-            className={styles.textField}
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <div
-            className={styles.backToLoginContainer}
-            onClick={() => handleStep(0)}
-          >
-            Back to Login
-          </div>
-        </div>
-        <Button
-          height="90px"
-          disabled={resetPasswordLoading}
-          loading={resetPasswordLoading}
+    <form onSubmit={onSubmit}>
+      <div className={styles.formContainer}>
+        <TextField
+          id="emailAddressForgotForm"
+          label="Email Address"
+          type="text"
+          className={styles.textField}
+          required
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <div
+          className={styles.backToLoginContainer}
+          onClick={() => handleStep(0)}
         >
-          <p>Recover Password</p>
-        </Button>
-      </form>
-    </div>
+          Back to Login
+        </div>
+      </div>
+      <Button
+        height="90px"
+        disabled={resetPasswordLoading}
+        loading={resetPasswordLoading}
+      >
+        <p>Recover Password</p>
+      </Button>
+    </form>
   );
 };
 
