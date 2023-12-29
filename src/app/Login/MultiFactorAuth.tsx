@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { VerifyOtpRequest } from "../../types/login";
-import { Typography } from "@mui/material";
 import OtpInput from "react18-input-otp";
 import Button from "../../components/Button";
 import styles from "./MultiFactorAuth.module.scss";
