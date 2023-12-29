@@ -1,5 +1,10 @@
 import { CircularProgress } from "@mui/material";
 import styles from "./Button.module.scss";
+import {
+  MAIN_BUTTON_COLOR,
+  MAIN_BUTTON_SHADOW_COLOR,
+  MAIN_TEXT_COLOR,
+} from "../constants/colors";
 
 type ButtonProps = {
   colorButton?: string;
@@ -16,9 +21,9 @@ type ButtonProps = {
 
 export const Button = (props: ButtonProps) => {
   const {
-    colorButton = "#F784A1",
-    colorTextButton = "#fef1df",
-    buttonColorShadow = "#BB6D9B",
+    colorButton = MAIN_BUTTON_COLOR,
+    colorTextButton = MAIN_TEXT_COLOR,
+    buttonColorShadow = MAIN_BUTTON_SHADOW_COLOR,
     children,
     type = "submit",
     width = "300px",

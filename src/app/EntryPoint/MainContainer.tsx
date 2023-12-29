@@ -1,4 +1,3 @@
-import styles from "./MainContainer.module.scss";
 import SocialNetworksMenu from "../../components/SocialNetworkMenu";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { LoginPage } from "../../pages/login/page";
@@ -7,9 +6,13 @@ import useUserSession from "../../hooks/useUserSession";
 import { jwtDecode } from "jwt-decode";
 import ApplicationRoutes from "../../routes";
 import { Container } from "../../components";
+import { useTheme } from "../../context/ThemeProvider";
+import EntryPointContainer from "./components/EntryPointContainer";
+import BackgroundContainer from "./components/BackgroundContainer";
 
 export const MainContainer = () => {
   const { _loadTokenFromStorage, logout, isAuth, _token } = useUserSession();
+  const { colors, background } = useTheme();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -45,10 +48,16 @@ export const MainContainer = () => {
 
   return (
     <Container>
-      <div className={styles.backgroundContainer}>
+      <BackgroundContainer background={background}>
         <SocialNetworksMenu />
-        <div className={styles.mainContainer}>{mainContent}</div>
-      </div>
+        <EntryPointContainer
+          backGroundColor={
+            isAuth ? colors.CTX_SECOND_CONTAINER_COLOR : "transparent"
+          }
+        >
+          {mainContent}
+        </EntryPointContainer>
+      </BackgroundContainer>
     </Container>
   );
 };

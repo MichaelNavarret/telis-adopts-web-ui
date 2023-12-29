@@ -6,7 +6,9 @@ import MultiFactorAuth from "./MultiFactorAuth";
 import CustomizedSnackbar from "../../components/CustomizeSnackBar";
 import { CustomizedSnackbarProps } from "../../types/commons";
 import styles from "./LoginComponent.module.scss";
-import logo from "../../assets/logos/lannies.png";
+import { MAIN_LOGO } from "../../constants/logos";
+import { useTheme } from "../../context/ThemeProvider";
+import FormContainer from "./components/FormContainer";
 
 type LoginComponentProps = {
   currentStep: number;
@@ -18,6 +20,7 @@ export const LoginComponent = (props: LoginComponentProps) => {
   const [formValue, setFormValue] = useState({ email: "", password: "" });
   const [snackElements, setSnackElements] = useState<CustomizedSnackbarProps>();
   const [open, setOpen] = useState(false);
+  const { colors } = useTheme();
 
   const handleSnackBar = (props: CustomizedSnackbarProps) => {
     setSnackElements({
@@ -65,10 +68,10 @@ export const LoginComponent = (props: LoginComponentProps) => {
   return (
     <>
       <div className={styles.loginComponentContainer}>
-        <img src={logo} alt="logo" className={styles.logo} />
-        <div className={styles.formContainer}>
+        <img src={MAIN_LOGO} alt="logo" className={styles.logo} />
+        <FormContainer backGroundColor={colors.CTX_CONTAINER_COLOR}>
           <FormComponent step={step} />
-        </div>
+        </FormContainer>
       </div>
 
       <CustomizedSnackbar

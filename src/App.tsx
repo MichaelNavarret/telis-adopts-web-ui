@@ -6,6 +6,7 @@ import CustomizedSnackbar from "./components/CustomizeSnackBar";
 import useUserSession from "./hooks/useUserSession";
 import { RouteProps } from "react-router-dom";
 import ErrorBoundary from "./ErrorBoundary";
+import { ThemeProvider } from "./context/ThemeProvider";
 
 const App: React.FunctionComponent<RouteProps> = () => {
   const [showSnackBars, setShowSnackBars] = useState(false);
@@ -75,18 +76,20 @@ const App: React.FunctionComponent<RouteProps> = () => {
 
   return (
     <ErrorBoundary>
-      <UserSessionProvider>
-        <QueryClientProvider client={queryClient}>
-          <MainContainer />
-          <QueryConfig />
-        </QueryClientProvider>
-      </UserSessionProvider>
-      <CustomizedSnackbar
-        type="error"
-        subTitle={snackMessage}
-        open={showSnackBars}
-        handleClose={() => setShowSnackBars(false)}
-      />
+      <ThemeProvider>
+        <UserSessionProvider>
+          <QueryClientProvider client={queryClient}>
+            <MainContainer />
+            <QueryConfig />
+          </QueryClientProvider>
+        </UserSessionProvider>
+        <CustomizedSnackbar
+          type="error"
+          subTitle={snackMessage}
+          open={showSnackBars}
+          handleClose={() => setShowSnackBars(false)}
+        />
+      </ThemeProvider>
     </ErrorBoundary>
   );
 };

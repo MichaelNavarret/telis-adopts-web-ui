@@ -1,12 +1,19 @@
-import Button from "../../components/Button";
 import CustomizedSnackbar from "../../components/CustomizeSnackBar";
 import styles from "./SpeciesComponent.module.scss";
 import ImageExpositor from "./components/ImageExpositor";
 import { useEffect, useState } from "react";
 import { isDefined } from "../../tools/commons";
+import {
+  CLOUDY_STARS_LOGO,
+  LANNIES_LOGO,
+  PLUNIES_LOGO,
+  SPECTRALUMEN_LOGO,
+} from "../../constants/logos";
+import { useTheme } from "../../context/ThemeProvider";
 
 export const SpeciesComponent = () => {
   const [open, setOpen] = useState(false);
+  const { reloadTheme } = useTheme();
 
   useEffect(() => {
     const loginSuccess = localStorage.getItem("loginSuccess");
@@ -16,34 +23,43 @@ export const SpeciesComponent = () => {
     }
   });
 
+  const handleResetColors = (specie: string) => {
+    localStorage.setItem("specie", specie);
+    reloadTheme();
+  };
+
   return (
     <div className={styles.MainContainer}>
       <div className={styles.speciesContainer}>
         <ImageExpositor
-          src="src\assets\logos\lannies.png"
+          src={LANNIES_LOGO}
           alt="lannies_logo"
           classNameImage={styles.lanniesLogo}
+          onClick={() => handleResetColors("lannies")}
         />
         <ImageExpositor
-          src="src\assets\logos\plunies.png"
+          src={PLUNIES_LOGO}
           alt="plunies_logo"
           classNameImage={styles.pluniesLogo}
+          onClick={() => handleResetColors("plunies")}
         />
         <ImageExpositor
-          src="src\assets\logos\cloudyStars.png"
+          src={CLOUDY_STARS_LOGO}
           alt="cloudyStars_logo"
           classNameImage={styles.pluniesLogo}
+          onClick={() => handleResetColors("cloudystars")}
         />
         <ImageExpositor
-          src="src\assets\logos\spectraLumens.png"
+          src={SPECTRALUMEN_LOGO}
           alt="spectraLumens_logo"
           classNameImage={styles.spectraLumenLogo}
+          onClick={() => handleResetColors("spectralumen")}
         />
       </div>
-      <Button>
+      {/* <Button>
         <p>Nonspecies</p>
         <p>Adopts</p>
-      </Button>
+      </Button> */}
       <CustomizedSnackbar
         type="success"
         subTitle="Login Successfully!"

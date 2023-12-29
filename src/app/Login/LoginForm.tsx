@@ -8,6 +8,7 @@ import { useMutation } from "react-query";
 import { LoginRequest } from "../../types/login";
 import { login } from "../../api/login";
 import { saveFirstToken } from "../../context/UserSession/userSessionReducer";
+import TextComponent from "../../components/TextComponents/TextComponent";
 
 type LoginFormProps = {
   handleStep: (val: number) => void;
@@ -68,12 +69,10 @@ export const LoginForm = (props: LoginFormProps) => {
             onChange={(e) => setPassword(e.target.value)}
             disabled={isLoginLoading}
           />
-          <div
-            className={styles.forgotPasswordContainer}
+          <TextComponent
+            content={"Forgot Password?"}
             onClick={() => !isLoginLoading && handleStep(1)}
-          >
-            Forgot Password?
-          </div>
+          />
         </div>
         <Button
           disabled={isLoginLoading && !isError}

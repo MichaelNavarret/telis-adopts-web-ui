@@ -1,13 +1,20 @@
 import styles from "./SocialNetworkMenu.module.scss";
 import Bubble from "./Bubble";
+import { useTheme } from "../context/ThemeProvider";
 export type SocialNetworkMenuProps = {
   colorIcon?: string;
   colorBubble?: string;
+  shadowBubbleColor?: string;
 };
 
 export const SocialNetworksMenu = (props: SocialNetworkMenuProps) => {
-  const { colorIcon = "#fef1df", colorBubble = "#FA688D" } = props;
-  const width = "23";
+  const { colors } = useTheme();
+  const {
+    colorIcon = colors.CTX_BUBBLE_ICON_COLOR,
+    colorBubble = colors.CTX_BUBBLE_COLOR,
+    shadowBubbleColor = colors.CTX_BUTTON_SHADOW_COLOR,
+  } = props;
+  const width = "30";
   const height = "23";
 
   return (
@@ -15,20 +22,25 @@ export const SocialNetworksMenu = (props: SocialNetworkMenuProps) => {
       <Bubble
         colorIcon={colorIcon}
         colorBubble={colorBubble}
+        shadowColor={shadowBubbleColor}
         link="https://www.deviantart.com/teliwis"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           height={height}
           width={width}
-          viewBox="0 0 320 512"
+          viewBox="0 -25 320 512"
           fill={colorIcon}
         >
           <path d="M320 93.2l-98.2 179.1 7.4 9.5H320v127.7H159.1l-13.5 9.2-43.7 84c-.3 0-8.6 8.6-9.2 9.2H0v-93.2l93.2-179.4-7.4-9.2H0V102.5h156l13.5-9.2 43.7-84c.3 0 8.6-8.6 9.2-9.2H320v93.1z" />
         </svg>
       </Bubble>
 
-      <Bubble colorIcon={colorIcon} colorBubble={colorBubble} tooltip>
+      <Bubble
+        colorIcon={colorIcon}
+        colorBubble={colorBubble}
+        shadowColor={shadowBubbleColor}
+      >
         <svg
           version="1.0"
           xmlns="http://www.w3.org/2000/svg"
@@ -56,11 +68,15 @@ export const SocialNetworksMenu = (props: SocialNetworkMenuProps) => {
       </Bubble>
 
       {/*Discord*/}
-      <Bubble colorIcon={colorIcon} colorBubble={colorBubble}>
+      <Bubble
+        colorIcon={colorIcon}
+        colorBubble={colorBubble}
+        shadowColor={shadowBubbleColor}
+      >
         <svg
           height={height}
           width={width}
-          viewBox="0 -100 640 512"
+          viewBox="0 -60 640 512"
           xmlns="http://www.w3.org/2000/svg"
           fill={colorIcon}
         >
@@ -69,7 +85,11 @@ export const SocialNetworksMenu = (props: SocialNetworkMenuProps) => {
       </Bubble>
 
       {/*Twiiter*/}
-      <Bubble colorIcon={colorIcon} colorBubble={colorBubble}>
+      <Bubble
+        colorIcon={colorIcon}
+        colorBubble={colorBubble}
+        shadowColor={shadowBubbleColor}
+      >
         <svg
           height={height}
           width={width}
@@ -82,11 +102,15 @@ export const SocialNetworksMenu = (props: SocialNetworkMenuProps) => {
       </Bubble>
 
       {/*Kofi*/}
-      <Bubble colorIcon={colorIcon} colorBubble={colorBubble}>
+      <Bubble
+        colorIcon={colorIcon}
+        colorBubble={colorBubble}
+        shadowColor={shadowBubbleColor}
+      >
         <svg
           height={height}
           width={width}
-          viewBox="-1 -1 24 24"
+          viewBox="-1 -3 24 24"
           xmlns="http://www.w3.org/2000/svg"
           fill={colorIcon}
         >
@@ -95,7 +119,11 @@ export const SocialNetworksMenu = (props: SocialNetworkMenuProps) => {
       </Bubble>
 
       {/*Instagram*/}
-      <Bubble colorIcon={colorIcon} colorBubble={colorBubble}>
+      <Bubble
+        colorIcon={colorIcon}
+        colorBubble={colorBubble}
+        shadowColor={shadowBubbleColor}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 -5 64 64"

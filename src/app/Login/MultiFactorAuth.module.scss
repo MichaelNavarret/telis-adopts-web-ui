@@ -8,8 +8,6 @@
   flex-direction: column;
   .multiFactorSubtitle {
     margin-top: 50px;
-    font-family: ToJapan;
-    color: #f784a1;
     margin-bottom: 50px;
   }
   .otpContainer {
@@ -22,14 +20,11 @@
       font-size: 35px;
       border-radius: 40px;
       border: none !important;
-      color: #f784a1;
+      color: #f08f86;
       margin: 4px;
       &:focus {
         outline: none;
       }
-    }
-    .sparksIcon {
-      color: #f784a1;
     }
   }
 
@@ -38,27 +33,5 @@
     grid-template-columns: auto auto;
     margin: auto;
     grid-gap: 50px;
-    .footerMultiFactorField {
-      transition: all 0.3s ease-in-out;
-      font-family: ToJapan;
-      color: #f784a1;
-      &:hover {
-        color: #ff95af;
-        cursor: pointer;
-        transform: scaleX(1.1) scaleY(1.1);
-      }
-      &:active {
-        transform: scaleX(0.9) scaleY(0.9);
-      }
-    }
-    .footerMultiFactorFieldDisabled {
-      transition: all 0.3s ease-in-out;
-      font-family: ToJapan;
-      color: #7a5861;
-      opacity: 0.5;
-      &:hover {
-        cursor: not-allowed;
-      }
-    }
   }
 }

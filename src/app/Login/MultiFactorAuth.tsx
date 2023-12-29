@@ -12,6 +12,8 @@ import { resentOtp, verifyOtp } from "../../api/login";
 import { DEFAULT_PATH } from "../../routes";
 import { OwnerRequest } from "../../types/owner";
 import { CustomizedSnackbarProps } from "../../types/commons";
+import TextComponent from "../../components/TextComponents/TextComponent";
+import { MAIN_BUTTON_COLOR } from "../../constants/colors";
 
 type MultiFactorAuthProps = {
   formValue: { email: string; password: string };
@@ -72,13 +74,13 @@ const MultiFactorAuth = (props: MultiFactorAuthProps) => {
   return (
     <>
       <div className={styles.formContainer}>
-        <Typography
+        <TextComponent
           className={styles.multiFactorSubtitle}
-          variant="body2"
-          align="center"
-        >
-          A one-time code has been emailed to you. Check your inbox.
-        </Typography>
+          content={"A one-time code has been emailed to you. Check your inbox."}
+          animation={false}
+          hover={false}
+          fontSize={"medium"}
+        />
 
         <div className={styles.otpContainer}>
           <OtpInput
@@ -86,31 +88,30 @@ const MultiFactorAuth = (props: MultiFactorAuthProps) => {
             onChange={setOtp}
             numInputs={6}
             inputStyle={styles.otpStyles}
-            separator={<AutoAwesomeIcon className={styles.sparksIcon} />}
+            separator={
+              <AutoAwesomeIcon
+                className={styles.sparksIcon}
+                style={{ color: MAIN_BUTTON_COLOR }}
+              />
+            }
           />
         </div>
 
         <div className={styles.footerMultiFactorContainer}>
-          <Typography
+          <TextComponent
             className={
               isResendOtpLoading || isVerifyOtpLoading
                 ? styles.footerMultiFactorFieldDisabled
                 : styles.footerMultiFactorField
             }
-            variant="body2"
-            align="center"
+            content={"Resend code"}
             onClick={handleResendOtp}
-          >
-            Resend code
-          </Typography>
-          <Typography
+          />
+          <TextComponent
             className={styles.footerMultiFactorField}
-            variant="body2"
-            align="center"
+            content={"Back to Login"}
             onClick={() => handleStep(0)}
-          >
-            Back to Login
-          </Typography>
+          />
         </div>
       </div>
 

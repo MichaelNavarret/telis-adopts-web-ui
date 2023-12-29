@@ -1,22 +1,15 @@
 import styles from "./SocialNetworkMenu.module.scss";
 
 type BubbleProps = {
-  colorIcon?: string;
-  colorBubble?: string;
+  colorIcon: string;
+  colorBubble: string;
   link?: string;
   children: React.ReactNode;
-  tooltip?: boolean;
-  tooltipText?: string;
-  shadowColor?: string;
+  shadowColor: string;
 };
 
 export const Bubble = (props: BubbleProps) => {
-  const {
-    colorBubble = "#FA688D",
-    link = "#",
-    children,
-    shadowColor = "#8B457E",
-  } = props;
+  const { colorBubble, link = "#", children, shadowColor } = props;
   return (
     <div
       className={styles.svgContainer}

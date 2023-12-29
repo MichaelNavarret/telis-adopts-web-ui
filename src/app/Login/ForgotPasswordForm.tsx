@@ -6,6 +6,7 @@ import { useMutation } from "react-query";
 import { OwnerRequest } from "../../types/owner";
 import { resetPasswordLink } from "../../api/login";
 import { CustomizedSnackbarProps } from "../../types/commons";
+import TextComponent from "../../components/TextComponents/TextComponent";
 
 type ResetPasswordFormProps = {
   handleStep: (val: number) => void;
@@ -48,12 +49,10 @@ export const ForgotPasswordForm = (props: ResetPasswordFormProps) => {
           required
           onChange={(e) => setEmail(e.target.value)}
         />
-        <div
-          className={styles.backToLoginContainer}
+        <TextComponent
+          content={"Back to Login"}
           onClick={() => handleStep(0)}
-        >
-          Back to Login
-        </div>
+        />
       </div>
       <Button
         height="90px"
