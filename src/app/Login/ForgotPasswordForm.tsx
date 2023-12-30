@@ -56,6 +56,7 @@ export const ForgotPasswordForm = (props: ResetPasswordFormProps) => {
       </div>
       <Button
         height="90px"
+        marginTop="50px"
         disabled={resetPasswordLoading}
         loading={resetPasswordLoading}
       >

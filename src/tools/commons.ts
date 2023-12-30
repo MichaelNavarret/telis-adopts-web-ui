@@ -19,3 +19,8 @@ export function getTokenContent(token: string | null) {
   const base64 = base64Url?.replace(/-/g, "+").replace(/_/g, "/");
   return JSON.parse(atob(base64 || ""));
 }
+
+export function getCurrentSpecie() {
+  const currentSpecie = localStorage.getItem("specie");
+  return currentSpecie;
+}

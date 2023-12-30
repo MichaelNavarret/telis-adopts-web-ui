@@ -3,6 +3,7 @@ import lannies_background from "../assets/backgrounds/bg_lannies.png";
 import spectralumen_background from "../assets/backgrounds/bg_spectralumen.png";
 import cloudystars_background from "../assets/backgrounds/bg_cloudystars.png";
 import plunies_background from "../assets/backgrounds/bg_plunies.png";
+import { getCurrentSpecie } from "../tools/commons";
 
 export const MAIN_BACKGROUND = main_background;
 export const LANNIES_BACKGROUND = lannies_background;
@@ -19,7 +20,7 @@ export const speciesBackgrounds = {
 };
 
 export function getBackground() {
-  const species = localStorage.getItem("specie");
+  const species = getCurrentSpecie();
   switch (species) {
     case "lannies":
       return LANNIES_BACKGROUND;

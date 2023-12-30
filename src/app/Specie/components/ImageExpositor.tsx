@@ -1,17 +1,30 @@
 import styles from "./ImageExpositor.module.scss";
 
-type ImageExposiorProps = {
+type ImageExpositorProps = {
   src: string;
   alt: string;
   classNameImage: string;
   onClick?: () => void;
+  align?:
+    | "center"
+    | "end"
+    | "justify"
+    | "left"
+    | "match-parent"
+    | "right"
+    | "start";
 };
 
-const ImageExpositor = (props: ImageExposiorProps) => {
-  const { src, alt, classNameImage, onClick } = props;
+const ImageExpositor = (props: ImageExpositorProps) => {
+  const { src, alt, classNameImage, onClick, align = "center" } = props;
 
   return (
-    <div className={styles.imgContainer}>
+    <div
+      className={styles.imgContainer}
+      style={{
+        textAlign: align,
+      }}
+    >
       <img
         src={src}
         alt={alt}

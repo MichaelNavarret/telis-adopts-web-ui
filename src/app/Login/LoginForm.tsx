@@ -77,6 +77,7 @@ export const LoginForm = (props: LoginFormProps) => {
         <Button
           disabled={isLoginLoading && !isError}
           loading={isLoginLoading && !isError}
+          marginTop="50px"
         >
           <p>Login</p>
         </Button>

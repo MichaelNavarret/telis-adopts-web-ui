@@ -110,6 +110,7 @@ export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
         }
         height="80px"
         width="350px"
+        marginTop="50px"
       >
         <p>Reset Password</p>
       </Button>

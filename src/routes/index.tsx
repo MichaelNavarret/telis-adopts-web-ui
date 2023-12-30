@@ -1,17 +1,26 @@
 import { Navigate, Route, RouteProps, Routes } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import SpeciesRoutes from "./SpeciesRoutes";
+import HomeRoutes from "./HomeRoutes";
 
 export const DEFAULT_PATH = "/species";
 
-type ApplacationRouteProps = RouteProps & {
+type ApplicationRouteProps = RouteProps & {
   isAuth: boolean;
 };
 
-const ApplicationRoutes = (props: ApplacationRouteProps) => {
+const ApplicationRoutes = (props: ApplicationRouteProps) => {
   const { isAuth } = props;
   return (
     <Routes>
+      <Route
+        path="/home/*"
+        element={
+          <ProtectedRoute isAuth={isAuth}>
+            <HomeRoutes />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="/species/*"
         element={
@@ -20,6 +29,7 @@ const ApplicationRoutes = (props: ApplacationRouteProps) => {
           </ProtectedRoute>
         }
       />
+
       <Route path="/" element={<Navigate to={DEFAULT_PATH} />} />
       <Route path="*" element={<h1> Not found page</h1>} />
     </Routes>
