@@ -9,10 +9,12 @@ import { Container } from "../../components";
 import { useTheme } from "../../context/ThemeProvider";
 import EntryPointContainer from "./components/EntryPointContainer";
 import BackgroundContainer from "./components/BackgroundContainer";
+import HomeBubbleComponent from "./components/HomeBubbleComponent";
 
 export const MainContainer = () => {
   const { _loadTokenFromStorage, logout, isAuth, _token } = useUserSession();
   const { colors, background } = useTheme();
+  const location = window.location.pathname;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -50,6 +52,7 @@ export const MainContainer = () => {
     <Container>
       <BackgroundContainer background={background}>
         <SocialNetworksMenu />
+        {location !== "/species" && <HomeBubbleComponent />}
         <EntryPointContainer
           backGroundColor={
             isAuth ? colors.CTX_SECOND_CONTAINER_COLOR : "transparent"

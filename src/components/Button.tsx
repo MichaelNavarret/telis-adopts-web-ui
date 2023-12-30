@@ -1,10 +1,6 @@
 import { CircularProgress } from "@mui/material";
 import styles from "./Button.module.scss";
-import {
-  MAIN_BUTTON_COLOR,
-  MAIN_BUTTON_SHADOW_COLOR,
-  MAIN_TEXT_COLOR,
-} from "../constants/colors";
+import { useTheme } from "../context/ThemeProvider";
 
 type ButtonProps = {
   colorButton?: string;
@@ -17,19 +13,22 @@ type ButtonProps = {
   disabled?: boolean;
   onClick?: () => void;
   loading?: boolean;
+  marginTop?: string;
 };
 
 export const Button = (props: ButtonProps) => {
+  const { colors } = useTheme();
   const {
-    colorButton = MAIN_BUTTON_COLOR,
-    colorTextButton = MAIN_TEXT_COLOR,
-    buttonColorShadow = MAIN_BUTTON_SHADOW_COLOR,
+    colorButton = colors.CTX_BUTTON_COLOR,
+    colorTextButton = colors.CTX_TEXT_COLOR,
+    buttonColorShadow = colors.CTX_BUTTON_SHADOW_COLOR,
     children,
     type = "submit",
     width = "300px",
     height = "60px",
     disabled = false,
     loading = false,
+    marginTop = "0px",
   } = props;
   return (
     <button
@@ -44,6 +43,7 @@ export const Button = (props: ButtonProps) => {
         filter: disabled ? "grayscale(100%)" : "none",
         //disabled cursor pointer when disabled
         cursor: disabled ? "not-allowed" : "pointer",
+        marginTop: marginTop,
       }}
       type={type}
       disabled={disabled}

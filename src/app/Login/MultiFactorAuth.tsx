@@ -118,6 +118,7 @@ const MultiFactorAuth = (props: MultiFactorAuthProps) => {
         disabled={otp?.length < 6 || isVerifyOtpLoading}
         loading={isVerifyOtpLoading}
         onClick={handleOtpVerify}
+        marginTop="50px"
       >
         Login
       </Button>
