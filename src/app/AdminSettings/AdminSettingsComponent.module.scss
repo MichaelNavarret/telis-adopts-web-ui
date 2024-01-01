@@ -1,0 +1,11 @@
+.settingsContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  .menuBarContainer {
+    flex-basis: 20%;
+  }
+  .settingsContent {
+    flex-basis: 80%;
+  }
+}

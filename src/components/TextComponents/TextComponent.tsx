@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { MAIN_TEXT_COLOR, MAIN_TITLE_TEXT_COLOR } from "../../constants/colors";
 import styles from "./TextComponent.module.scss";
+import { useTheme } from "../../context/ThemeProvider";
 
 type TextComponentProps = {
   content: string;
@@ -21,10 +22,11 @@ type TextComponentProps = {
 };
 
 export const TextComponent = (props: TextComponentProps) => {
+  const { colors } = useTheme();
   const {
     content,
-    colorText = MAIN_TITLE_TEXT_COLOR,
-    colorTextHover = MAIN_TEXT_COLOR,
+    colorText = colors.CTX_TITLE_TEXT_COLOR,
+    colorTextHover = colors.CTX_TEXT_COLOR,
     onClick,
     animation = true,
     hover = true,

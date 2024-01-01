@@ -1,0 +1,12 @@
+.tableCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .editIcon {
+    margin-left: 10px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
