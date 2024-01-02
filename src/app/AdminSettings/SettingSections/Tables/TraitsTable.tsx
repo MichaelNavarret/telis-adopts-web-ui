@@ -1,37 +1,44 @@
 import { useQuery } from "react-query";
 import { useTheme } from "../../../../context/ThemeProvider";
-import { getSpecies } from "../../../../api/species";
+import { getTraits } from "../../../../api/traits";
 import {
   CircularProgress,
   Pagination,
   Table,
+  TableBody,
+  TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  TableBody,
-  TableCell,
 } from "@mui/material";
-import TableCellComponent from "../../../../components/Table/TableCellComponent";
-import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import styles from "./Tables.module.scss";
+import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
+import TableCellComponent from "../../../../components/Table/TableCellComponent";
 
-type SpeciesTableProps = {
+type TraitsTableProps = {
   handleOpen: () => void;
 };
 
-const SpeciesTable = (props: SpeciesTableProps) => {
+const TraitsTable = (props: TraitsTableProps) => {
   const { colors } = useTheme();
   const { handleOpen } = props;
-  const { data: speciesList, isLoading: isSpeciesListLoading } = useQuery({
-    queryKey: ["species"],
+
+  const { data: traitList, isLoading: isTraitListLoading } = useQuery({
+    queryKey: ["traits"],
     queryFn: () => {
-      return getSpecies();
+      return getTraits();
     },
   });
 
-  const totalPages = speciesList?.headers["x-pagination-total-pages"];
+  const totalPages = traitList?.headers["x-pagination-total-pages"];
 
-  const columns = ["Species"];
+  const columns = [
+    "Rarity",
+    "Code",
+    "Characteristics",
+    "Specie",
+    "Additional Info",
+  ];
 
   return (
     <>
@@ -66,19 +73,36 @@ const SpeciesTable = (props: SpeciesTableProps) => {
             </TableRow>
           </TableHead>
           <TableBody className={styles.tableContentBody}>
-            {speciesList &&
-              speciesList.data.map((specie, index) => {
-                if (!isSpeciesListLoading) {
+            {traitList &&
+              traitList.data.map((trait) => {
+                if (!isTraitListLoading) {
                   return (
                     <TableRow
-                      key={specie.id}
+                      key={trait.id}
                       sx={{
                         "&:last-child td, &:last-child th": { border: 0 },
                       }}
                     >
                       <TableCellComponent
-                        key={specie.id + "_" + specie.name}
-                        content={specie.name}
+                        key={trait.id + "_" + trait.rarity}
+                        content={trait.rarity}
+                      />
+                      <TableCellComponent
+                        key={trait.id + "_" + trait.code}
+                        content={trait.code}
+                      />
+                      <TableCellComponent
+                        key={trait.id + "_" + trait.characteristic}
+                        content={trait.characteristic}
+                      />
+                      <TableCellComponent
+                        key={trait.id + "_" + trait.specie}
+                        content={trait.specie}
+                        showEditIcon={true}
+                      />
+                      <TableCellComponent
+                        key={trait.id + "_" + trait.specie}
+                        content={trait.specie}
                         showEditIcon={true}
                       />
                     </TableRow>
@@ -98,4 +122,4 @@ const SpeciesTable = (props: SpeciesTableProps) => {
   );
 };
 
-export default SpeciesTable;
+export default TraitsTable;

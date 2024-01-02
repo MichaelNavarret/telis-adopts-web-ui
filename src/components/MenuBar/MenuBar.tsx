@@ -1,6 +1,7 @@
 import styles from "./MenuBar.module.scss";
 import { useTheme } from "../../context/ThemeProvider";
 import MenuItem from "./MenuItem";
+import { useState } from "react";
 
 export type MenuBarOption = {
   label: string;
@@ -15,6 +16,12 @@ type MenuBar = {
 const MenuBar = (props: MenuBar) => {
   const { options = [], handleClick } = props;
   const { colors } = useTheme();
+  const [selected, setSelected] = useState<number>(0);
+
+  const handleSelected = (value: number) => {
+    setSelected(value);
+  };
+
   return (
     <div
       className={styles.menuBarContainer}
@@ -30,6 +37,8 @@ const MenuBar = (props: MenuBar) => {
               key={option.label + "_" + index}
               option={option}
               handleClick={handleClick}
+              handleSelected={handleSelected}
+              selected={option.value == selected}
             />
           );
         })}

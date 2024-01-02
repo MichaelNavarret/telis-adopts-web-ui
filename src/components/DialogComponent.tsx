@@ -32,13 +32,14 @@ const DialogComponent = (props: DialogComponentProps) => {
 
   const dialogContent = (
     <DialogContent className={styles.dialogContentContainer}>
-      <DialogContentText>{content}</DialogContentText>
+      <DialogContentText component={"div"}>{content}</DialogContentText>
     </DialogContent>
   );
 
   return (
     <Dialog
       open={open}
+      component={"div"}
       className={styles.dialogContainer}
       PaperProps={{
         style: {

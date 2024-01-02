@@ -1,37 +1,26 @@
-import { useQuery } from "react-query";
-import { useTheme } from "../../../../context/ThemeProvider";
-import { getSpecies } from "../../../../api/species";
 import {
-  CircularProgress,
   Pagination,
   Table,
+  TableBody,
+  TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  TableBody,
-  TableCell,
 } from "@mui/material";
 import TableCellComponent from "../../../../components/Table/TableCellComponent";
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
+import { useTheme } from "../../../../context/ThemeProvider";
 import styles from "./Tables.module.scss";
 
-type SpeciesTableProps = {
+type AdoptsTableProps = {
   handleOpen: () => void;
 };
 
-const SpeciesTable = (props: SpeciesTableProps) => {
+const AdoptsTable = (props: AdoptsTableProps) => {
   const { colors } = useTheme();
   const { handleOpen } = props;
-  const { data: speciesList, isLoading: isSpeciesListLoading } = useQuery({
-    queryKey: ["species"],
-    queryFn: () => {
-      return getSpecies();
-    },
-  });
 
-  const totalPages = speciesList?.headers["x-pagination-total-pages"];
-
-  const columns = ["Species"];
+  const columns = ["Code", "Name", "Owner", "Specie", "Rarity"];
 
   return (
     <>
@@ -65,9 +54,9 @@ const SpeciesTable = (props: SpeciesTableProps) => {
               })}
             </TableRow>
           </TableHead>
-          <TableBody className={styles.tableContentBody}>
+          {/* <TableBody className={styles.tableContentBody}>
             {speciesList &&
-              speciesList.data.map((specie, index) => {
+              speciesList.data.map((specie) => {
                 if (!isSpeciesListLoading) {
                   return (
                     <TableRow
@@ -79,23 +68,18 @@ const SpeciesTable = (props: SpeciesTableProps) => {
                       <TableCellComponent
                         key={specie.id + "_" + specie.name}
                         content={specie.name}
-                        showEditIcon={true}
                       />
                     </TableRow>
                   );
                 }
                 return <CircularProgress />;
               })}
-          </TableBody>
+          </TableBody> */}
         </Table>
       </TableContainer>
-      <Pagination
-        count={Number(totalPages) || 0}
-        variant="outlined"
-        color="secondary"
-      />
+      <Pagination count={0} variant="outlined" color="secondary" />
     </>
   );
 };
 
-export default SpeciesTable;
+export default AdoptsTable;

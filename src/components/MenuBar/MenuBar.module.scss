@@ -21,5 +21,15 @@
         transform: scaleX(0.9) scaleY(0.9);
       }
     }
+    .liMenuBarSelected {
+      display: flex;
+      padding-left: 5px;
+      align-items: center;
+      letter-spacing: 2.5px;
+      margin-bottom: 10px;
+      transition: all 0.2s ease-in-out;
+      height: 50px;
+      border-radius: 10px;
+    }
   }
 }

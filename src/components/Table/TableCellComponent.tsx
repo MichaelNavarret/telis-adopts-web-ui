@@ -5,21 +5,24 @@ import { useTheme } from "../../context/ThemeProvider";
 
 type TableCellComponentProps = {
   content: string;
+  showEditIcon?: boolean;
 };
 
 const TableCellComponent = (props: TableCellComponentProps) => {
-  const { content } = props;
+  const { content, showEditIcon = false } = props;
   const { colors } = useTheme();
   return (
     <TableCell align="center" className={styles.tableCell}>
-      {content}{" "}
-      <ModeEditOutlineRoundedIcon
-        className={styles.editIcon}
-        style={{
-          color: colors.CTX_BUBBLE_HOME_COLOR,
-        }}
-        fontSize="small"
-      />
+      {content}
+      {showEditIcon && (
+        <ModeEditOutlineRoundedIcon
+          className={styles.editIcon}
+          style={{
+            color: colors.CTX_BUBBLE_HOME_COLOR,
+          }}
+          fontSize="small"
+        />
+      )}
     </TableCell>
   );
 };

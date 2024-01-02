@@ -12,6 +12,15 @@ export const getSpecies = async () => {
   return data;
 };
 
+export const getSpeciesAutocomplete = async () => {
+  const data = await request
+    .get<SpecieCollectionResponse>("/species/autocomplete")
+    .then((res) => {
+      return res.data.specieInfoList;
+    });
+  return data;
+};
+
 export const createSpecie = async (payload: SpecieCreateRequest) => {
   const data = await request
     .post<SpecieSingletonResponse>("/species", payload)
