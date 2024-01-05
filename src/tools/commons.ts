@@ -1,3 +1,4 @@
+import { NOT_SHOW_HOME_BUBBLE_ON_LOCATION } from "../constants/commons";
 import {
   loadFirstToken,
   loadToken,
@@ -23,4 +24,9 @@ export function getTokenContent(token: string | null) {
 export function getCurrentSpecie() {
   const currentSpecie = localStorage.getItem("specie");
   return currentSpecie;
+}
+
+//* This method is used to validate if the home bubble should be shown or not depending on the location
+export function validateOnNotShowHomeBubbleOnLocation(location: string) {
+  return NOT_SHOW_HOME_BUBBLE_ON_LOCATION.includes(location);
 }

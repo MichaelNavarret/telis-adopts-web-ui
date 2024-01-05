@@ -38,7 +38,7 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
   };
 
   const dialogContent = (
-    <form onSubmit={onSubmit} className={styles.speciesCreateFormContainer}>
+    <form onSubmit={onSubmit} className={styles.formMainContainer}>
       <TextComponent
         content="Create Specie Form"
         animation={false}

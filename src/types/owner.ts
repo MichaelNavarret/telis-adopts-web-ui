@@ -13,3 +13,7 @@ export type OwnerSingletonResponse = {
 export type OwnerRequest = {
   username: string;
 };
+
+export type OwnerCollectionResponse = {
+  ownerInfoList: OwnerInfo[];
+};

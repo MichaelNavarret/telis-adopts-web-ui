@@ -10,6 +10,7 @@ import { useTheme } from "../../context/ThemeProvider";
 import EntryPointContainer from "./components/EntryPointContainer";
 import BackgroundContainer from "./components/BackgroundContainer";
 import HomeBubbleComponent from "./components/HomeBubbleComponent";
+import { validateOnNotShowHomeBubbleOnLocation } from "../../tools/commons";
 
 export const MainContainer = () => {
   const { _loadTokenFromStorage, logout, isAuth, _token } = useUserSession();
@@ -52,7 +53,9 @@ export const MainContainer = () => {
     <Container>
       <BackgroundContainer background={background}>
         <SocialNetworksMenu />
-        {location !== "/species" && <HomeBubbleComponent />}
+        {validateOnNotShowHomeBubbleOnLocation(location) && (
+          <HomeBubbleComponent />
+        )}
         <EntryPointContainer
           backGroundColor={
             isAuth ? colors.CTX_SECOND_CONTAINER_COLOR : "transparent"

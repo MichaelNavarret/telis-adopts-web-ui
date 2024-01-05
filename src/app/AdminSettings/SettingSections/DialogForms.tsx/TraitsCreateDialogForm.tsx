@@ -56,7 +56,7 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
   };
 
   const dialogContent = (
-    <form onSubmit={onSubmit} className={styles.speciesCreateFormContainer}>
+    <form onSubmit={onSubmit} className={styles.formMainContainer}>
       <TextComponent
         content="Create Trait Form"
         animation={false}
