@@ -1,0 +1,35 @@
+.menuBarContainer {
+  width: 100%;
+  height: 100%;
+  .ulMenuBar {
+    list-style: none;
+    padding: 10px;
+    .liMenuBar {
+      display: flex;
+      padding-left: 5px;
+      align-items: center;
+      letter-spacing: 2.5px;
+      margin-bottom: 10px;
+      transition: all 0.2s ease-in-out;
+      height: 50px;
+      &:hover {
+        cursor: pointer;
+        transform: scaleX(1.1) scaleY(1.1);
+        border-radius: 10px;
+      }
+      &:active {
+        transform: scaleX(0.9) scaleY(0.9);
+      }
+    }
+    .liMenuBarSelected {
+      display: flex;
+      padding-left: 5px;
+      align-items: center;
+      letter-spacing: 2.5px;
+      margin-bottom: 10px;
+      transition: all 0.2s ease-in-out;
+      height: 50px;
+      border-radius: 10px;
+    }
+  }
+}

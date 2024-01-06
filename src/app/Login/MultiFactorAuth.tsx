@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { VerifyOtpRequest } from "../../types/login";
 import OtpInput from "react18-input-otp";
-import Button from "../../components/Button";
+import Button from "../../components/surfaces/Button";
 import styles from "./MultiFactorAuth.module.scss";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ import { DEFAULT_PATH } from "../../routes";
 import { OwnerRequest } from "../../types/owner";
 import { CustomizedSnackbarProps } from "../../types/commons";
 import TextComponent from "../../components/TextComponents/TextComponent";
-import { MAIN_BUTTON_COLOR } from "../../constants/colors";
+import { MAIN_BUTTON_COLOR } from "../../constants/colors/mainColors";
 
 type MultiFactorAuthProps = {
   formValue: { email: string; password: string };

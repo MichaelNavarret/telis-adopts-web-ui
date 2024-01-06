@@ -1,5 +1,5 @@
 import { Component, ErrorInfo, ReactNode } from "react";
-import CustomizedSnackbar from "../CustomizeSnackBar";
+import CustomizedSnackbar from "./CustomizeSnackBar";
 
 interface Props {
   children?: ReactNode;

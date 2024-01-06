@@ -1,4 +1,4 @@
-import SocialNetworksMenu from "../../components/SocialNetworkMenu";
+import SocialNetworksMenu from "../../components/NetworkMenu/SocialNetworkMenu";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { LoginPage } from "../../pages/login/page";
 import { useEffect } from "react";
@@ -10,6 +10,12 @@ import { useTheme } from "../../context/ThemeProvider";
 import EntryPointContainer from "./components/EntryPointContainer";
 import BackgroundContainer from "./components/BackgroundContainer";
 import HomeBubbleComponent from "./components/HomeBubbleComponent";
+import { hideBubbleLocations } from "../../tools/commons";
+import SettingsBubbleComponent from "./components/SettingsBubbleComponent";
+import {
+  NOT_SHOW_ADMIN_SETTINGS_BUBBLE_ON_LOCATION,
+  NOT_SHOW_HOME_BUBBLE_ON_LOCATION,
+} from "../../constants/commons";
 
 export const MainContainer = () => {
   const { _loadTokenFromStorage, logout, isAuth, _token } = useUserSession();
@@ -52,13 +58,19 @@ export const MainContainer = () => {
     <Container>
       <BackgroundContainer background={background}>
         <SocialNetworksMenu />
-        {location !== "/species" && <HomeBubbleComponent />}
+        {hideBubbleLocations(location, NOT_SHOW_HOME_BUBBLE_ON_LOCATION) && (
+          <HomeBubbleComponent />
+        )}
         <EntryPointContainer
           backGroundColor={
             isAuth ? colors.CTX_SECOND_CONTAINER_COLOR : "transparent"
           }
         >
           {mainContent}
+          {hideBubbleLocations(
+            location,
+            NOT_SHOW_ADMIN_SETTINGS_BUBBLE_ON_LOCATION
+          ) && <SettingsBubbleComponent />}
         </EntryPointContainer>
       </BackgroundContainer>
     </Container>

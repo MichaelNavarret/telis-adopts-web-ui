@@ -1,5 +1,5 @@
 import { TextField } from "@mui/material";
-import Button from "../../components/Button";
+import Button from "../../components/surfaces/Button";
 import styles from "./ResetPasswordForm.module.scss";
 import { FormEvent, useEffect, useState } from "react";
 import PasswordValidator from "../../components/utils/PasswordValidator";

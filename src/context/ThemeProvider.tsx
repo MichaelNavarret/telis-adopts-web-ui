@@ -15,6 +15,18 @@ interface ThemeContextProps {
     CTX_TITLE_TEXT_COLOR: string;
     CTX_SECOND_CONTAINER_COLOR: string;
     CTX_BUBBLE_HOME_COLOR: string;
+    CTX_MENUBAR_COLOR: string;
+    CTX_MENUBAR_HOVER_COLOR: string;
+    CTX_TABLE_HEADER_COLOR: string;
+    CTX_TABLE_HEADER_TEXT_COLOR: string;
+    CTX_TABLE_ROW_HOVER_COLOR: string;
+    CTX_TABLE_ROW_HOVER_TEXT_COLOR: string;
+    CTX_FORM_CONTAINER_COLOR: string;
+    CTX_FORM_TITLE_COLOR: string;
+    CTX_BUTTON_SHADOW_COLOR_2: string;
+    CTX_FORM_BUTTON_COLOR: string;
+    CTX_TABLE_TITLE_COLOR: string;
+    CTX_MENUBAR_TEXT_COLOR: string;
   };
   background: string;
   setColors: React.Dispatch<React.SetStateAction<ThemeContextProps["colors"]>>;
@@ -51,6 +63,18 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     CTX_TITLE_TEXT_COLOR: defaultColors.titleText,
     CTX_SECOND_CONTAINER_COLOR: defaultColors.secondContainer,
     CTX_BUBBLE_HOME_COLOR: defaultColors.bubbleHome,
+    CTX_MENUBAR_COLOR: defaultColors.menubar,
+    CTX_MENUBAR_HOVER_COLOR: defaultColors.menubarHover,
+    CTX_TABLE_HEADER_COLOR: defaultColors.tableHeader,
+    CTX_TABLE_HEADER_TEXT_COLOR: defaultColors.tableHeaderText,
+    CTX_TABLE_ROW_HOVER_COLOR: defaultColors.tableRowHover,
+    CTX_TABLE_ROW_HOVER_TEXT_COLOR: defaultColors.tableRowHoverText,
+    CTX_FORM_CONTAINER_COLOR: defaultColors.formContainer,
+    CTX_FORM_TITLE_COLOR: defaultColors.formTitle,
+    CTX_BUTTON_SHADOW_COLOR_2: defaultColors.buttonShadow2,
+    CTX_FORM_BUTTON_COLOR: defaultColors.formButton,
+    CTX_TABLE_TITLE_COLOR: defaultColors.tableTitle,
+    CTX_MENUBAR_TEXT_COLOR: defaultColors.menubarText,
   });
   const [background, setBackground] = useState(defaultBackground);
   const [logo, setLogo] = useState(defaultLogo);
@@ -71,6 +95,18 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       CTX_TITLE_TEXT_COLOR: colors.titleText,
       CTX_SECOND_CONTAINER_COLOR: colors.secondContainer,
       CTX_BUBBLE_HOME_COLOR: colors.bubbleHome,
+      CTX_MENUBAR_COLOR: colors.menubar,
+      CTX_MENUBAR_HOVER_COLOR: colors.menubarHover,
+      CTX_TABLE_HEADER_COLOR: colors.tableHeader,
+      CTX_TABLE_HEADER_TEXT_COLOR: colors.tableHeaderText,
+      CTX_TABLE_ROW_HOVER_COLOR: colors.tableRowHover,
+      CTX_TABLE_ROW_HOVER_TEXT_COLOR: colors.tableRowHoverText,
+      CTX_FORM_CONTAINER_COLOR: colors.formContainer,
+      CTX_FORM_TITLE_COLOR: colors.formTitle,
+      CTX_BUTTON_SHADOW_COLOR_2: colors.buttonShadow2,
+      CTX_FORM_BUTTON_COLOR: colors.formButton,
+      CTX_TABLE_TITLE_COLOR: colors.tableTitle,
+      CTX_MENUBAR_TEXT_COLOR: colors.menubarText,
     });
     setBackground(background);
     setLogo(logo);

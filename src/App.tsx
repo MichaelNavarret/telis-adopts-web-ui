@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import MainContainer from "./app/EntryPoint/MainContainer";
 import { UserSessionProvider } from "./context/UserSession/UserSessionProvider";
 import { QueryClient, QueryClientProvider, useQueryClient } from "react-query";
-import CustomizedSnackbar from "./components/CustomizeSnackBar";
+import CustomizedSnackbar from "./components/utils/CustomizeSnackBar";
 import useUserSession from "./hooks/useUserSession";
 import { RouteProps } from "react-router-dom";
 import ErrorBoundary from "./ErrorBoundary";

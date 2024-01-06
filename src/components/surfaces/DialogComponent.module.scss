@@ -1,0 +1,20 @@
+.dialogContainer {
+  margin: auto;
+  .crossIcon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      transform: scaleX(1.1) scaleY(1.1);
+    }
+    &:active {
+      transform: scaleX(0.9) scaleY(0.9);
+    }
+  }
+  .dialogContentContainer {
+    margin-top: 20px;
+  }
+}

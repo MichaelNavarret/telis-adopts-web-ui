@@ -2,6 +2,7 @@ import { Navigate, Route, RouteProps, Routes } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import SpeciesRoutes from "./SpeciesRoutes";
 import HomeRoutes from "./HomeRoutes";
+import AdminSettingsRoutes from "./AdminSettingsRoutes";
 
 export const DEFAULT_PATH = "/species";
 
@@ -21,6 +22,16 @@ const ApplicationRoutes = (props: ApplicationRouteProps) => {
           </ProtectedRoute>
         }
       />
+
+      <Route
+        path="/admin-settings/*"
+        element={
+          <ProtectedRoute isAuth={isAuth}>
+            <AdminSettingsRoutes />
+          </ProtectedRoute>
+        }
+      />
+
       <Route
         path="/species/*"
         element={

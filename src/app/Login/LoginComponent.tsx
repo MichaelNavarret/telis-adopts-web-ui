@@ -3,7 +3,7 @@ import { LoginForm } from "./LoginForm";
 import ForgotPasswordForm from "./ForgotPasswordForm";
 import ResetPasswordForm from "./ResetPasswordForm";
 import MultiFactorAuth from "./MultiFactorAuth";
-import CustomizedSnackbar from "../../components/CustomizeSnackBar";
+import CustomizedSnackbar from "../../components/utils/CustomizeSnackBar";
 import { CustomizedSnackbarProps } from "../../types/commons";
 import styles from "./LoginComponent.module.scss";
 import { MAIN_LOGO } from "../../constants/logos";

@@ -1,3 +1,4 @@
+import { NOT_SHOW_HOME_BUBBLE_ON_LOCATION } from "../constants/commons";
 import {
   loadFirstToken,
   loadToken,
@@ -23,4 +24,15 @@ export function getTokenContent(token: string | null) {
 export function getCurrentSpecie() {
   const currentSpecie = localStorage.getItem("specie");
   return currentSpecie;
+}
+
+export function hideBubbleLocations(
+  location: string,
+  excludeLocations: string[] = []
+) {
+  return !excludeLocations.includes(location);
+}
+
+export function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
