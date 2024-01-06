@@ -6,6 +6,7 @@ type ButtonProps = {
   colorButton?: string;
   colorTextButton?: string;
   buttonColorShadow?: string;
+  content?: React.ReactNode;
   children?: React.ReactNode;
   type?: "button" | "submit" | "reset";
   width?: string;
@@ -24,6 +25,7 @@ export const Button = (props: ButtonProps) => {
     colorTextButton = colors.CTX_TEXT_COLOR,
     buttonColorShadow = colors.CTX_BUTTON_SHADOW_COLOR,
     children,
+    content,
     type = "submit",
     width = "300px",
     height = "60px",
@@ -53,7 +55,7 @@ export const Button = (props: ButtonProps) => {
       disabled={disabled}
       onClick={props.onClick}
     >
-      {loading ? <CircularProgress /> : children}
+      {loading ? <CircularProgress /> : children ? children : content}
     </button>
   );
 };

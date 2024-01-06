@@ -19,5 +19,4 @@ export type TraitCreateRequest = {
   specieId: string;
   characteristic: string;
   code: string;
-  rarity: string;
 };
