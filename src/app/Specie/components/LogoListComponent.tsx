@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import {
   CLOUDY_STARS_LOGO,
-  LANNIES_LOGO,
+  LANIES_LOGO,
   PLUNIES_LOGO,
   SPECTRALUMEN_LOGO,
 } from "../../../constants/logos";
@@ -22,10 +22,10 @@ const LogoListComponent = () => {
   return (
     <div className={styles.speciesContainer}>
       <ImageExpositor
-        src={LANNIES_LOGO}
-        alt="lannies_logo"
-        classNameImage={styles.lanniesLogo}
-        onClick={() => handleClick("lannies")}
+        src={LANIES_LOGO}
+        alt="lanies_logo"
+        classNameImage={styles.laniesLogo}
+        onClick={() => handleClick("lanies")}
       />
       <ImageExpositor
         src={PLUNIES_LOGO}

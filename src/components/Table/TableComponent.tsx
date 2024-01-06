@@ -45,7 +45,9 @@ export const TableComponent = (props: TableComponentProps) => {
   return (
     <div className={styles.mainContainer}>
       <div className={styles.headerContainer}>
-        {title && <h1 style={{ color: colors.CTX_BUTTON_COLOR }}>{title}</h1>}
+        {title && (
+          <h1 style={{ color: colors.CTX_TABLE_TITLE_COLOR }}>{title}</h1>
+        )}
         <div className={styles.buttonsContainer}>
           {primaryButton && (
             <Button
@@ -53,6 +55,7 @@ export const TableComponent = (props: TableComponentProps) => {
               height="50px"
               width="230px"
               onClick={handlePrimaryButton}
+              buttonColorShadow={colors.CTX_BUTTON_SHADOW_COLOR_2}
             >
               {primaryButtonLabel}
             </Button>

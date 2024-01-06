@@ -26,8 +26,8 @@ const MenuBar = (props: MenuBar) => {
     <div
       className={styles.menuBarContainer}
       style={{
-        backgroundColor: colors.CTX_BUBBLE_COLOR,
-        color: colors.CTX_BUBBLE_ICON_COLOR,
+        backgroundColor: colors.CTX_MENUBAR_COLOR,
+        color: colors.CTX_MENUBAR_TEXT_COLOR,
       }}
     >
       <ul className={styles.ulMenuBar}>

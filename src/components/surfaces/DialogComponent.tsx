@@ -3,14 +3,17 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
+  DialogTitle,
 } from "@mui/material";
 import { Button } from "..";
 import styles from "./DialogComponent.module.scss";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { useTheme } from "../../context/ThemeProvider";
+import TextComponent from "../TextComponents/TextComponent";
 
 type DialogComponentProps = {
   open: boolean;
+  dialogTitle?: string;
   handleClose: () => void;
   cancelButton?: boolean;
   customDialog?: React.ReactNode;
@@ -26,6 +29,7 @@ const DialogComponent = (props: DialogComponentProps) => {
     customDialog,
     content,
     primaryButton,
+    dialogTitle,
   } = props;
 
   const { colors } = useTheme();
@@ -43,7 +47,7 @@ const DialogComponent = (props: DialogComponentProps) => {
       className={styles.dialogContainer}
       PaperProps={{
         style: {
-          backgroundColor: colors.CTX_CONTAINER_COLOR,
+          backgroundColor: colors.CTX_FORM_CONTAINER_COLOR,
           borderRadius: "10px",
           width: "500px",
           height: "auto",
@@ -52,6 +56,18 @@ const DialogComponent = (props: DialogComponentProps) => {
       }}
     >
       <CloseRoundedIcon className={styles.crossIcon} onClick={handleClose} />
+      <DialogTitle align="center">
+        {dialogTitle && (
+          <TextComponent
+            className={styles.dialogTitle}
+            content={dialogTitle}
+            animation={false}
+            hover={false}
+            colorText={colors.CTX_FORM_TITLE_COLOR}
+          />
+        )}
+      </DialogTitle>
+
       {customDialog ? customDialog : dialogContent}
 
       <DialogActions>

@@ -1,4 +1,4 @@
-import { MAIN_BUTTON_COLOR } from "../../../constants/colors";
+import { MAIN_BUTTON_COLOR } from "../../../constants/colors/mainColors";
 import styles from "./EntryPointContainer.module.scss";
 
 type EntryPointContainerProps = {

@@ -25,8 +25,10 @@ const MenuItem = (props: MenuItem) => {
       className={selected ? styles.liMenuBarSelected : styles.liMenuBar}
       style={{
         backgroundColor:
-          hover || selected ? colors.CTX_BUTTON_COLOR : colors.CTX_BUBBLE_COLOR,
-        color: colors.CTX_BUBBLE_ICON_COLOR,
+          hover || selected
+            ? colors.CTX_MENUBAR_HOVER_COLOR
+            : colors.CTX_MENUBAR_COLOR,
+        color: colors.CTX_MENUBAR_TEXT_COLOR,
       }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}

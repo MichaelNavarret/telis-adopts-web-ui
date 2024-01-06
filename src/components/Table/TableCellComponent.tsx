@@ -5,18 +5,21 @@ import { useTheme } from "../../context/ThemeProvider";
 type TableCellComponentProps = {
   content: string;
   columnHeader?: boolean;
+  textColor?: string;
 };
 
 const TableCellComponent = (props: TableCellComponentProps) => {
-  const { content, columnHeader = false } = props;
+  const { content, columnHeader = false, textColor } = props;
   const { colors } = useTheme();
   return (
     <TableCell
       align="center"
       className={styles.tableCell}
       style={{
-        backgroundColor: columnHeader ? colors.CTX_BUBBLE_COLOR : undefined,
-        color: columnHeader ? colors.CTX_BUBBLE_ICON_COLOR : undefined,
+        backgroundColor: columnHeader
+          ? colors.CTX_TABLE_HEADER_COLOR
+          : undefined,
+        color: columnHeader ? colors.CTX_TABLE_HEADER_TEXT_COLOR : textColor,
         fontWeight: columnHeader ? "bold" : undefined,
         fontSize: columnHeader ? "1rem" : undefined,
       }}

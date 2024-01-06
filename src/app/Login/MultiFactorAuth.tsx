@@ -12,7 +12,7 @@ import { DEFAULT_PATH } from "../../routes";
 import { OwnerRequest } from "../../types/owner";
 import { CustomizedSnackbarProps } from "../../types/commons";
 import TextComponent from "../../components/TextComponents/TextComponent";
-import { MAIN_BUTTON_COLOR } from "../../constants/colors";
+import { MAIN_BUTTON_COLOR } from "../../constants/colors/mainColors";
 
 type MultiFactorAuthProps = {
   formValue: { email: string; password: string };

@@ -18,7 +18,7 @@ const TableRowComponent = (props: TableRowComponentProps) => {
   return (
     <TableRow
       style={{
-        backgroundColor: hover ? colors.CTX_BUBBLE_COLOR : undefined,
+        backgroundColor: hover ? colors.CTX_TABLE_ROW_HOVER_COLOR : undefined,
       }}
       key={`${row}_${index}`}
       sx={{
@@ -32,6 +32,9 @@ const TableRowComponent = (props: TableRowComponentProps) => {
           <TableCellComponent
             key={`${column.value}_${index}`}
             content={row[column.value]}
+            textColor={
+              hover ? colors.CTX_TABLE_ROW_HOVER_TEXT_COLOR : undefined
+            }
           />
         );
       })}

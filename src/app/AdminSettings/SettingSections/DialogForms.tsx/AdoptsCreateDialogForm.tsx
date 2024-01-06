@@ -10,6 +10,7 @@ import { CREATION_TYPE } from "../../../../constants/SelectOptions";
 import { Button } from "../../../../components";
 import { AdoptCreateRequest, CreationType } from "../../../../types/adopt";
 import { createAdopt } from "../../../../api/adopts";
+import { useTheme } from "../../../../context/ThemeProvider";
 
 type AdoptsCreateDialogFormProps = {
   open: boolean;
@@ -20,6 +21,7 @@ type AdoptsCreateDialogFormProps = {
 
 const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
   const { open, handleClose, handleChangeSnackBar } = props;
+  const { colors } = useTheme();
   const queryClient = useQueryClient();
   //!-----Form States-----//
   const [adoptName, setAdoptName] = useState("");
@@ -70,11 +72,6 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
 
   const dialogContent = (
     <form onSubmit={onSubmit} className={styles.formMainContainer}>
-      <TextComponent
-        content="Create Adopt Form"
-        animation={false}
-        hover={false}
-      />
       <TextField
         className={styles.textFieldForm}
         id="adoptName"
@@ -139,7 +136,13 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
           </Select>
         </div>
       </div>
-      <Button type="submit" width="150px" height="35px">
+      <Button
+        type="submit"
+        width="150px"
+        height="35px"
+        colorButton={colors.CTX_FORM_BUTTON_COLOR}
+        buttonColorShadow={colors.CTX_BUTTON_SHADOW_COLOR_2}
+      >
         Create
       </Button>
     </form>
@@ -147,6 +150,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
 
   return (
     <DialogComponent
+      dialogTitle="Create Adopt Form"
       open={open}
       handleClose={handleClose}
       content={dialogContent}
