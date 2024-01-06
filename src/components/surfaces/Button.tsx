@@ -1,6 +1,6 @@
 import { CircularProgress } from "@mui/material";
 import styles from "./Button.module.scss";
-import { useTheme } from "../context/ThemeProvider";
+import { useTheme } from "../../context/ThemeProvider";
 
 type ButtonProps = {
   colorButton?: string;
@@ -14,6 +14,7 @@ type ButtonProps = {
   onClick?: () => void;
   loading?: boolean;
   marginTop?: string;
+  className?: string;
 };
 
 export const Button = (props: ButtonProps) => {
@@ -29,10 +30,13 @@ export const Button = (props: ButtonProps) => {
     disabled = false,
     loading = false,
     marginTop = "0px",
+    className,
   } = props;
   return (
     <button
-      className={styles.buttonStyles}
+      className={
+        className ? `${styles.buttonStyles} ${className}` : styles.buttonStyles
+      }
       style={{
         backgroundColor: colorButton,
         color: colorTextButton,

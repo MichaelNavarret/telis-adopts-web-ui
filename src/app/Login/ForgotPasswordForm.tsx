@@ -1,7 +1,7 @@
 import { TextField } from "@mui/material";
 import styles from "./ForgotPasswordForm.module.scss";
 import { useState } from "react";
-import Button from "../../components/Button";
+import Button from "../../components/surfaces/Button";
 import { useMutation } from "react-query";
 import { OwnerRequest } from "../../types/owner";
 import { resetPasswordLink } from "../../api/login";

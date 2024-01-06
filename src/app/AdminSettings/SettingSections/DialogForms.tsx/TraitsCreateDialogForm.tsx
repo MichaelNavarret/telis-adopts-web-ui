@@ -6,7 +6,7 @@ import TextComponent from "../../../../components/TextComponents/TextComponent";
 import { Button } from "../../../../components";
 import { getSpeciesAutocomplete } from "../../../../api/species";
 import MenuItem from "@mui/material/MenuItem";
-import DialogComponent from "../../../../components/DialogComponent";
+import DialogComponent from "../../../../components/surfaces/DialogComponent";
 import { RARITY_OPTIONS } from "../../../../constants/SelectOptions";
 import { TraitCreateRequest } from "../../../../types/traits";
 import { createTrait } from "../../../../api/traits";

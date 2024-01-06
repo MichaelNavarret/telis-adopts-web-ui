@@ -4,10 +4,10 @@ import {
   DialogContent,
   DialogContentText,
 } from "@mui/material";
-import { Button } from ".";
+import { Button } from "..";
 import styles from "./DialogComponent.module.scss";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import { useTheme } from "../context/ThemeProvider";
+import { useTheme } from "../../context/ThemeProvider";
 
 type DialogComponentProps = {
   open: boolean;

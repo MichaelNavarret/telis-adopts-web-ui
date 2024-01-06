@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import TextComponent from "../../../../components/TextComponents/TextComponent";
-import DialogComponent from "../../../../components/DialogComponent";
+import DialogComponent from "../../../../components/surfaces/DialogComponent";
 import styles from "./DialogForms.module.scss";
 import { InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { getOwnersAutocomplete } from "../../../../api/owners";

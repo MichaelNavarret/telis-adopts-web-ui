@@ -1,6 +1,6 @@
 import styles from "./SocialNetworkMenu.module.scss";
 
-type BubbleProps = {
+type NetworkBubbleProps = {
   colorIcon: string;
   colorBubble: string;
   link?: string;
@@ -8,7 +8,7 @@ type BubbleProps = {
   shadowColor: string;
 };
 
-export const Bubble = (props: BubbleProps) => {
+export const NetworkBubble = (props: NetworkBubbleProps) => {
   const { colorBubble, link = "#", children, shadowColor } = props;
   return (
     <div
@@ -25,4 +25,4 @@ export const Bubble = (props: BubbleProps) => {
   );
 };
 
-export default Bubble;
+export default NetworkBubble;

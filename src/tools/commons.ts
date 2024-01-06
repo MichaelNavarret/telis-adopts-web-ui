@@ -26,7 +26,13 @@ export function getCurrentSpecie() {
   return currentSpecie;
 }
 
-//* This method is used to validate if the home bubble should be shown or not depending on the location
-export function validateOnNotShowHomeBubbleOnLocation(location: string) {
-  return NOT_SHOW_HOME_BUBBLE_ON_LOCATION.includes(location);
+export function hideBubbleLocations(
+  location: string,
+  excludeLocations: string[] = []
+) {
+  return !excludeLocations.includes(location);
+}
+
+export function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }

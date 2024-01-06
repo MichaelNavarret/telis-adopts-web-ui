@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { VerifyOtpRequest } from "../../types/login";
 import OtpInput from "react18-input-otp";
-import Button from "../../components/Button";
+import Button from "../../components/surfaces/Button";
 import styles from "./MultiFactorAuth.module.scss";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { useNavigate } from "react-router-dom";

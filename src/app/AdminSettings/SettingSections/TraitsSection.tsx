@@ -1,5 +1,5 @@
 import { useState } from "react";
-import CustomizedSnackbar from "../../../components/CustomizeSnackBar";
+import CustomizedSnackbar from "../../../components/utils/CustomizeSnackBar";
 import TraitsTable from "./Tables/TraitsTable";
 import TraitsCreateDialogForm from "./DialogForms.tsx/TraitsCreateDialogForm";
 

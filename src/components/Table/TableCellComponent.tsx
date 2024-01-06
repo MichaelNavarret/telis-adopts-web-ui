@@ -1,28 +1,27 @@
 import { TableCell } from "@mui/material";
-import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
-import styles from "./Table.module.scss";
+import styles from "./TableComponent.module.scss";
 import { useTheme } from "../../context/ThemeProvider";
 
 type TableCellComponentProps = {
   content: string;
-  showEditIcon?: boolean;
+  columnHeader?: boolean;
 };
 
 const TableCellComponent = (props: TableCellComponentProps) => {
-  const { content, showEditIcon = false } = props;
+  const { content, columnHeader = false } = props;
   const { colors } = useTheme();
   return (
-    <TableCell align="center" className={styles.tableCell}>
+    <TableCell
+      align="center"
+      className={styles.tableCell}
+      style={{
+        backgroundColor: columnHeader ? colors.CTX_BUBBLE_COLOR : undefined,
+        color: columnHeader ? colors.CTX_BUBBLE_ICON_COLOR : undefined,
+        fontWeight: columnHeader ? "bold" : undefined,
+        fontSize: columnHeader ? "1rem" : undefined,
+      }}
+    >
       {content}
-      {showEditIcon && (
-        <ModeEditOutlineRoundedIcon
-          className={styles.editIcon}
-          style={{
-            color: colors.CTX_BUBBLE_HOME_COLOR,
-          }}
-          fontSize="small"
-        />
-      )}
     </TableCell>
   );
 };

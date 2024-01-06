@@ -1,4 +1,4 @@
-import CustomizedSnackbar from "../../components/CustomizeSnackBar";
+import CustomizedSnackbar from "../../components/utils/CustomizeSnackBar";
 import styles from "./SpeciesComponent.module.scss";
 import { useEffect, useState } from "react";
 import { isDefined } from "../../tools/commons";

@@ -1,15 +1,11 @@
-.tableContainer {
-  width: 100%;
-  height: 800px;
-}
-
-.addButtonTable {
+.homeBubbleContainer {
   position: absolute;
-  right: 0;
-  margin-right: 10px;
-  bottom: 0;
-  margin-bottom: 10px;
-  //soft transition
+  border-radius: 50px;
+  width: 80px !important;
+  height: 80px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transition: all 0.2s ease-in-out;
   &:hover {
     cursor: pointer;

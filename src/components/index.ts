@@ -2,9 +2,9 @@ import Toast, { ToastContainer } from "./fc_components/Toast";
 import TypoGraph from "./fc_components/TypoGraph";
 import Container from "./fc_components/Container";
 import PasswordValidator from "./utils/PasswordValidator";
-import Bubble from "./Bubble";
-import Button from "./Button";
-import SocialNetworksMenu from "./SocialNetworkMenu";
+import NetworkBubble from "./NetworkMenu/NetworkBubble";
+import Button from "./surfaces/Button";
+import SocialNetworksMenu from "./NetworkMenu/SocialNetworkMenu";
 
 export {
   PasswordValidator,
@@ -12,7 +12,7 @@ export {
   Container,
   ToastContainer,
   Toast,
-  Bubble,
+  NetworkBubble,
   Button,
   SocialNetworksMenu,
 };
