@@ -10,7 +10,6 @@ import TableCellComponent from "./TableCellComponent";
 import styles from "./TableComponent.module.scss";
 import { Button } from "..";
 import { useTheme } from "../../context/ThemeProvider";
-import { useState } from "react";
 import TableRowComponent from "./TableRowComponent";
 
 export type ColumnsTable = {
@@ -78,7 +77,12 @@ export const TableComponent = (props: TableComponentProps) => {
           <TableBody>
             {data.map((row, index) => {
               return (
-                <TableRowComponent row={row} columns={columns} index={index} />
+                <TableRowComponent
+                  key={`${row}_${index}`}
+                  row={row}
+                  columns={columns}
+                  index={index}
+                />
               );
             })}
           </TableBody>
@@ -94,7 +98,7 @@ export const TableComponent = (props: TableComponentProps) => {
             backgroundColor: colors.CTX_BUTTON_COLOR,
           },
         }}
-        count={totalPages}
+        count={Number(totalPages)}
         variant="outlined"
       />
     </div>
