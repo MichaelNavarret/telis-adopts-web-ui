@@ -50,6 +50,7 @@ export const Button = (props: ButtonProps) => {
         //disabled cursor pointer when disabled
         cursor: disabled ? "not-allowed" : "pointer",
         marginTop: marginTop,
+        padding: "10px",
       }}
       type={type}
       disabled={disabled}

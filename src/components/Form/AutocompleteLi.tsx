@@ -21,7 +21,9 @@ const AutocompleteLi = (props: AutocompleteLiProps) => {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <Typography noWrap>{option}</Typography>
+      <Typography style={{ width: "100%" }} noWrap>
+        {option}
+      </Typography>
     </li>
   );
 };

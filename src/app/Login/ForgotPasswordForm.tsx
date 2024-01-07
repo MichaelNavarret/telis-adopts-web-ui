@@ -7,6 +7,7 @@ import { OwnerRequest } from "../../types/owner";
 import { resetPasswordLink } from "../../api/login";
 import { CustomizedSnackbarProps } from "../../types/commons";
 import TextComponent from "../../components/TextComponents/TextComponent";
+import strings from "../../l10n";
 
 type ResetPasswordFormProps = {
   handleStep: (val: number) => void;
@@ -24,7 +25,7 @@ export const ForgotPasswordForm = (props: ResetPasswordFormProps) => {
       onSuccess: () => {
         handleSnackBar({
           type: "success",
-          subTitle: "Check our email for the reset password link!",
+          subTitle: strings.CHECK_EMAIL_FOR_RESET_PASSWORD_LINK,
         });
         handleStep(0);
       },
@@ -43,14 +44,14 @@ export const ForgotPasswordForm = (props: ResetPasswordFormProps) => {
       <div className={styles.formContainer}>
         <TextField
           id="emailAddressForgotForm"
-          label="Email Address"
+          label={strings.EMAIL_ADDRESS}
           type="text"
           className={styles.textField}
           required
           onChange={(e) => setEmail(e.target.value)}
         />
         <TextComponent
-          content={"Back to Login"}
+          content={strings.BACK_TO_LOGIN}
           onClick={() => handleStep(0)}
         />
       </div>
@@ -60,7 +61,7 @@ export const ForgotPasswordForm = (props: ResetPasswordFormProps) => {
         disabled={resetPasswordLoading}
         loading={resetPasswordLoading}
       >
-        <p>Recover Password</p>
+        <p>{strings.RECOVER_PASSWORD}</p>
       </Button>
     </form>
   );

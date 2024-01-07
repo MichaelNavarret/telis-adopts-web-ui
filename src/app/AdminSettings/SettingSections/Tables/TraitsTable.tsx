@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import { getTraits } from "../../../../api/traits";
 import TableComponent from "../../../../components/Table/TableComponent";
 import { traitsTableColumns } from "../../../../constants/TablesColumns";
+import strings from "../../../../l10n";
 
 type TraitsTableProps = {
   handleOpen: () => void;
@@ -22,11 +23,11 @@ const TraitsTable = (props: TraitsTableProps) => {
   return (
     <>
       <TableComponent
-        title="Traits"
+        title={strings.TRAITS}
         columns={traitsTableColumns}
         data={traitList?.data || []}
         primaryButton={true}
-        primaryButtonLabel="Add Trait"
+        primaryButtonLabel={`${strings.ADD} ${strings.TRAIT}`}
         handlePrimaryButton={handleOpen}
         totalPages={totalPages}
       />

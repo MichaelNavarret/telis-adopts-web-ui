@@ -10,6 +10,7 @@ import { TraitCreateRequest } from "../../../../types/traits";
 import { createTrait } from "../../../../api/traits";
 import DropdownComponent from "../../../../components/Form/DropdownComponent";
 import { formatSpecieInfoForDropdown } from "../../../../tools/dropdown";
+import strings from "../../../../l10n";
 
 type TraitsCreateDialogFormProps = {
   open: boolean;
@@ -37,7 +38,7 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries("traits");
-      handleChangeSnackBar("Trait created successfully");
+      handleChangeSnackBar(strings.TRAIT_CREATE_SUCCESSFULLY);
       handleClose();
     },
   });
@@ -54,14 +55,9 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
 
   const dialogContent = (
     <form onSubmit={onSubmit} className={styles.formMainContainer}>
-      <TextComponent
-        content="Create Trait Form"
-        animation={false}
-        hover={false}
-      />
       <DropdownComponent
-        name={"Specie"}
-        label={"species"}
+        name={strings.SPECIE}
+        label={"specie"}
         value={specie}
         handleChange={(e) => setSpecie(e.target.value)}
         options={formatSpecieInfoForDropdown(speciesOptions)}
@@ -70,7 +66,7 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
       <TextField
         className={styles.textFieldForm}
         id="traitCode"
-        label="Code"
+        label={strings.CODE}
         type="text"
         onChange={(e) => setCode(e.target.value)}
         required
@@ -78,17 +74,23 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
       <TextField
         className={styles.textFieldForm}
         id="traitCharacteristic"
-        label="Characteristic"
+        label={strings.CHARACTERISTIC}
         type="text"
         onChange={(e) => setCharacteristic(e.target.value)}
         required
       />
-      <Button content={"Create"} type="submit" width="150px" height="35px" />
+      <Button
+        content={strings.CREATE}
+        type="submit"
+        width="150px"
+        height="35px"
+      />
     </form>
   );
 
   return (
     <DialogComponent
+      dialogTitle={`${strings.CREATE} ${strings.TRAIT}`}
       open={open}
       handleClose={handleClose}
       content={dialogContent}

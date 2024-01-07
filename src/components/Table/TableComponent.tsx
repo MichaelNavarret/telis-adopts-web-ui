@@ -56,8 +56,8 @@ export const TableComponent = (props: TableComponentProps) => {
           {primaryButton && (
             <Button
               className={styles.primaryButton}
-              height="50px"
-              width="230px"
+              height="auto"
+              width="auto"
               onClick={handlePrimaryButton}
               buttonColorShadow={colors.CTX_BUTTON_SHADOW_COLOR_2}
             >

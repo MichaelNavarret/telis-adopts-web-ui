@@ -3,6 +3,7 @@ import styles from "./SpeciesComponent.module.scss";
 import { useEffect, useState } from "react";
 import { isDefined } from "../../tools/commons";
 import LogoListComponent from "./components/LogoListComponent";
+import strings from "../../l10n";
 
 export const SpeciesComponent = () => {
   const [open, setOpen] = useState(false);
@@ -17,15 +18,10 @@ export const SpeciesComponent = () => {
 
   return (
     <div className={styles.MainContainer}>
-      {/* <Button>
-        <p>Nonspecies</p>
-        <p>Adopts</p>
-      </Button> */}
       <LogoListComponent />
-
       <CustomizedSnackbar
         type="success"
-        subTitle="Login Successfully!"
+        subTitle={strings.LOGIN_SUCCESSFULLY}
         open={open}
         handleClose={() => setOpen(false)}
       />

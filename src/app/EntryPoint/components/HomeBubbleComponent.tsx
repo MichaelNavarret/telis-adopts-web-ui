@@ -3,6 +3,7 @@ import styles from "./HomeBubbleComponent.module.scss";
 import { useTheme } from "../../../context/ThemeProvider";
 import { useNavigate } from "react-router-dom";
 import { Tooltip } from "@mui/material";
+import strings from "../../../l10n";
 
 const HomeBubbleComponent = () => {
   const { colors } = useTheme();
@@ -14,7 +15,7 @@ const HomeBubbleComponent = () => {
 
   return (
     <Tooltip
-      title={"Back to Species Page"}
+      title={strings.BACK_TO_SPECIES_PAGE}
       arrow
       placement="right"
       componentsProps={{

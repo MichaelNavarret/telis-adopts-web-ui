@@ -13,6 +13,7 @@ import { OwnerRequest } from "../../types/owner";
 import { CustomizedSnackbarProps } from "../../types/commons";
 import TextComponent from "../../components/TextComponents/TextComponent";
 import { MAIN_BUTTON_COLOR } from "../../constants/colors/mainColors";
+import strings from "../../l10n";
 
 type MultiFactorAuthProps = {
   formValue: { email: string; password: string };
@@ -47,7 +48,7 @@ const MultiFactorAuth = (props: MultiFactorAuthProps) => {
       onSuccess: () => {
         handleSnackBar({
           type: "success",
-          subTitle: "OTP resent successfully!",
+          subTitle: strings.OTP_RESEND_SUCCESSFULLY,
         });
       },
     });
@@ -75,7 +76,7 @@ const MultiFactorAuth = (props: MultiFactorAuthProps) => {
       <div className={styles.formContainer}>
         <TextComponent
           className={styles.multiFactorSubtitle}
-          content={"A one-time code has been emailed to you. Check your inbox."}
+          content={strings.OTP_SEND_MESSAGE}
           animation={false}
           hover={false}
           fontSize={"medium"}
@@ -103,12 +104,12 @@ const MultiFactorAuth = (props: MultiFactorAuthProps) => {
                 ? styles.footerMultiFactorFieldDisabled
                 : styles.footerMultiFactorField
             }
-            content={"Resend code"}
+            content={strings.RESEND_CODE}
             onClick={handleResendOtp}
           />
           <TextComponent
             className={styles.footerMultiFactorField}
-            content={"Back to Login"}
+            content={strings.BACK_TO_LOGIN}
             onClick={() => handleStep(0)}
           />
         </div>
@@ -120,7 +121,7 @@ const MultiFactorAuth = (props: MultiFactorAuthProps) => {
         onClick={handleOtpVerify}
         marginTop="50px"
       >
-        Login
+        {strings.LOGIN}
       </Button>
     </>
   );

@@ -12,10 +12,19 @@ type AutocompleteComponentProps = {
   freeSolo?: boolean;
   options?: AutocompleteOption[];
   handleChange: (e: any) => void;
+  disabled?: boolean;
+  required?: boolean;
 };
 
 const AutocompleteComponent = (props: AutocompleteComponentProps) => {
-  const { label, freeSolo = false, options = [], handleChange } = props;
+  const {
+    label,
+    freeSolo = false,
+    options = [],
+    handleChange,
+    disabled = false,
+    required = false,
+  } = props;
 
   return (
     <div style={{ width: "100%" }}>
@@ -23,6 +32,7 @@ const AutocompleteComponent = (props: AutocompleteComponentProps) => {
         id={label}
         freeSolo={freeSolo}
         options={options}
+        disabled={disabled}
         isOptionEqualToValue={(option, value) => {
           return option.value === value.value;
         }}
@@ -33,7 +43,9 @@ const AutocompleteComponent = (props: AutocompleteComponentProps) => {
             handleChange({ label: "", value: "" });
           }
         }}
-        renderInput={(params) => <TextField {...params} label={label} />}
+        renderInput={(params) => (
+          <TextField {...params} label={label} required={required} />
+        )}
         renderOption={(props, option) => (
           <AutocompleteLi {...props} option={option.label} />
         )}
