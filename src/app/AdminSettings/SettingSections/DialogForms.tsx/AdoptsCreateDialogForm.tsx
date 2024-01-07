@@ -15,6 +15,9 @@ import {
   formatOwnerInfoForDropdown,
   formatSpecieInfoForDropdown,
 } from "../../../../tools/dropdown";
+import AutocompleteComponent, {
+  AutocompleteOption,
+} from "../../../../components/Form/AutocompleteComponent";
 
 type AdoptsCreateDialogFormProps = {
   open: boolean;
@@ -29,8 +32,8 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
   const queryClient = useQueryClient();
   //!-----Form States-----//
   const [adoptName, setAdoptName] = useState("");
-  const [owner, setOwner] = useState("");
-  const [specie, setSpecie] = useState("");
+  const [owner, setOwner] = useState<AutocompleteOption | null>(null);
+  const [specie, setSpecie] = useState<AutocompleteOption | null>(null);
   const [creationType, setCreationType] = useState<CreationType>("PREMADE");
 
   //!----- Queries ----- //
@@ -64,8 +67,8 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
 
   const clearStates = () => {
     setAdoptName("");
-    setOwner("");
-    setSpecie("");
+    setOwner({ label: "", value: "" });
+    setSpecie({ label: "", value: "" });
     setCreationType("PREMADE");
   };
 
@@ -73,8 +76,8 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
     e.preventDefault();
     const payload: AdoptCreateRequest = {
       name: adoptName,
-      ownerId: owner,
-      specieId: specie,
+      ownerId: owner ? owner.value : "",
+      specieId: specie ? specie.value : "",
       creationType: creationType,
     };
     createAdoptMutation(payload);
@@ -90,21 +93,16 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
         onChange={(e) => setAdoptName(e.target.value)}
       />
 
-      <DropdownComponent
-        name={"Owner"}
-        label={"owners"}
-        value={owner}
-        handleChange={(e) => setOwner(e.target.value)}
+      <AutocompleteComponent
+        label="Owner"
         options={formatOwnerInfoForDropdown(ownersResponse)}
+        handleChange={(value: AutocompleteOption) => setOwner(value)}
       />
 
-      <DropdownComponent
-        name={"Specie"}
-        label={"species"}
-        value={specie}
-        handleChange={(e) => setSpecie(e.target.value)}
+      <AutocompleteComponent
+        label="Specie"
         options={formatSpecieInfoForDropdown(speciesOptions)}
-        required
+        handleChange={(value: AutocompleteOption) => setSpecie(value)}
       />
 
       <DropdownComponent

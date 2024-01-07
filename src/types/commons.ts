@@ -35,7 +35,6 @@ export type Colors = {
   secondContainer: string;
   buttonShadow: string;
   bubbleHome: string;
-  // ! New colors. Remove when all components are updated
   menubar: string;
   menubarHover: string;
   tableHeader: string;
