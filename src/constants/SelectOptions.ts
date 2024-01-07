@@ -10,6 +10,6 @@ export const RARITY_OPTIONS = [
 export const CREATION_TYPE = [
   { value: "PREMADE", label: strings.PREMADE },
   { value: "CUSTOM", label: strings.CUSTOM },
-  { value: "MYO", label: strings.ADOPT },
+  { value: "MYO", label: strings.MYO },
   { value: "GUEST_ARTIST", label: strings.GUEST_ARTIST },
 ];

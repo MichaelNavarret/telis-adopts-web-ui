@@ -3,6 +3,7 @@ import { getTraits } from "../../../../api/traits";
 import TableComponent from "../../../../components/Table/TableComponent";
 import { traitsTableColumns } from "../../../../constants/TablesColumns";
 import strings from "../../../../l10n";
+import { formatTraitTableRows } from "./traitsTableFormat";
 
 type TraitsTableProps = {
   handleOpen: () => void;
@@ -25,7 +26,7 @@ const TraitsTable = (props: TraitsTableProps) => {
       <TableComponent
         title={strings.TRAITS}
         columns={traitsTableColumns}
-        data={traitList?.data || []}
+        data={formatTraitTableRows(traitList?.data || [])}
         primaryButton={true}
         primaryButtonLabel={`${strings.ADD} ${strings.TRAIT}`}
         handlePrimaryButton={handleOpen}

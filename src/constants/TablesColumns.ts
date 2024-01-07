@@ -14,7 +14,7 @@ export const speciesTableColumns: ColumnsTable[] = [
 ];
 
 export const traitsTableColumns: ColumnsTable[] = [
-  { value: "code", label: strings.CODE },
-  { value: "characteristic", label: strings.CHARACTERISTIC },
+  { value: "trait", label: strings.TRAIT },
   { value: "specie", label: strings.SPECIE },
+  { value: "rarities", label: strings.RARITIES },
 ];

@@ -5,7 +5,6 @@ import styles from "./DialogForms.module.scss";
 import { Button } from "../../../../components";
 import { useMutation, useQueryClient } from "react-query";
 import { createSpecie } from "../../../../api/species";
-import TextComponent from "../../../../components/TextComponents/TextComponent";
 import strings from "../../../../l10n";
 
 type SpecieCreateDialogFormProps = {
@@ -26,6 +25,7 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
     onSuccess: () => {
       handleChangeSnackBar(strings.SPECIE_CREATED_SUCCESSFULLY);
       queryClient.invalidateQueries("species");
+      queryClient.invalidateQueries("autocompleteSpecies");
       clearStates();
       handleClose();
     },

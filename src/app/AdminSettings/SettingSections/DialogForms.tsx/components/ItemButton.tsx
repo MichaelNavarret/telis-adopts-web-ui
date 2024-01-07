@@ -28,6 +28,7 @@ const ItemButton = (props: itemButtonProps) => {
             ? colors.CTX_MENUBAR_HOVER_COLOR
             : colors.CTX_MENUBAR_COLOR,
         color: colors.CTX_MENUBAR_TEXT_COLOR,
+        border: selected ? `5px dashed ${colors.CTX_MENUBAR_COLOR}` : "none",
         fontSize: "0.8rem",
         cursor: "pointer",
       }}

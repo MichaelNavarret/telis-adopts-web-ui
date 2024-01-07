@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import DialogComponent from "../../../../components/surfaces/DialogComponent";
 import styles from "./DialogForms.module.scss";
@@ -39,6 +39,11 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
   const [specie, setSpecie] = useState<AutocompleteOption | null>(null);
   const [creationType, setCreationType] = useState<CreationType>("PREMADE");
 
+  useEffect(() => {
+    clearStates();
+    setStep(0);
+  }, [handleClose]);
+
   const { data: ownersResponse } = useQuery({
     queryKey: ["autocompleteOwners"],
     queryFn: () => {
@@ -60,21 +65,23 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
     onSuccess: () => {
       handleChangeSnackBar(strings.ADOPT_CREATE_SUCCESSFULLY);
       queryClient.invalidateQueries("adopts");
+      queryClient.invalidateQueries("autocompleteOwners");
       clearStates();
+      setStep(0);
       handleClose();
     },
   });
 
   const handleStep = (value: number) => {
     setStep(value);
-    setOwner(null);
-    setNotRegisteredOwner("");
+    clearStates();
   };
 
   const clearStates = () => {
     setAdoptName("");
-    setOwner({ label: "", value: "" });
-    setSpecie({ label: "", value: "" });
+    setOwner(null);
+    setNotRegisteredOwner("");
+    setSpecie(null);
     setCreationType("PREMADE");
   };
 
@@ -89,6 +96,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
         : "",
       specieId: specie ? specie.value : "",
       creationType: creationType,
+      notRegisteredOwner: owner ? false : true,
     };
     createAdoptMutation(payload);
   };

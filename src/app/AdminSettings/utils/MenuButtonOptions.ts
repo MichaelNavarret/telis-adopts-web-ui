@@ -17,3 +17,22 @@ export const MenuButtonOwnerOptions = [
     tooltip: strings.NOT_REGISTERED_OWNER_OPTION,
   },
 ];
+
+export const MenuButtonRarityOptions = [
+  {
+    label: strings.COMMON,
+    value: 0,
+  },
+  {
+    label: strings.UNCOMMON,
+    value: 1,
+  },
+  {
+    label: strings.RARE,
+    value: 2,
+  },
+  {
+    label: strings.EPIC,
+    value: 3,
+  },
+];
