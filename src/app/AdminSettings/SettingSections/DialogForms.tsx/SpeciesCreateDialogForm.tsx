@@ -25,9 +25,14 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
     onSuccess: () => {
       handleChangeSnackBar("Specie created successfully");
       queryClient.invalidateQueries("species");
+      clearStates();
       handleClose();
     },
   });
+
+  const clearStates = () => {
+    setSpecieName("");
+  };
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -52,9 +57,7 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
         onChange={(e) => setSpecieName(e.target.value)}
         required
       />
-      <Button type="submit" width="150px" height="35px">
-        Create
-      </Button>
+      <Button content={"Create"} type="submit" width="150px" height="35px" />
     </form>
   );
 

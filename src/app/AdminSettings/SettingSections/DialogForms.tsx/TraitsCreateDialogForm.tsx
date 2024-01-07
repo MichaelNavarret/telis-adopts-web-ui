@@ -1,15 +1,15 @@
 import { FormEvent, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import styles from "./DialogForms.module.scss";
-import { InputLabel, Select, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import TextComponent from "../../../../components/TextComponents/TextComponent";
 import { Button } from "../../../../components";
 import { getSpeciesAutocomplete } from "../../../../api/species";
-import MenuItem from "@mui/material/MenuItem";
 import DialogComponent from "../../../../components/surfaces/DialogComponent";
-import { RARITY_OPTIONS } from "../../../../constants/SelectOptions";
 import { TraitCreateRequest } from "../../../../types/traits";
 import { createTrait } from "../../../../api/traits";
+import DropdownComponent from "../../../../components/Form/DropdownComponent";
+import { formatSpecieInfoForDropdown } from "../../../../tools/dropdown";
 
 type TraitsCreateDialogFormProps = {
   open: boolean;
@@ -22,7 +22,6 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
   const [specie, setSpecie] = useState<string>("");
   const [characteristic, setCharacteristic] = useState<string>("");
   const [code, setCode] = useState<string>("");
-  const [rarity, setRarity] = useState<string>("");
   const queryClient = useQueryClient();
 
   const { data: speciesOptions } = useQuery({
@@ -32,17 +31,16 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
     },
   });
 
-  const { mutate: createTraitMutation, isLoading: isCreateTraitLoading } =
-    useMutation({
-      mutationFn: (data: TraitCreateRequest) => {
-        return createTrait(data);
-      },
-      onSuccess: () => {
-        queryClient.invalidateQueries("traits");
-        handleChangeSnackBar("Trait created successfully");
-        handleClose();
-      },
-    });
+  const { mutate: createTraitMutation } = useMutation({
+    mutationFn: (data: TraitCreateRequest) => {
+      return createTrait(data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries("traits");
+      handleChangeSnackBar("Trait created successfully");
+      handleClose();
+    },
+  });
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -50,7 +48,6 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
       specieId: specie,
       characteristic: characteristic,
       code: code,
-      rarity: rarity,
     };
     createTraitMutation(payload);
   };
@@ -62,24 +59,14 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
         animation={false}
         hover={false}
       />
-      <div style={{ width: "100%" }}>
-        <InputLabel id="speciesLabel">Species</InputLabel>
-        <Select
-          labelId="speciesLabel"
-          style={{ width: "100%" }}
-          label="Species"
-          value={specie}
-          onChange={(e) => setSpecie(e.target.value)}
-        >
-          {speciesOptions?.map((specie, index) => {
-            return (
-              <MenuItem key={specie.id + "_" + index} value={specie.id}>
-                {specie.name}
-              </MenuItem>
-            );
-          })}
-        </Select>
-      </div>
+      <DropdownComponent
+        name={"Specie"}
+        label={"species"}
+        value={specie}
+        handleChange={(e) => setSpecie(e.target.value)}
+        options={formatSpecieInfoForDropdown(speciesOptions)}
+        required
+      />
       <TextField
         className={styles.textFieldForm}
         id="traitCode"
@@ -96,29 +83,7 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
         onChange={(e) => setCharacteristic(e.target.value)}
         required
       />
-
-      <div style={{ width: "100%" }}>
-        <InputLabel id="rarityLabel">Rarity</InputLabel>
-        <Select
-          labelId="rarityLabel"
-          style={{ width: "100%" }}
-          label="Species"
-          value={rarity}
-          onChange={(e) => setRarity(e.target.value)}
-        >
-          {RARITY_OPTIONS?.map((option, index) => {
-            return (
-              <MenuItem key={option.value + "_" + index} value={option.value}>
-                {option.label}{" "}
-              </MenuItem>
-            );
-          })}
-        </Select>
-      </div>
-
-      <Button type="submit" width="150px" height="35px">
-        Create
-      </Button>
+      <Button content={"Create"} type="submit" width="150px" height="35px" />
     </form>
   );
 

@@ -1,9 +1,8 @@
 import { FormEvent, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import TextComponent from "../../../../components/TextComponents/TextComponent";
 import DialogComponent from "../../../../components/surfaces/DialogComponent";
 import styles from "./DialogForms.module.scss";
-import { InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { getOwnersAutocomplete } from "../../../../api/owners";
 import { getSpeciesAutocomplete } from "../../../../api/species";
 import { CREATION_TYPE } from "../../../../constants/SelectOptions";
@@ -11,6 +10,11 @@ import { Button } from "../../../../components";
 import { AdoptCreateRequest, CreationType } from "../../../../types/adopt";
 import { createAdopt } from "../../../../api/adopts";
 import { useTheme } from "../../../../context/ThemeProvider";
+import DropdownComponent from "../../../../components/Form/DropdownComponent";
+import {
+  formatOwnerInfoForDropdown,
+  formatSpecieInfoForDropdown,
+} from "../../../../tools/dropdown";
 
 type AdoptsCreateDialogFormProps = {
   open: boolean;
@@ -53,11 +57,17 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
     onSuccess: () => {
       handleChangeSnackBar("Adopt created successfully");
       queryClient.invalidateQueries("adopts");
+      clearStates();
       handleClose();
     },
   });
 
-  //!----- Functions ----- //
+  const clearStates = () => {
+    setAdoptName("");
+    setOwner("");
+    setSpecie("");
+    setCreationType("PREMADE");
+  };
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -80,71 +90,39 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
         onChange={(e) => setAdoptName(e.target.value)}
       />
 
-      <div style={{ width: "100%" }}>
-        <InputLabel id="ownersLabel">Owner</InputLabel>
-        <Select
-          labelId="ownersLabel"
-          style={{ width: "100%" }}
-          label="Owner"
-          value={owner}
-          onChange={(e) => setOwner(e.target.value)}
-        >
-          {ownersResponse?.map((owner, index) => {
-            return (
-              <MenuItem key={owner.id + "_" + index} value={owner.id}>
-                {owner.name}
-              </MenuItem>
-            );
-          })}
-        </Select>
+      <DropdownComponent
+        name={"Owner"}
+        label={"owners"}
+        value={owner}
+        handleChange={(e) => setOwner(e.target.value)}
+        options={formatOwnerInfoForDropdown(ownersResponse)}
+      />
 
-        <div style={{ width: "100%" }}>
-          <InputLabel id="speciesLabel">Species</InputLabel>
-          <Select
-            labelId="speciesLabel"
-            style={{ width: "100%" }}
-            label="Species"
-            value={specie}
-            onChange={(e) => setSpecie(e.target.value)}
-          >
-            {speciesOptions?.map((specie, index) => {
-              return (
-                <MenuItem key={specie.id + "_" + index} value={specie.id}>
-                  {specie.name}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </div>
+      <DropdownComponent
+        name={"Specie"}
+        label={"species"}
+        value={specie}
+        handleChange={(e) => setSpecie(e.target.value)}
+        options={formatSpecieInfoForDropdown(speciesOptions)}
+        required
+      />
 
-        <div style={{ width: "100%" }}>
-          <InputLabel id="creationTypeLabel">Creation Type</InputLabel>
-          <Select
-            labelId="creationTypeLabel"
-            style={{ width: "100%" }}
-            label="Creation Type"
-            value={creationType}
-            onChange={(e) => setCreationType(e.target.value as CreationType)}
-          >
-            {CREATION_TYPE?.map((type, index) => {
-              return (
-                <MenuItem key={type.label + "_" + index} value={type.value}>
-                  {type.label}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </div>
-      </div>
+      <DropdownComponent
+        name={"Creation Type"}
+        label={"creationType"}
+        value={creationType}
+        handleChange={(e) => setCreationType(e.target.value)}
+        options={CREATION_TYPE}
+      />
+
       <Button
         type="submit"
+        content="Create"
         width="150px"
         height="35px"
         colorButton={colors.CTX_FORM_BUTTON_COLOR}
         buttonColorShadow={colors.CTX_BUTTON_SHADOW_COLOR_2}
-      >
-        Create
-      </Button>
+      />
     </form>
   );
 
