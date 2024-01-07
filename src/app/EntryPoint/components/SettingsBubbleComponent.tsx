@@ -2,6 +2,7 @@ import Bubble from "../../../components/surfaces/Bubble";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import { useTheme } from "../../../context/ThemeProvider";
 import { useNavigate } from "react-router-dom";
+import strings from "../../../l10n";
 
 const SettingsBubbleComponent = () => {
   const { colors } = useTheme();
@@ -22,7 +23,7 @@ const SettingsBubbleComponent = () => {
           }}
         />
       }
-      tooltipText="Settings"
+      tooltipText={strings.SETTINGS}
       bottom="1%"
       left="1%"
       bubbleColor={colors.CTX_BUBBLE_COLOR}

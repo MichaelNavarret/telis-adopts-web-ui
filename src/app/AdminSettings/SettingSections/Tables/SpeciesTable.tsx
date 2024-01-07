@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import { getSpecies } from "../../../../api/species";
 import TableComponent from "../../../../components/Table/TableComponent";
 import { speciesTableColumns } from "../../../../constants/TablesColumns";
+import strings from "../../../../l10n";
 
 type SpeciesTableProps = {
   handleOpen: () => void;
@@ -20,11 +21,11 @@ const SpeciesTable = (props: SpeciesTableProps) => {
 
   return (
     <TableComponent
-      title="Species"
+      title={strings.SPECIES}
       columns={speciesTableColumns}
       data={speciesList?.data || []}
       primaryButton={true}
-      primaryButtonLabel="Add Species"
+      primaryButtonLabel={`${strings.ADD} ${strings.SPECIE}`}
       handlePrimaryButton={handleOpen}
       totalPages={totalPages}
     />

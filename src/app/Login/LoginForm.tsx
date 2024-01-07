@@ -9,6 +9,7 @@ import { LoginRequest } from "../../types/login";
 import { login } from "../../api/login";
 import { saveFirstToken } from "../../context/UserSession/userSessionReducer";
 import TextComponent from "../../components/TextComponents/TextComponent";
+import strings from "../../l10n";
 
 type LoginFormProps = {
   handleStep: (val: number) => void;
@@ -53,7 +54,7 @@ export const LoginForm = (props: LoginFormProps) => {
         <div className={styles.formContainer}>
           <TextField
             id="emailAddressLoginForm"
-            label="Email Address"
+            label={strings.EMAIL_ADDRESS}
             type="text"
             className={styles.textField}
             required
@@ -62,7 +63,7 @@ export const LoginForm = (props: LoginFormProps) => {
           />
           <TextField
             id="passwordLoginForm"
-            label="Password"
+            label={strings.PASSWORD}
             type="password"
             className={styles.textField}
             required
@@ -70,7 +71,7 @@ export const LoginForm = (props: LoginFormProps) => {
             disabled={isLoginLoading}
           />
           <TextComponent
-            content={"Forgot Password?"}
+            content={strings.FORGOT_PASSWORD_QUESTION}
             onClick={() => !isLoginLoading && handleStep(1)}
           />
         </div>
@@ -79,7 +80,7 @@ export const LoginForm = (props: LoginFormProps) => {
           loading={isLoginLoading && !isError}
           marginTop="50px"
         >
-          <p>Login</p>
+          <p>{strings.LOGIN}</p>
         </Button>
       </form>
     </div>

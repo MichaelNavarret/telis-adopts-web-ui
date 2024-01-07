@@ -5,7 +5,7 @@ import styles from "./DialogForms.module.scss";
 import { Button } from "../../../../components";
 import { useMutation, useQueryClient } from "react-query";
 import { createSpecie } from "../../../../api/species";
-import TextComponent from "../../../../components/TextComponents/TextComponent";
+import strings from "../../../../l10n";
 
 type SpecieCreateDialogFormProps = {
   open: boolean;
@@ -23,8 +23,9 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
       return createSpecie(data);
     },
     onSuccess: () => {
-      handleChangeSnackBar("Specie created successfully");
+      handleChangeSnackBar(strings.SPECIE_CREATED_SUCCESSFULLY);
       queryClient.invalidateQueries("species");
+      queryClient.invalidateQueries("autocompleteSpecies");
       clearStates();
       handleClose();
     },
@@ -44,25 +45,26 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
 
   const dialogContent = (
     <form onSubmit={onSubmit} className={styles.formMainContainer}>
-      <TextComponent
-        content="Create Specie Form"
-        animation={false}
-        hover={false}
-      />
       <TextField
         className={styles.textFieldForm}
         id="speciesName"
-        label="Species Name"
+        label={strings.NAME}
         type="text"
         onChange={(e) => setSpecieName(e.target.value)}
         required
       />
-      <Button content={"Create"} type="submit" width="150px" height="35px" />
+      <Button
+        content={strings.CREATE}
+        type="submit"
+        width="150px"
+        height="35px"
+      />
     </form>
   );
 
   return (
     <DialogComponent
+      dialogTitle={`${strings.CREATE} ${strings.SPECIE}`}
       open={open}
       handleClose={handleClose}
       content={dialogContent}

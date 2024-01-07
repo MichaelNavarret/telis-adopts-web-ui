@@ -42,6 +42,10 @@ export const TableComponent = (props: TableComponentProps) => {
     totalPages = 1,
   } = props;
 
+  const NotFoundData = () => {
+    return <div className={styles.notFoundData}>Data Not Found</div>;
+  };
+
   return (
     <div className={styles.mainContainer}>
       <div className={styles.headerContainer}>
@@ -52,8 +56,8 @@ export const TableComponent = (props: TableComponentProps) => {
           {primaryButton && (
             <Button
               className={styles.primaryButton}
-              height="50px"
-              width="230px"
+              height="auto"
+              width="auto"
               onClick={handlePrimaryButton}
               buttonColorShadow={colors.CTX_BUTTON_SHADOW_COLOR_2}
             >
@@ -77,6 +81,7 @@ export const TableComponent = (props: TableComponentProps) => {
               })}
             </TableRow>
           </TableHead>
+
           <TableBody>
             {data.map((row, index) => {
               return (
@@ -90,6 +95,7 @@ export const TableComponent = (props: TableComponentProps) => {
             })}
           </TableBody>
         </Table>
+        {data.length === 0 && <NotFoundData />}
       </TableContainer>
       <Pagination
         className={styles.pagination}

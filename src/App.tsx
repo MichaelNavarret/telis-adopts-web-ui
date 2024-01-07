@@ -7,6 +7,7 @@ import useUserSession from "./hooks/useUserSession";
 import { RouteProps } from "react-router-dom";
 import ErrorBoundary from "./ErrorBoundary";
 import { ThemeProvider } from "./context/ThemeProvider";
+import strings from "./l10n";
 
 const App: React.FunctionComponent<RouteProps> = () => {
   const [showSnackBars, setShowSnackBars] = useState(false);
@@ -18,7 +19,7 @@ const App: React.FunctionComponent<RouteProps> = () => {
     return true;
   }
 
-  function errorMsg(error: any, def = "Something went wrong") {
+  function errorMsg(error: any, def = strings.SOMETHING_WENT_WRONG) {
     let message = error?.response?.data?.message;
     if (!message) message = error?.response?.data?.message;
     return message ?? def;

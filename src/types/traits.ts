@@ -1,10 +1,8 @@
 export type TraitInfo = {
   id: string;
-  rarity: string;
-  code: string;
-  characteristic: string;
   specie: string;
-  options: string[];
+  trait: string;
+  rarities: string[];
 };
 
 export type TraitSingletonResponse = {
@@ -17,6 +15,6 @@ export type TraitCollectionResponse = {
 
 export type TraitCreateRequest = {
   specieId: string;
-  characteristic: string;
-  code: string;
+  trait: string;
+  rarities: string[];
 };

@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import DialogComponent from "../../../../components/surfaces/DialogComponent";
 import styles from "./DialogForms.module.scss";
@@ -15,25 +15,35 @@ import {
   formatOwnerInfoForDropdown,
   formatSpecieInfoForDropdown,
 } from "../../../../tools/dropdown";
+import AutocompleteComponent, {
+  AutocompleteOption,
+} from "../../../../components/Form/AutocompleteComponent";
+import MenuButton from "./components/MenuButton";
+import { MenuButtonOwnerOptions } from "../../utils/MenuButtonOptions";
+import strings from "../../../../l10n";
 
 type AdoptsCreateDialogFormProps = {
   open: boolean;
   handleClose: () => void;
   handleChangeSnackBar: (message: string) => void;
 };
-//TODO: REMOVER LOS COMENTARIOS UNA VEZ TODO ESTE LISTO
 
 const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
   const { open, handleClose, handleChangeSnackBar } = props;
+  const [step, setStep] = useState<number>(0);
   const { colors } = useTheme();
   const queryClient = useQueryClient();
-  //!-----Form States-----//
   const [adoptName, setAdoptName] = useState("");
-  const [owner, setOwner] = useState("");
-  const [specie, setSpecie] = useState("");
+  const [owner, setOwner] = useState<AutocompleteOption | null>(null);
+  const [notRegisteredOwner, setNotRegisteredOwner] = useState<string>("");
+  const [specie, setSpecie] = useState<AutocompleteOption | null>(null);
   const [creationType, setCreationType] = useState<CreationType>("PREMADE");
 
-  //!----- Queries ----- //
+  useEffect(() => {
+    clearStates();
+    setStep(0);
+  }, [handleClose]);
+
   const { data: ownersResponse } = useQuery({
     queryKey: ["autocompleteOwners"],
     queryFn: () => {
@@ -48,24 +58,30 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
     },
   });
 
-  //!----- Mutations ----- //
-
   const { mutate: createAdoptMutation } = useMutation({
     mutationFn: (data: AdoptCreateRequest) => {
       return createAdopt(data);
     },
     onSuccess: () => {
-      handleChangeSnackBar("Adopt created successfully");
+      handleChangeSnackBar(strings.ADOPT_CREATE_SUCCESSFULLY);
       queryClient.invalidateQueries("adopts");
+      queryClient.invalidateQueries("autocompleteOwners");
       clearStates();
+      setStep(0);
       handleClose();
     },
   });
 
+  const handleStep = (value: number) => {
+    setStep(value);
+    clearStates();
+  };
+
   const clearStates = () => {
     setAdoptName("");
-    setOwner("");
-    setSpecie("");
+    setOwner(null);
+    setNotRegisteredOwner("");
+    setSpecie(null);
     setCreationType("PREMADE");
   };
 
@@ -73,9 +89,14 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
     e.preventDefault();
     const payload: AdoptCreateRequest = {
       name: adoptName,
-      ownerId: owner,
-      specieId: specie,
+      ownerId: owner
+        ? owner.value
+        : notRegisteredOwner
+        ? notRegisteredOwner
+        : "",
+      specieId: specie ? specie.value : "",
       creationType: creationType,
+      notRegisteredOwner: owner ? false : true,
     };
     createAdoptMutation(payload);
   };
@@ -85,30 +106,49 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
       <TextField
         className={styles.textFieldForm}
         id="adoptName"
-        label="Adopt Name"
+        label={strings.ADOPT_NAME}
         type="text"
         onChange={(e) => setAdoptName(e.target.value)}
       />
 
-      <DropdownComponent
-        name={"Owner"}
-        label={"owners"}
-        value={owner}
-        handleChange={(e) => setOwner(e.target.value)}
-        options={formatOwnerInfoForDropdown(ownersResponse)}
-      />
+      <div
+        className={styles.ownersContainer}
+        style={{
+          border: `1px dashed ${colors.CTX_MENUBAR_COLOR}`,
+          borderRadius: "5px",
+        }}
+      >
+        <MenuButton options={MenuButtonOwnerOptions} handleClick={handleStep} />
+        {step !== 2 ? (
+          <AutocompleteComponent
+            key={`owner_autocomplete${step}`}
+            label={strings.OWNER}
+            options={formatOwnerInfoForDropdown(ownersResponse)}
+            handleChange={(value: AutocompleteOption) => setOwner(value)}
+            disabled={step === 0}
+            required={step === 1}
+          />
+        ) : (
+          <TextField
+            key={`owner_texField${step}`}
+            id="owner"
+            label={strings.NOT_REGISTERED_OWNER}
+            type="text"
+            value={notRegisteredOwner}
+            onChange={(e) => setNotRegisteredOwner(e.target.value)}
+            required
+          />
+        )}
+      </div>
 
-      <DropdownComponent
-        name={"Specie"}
-        label={"species"}
-        value={specie}
-        handleChange={(e) => setSpecie(e.target.value)}
+      <AutocompleteComponent
+        label={strings.SPECIE}
         options={formatSpecieInfoForDropdown(speciesOptions)}
-        required
+        handleChange={(value: AutocompleteOption) => setSpecie(value)}
       />
 
       <DropdownComponent
-        name={"Creation Type"}
+        name={strings.CREATION_TYPE}
         label={"creationType"}
         value={creationType}
         handleChange={(e) => setCreationType(e.target.value)}
@@ -117,7 +157,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
 
       <Button
         type="submit"
-        content="Create"
+        content={strings.CREATE}
         width="150px"
         height="35px"
         colorButton={colors.CTX_FORM_BUTTON_COLOR}
@@ -128,7 +168,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
 
   return (
     <DialogComponent
-      dialogTitle="Create Adopt Form"
+      dialogTitle={`${strings.CREATE} ${strings.ADOPT}`}
       open={open}
       handleClose={handleClose}
       content={dialogContent}

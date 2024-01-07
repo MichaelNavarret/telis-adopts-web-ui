@@ -1,8 +1,10 @@
+import strings from "../../../l10n";
+
 const adminSettingsOptions = [
-  { label: "Adopts", value: 0 },
-  { label: "Species", value: 1 },
-  { label: "Traits", value: 2 },
-  { label: "Owners", value: 3 },
+  { label: strings.ADOPTS, value: 0 },
+  { label: strings.SPECIES, value: 1 },
+  { label: strings.TRAITS, value: 2 },
+  { label: strings.OWNERS, value: 3 },
 ];
 
 export default adminSettingsOptions;

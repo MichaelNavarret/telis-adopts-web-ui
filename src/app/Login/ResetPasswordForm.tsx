@@ -9,6 +9,7 @@ import { ChangePasswordRequest } from "../../types/login";
 import { useMutation } from "react-query";
 import { updatePasswordByLink } from "../../api/login";
 import { CustomizedSnackbarProps } from "../../types/commons";
+import strings from "../../l10n";
 
 type ResetPasswordFormProps = {
   handleStep: (val: number) => void;
@@ -45,7 +46,7 @@ export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
         handleStep(0);
         handleSnackBar({
           type: "success",
-          subTitle: "Password updated successfully!",
+          subTitle: strings.PASSWORD_UPDATED_SUCCESSFULLY,
         });
         navigate("/login");
       },
@@ -58,7 +59,7 @@ export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!isValid) {
-      setError2("Password does not meet the requirements!");
+      setError2(strings.PASSWORD_DOES_NOT_MEET_REQUIREMENTS);
       return;
     }
     if (
@@ -72,7 +73,7 @@ export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
       };
       passwordUpdateMutation(payload);
     } else {
-      setError("Passwords do not match!");
+      setError(strings.PASSWORD_NOT_MATCH);
     }
   };
 
@@ -85,7 +86,7 @@ export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
         >
           <TextField
             id="newPasswordResetPasswordForm"
-            label="Password"
+            label={strings.PASSWORD}
             type="password"
             className={styles.textField}
             required
@@ -95,7 +96,7 @@ export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
         </PasswordValidator>
         <TextField
           id="confirmNewPasswordResetPasswordForm"
-          label="ConfirmPassword"
+          label={strings.CONFIRM_PASSWORD}
           type="password"
           className={styles.textField}
           required
@@ -112,7 +113,7 @@ export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
         width="350px"
         marginTop="50px"
       >
-        <p>Reset Password</p>
+        <p>{strings.RESET_PASSWORD}</p>
       </Button>
     </form>
   );

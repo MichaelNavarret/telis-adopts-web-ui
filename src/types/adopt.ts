@@ -10,6 +10,7 @@ export type AdoptCreateRequest = {
   subTraits?: SubTraitCreateRequest[];
   specieId: string;
   creationType: CreationType;
+  notRegisteredOwner?: boolean;
 };
 
 // -------- Response --------

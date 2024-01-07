@@ -1,4 +1,5 @@
 import { InputLabel, MenuItem, Select } from "@mui/material";
+import { useTheme } from "../../context/ThemeProvider";
 
 export type DropdownComponentOption = {
   label: string;
@@ -23,6 +24,8 @@ const DropdownComponent = (props: DropdownComponentProps) => {
     label,
     required = false,
   } = props;
+  const { colors } = useTheme();
+
   return (
     <div style={{ width: "100%" }}>
       <InputLabel id={`${label}Label`}>{name}</InputLabel>
@@ -36,7 +39,16 @@ const DropdownComponent = (props: DropdownComponentProps) => {
       >
         {options.map((option, index) => {
           return (
-            <MenuItem key={option.value + "_" + index} value={option.value}>
+            <MenuItem
+              key={option.value + "_" + index}
+              value={option.value}
+              sx={{
+                //hover
+                "&:hover": {
+                  backgroundColor: colors.CTX_TABLE_ROW_HOVER_COLOR,
+                },
+              }}
+            >
               {option.label}
             </MenuItem>
           );
