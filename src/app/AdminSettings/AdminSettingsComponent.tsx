@@ -2,9 +2,9 @@ import MenuBar from "../../components/MenuBar/MenuBar";
 import styles from "./AdminSettingsComponent.module.scss";
 import { useState } from "react";
 import adminSettingsOptions from "./utils/MenuBarOptions";
-import SpeciesSection from "./SettingSections/SpeciesSection";
-import AdoptsSection from "./SettingSections/AdoptsSection";
-import TraitsSection from "./SettingSections/TraitsSection";
+import SpeciesSection from "./SettingSections/SpeciesSection/SpeciesSection";
+import AdoptsSection from "./SettingSections/AdoptsSection/AdoptsSection";
+import TraitsSection from "./SettingSections/TraitsSection/TraitsSection";
 
 const AdminSettingsComponent = () => {
   const [step, setStep] = useState<number>(0);

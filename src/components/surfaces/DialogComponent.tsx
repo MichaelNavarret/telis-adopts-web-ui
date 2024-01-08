@@ -19,6 +19,9 @@ type DialogComponentProps = {
   customDialog?: React.ReactNode;
   content?: React.ReactNode;
   primaryButton?: React.ReactNode;
+  fullScreen?: boolean;
+  height?: string;
+  width?: string;
 };
 
 const DialogComponent = (props: DialogComponentProps) => {
@@ -30,6 +33,9 @@ const DialogComponent = (props: DialogComponentProps) => {
     content,
     primaryButton,
     dialogTitle,
+    height,
+    width,
+    fullScreen = false,
   } = props;
 
   const { colors } = useTheme();
@@ -45,17 +51,25 @@ const DialogComponent = (props: DialogComponentProps) => {
       open={open}
       component={"div"}
       className={styles.dialogContainer}
+      fullScreen={fullScreen}
       PaperProps={{
         style: {
           backgroundColor: colors.CTX_FORM_CONTAINER_COLOR,
           borderRadius: "10px",
-          width: "500px",
-          height: "auto",
+          width: width ? width : fullScreen ? "" : "auto",
+          height: height ? height : fullScreen ? "" : "auto",
           padding: "20px",
         },
       }}
     >
-      <CloseRoundedIcon className={styles.crossIcon} onClick={handleClose} />
+      <CloseRoundedIcon
+        className={styles.crossIcon}
+        onClick={handleClose}
+        fontSize={fullScreen ? "large" : "medium"}
+        style={{
+          marginTop: fullScreen ? "30px" : "",
+        }}
+      />
       <DialogTitle align="center">
         {dialogTitle && (
           <TextComponent

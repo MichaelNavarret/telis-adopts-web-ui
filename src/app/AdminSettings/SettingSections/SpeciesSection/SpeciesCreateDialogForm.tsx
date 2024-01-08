@@ -1,7 +1,7 @@
 import { TextField } from "@mui/material";
 import { FormEvent, useState } from "react";
 import DialogComponent from "../../../../components/surfaces/DialogComponent";
-import styles from "./DialogForms.module.scss";
+import styles from "./SpeciesCreateDialogForm.module.scss";
 import { Button } from "../../../../components";
 import { useMutation, useQueryClient } from "react-query";
 import { createSpecie } from "../../../../api/species";

@@ -1,16 +1,15 @@
 import { FormEvent, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import styles from "./DialogForms.module.scss";
+import styles from "./TraitsCreateDialogForm.module.scss";
 import { TextField } from "@mui/material";
 import { Button } from "../../../../components";
 import { getSpeciesAutocomplete } from "../../../../api/species";
 import DialogComponent from "../../../../components/surfaces/DialogComponent";
 import { TraitCreateRequest } from "../../../../types/traits";
 import { createTrait } from "../../../../api/traits";
-import DropdownComponent from "../../../../components/Form/DropdownComponent";
 import { formatSpecieInfoForDropdown } from "../../../../tools/dropdown";
 import strings from "../../../../l10n";
-import MenuButton from "./components/MenuButton";
+import MenuButton from "../../../../components/surfaces/MenuButton";
 import { MenuButtonRarityOptions } from "../../utils/MenuButtonOptions";
 import AutocompleteComponent, {
   AutocompleteOption,
@@ -127,6 +126,8 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
       open={open}
       handleClose={handleClose}
       content={dialogContent}
+      width="500px"
+      height="400px"
     />
   );
 };

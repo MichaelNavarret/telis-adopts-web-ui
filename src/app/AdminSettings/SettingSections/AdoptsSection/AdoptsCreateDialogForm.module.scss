@@ -1,0 +1,69 @@
+.formMainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  .sectionsContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    flex-wrap: nowrap;
+    margin-bottom: 15rem;
+    .principalSectionContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+    }
+    .designerSectionContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      .designersContainer {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding: 10px;
+      }
+      .iconContainer {
+        display: flex;
+        flex-direction: row;
+        .addDesignerButton {
+          transition: all 0.3s ease;
+          &:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+          }
+          &:active {
+            transform: scale(0.9);
+          }
+        }
+        .deleteDesignerButton {
+          transition: all 0.3s ease;
+          &:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+          }
+          &:active {
+            transform: scale(0.9);
+          }
+        }
+      }
+    }
+  }
+  .textFieldForm {
+    margin-top: 5px;
+    width: 100%;
+  }
+  .ownersContainer {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+}

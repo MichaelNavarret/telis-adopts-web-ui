@@ -1,7 +1,7 @@
 import { useState } from "react";
-import CustomizedSnackbar from "../../../components/utils/CustomizeSnackBar";
-import TraitsTable from "./Tables/TraitsTable";
-import TraitsCreateDialogForm from "./DialogForms.tsx/TraitsCreateDialogForm";
+import CustomizedSnackbar from "../../../../components/utils/CustomizeSnackBar";
+import TraitsTable from "./TraitsTable";
+import TraitsCreateDialogForm from "./TraitsCreateDialogForm";
 
 const TraitsSection = () => {
   const [openDialog, setOpenDialog] = useState(false);
