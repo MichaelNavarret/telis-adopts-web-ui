@@ -1,3 +1,4 @@
+import { OwnerDesignerCreateRequest } from "./owner";
 import { SubTraitCreateRequest } from "./subTraits";
 
 export type CreationType = "PREMADE" | "CUSTOM" | "MYO" | "GUEST_ARTIST";
@@ -11,6 +12,7 @@ export type AdoptCreateRequest = {
   specieId: string;
   creationType: CreationType;
   notRegisteredOwner?: boolean;
+  designers: OwnerDesignerCreateRequest[];
 };
 
 // -------- Response --------

@@ -27,6 +27,8 @@ import strings from "../../../../l10n";
 import TextComponent from "../../../../components/TextComponents/TextComponent";
 import ControlPointRoundedIcon from "@mui/icons-material/ControlPointRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import { OwnerDesignerCreateRequest } from "../../../../types/owner";
+import { isDefined } from "../../../../tools/commons";
 
 type AdoptsCreateDialogFormProps = {
   open: boolean;
@@ -45,20 +47,20 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
   const [specie, setSpecie] = useState<AutocompleteOption | null>(null);
   const [creationType, setCreationType] = useState<CreationType>("PREMADE");
   const [designersFields, setDesignersFields] = useState<number>(1);
-  const [designersOption, setDesignersOption] = useState<number[]>([0, 0]);
+  const [designersOption, setDesignersOption] = useState<number[]>([0]);
   const [designers, setDesigners] = useState<AutocompleteOption[]>([]);
   const [designersNotRegistered, setDesignersNotRegistered] = useState<
     string[]
   >(["", ""]);
+  const availableDesignerSection =
+    creationType === "MYO" || creationType === "GUEST_ARTIST";
 
   useEffect(() => {
     clearStates();
     setOwnerOption(0);
     setDesignersFields(1);
-    setDesignersOption([0, 0]);
+    setDesignersOption([0]);
   }, [handleClose]);
-  const availableDesignerSection =
-    creationType === "MYO" || creationType === "GUEST_ARTIST";
 
   const { data: ownersResponse } = useQuery({
     queryKey: ["autocompleteOwners"],
@@ -95,13 +97,20 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
   };
 
   const handleDesignersOption = (value: number, index?: number) => {
-    if (index === 0) {
-      setDesignersOption([value, designersOption[1]]);
-    } else {
-      setDesignersOption([designersOption[0], value]);
+    if (isDefined(index)) {
+      const newDesignersOption = [...designersOption];
+      newDesignersOption[index] = value;
+      setDesignersOption(newDesignersOption);
+      if (value === 1) {
+        const newDesigners = [...designers];
+        newDesigners[index] = { label: " ", value: " " };
+        setDesigners(newDesigners);
+      } else if (value === 0) {
+        const newDesignersNotRegistered = [...designersNotRegistered];
+        newDesignersNotRegistered[index] = "";
+        setDesignersNotRegistered(newDesignersNotRegistered);
+      }
     }
-    setDesigners([]);
-    setDesignersNotRegistered(["", ""]);
   };
 
   const clearStates = () => {
@@ -124,13 +133,80 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
       specieId: specie ? specie.value : "",
       creationType: creationType,
       notRegisteredOwner: owner ? false : true,
+      designers: mergeDesigners(),
     };
     createAdoptMutation(payload);
   };
 
+  const mergeDesigners = () => {
+    const designersArray: OwnerDesignerCreateRequest[] = [];
+
+    designers.forEach((designer) => {
+      if (isDefined(designer) && designer.value !== " ") {
+        designersArray.push({
+          id: designer.value,
+          notRegisteredDesigner: false,
+        });
+      }
+    });
+
+    designersNotRegistered.forEach((designer) => {
+      if (isDefined(designer) && designer !== "") {
+        designersArray.push({
+          id: designer,
+          notRegisteredDesigner: true,
+        });
+      }
+    });
+    return designersArray;
+  };
+
+  const handleChangeNotRegisteredDesigners = (value: string, index: number) => {
+    const newDesignersNotRegistered = [...designersNotRegistered];
+    newDesignersNotRegistered[index] = value;
+    setDesignersNotRegistered(newDesignersNotRegistered);
+  };
+
+  const handleChangeDesigners = (value: AutocompleteOption, index: number) => {
+    const newDesigners = [...designers];
+    newDesigners[index] = value;
+    setDesigners(newDesigners);
+  };
+
+  const addDesignerField = () => {
+    setDesignersFields(designersFields + 1);
+    const newDesignersOption = [...designersOption];
+    newDesignersOption.push(0);
+    setDesignersOption(newDesignersOption);
+  };
+
+  const deleteDesignerField = (index: number) => {
+    const newDesignersOption = [...designersOption];
+    const option = newDesignersOption[index];
+    newDesignersOption.splice(index, 1);
+    setDesignersOption(newDesignersOption);
+    if (option === 0) {
+      const newDesigners = [...designers];
+      newDesigners.splice(index, 1);
+      setDesigners(newDesigners);
+    } else {
+      const newDesignersNotRegistered = [...designersNotRegistered];
+      newDesignersNotRegistered.splice(index, 1);
+      setDesignersNotRegistered(newDesignersNotRegistered);
+    }
+    setDesignersFields(designersFields - 1);
+  };
+
   const dialogContent = (
-    <form onSubmit={onSubmit} className={styles.formMainContainer}>
+    <form
+      onSubmit={onSubmit}
+      className={styles.formMainContainer}
+      autoComplete="off"
+    >
       <div className={styles.sectionsContainer}>
+        {/* ------------------------------------------------------------------------------------------- */}
+        {/*--------------------------------------PRINCIPAL SECTION--------------------------------------*/}
+        {/* ------------------------------------------------------------------------------------------- */}
         <div className={styles.principalSectionContainer}>
           <TextComponent
             content={"Principal Information"}
@@ -193,65 +269,21 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
             options={CREATION_TYPE}
           />
         </div>
-
+        {/* ------------------------------------------------------------------------------------------- */}
+        {/*--------------------------------------DESIGNERS SECTION--------------------------------------*/}
+        {/* ------------------------------------------------------------------------------------------- */}
         <div
           className={styles.designerSectionContainer}
           style={{
             filter: !availableDesignerSection ? "grayscale(100%)" : "none",
           }}
         >
-          <TextComponent
-            content={"Designers Information"}
-            animation={false}
-            hover={false}
-          />
-          {Array.from(Array(designersFields).keys()).map((index) => (
-            <div
-              key={`designer${index}`}
-              className={styles.designersContainer}
-              style={{
-                border: `1px dashed ${colors.CTX_MENUBAR_COLOR}`,
-                borderRadius: "5px",
-              }}
-            >
-              <MenuButton
-                key={`designer_menuButton${index}`}
-                options={MenuButtonDesignersOptions}
-                handleClick={handleDesignersOption}
-                externalIndex={index}
-                disabled={!availableDesignerSection}
-              />
-              {designersOption[index] !== 1 ? (
-                <AutocompleteComponent
-                  key={`owner_autocomplete${ownerOption}`}
-                  label={"Designer " + (index + 1)}
-                  options={formatOwnerInfoForDropdown(ownersResponse)}
-                  handleChange={(value: AutocompleteOption) =>
-                    setDesigners([...designers, value])
-                  }
-                  disabled={!availableDesignerSection}
-                />
-              ) : (
-                <TextField
-                  style={{ marginTop: "10px", width: "100%" }}
-                  key={`owner_texField${ownerOption}`}
-                  id="owner"
-                  label={"Designer " + (index + 1)}
-                  type="text"
-                  value={designersNotRegistered[index]}
-                  onChange={(e) =>
-                    setDesignersNotRegistered([
-                      ...designersNotRegistered,
-                      e.target.value,
-                    ])
-                  }
-                  disabled={!availableDesignerSection}
-                  required
-                />
-              )}
-            </div>
-          ))}
-          <div className={styles.iconContainer}>
+          <div className={styles.sectionTitleContainer}>
+            <TextComponent
+              content={"Designers Information"}
+              animation={false}
+              hover={false}
+            />
             <ControlPointRoundedIcon
               fontSize="large"
               style={{
@@ -272,32 +304,79 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
               onClick={() =>
                 availableDesignerSection &&
                 designersFields !== 2 &&
-                setDesignersFields(designersFields + 1)
+                addDesignerField()
               }
             />
-            <DeleteForeverRoundedIcon
-              fontSize="large"
-              className={
-                availableDesignerSection && designersFields !== 1
-                  ? styles.deleteDesignerButton
-                  : ""
-              }
-              style={{
-                color:
-                  availableDesignerSection && designersFields !== 1
-                    ? colors.CTX_BUTTON_SHADOW_COLOR_2
-                    : "grey",
-                cursor:
-                  availableDesignerSection && designersFields !== 1
-                    ? "pointer"
-                    : "not-allowed",
-              }}
-              onClick={() =>
-                availableDesignerSection &&
-                designersFields !== 1 &&
-                setDesignersFields(designersFields - 1)
-              }
-            />
+          </div>
+          <div className={styles.designersContainer}>
+            {Array.from(Array(designersFields).keys()).map((index) => (
+              <div
+                key={`designer_container${index}`}
+                className={styles.designerContainer}
+                style={{
+                  border: `1px dashed ${colors.CTX_MENUBAR_COLOR}`,
+                  borderRadius: "5px",
+                }}
+              >
+                <MenuButton
+                  key={`designer_menuButton${index}`}
+                  options={MenuButtonDesignersOptions}
+                  handleClick={handleDesignersOption}
+                  externalIndex={index}
+                  disabled={!availableDesignerSection}
+                />
+                {designersOption[index] !== 1 ? (
+                  <AutocompleteComponent
+                    key={`owner_autocomplete${ownerOption}`}
+                    label={"Designer " + (index + 1)}
+                    options={formatOwnerInfoForDropdown(ownersResponse)}
+                    handleChange={(value: AutocompleteOption) =>
+                      handleChangeDesigners(value, index)
+                    }
+                    disabled={!availableDesignerSection}
+                  />
+                ) : (
+                  <TextField
+                    style={{ marginTop: "10px", width: "100%" }}
+                    key={`owner_texField${ownerOption}`}
+                    id="owner"
+                    label={"Designer " + (index + 1)}
+                    type="text"
+                    value={designersNotRegistered[index]}
+                    onChange={(e) =>
+                      handleChangeNotRegisteredDesigners(e.target.value, index)
+                    }
+                    disabled={!availableDesignerSection}
+                    required
+                  />
+                )}
+                <div className={styles.iconContainer}>
+                  <DeleteForeverRoundedIcon
+                    fontSize="large"
+                    className={
+                      availableDesignerSection && designersFields !== 1
+                        ? styles.deleteDesignerButton
+                        : ""
+                    }
+                    style={{
+                      color:
+                        availableDesignerSection && designersFields !== 1
+                          ? colors.CTX_BUTTON_SHADOW_COLOR_2
+                          : "grey",
+                      cursor:
+                        availableDesignerSection && designersFields !== 1
+                          ? "pointer"
+                          : "not-allowed",
+                    }}
+                    onClick={() =>
+                      availableDesignerSection &&
+                      designersFields !== 1 &&
+                      deleteDesignerField(index)
+                    }
+                  />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
