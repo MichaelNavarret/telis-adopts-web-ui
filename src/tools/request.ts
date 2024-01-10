@@ -1,11 +1,10 @@
 import axios from "axios";
 import { getCurrentToken, isDefined } from "./commons";
 
-//const API_URL = "https://telis-adopts-web-api.fly.dev/";
-const API_URL = "http://localhost:4000/";
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const request = axios.create({
-  baseURL: API_URL,
+  baseURL: API_KEY,
   timeout: 30000,
 });
 

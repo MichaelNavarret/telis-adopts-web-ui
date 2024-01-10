@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { MAIN_TEXT_COLOR, MAIN_TITLE_TEXT_COLOR } from "../../constants/colors";
 import styles from "./TextComponent.module.scss";
 import { useTheme } from "../../context/ThemeProvider";
 
