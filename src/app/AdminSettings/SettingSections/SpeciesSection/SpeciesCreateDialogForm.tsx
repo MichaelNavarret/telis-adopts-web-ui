@@ -1,20 +1,20 @@
 import { TextField } from "@mui/material";
 import { FormEvent, useState } from "react";
 import DialogComponent from "../../../../components/surfaces/DialogComponent";
-import styles from "./DialogForms.module.scss";
+import styles from "./SpeciesCreateDialogForm.module.scss";
 import { Button } from "../../../../components";
 import { useMutation, useQueryClient } from "react-query";
 import { createSpecie } from "../../../../api/species";
 import strings from "../../../../l10n";
+import { successToast } from "../../../../constants/toasts";
 
 type SpecieCreateDialogFormProps = {
   open: boolean;
   handleClose: () => void;
-  handleChangeSnackBar: (message: string) => void;
 };
 
 const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
-  const { open, handleClose, handleChangeSnackBar } = props;
+  const { open, handleClose } = props;
   const [specieName, setSpecieName] = useState("");
   const queryClient = useQueryClient();
 
@@ -23,7 +23,7 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
       return createSpecie(data);
     },
     onSuccess: () => {
-      handleChangeSnackBar(strings.SPECIE_CREATED_SUCCESSFULLY);
+      successToast(strings.SPECIE_CREATED_SUCCESSFULLY);
       queryClient.invalidateQueries("species");
       queryClient.invalidateQueries("autocompleteSpecies");
       clearStates();

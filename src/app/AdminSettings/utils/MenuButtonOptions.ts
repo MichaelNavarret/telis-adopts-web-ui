@@ -18,6 +18,17 @@ export const MenuButtonOwnerOptions = [
   },
 ];
 
+export const MenuButtonDesignersOptions = [
+  {
+    label: strings.REGISTERED,
+    value: 0,
+  },
+  {
+    label: strings.NOT_REGISTERED,
+    value: 1,
+  },
+];
+
 export const MenuButtonRarityOptions = [
   {
     label: strings.COMMON,

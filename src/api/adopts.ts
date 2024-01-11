@@ -1,3 +1,4 @@
+import { getPaginationHeaders } from "../tools/headers";
 import request from "../tools/request";
 import {
   AdoptCollectionResponse,
@@ -12,9 +13,11 @@ export const createAdopt = async (payload: AdoptCreateRequest) => {
   return data;
 };
 
-export const getAdopts = async () => {
+export const getAdopts = async (pageNumber: number = 0) => {
   const data = await request
-    .get<AdoptCollectionResponse>("/adopts")
+    .get<AdoptCollectionResponse>("/adopts", {
+      headers: getPaginationHeaders(pageNumber),
+    })
     .then((res) => {
       return {
         headers: res.headers,

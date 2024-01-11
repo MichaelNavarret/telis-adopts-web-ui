@@ -11,6 +11,17 @@ import styles from "./TableComponent.module.scss";
 import { Button } from "..";
 import { useTheme } from "../../context/ThemeProvider";
 import TableRowComponent from "./TableRowComponent";
+import { useState } from "react";
+
+export const useDataTable = () => {
+  const [currentPage, setCurrentPage] = useState(0);
+
+  return {
+    state: { currentPage, setCurrentPage },
+  };
+};
+
+type HookDataTable = ReturnType<typeof useDataTable>["state"];
 
 export type ColumnsTable = {
   value: string;
@@ -26,6 +37,7 @@ type TableComponentProps = {
   primaryButtonLabel?: string;
   handlePrimaryButton?: () => void;
   totalPages?: number;
+  state: HookDataTable;
 };
 
 export const TableComponent = (props: TableComponentProps) => {
@@ -40,10 +52,15 @@ export const TableComponent = (props: TableComponentProps) => {
     primaryButtonLabel = "",
     handlePrimaryButton,
     totalPages = 1,
+    state,
   } = props;
 
   const NotFoundData = () => {
     return <div className={styles.notFoundData}>Data Not Found</div>;
+  };
+
+  const handlePagination = (pageNumber: number) => {
+    state.setCurrentPage(pageNumber - 1);
   };
 
   return (
@@ -99,6 +116,7 @@ export const TableComponent = (props: TableComponentProps) => {
       </TableContainer>
       <Pagination
         className={styles.pagination}
+        page={state.currentPage + 1}
         sx={{
           "& .MuiPaginationItem-root": {
             color: "black",
@@ -108,6 +126,7 @@ export const TableComponent = (props: TableComponentProps) => {
           },
         }}
         count={Number(totalPages)}
+        onChange={(_e, value) => handlePagination(value)}
         variant="outlined"
       />
     </div>

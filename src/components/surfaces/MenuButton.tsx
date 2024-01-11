@@ -5,13 +5,21 @@ import { Tooltip } from "@mui/material";
 
 type MenuButtonProps = {
   options: { label: string; value: number; tooltip?: string }[];
-  handleClick: (value: number) => void;
+  handleClick: (value: number, index?: number) => void;
   handleMultipleSelected?: (value: number) => void;
   selectMultiple?: boolean;
+  externalIndex?: number;
+  disabled?: boolean;
 };
 
 const MenuButton = (props: MenuButtonProps) => {
-  const { options, handleClick, selectMultiple = false } = props;
+  const {
+    options,
+    handleClick,
+    selectMultiple = false,
+    externalIndex = 0,
+    disabled = false,
+  } = props;
   const [selected, setSelected] = useState<number>(0);
   const [multipleSelected, setMultipleSelected] = useState<number[]>([]);
 
@@ -32,23 +40,34 @@ const MenuButton = (props: MenuButtonProps) => {
   };
 
   return (
-    <div className={styles.menuButtonContainer}>
+    <div className={styles.menuButtonContainer} key={externalIndex}>
       {options.map((option, index) => {
         return (
-          <Tooltip key={index} title={option.tooltip} arrow placement="top">
+          <Tooltip
+            key={index + externalIndex}
+            title={option.tooltip}
+            arrow
+            placement="top"
+          >
             <div>
               <ItemButton
-                key={option + "_" + index}
+                key={option + "_" + index + externalIndex}
                 content={option}
                 selected={
                   selectMultiple
                     ? isSelected(option.value)
                     : option.value == selected
                 }
-                handleClick={handleClick}
+                handleClick={!disabled ? handleClick : () => {}}
+                index={externalIndex}
                 handleSelected={
-                  selectMultiple ? handleMultipleSelected : handleSelected
+                  !disabled
+                    ? selectMultiple
+                      ? handleMultipleSelected
+                      : handleSelected
+                    : () => {}
                 }
+                disabled={disabled}
               />
             </div>
           </Tooltip>

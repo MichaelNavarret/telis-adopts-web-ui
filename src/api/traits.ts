@@ -1,3 +1,4 @@
+import { getPaginationHeaders } from "../tools/headers";
 import request from "../tools/request";
 import {
   TraitCollectionResponse,
@@ -5,9 +6,11 @@ import {
   TraitSingletonResponse,
 } from "../types/traits";
 
-export const getTraits = async () => {
+export const getTraits = async (pageNumber: number = 0) => {
   const data = await request
-    .get<TraitCollectionResponse>("/traits")
+    .get<TraitCollectionResponse>("/traits", {
+      headers: getPaginationHeaders(pageNumber),
+    })
     .then((res) => {
       return {
         headers: res.headers,

@@ -17,3 +17,8 @@ export type OwnerRequest = {
 export type OwnerCollectionResponse = {
   ownerInfoList: OwnerInfo[];
 };
+
+export type OwnerDesignerCreateRequest = {
+  id: string;
+  notRegisteredDesigner: boolean;
+};

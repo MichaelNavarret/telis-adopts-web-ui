@@ -1,29 +1,28 @@
 import { FormEvent, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import styles from "./DialogForms.module.scss";
+import styles from "./TraitsCreateDialogForm.module.scss";
 import { TextField } from "@mui/material";
 import { Button } from "../../../../components";
 import { getSpeciesAutocomplete } from "../../../../api/species";
 import DialogComponent from "../../../../components/surfaces/DialogComponent";
 import { TraitCreateRequest } from "../../../../types/traits";
 import { createTrait } from "../../../../api/traits";
-import DropdownComponent from "../../../../components/Form/DropdownComponent";
 import { formatSpecieInfoForDropdown } from "../../../../tools/dropdown";
 import strings from "../../../../l10n";
-import MenuButton from "./components/MenuButton";
+import MenuButton from "../../../../components/surfaces/MenuButton";
 import { MenuButtonRarityOptions } from "../../utils/MenuButtonOptions";
 import AutocompleteComponent, {
   AutocompleteOption,
 } from "../../../../components/Form/AutocompleteComponent";
+import { errorToast, successToast } from "../../../../constants/toasts";
 
 type TraitsCreateDialogFormProps = {
   open: boolean;
   handleClose: () => void;
-  handleChangeSnackBar: (message: string) => void;
 };
 
 const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
-  const { open, handleClose, handleChangeSnackBar } = props;
+  const { open, handleClose } = props;
   const [specie, setSpecie] = useState<AutocompleteOption | null>(null);
   const [multipleStep, setMultipleStep] = useState<number[]>([]);
   const [trait, setTrait] = useState<string>("");
@@ -42,7 +41,7 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries("traits");
-      handleChangeSnackBar(strings.TRAIT_CREATE_SUCCESSFULLY);
+      successToast(strings.TRAIT_CREATE_SUCCESSFULLY);
       clearStates();
       handleClose();
     },
@@ -56,6 +55,7 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
+    if (!validateMultipleStep()) return;
     const payload: TraitCreateRequest = {
       specieId: specie?.value || "",
       trait: trait,
@@ -80,6 +80,14 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
     createTraitMutation(payload);
   };
 
+  const validateMultipleStep = () => {
+    if (multipleStep.length === 0) {
+      errorToast(strings.SELECT_AT_LEAST_ONE_RARITY);
+      return false;
+    }
+    return true;
+  };
+
   const handleMultipleStep = (value: number) => {
     if (multipleStep.includes(value)) {
       setMultipleStep((prev) => prev.filter((item) => item !== value));
@@ -98,6 +106,7 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
         label={strings.SPECIE}
         options={formatSpecieInfoForDropdown(speciesOptions)}
         handleChange={(value: AutocompleteOption) => setSpecie(value)}
+        required
       />
       <MenuButton
         options={MenuButtonRarityOptions}
@@ -127,6 +136,8 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
       open={open}
       handleClose={handleClose}
       content={dialogContent}
+      width="500px"
+      height="400px"
     />
   );
 };

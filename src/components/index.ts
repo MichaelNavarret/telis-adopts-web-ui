@@ -1,4 +1,3 @@
-import Toast, { ToastContainer } from "./fc_components/Toast";
 import TypoGraph from "./fc_components/TypoGraph";
 import Container from "./fc_components/Container";
 import PasswordValidator from "./utils/PasswordValidator";
@@ -10,8 +9,6 @@ export {
   PasswordValidator,
   TypoGraph,
   Container,
-  ToastContainer,
-  Toast,
   NetworkBubble,
   Button,
   SocialNetworksMenu,

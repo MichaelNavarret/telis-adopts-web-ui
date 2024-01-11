@@ -13,19 +13,3 @@ export const commonEn = {
   ADD: "Add",
   SETTINGS: "Settings",
 };
-
-export const commonEs: typeof commonEn = {
-  SOMETHING_WENT_WRONG: "Algo salió mal",
-  NOT: "No",
-  REGISTERED: "Registrado",
-  NOT_REGISTERED: "No registrado",
-  CODE: "Código",
-  NAME: "Nombre",
-  CREATE: "Crear",
-  PREMADE: "Premade",
-  CUSTOM: "Custom",
-  MYO: "MYO",
-  GUEST_ARTIST: "Guest Artist",
-  ADD: "Agregar",
-  SETTINGS: "Configuración",
-};

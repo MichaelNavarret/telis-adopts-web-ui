@@ -15,10 +15,24 @@
     border: none;
     height: 10px;
     &:hover {
+      cursor: pointer;
       transform: scaleX(1.1) scaleY(1.1);
     }
     &:active {
       transform: scaleX(0.9) scaleY(0.9);
+    }
+  }
+  .itemButtonDisabled {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    transition: all 0.2s ease-in-out;
+    border: none;
+    height: 10px;
+    &:hover {
+      cursor: not-allowed;
     }
   }
 }

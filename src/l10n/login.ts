@@ -19,25 +19,3 @@ export const loginEn = {
   RECOVER_PASSWORD: "Recover Password",
   LOGIN_SUCCESSFULLY: "Login successfully",
 };
-
-export const loginEs: typeof loginEn = {
-  LOGIN: "Iniciar sesión",
-  EMAIL_ADDRESS: "Dirección de correo electrónico",
-  PASSWORD: "Contraseña",
-  CONFIRM_PASSWORD: "Confirmar contraseña",
-  FORGOT_PASSWORD_QUESTION: "¿Olvidaste tu contraseña?",
-  OTP_SEND_MESSAGE:
-    "Se le ha enviado un código único por correo electrónico. Revisa tu bandeja de entrada.",
-  OTP_RESEND_SUCCESSFULLY: "OTP reenviado con éxito",
-  RESEND_CODE: "Reenviar código",
-  BACK_TO_LOGIN: "Volver al inicio de sesión",
-  PASSWORD_UPDATED_SUCCESSFULLY: "Contraseña actualizada correctamente",
-  PASSWORD_DOES_NOT_MEET_REQUIREMENTS:
-    "¡La contraseña no cumple con los requisitos!",
-  PASSWORD_NOT_MATCH: "¡La contraseña no coincide!",
-  RESET_PASSWORD: "Restablecer la contraseña",
-  CHECK_EMAIL_FOR_RESET_PASSWORD_LINK:
-    "¡Revisa tu correo electrónico para el enlace de restablecimiento de contraseña!",
-  RECOVER_PASSWORD: "Recuperar contraseña",
-  LOGIN_SUCCESSFULLY: "¡Sesión iniciada correctamente!",
-};

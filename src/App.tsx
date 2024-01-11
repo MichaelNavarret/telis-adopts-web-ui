@@ -1,18 +1,16 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import MainContainer from "./app/EntryPoint/MainContainer";
 import { UserSessionProvider } from "./context/UserSession/UserSessionProvider";
 import { QueryClient, QueryClientProvider, useQueryClient } from "react-query";
-import CustomizedSnackbar from "./components/utils/CustomizeSnackBar";
 import useUserSession from "./hooks/useUserSession";
 import { RouteProps } from "react-router-dom";
 import ErrorBoundary from "./ErrorBoundary";
 import { ThemeProvider } from "./context/ThemeProvider";
 import strings from "./l10n";
+import { Toaster } from "react-hot-toast";
+import { errorToast } from "./constants/toasts";
 
 const App: React.FunctionComponent<RouteProps> = () => {
-  const [showSnackBars, setShowSnackBars] = useState(false);
-  const [snackMessage, setSnackMessage] = useState<string>("");
-
   const queryClient = new QueryClient({});
 
   function isError(_args: unknown): _args is unknown {
@@ -25,15 +23,10 @@ const App: React.FunctionComponent<RouteProps> = () => {
     return message ?? def;
   }
 
-  function setSnackBar(error: unknown) {
-    setSnackMessage(errorMsg(error));
-    setShowSnackBars(true);
-  }
-
   function onErrorHandler(error: unknown) {
     console.log("onErrorHandler");
     if (isError(error)) {
-      setSnackBar(error);
+      errorToast(errorMsg(error));
       return Promise.reject(error);
     }
     return error;
@@ -49,7 +42,6 @@ const App: React.FunctionComponent<RouteProps> = () => {
         if (isError(error)) {
           if ((error as any).response?.status === 401) {
             logout();
-            setSnackBar(error);
             return false;
           } else if ((error as any).response?.status === 403) {
             return false;
@@ -77,6 +69,7 @@ const App: React.FunctionComponent<RouteProps> = () => {
 
   return (
     <ErrorBoundary>
+      <Toaster />
       <ThemeProvider>
         <UserSessionProvider>
           <QueryClientProvider client={queryClient}>
@@ -84,12 +77,6 @@ const App: React.FunctionComponent<RouteProps> = () => {
             <QueryConfig />
           </QueryClientProvider>
         </UserSessionProvider>
-        <CustomizedSnackbar
-          type="error"
-          subTitle={snackMessage}
-          open={showSnackBars}
-          handleClose={() => setShowSnackBars(false)}
-        />
       </ThemeProvider>
     </ErrorBoundary>
   );

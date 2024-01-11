@@ -4,6 +4,7 @@
   flex-direction: row;
   .menuBarContainer {
     flex-basis: 20%;
+    z-index: 1000;
   }
   .settingsContent {
     flex-basis: 80%;

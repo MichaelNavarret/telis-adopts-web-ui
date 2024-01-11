@@ -1,6 +1,8 @@
 import { useQuery } from "react-query";
 import { getTraits } from "../../../../api/traits";
-import TableComponent from "../../../../components/Table/TableComponent";
+import TableComponent, {
+  useDataTable,
+} from "../../../../components/Table/TableComponent";
 import { traitsTableColumns } from "../../../../constants/TablesColumns";
 import strings from "../../../../l10n";
 import { formatTraitTableRows } from "./traitsTableFormat";
@@ -11,11 +13,12 @@ type TraitsTableProps = {
 
 const TraitsTable = (props: TraitsTableProps) => {
   const { handleOpen } = props;
+  const { state } = useDataTable();
 
   const { data: traitList } = useQuery({
     queryKey: ["traits"],
     queryFn: () => {
-      return getTraits();
+      return getTraits(state.currentPage);
     },
   });
 
@@ -31,6 +34,7 @@ const TraitsTable = (props: TraitsTableProps) => {
         primaryButtonLabel={`${strings.ADD} ${strings.TRAIT}`}
         handlePrimaryButton={handleOpen}
         totalPages={totalPages}
+        state={state}
       />
     </>
   );
