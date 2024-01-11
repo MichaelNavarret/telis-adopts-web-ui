@@ -1,10 +1,10 @@
 import LocalizedStrings from "react-localization";
-import { commonEn, commonEs } from "./commons";
-import { loginEn, loginEs } from "./login";
-import { ownerEn, ownerEs } from "./owner";
-import { adoptEn, adoptEs } from "./adopt";
-import { specieEn, specieEs } from "./specie";
-import { traitEn, traitEs } from "./trait";
+import { commonEn } from "./commons";
+import { loginEn } from "./login";
+import { ownerEn } from "./owner";
+import { adoptEn } from "./adopt";
+import { specieEn } from "./specie";
+import { traitEn } from "./trait";
 
 let stringObject = {
   en: {
@@ -14,15 +14,6 @@ let stringObject = {
     ...adoptEn,
     ...specieEn,
     ...traitEn,
-  },
-
-  es: {
-    ...commonEs,
-    ...loginEs,
-    ...ownerEs,
-    ...adoptEs,
-    ...specieEs,
-    ...traitEs,
   },
 };
 

@@ -14,15 +14,15 @@ import { MenuButtonRarityOptions } from "../../utils/MenuButtonOptions";
 import AutocompleteComponent, {
   AutocompleteOption,
 } from "../../../../components/Form/AutocompleteComponent";
+import { errorToast, successToast } from "../../../../constants/toasts";
 
 type TraitsCreateDialogFormProps = {
   open: boolean;
   handleClose: () => void;
-  handleChangeSnackBar: (message: string) => void;
 };
 
 const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
-  const { open, handleClose, handleChangeSnackBar } = props;
+  const { open, handleClose } = props;
   const [specie, setSpecie] = useState<AutocompleteOption | null>(null);
   const [multipleStep, setMultipleStep] = useState<number[]>([]);
   const [trait, setTrait] = useState<string>("");
@@ -41,7 +41,7 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries("traits");
-      handleChangeSnackBar(strings.TRAIT_CREATE_SUCCESSFULLY);
+      successToast(strings.TRAIT_CREATE_SUCCESSFULLY);
       clearStates();
       handleClose();
     },
@@ -55,6 +55,7 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
+    if (!validateMultipleStep()) return;
     const payload: TraitCreateRequest = {
       specieId: specie?.value || "",
       trait: trait,
@@ -79,6 +80,14 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
     createTraitMutation(payload);
   };
 
+  const validateMultipleStep = () => {
+    if (multipleStep.length === 0) {
+      errorToast(strings.SELECT_AT_LEAST_ONE_RARITY);
+      return false;
+    }
+    return true;
+  };
+
   const handleMultipleStep = (value: number) => {
     if (multipleStep.includes(value)) {
       setMultipleStep((prev) => prev.filter((item) => item !== value));
@@ -97,6 +106,7 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
         label={strings.SPECIE}
         options={formatSpecieInfoForDropdown(speciesOptions)}
         handleChange={(value: AutocompleteOption) => setSpecie(value)}
+        required
       />
       <MenuButton
         options={MenuButtonRarityOptions}

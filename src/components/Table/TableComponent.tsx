@@ -11,6 +11,23 @@ import styles from "./TableComponent.module.scss";
 import { Button } from "..";
 import { useTheme } from "../../context/ThemeProvider";
 import TableRowComponent from "./TableRowComponent";
+import { useSearchParams } from "react-router-dom";
+
+export const useDataTable = () => {
+  const [searchParams] = useSearchParams();
+
+  const currentPage = Number(searchParams.get("p")) || 0;
+
+  const setCurrentPage = (value: any) => {
+    searchParams.set("p", value);
+  };
+
+  return {
+    state: { currentPage, setCurrentPage },
+  };
+};
+
+type HookDataTable = ReturnType<typeof useDataTable>["state"];
 
 export type ColumnsTable = {
   value: string;
@@ -26,6 +43,7 @@ type TableComponentProps = {
   primaryButtonLabel?: string;
   handlePrimaryButton?: () => void;
   totalPages?: number;
+  state: HookDataTable;
 };
 
 export const TableComponent = (props: TableComponentProps) => {
@@ -40,10 +58,18 @@ export const TableComponent = (props: TableComponentProps) => {
     primaryButtonLabel = "",
     handlePrimaryButton,
     totalPages = 1,
+    state,
   } = props;
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const NotFoundData = () => {
     return <div className={styles.notFoundData}>Data Not Found</div>;
+  };
+
+  const handlePagination = (pageNumber: number) => {
+    console.log("Cambiando...");
+    searchParams.set("p", (pageNumber - 1).toString());
+    setSearchParams(searchParams);
   };
 
   return (
@@ -99,6 +125,7 @@ export const TableComponent = (props: TableComponentProps) => {
       </TableContainer>
       <Pagination
         className={styles.pagination}
+        page={state.currentPage + 1}
         sx={{
           "& .MuiPaginationItem-root": {
             color: "black",
@@ -108,6 +135,7 @@ export const TableComponent = (props: TableComponentProps) => {
           },
         }}
         count={Number(totalPages)}
+        onChange={(_e, value) => handlePagination(value)}
         variant="outlined"
       />
     </div>

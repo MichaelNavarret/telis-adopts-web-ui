@@ -1,6 +1,8 @@
 import { useQuery } from "react-query";
 import { getSpecies } from "../../../../api/species";
-import TableComponent from "../../../../components/Table/TableComponent";
+import TableComponent, {
+  useDataTable,
+} from "../../../../components/Table/TableComponent";
 import { speciesTableColumns } from "../../../../constants/TablesColumns";
 import strings from "../../../../l10n";
 
@@ -10,6 +12,8 @@ type SpeciesTableProps = {
 
 const SpeciesTable = (props: SpeciesTableProps) => {
   const { handleOpen } = props;
+  const { state } = useDataTable();
+
   const { data: speciesList } = useQuery({
     queryKey: ["species"],
     queryFn: () => {
@@ -28,6 +32,7 @@ const SpeciesTable = (props: SpeciesTableProps) => {
       primaryButtonLabel={`${strings.ADD} ${strings.SPECIE}`}
       handlePrimaryButton={handleOpen}
       totalPages={totalPages}
+      state={state}
     />
   );
 };

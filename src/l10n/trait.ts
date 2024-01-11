@@ -9,17 +9,5 @@ export const traitEn = {
   RARE: "Rare",
   EPIC: "Epic",
   TRAIT_CREATE_SUCCESSFULLY: "Trait created successfully",
-};
-
-export const traitEs: typeof traitEn = {
-  TRAIT: "Rasgo",
-  TRAITS: "Rasgos",
-  RARITY: "Rareza",
-  RARITIES: "Rarezas",
-  CHARACTERISTIC: "Característica",
-  COMMON: "Común",
-  UNCOMMON: "Poco común",
-  RARE: "Raro",
-  EPIC: "Épico",
-  TRAIT_CREATE_SUCCESSFULLY: "Rasgo creado exitosamente",
+  SELECT_AT_LEAST_ONE_RARITY: "Select at least one rarity",
 };

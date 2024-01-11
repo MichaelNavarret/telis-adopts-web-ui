@@ -29,15 +29,15 @@ import ControlPointRoundedIcon from "@mui/icons-material/ControlPointRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 import { OwnerDesignerCreateRequest } from "../../../../types/owner";
 import { isDefined } from "../../../../tools/commons";
+import { successToast } from "../../../../constants/toasts";
 
 type AdoptsCreateDialogFormProps = {
   open: boolean;
   handleClose: () => void;
-  handleChangeSnackBar: (message: string) => void;
 };
 
 const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
-  const { open, handleClose, handleChangeSnackBar } = props;
+  const { open, handleClose } = props;
   const [ownerOption, setOwnerOption] = useState<number>(0);
   const { colors } = useTheme();
   const queryClient = useQueryClient();
@@ -81,7 +81,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
       return createAdopt(data);
     },
     onSuccess: () => {
-      handleChangeSnackBar(strings.ADOPT_CREATE_SUCCESSFULLY);
+      successToast(strings.ADOPT_CREATE_SUCCESSFULLY);
       queryClient.invalidateQueries("adopts");
       queryClient.invalidateQueries("autocompleteOwners");
       clearStates();

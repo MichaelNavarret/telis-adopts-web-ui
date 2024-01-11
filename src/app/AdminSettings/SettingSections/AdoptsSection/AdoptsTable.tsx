@@ -1,8 +1,11 @@
 import { useQuery } from "react-query";
 import { getAdopts } from "../../../../api/adopts";
-import TableComponent from "../../../../components/Table/TableComponent";
+import TableComponent, {
+  useDataTable,
+} from "../../../../components/Table/TableComponent";
 import { adoptsTableColumns } from "../../../../constants/TablesColumns";
 import strings from "../../../../l10n";
+import { useState } from "react";
 
 type AdoptsTableProps = {
   handleOpen: () => void;
@@ -10,11 +13,12 @@ type AdoptsTableProps = {
 
 const AdoptsTable = (props: AdoptsTableProps) => {
   const { handleOpen } = props;
+  const { state } = useDataTable();
 
   const { data: adoptsResponse } = useQuery({
     queryKey: ["adopts"],
     queryFn: () => {
-      return getAdopts();
+      return getAdopts(state.currentPage);
     },
   });
 
@@ -29,6 +33,7 @@ const AdoptsTable = (props: AdoptsTableProps) => {
       primaryButtonLabel={`${strings.ADD} ${strings.ADOPT}`}
       handlePrimaryButton={handleOpen}
       totalPages={totalPages}
+      state={state}
     />
   );
 };
