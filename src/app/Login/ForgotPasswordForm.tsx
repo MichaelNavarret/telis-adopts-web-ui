@@ -5,16 +5,15 @@ import Button from "../../components/surfaces/Button";
 import { useMutation } from "react-query";
 import { OwnerRequest } from "../../types/owner";
 import { resetPasswordLink } from "../../api/login";
-import { CustomizedSnackbarProps } from "../../types/commons";
 import TextComponent from "../../components/TextComponents/TextComponent";
 import strings from "../../l10n";
+import { successToast } from "../../constants/toasts";
 
 type ResetPasswordFormProps = {
   handleStep: (val: number) => void;
-  handleSnackBar: (props: CustomizedSnackbarProps) => void;
 };
 export const ForgotPasswordForm = (props: ResetPasswordFormProps) => {
-  const { handleStep, handleSnackBar } = props;
+  const { handleStep } = props;
   const [email, setEmail] = useState("");
 
   const { mutate: resetPasswordLinkMutation, isLoading: resetPasswordLoading } =
@@ -23,10 +22,7 @@ export const ForgotPasswordForm = (props: ResetPasswordFormProps) => {
         return resetPasswordLink(data);
       },
       onSuccess: () => {
-        handleSnackBar({
-          type: "success",
-          subTitle: strings.CHECK_EMAIL_FOR_RESET_PASSWORD_LINK,
-        });
+        successToast(strings.CHECK_EMAIL_FOR_RESET_PASSWORD_LINK);
         handleStep(0);
       },
     });
@@ -49,6 +45,7 @@ export const ForgotPasswordForm = (props: ResetPasswordFormProps) => {
           className={styles.textField}
           required
           onChange={(e) => setEmail(e.target.value)}
+          disabled={resetPasswordLoading}
         />
         <TextComponent
           content={strings.BACK_TO_LOGIN}
@@ -60,6 +57,7 @@ export const ForgotPasswordForm = (props: ResetPasswordFormProps) => {
         marginTop="50px"
         disabled={resetPasswordLoading}
         loading={resetPasswordLoading}
+        catsLoading={resetPasswordLoading}
       >
         <p>{strings.RECOVER_PASSWORD}</p>
       </Button>

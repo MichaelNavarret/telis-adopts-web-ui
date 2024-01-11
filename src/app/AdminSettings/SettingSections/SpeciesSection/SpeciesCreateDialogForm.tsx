@@ -18,7 +18,7 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
   const [specieName, setSpecieName] = useState("");
   const queryClient = useQueryClient();
 
-  const { mutate: crateSpecieMutation } = useMutation({
+  const { mutate: crateSpecieMutation, isLoading } = useMutation({
     mutationFn: (data: SpecieCreateRequest) => {
       return createSpecie(data);
     },
@@ -52,12 +52,16 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
         type="text"
         onChange={(e) => setSpecieName(e.target.value)}
         required
+        disabled={isLoading}
       />
       <Button
         content={strings.CREATE}
         type="submit"
         width="150px"
         height="35px"
+        disabled={isLoading}
+        loading={isLoading}
+        catsLoading={isLoading}
       />
     </form>
   );

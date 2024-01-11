@@ -10,19 +10,18 @@ import { useMutation } from "react-query";
 import { resentOtp, verifyOtp } from "../../api/login";
 import { DEFAULT_PATH } from "../../routes";
 import { OwnerRequest } from "../../types/owner";
-import { CustomizedSnackbarProps } from "../../types/commons";
 import TextComponent from "../../components/TextComponents/TextComponent";
 import { MAIN_BUTTON_COLOR } from "../../constants/colors/mainColors";
 import strings from "../../l10n";
+import { successToast } from "../../constants/toasts";
 
 type MultiFactorAuthProps = {
   formValue: { email: string; password: string };
   handleStep: (value: number) => void;
-  handleSnackBar: (props: CustomizedSnackbarProps) => void;
 };
 
 const MultiFactorAuth = (props: MultiFactorAuthProps) => {
-  const { formValue, handleStep, handleSnackBar } = props;
+  const { formValue, handleStep } = props;
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   const { _setLoginToken } = useUserSession();
@@ -35,7 +34,7 @@ const MultiFactorAuth = (props: MultiFactorAuthProps) => {
       onSuccess: (data) => {
         _setLoginToken(data.token);
         localStorage.removeItem("telisWeb_firstToken");
-        localStorage.setItem("loginSuccess", "yes");
+        successToast(strings.LOGIN_SUCCESSFULLY);
         navigate(DEFAULT_PATH);
       },
     });
@@ -46,10 +45,7 @@ const MultiFactorAuth = (props: MultiFactorAuthProps) => {
         return resentOtp(payload);
       },
       onSuccess: () => {
-        handleSnackBar({
-          type: "success",
-          subTitle: strings.OTP_RESEND_SUCCESSFULLY,
-        });
+        successToast(strings.OTP_RESEND_SUCCESSFULLY);
       },
     });
 
@@ -88,6 +84,7 @@ const MultiFactorAuth = (props: MultiFactorAuthProps) => {
             onChange={setOtp}
             numInputs={6}
             inputStyle={styles.otpStyles}
+            isDisabled={isVerifyOtpLoading || isResendOtpLoading}
             separator={
               <AutoAwesomeIcon
                 className={styles.sparksIcon}
@@ -118,6 +115,7 @@ const MultiFactorAuth = (props: MultiFactorAuthProps) => {
       <Button
         disabled={otp?.length < 6 || isVerifyOtpLoading}
         loading={isVerifyOtpLoading}
+        catsLoading={isVerifyOtpLoading}
         onClick={handleOtpVerify}
         marginTop="50px"
       >

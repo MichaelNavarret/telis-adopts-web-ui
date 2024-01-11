@@ -3,6 +3,12 @@
     padding: 15px;
     display: flex;
     justify-content: space-between;
+    .titleContainer {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+    }
     .buttonsContainer {
       display: flex;
       flex-direction: row;

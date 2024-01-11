@@ -12,6 +12,7 @@ import { Button } from "..";
 import { useTheme } from "../../context/ThemeProvider";
 import TableRowComponent from "./TableRowComponent";
 import { useState } from "react";
+import CatsLoading from "../Loading/CatsLoading";
 
 export const useDataTable = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -38,6 +39,8 @@ type TableComponentProps = {
   handlePrimaryButton?: () => void;
   totalPages?: number;
   state: HookDataTable;
+  loading?: boolean;
+  fetching?: boolean;
 };
 
 export const TableComponent = (props: TableComponentProps) => {
@@ -53,6 +56,8 @@ export const TableComponent = (props: TableComponentProps) => {
     handlePrimaryButton,
     totalPages = 1,
     state,
+    loading = false,
+    fetching = false,
   } = props;
 
   const NotFoundData = () => {
@@ -63,12 +68,20 @@ export const TableComponent = (props: TableComponentProps) => {
     state.setCurrentPage(pageNumber - 1);
   };
 
+  const displayNoContent = () => {
+    if (loading) return <CatsLoading />;
+    if (!loading && data.length === 0) return <NotFoundData />;
+  };
+
   return (
     <div className={styles.mainContainer}>
       <div className={styles.headerContainer}>
-        {title && (
-          <h1 style={{ color: colors.CTX_TABLE_TITLE_COLOR }}>{title}</h1>
-        )}
+        <div className={styles.titleContainer}>
+          {title && (
+            <h1 style={{ color: colors.CTX_TABLE_TITLE_COLOR }}>{title}</h1>
+          )}
+          {fetching && <CatsLoading />}
+        </div>
         <div className={styles.buttonsContainer}>
           {primaryButton && (
             <Button
@@ -112,7 +125,7 @@ export const TableComponent = (props: TableComponentProps) => {
             })}
           </TableBody>
         </Table>
-        {data.length === 0 && <NotFoundData />}
+        {displayNoContent()}
       </TableContainer>
       <Pagination
         className={styles.pagination}

@@ -1,0 +1,9 @@
+.catsLoadingContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 50px;
+  .dotContainer {
+    margin-top: 10px;
+  }
+}

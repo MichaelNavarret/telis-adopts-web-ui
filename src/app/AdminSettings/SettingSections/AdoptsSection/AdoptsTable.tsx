@@ -14,7 +14,11 @@ const AdoptsTable = (props: AdoptsTableProps) => {
   const { handleOpen } = props;
   const { state } = useDataTable();
 
-  const { data: adoptsResponse } = useQuery({
+  const {
+    data: adoptsResponse,
+    isLoading,
+    isFetching,
+  } = useQuery({
     queryKey: ["adopts", state.currentPage],
     queryFn: () => {
       return getAdopts(state.currentPage);
@@ -33,6 +37,8 @@ const AdoptsTable = (props: AdoptsTableProps) => {
       handlePrimaryButton={handleOpen}
       totalPages={totalPages}
       state={state}
+      loading={isLoading}
+      fetching={isFetching}
     />
   );
 };

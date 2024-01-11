@@ -76,7 +76,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
     },
   });
 
-  const { mutate: createAdoptMutation } = useMutation({
+  const { mutate: createAdoptMutation, isLoading } = useMutation({
     mutationFn: (data: AdoptCreateRequest) => {
       return createAdopt(data);
     },
@@ -219,6 +219,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
             label={strings.ADOPT_NAME}
             type="text"
             onChange={(e) => setAdoptName(e.target.value)}
+            disabled={isLoading}
           />
 
           <div
@@ -238,7 +239,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                 label={strings.OWNER}
                 options={formatOwnerInfoForDropdown(ownersResponse)}
                 handleChange={(value: AutocompleteOption) => setOwner(value)}
-                disabled={ownerOption === 0}
+                disabled={ownerOption === 0 || isLoading}
                 required={ownerOption === 1}
               />
             ) : (
@@ -251,6 +252,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                 value={notRegisteredOwner}
                 onChange={(e) => setNotRegisteredOwner(e.target.value)}
                 required
+                disabled={isLoading}
               />
             )}
           </div>
@@ -260,6 +262,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
             options={formatSpecieInfoForDropdown(speciesOptions)}
             handleChange={(value: AutocompleteOption) => setSpecie(value)}
             required
+            disabled={isLoading}
           />
 
           <DropdownComponent
@@ -268,6 +271,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
             value={creationType}
             handleChange={(e) => setCreationType(e.target.value)}
             options={CREATION_TYPE}
+            disabled={isLoading}
           />
         </div>
         {/* ------------------------------------------------------------------------------------------- */}
@@ -289,22 +293,27 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
               fontSize="large"
               style={{
                 color:
-                  availableDesignerSection && designersFields !== 2
+                  availableDesignerSection &&
+                  designersFields !== 2 &&
+                  !isLoading
                     ? colors.CTX_BUTTON_SHADOW_COLOR_2
                     : "grey",
                 cursor:
-                  availableDesignerSection && designersFields !== 2
+                  availableDesignerSection &&
+                  designersFields !== 2 &&
+                  !isLoading
                     ? "pointer"
                     : "not-allowed",
               }}
               className={
-                availableDesignerSection && designersFields !== 2
+                availableDesignerSection && designersFields !== 2 && !isLoading
                   ? styles.addDesignerButton
                   : ""
               }
               onClick={() =>
                 availableDesignerSection &&
                 designersFields !== 2 &&
+                !isLoading &&
                 addDesignerField()
               }
             />
@@ -324,7 +333,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                   options={MenuButtonDesignersOptions}
                   handleClick={handleDesignersOption}
                   externalIndex={index}
-                  disabled={!availableDesignerSection}
+                  disabled={!availableDesignerSection || isLoading}
                 />
                 {designersOption[index] !== 1 ? (
                   <AutocompleteComponent
@@ -334,7 +343,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                     handleChange={(value: AutocompleteOption) =>
                       handleChangeDesigners(value, index)
                     }
-                    disabled={!availableDesignerSection}
+                    disabled={!availableDesignerSection || isLoading}
                     required={
                       designersOption[index] === 0 && availableDesignerSection
                     }
@@ -350,7 +359,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                     onChange={(e) =>
                       handleChangeNotRegisteredDesigners(e.target.value, index)
                     }
-                    disabled={!availableDesignerSection}
+                    disabled={!availableDesignerSection || isLoading}
                     required={
                       designersOption[index] === 1 && availableDesignerSection
                     }
@@ -360,23 +369,30 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                   <DeleteForeverRoundedIcon
                     fontSize="large"
                     className={
-                      availableDesignerSection && designersFields !== 1
+                      availableDesignerSection &&
+                      designersFields !== 1 &&
+                      !isLoading
                         ? styles.deleteDesignerButton
                         : ""
                     }
                     style={{
                       color:
-                        availableDesignerSection && designersFields !== 1
+                        availableDesignerSection &&
+                        designersFields !== 1 &&
+                        !isLoading
                           ? colors.CTX_BUTTON_SHADOW_COLOR_2
                           : "grey",
                       cursor:
-                        availableDesignerSection && designersFields !== 1
+                        availableDesignerSection &&
+                        designersFields !== 1 &&
+                        !isLoading
                           ? "pointer"
                           : "not-allowed",
                     }}
                     onClick={() =>
                       availableDesignerSection &&
                       designersFields !== 1 &&
+                      !isLoading &&
                       deleteDesignerField(index)
                     }
                   />
@@ -396,6 +412,9 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
         height="35px"
         colorButton={colors.CTX_FORM_BUTTON_COLOR}
         buttonColorShadow={colors.CTX_BUTTON_SHADOW_COLOR_2}
+        loading={isLoading}
+        disabled={isLoading}
+        catsLoading={isLoading}
       />
     </form>
   );

@@ -8,16 +8,15 @@ import { loadToken } from "../../context/UserSession/userSessionReducer";
 import { ChangePasswordRequest } from "../../types/login";
 import { useMutation } from "react-query";
 import { updatePasswordByLink } from "../../api/login";
-import { CustomizedSnackbarProps } from "../../types/commons";
 import strings from "../../l10n";
+import { successToast } from "../../constants/toasts";
 
 type ResetPasswordFormProps = {
   handleStep: (val: number) => void;
-  handleSnackBar: (props: CustomizedSnackbarProps) => void;
 };
 
 export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
-  const { handleStep, handleSnackBar } = props;
+  const { handleStep } = props;
   const [formValues, setFormValues] = useState({
     password: "",
     confirmPassword: "",
@@ -44,10 +43,7 @@ export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
       },
       onSuccess: () => {
         handleStep(0);
-        handleSnackBar({
-          type: "success",
-          subTitle: strings.PASSWORD_UPDATED_SUCCESSFULLY,
-        });
+        successToast(strings.PASSWORD_UPDATED_SUCCESSFULLY);
         navigate("/login");
       },
     });
@@ -109,6 +105,8 @@ export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
         disabled={
           password === "" || confirmPassword === "" || isPasswordUpdateLoading
         }
+        loading={isPasswordUpdateLoading}
+        catsLoading={isPasswordUpdateLoading}
         height="80px"
         width="350px"
         marginTop="50px"

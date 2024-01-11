@@ -35,7 +35,7 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
     },
   });
 
-  const { mutate: createTraitMutation } = useMutation({
+  const { mutate: createTraitMutation, isLoading } = useMutation({
     mutationFn: (data: TraitCreateRequest) => {
       return createTrait(data);
     },
@@ -107,11 +107,13 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
         options={formatSpecieInfoForDropdown(speciesOptions)}
         handleChange={(value: AutocompleteOption) => setSpecie(value)}
         required
+        disabled={isLoading}
       />
       <MenuButton
         options={MenuButtonRarityOptions}
         handleClick={handleMultipleStep}
         selectMultiple
+        disabled={isLoading}
       />
       <TextField
         className={styles.textFieldForm}
@@ -120,12 +122,16 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
         type="text"
         onChange={(e) => setTrait(e.target.value)}
         required
+        disabled={isLoading}
       />
       <Button
         content={strings.CREATE}
         type="submit"
         width="150px"
         height="35px"
+        disabled={isLoading}
+        loading={isLoading}
+        catsLoading={isLoading}
       />
     </form>
   );

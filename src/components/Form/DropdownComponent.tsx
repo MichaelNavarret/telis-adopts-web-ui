@@ -13,6 +13,7 @@ type DropdownComponentProps = {
   handleChange: (e: any) => void;
   options: DropdownComponentOption[];
   required?: boolean;
+  disabled?: boolean;
 };
 
 const DropdownComponent = (props: DropdownComponentProps) => {
@@ -23,6 +24,7 @@ const DropdownComponent = (props: DropdownComponentProps) => {
     options = [],
     label,
     required = false,
+    disabled = false,
   } = props;
   const { colors } = useTheme();
 
@@ -36,6 +38,7 @@ const DropdownComponent = (props: DropdownComponentProps) => {
         value={value}
         onChange={(e) => handleChange(e)}
         required={required}
+        disabled={disabled}
       >
         {options.map((option, index) => {
           return (

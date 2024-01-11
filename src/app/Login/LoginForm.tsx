@@ -24,11 +24,7 @@ export const LoginForm = (props: LoginFormProps) => {
   // const { _setLoginToken } = useUserSession();
   // const navigate = useNavigate();
 
-  const {
-    mutate: loginMutation,
-    isLoading: isLoginLoading,
-    isError,
-  } = useMutation({
+  const { mutate: loginMutation, isLoading: isLoginLoading } = useMutation({
     mutationFn: (data: LoginRequest) => {
       return login(data);
     },
@@ -76,9 +72,10 @@ export const LoginForm = (props: LoginFormProps) => {
           />
         </div>
         <Button
-          disabled={isLoginLoading && !isError}
-          loading={isLoginLoading && !isError}
+          disabled={isLoginLoading}
+          loading={isLoginLoading}
           marginTop="50px"
+          catsLoading={isLoginLoading}
         >
           <p>{strings.LOGIN}</p>
         </Button>
