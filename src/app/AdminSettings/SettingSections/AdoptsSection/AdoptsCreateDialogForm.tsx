@@ -2,7 +2,6 @@ import { FormEvent, useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import DialogComponent from "../../../../components/surfaces/DialogComponent";
 import styles from "./AdoptsCreateDialogForm.module.scss";
-import { TextField } from "@mui/material";
 import { getOwnersAutocomplete } from "../../../../api/owners";
 import { getSpeciesAutocomplete } from "../../../../api/species";
 import { CREATION_TYPE } from "../../../../constants/SelectOptions";
@@ -30,6 +29,8 @@ import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 import { OwnerDesignerCreateRequest } from "../../../../types/owner";
 import { isDefined } from "../../../../tools/commons";
 import { successToast } from "../../../../constants/toasts";
+import TextFieldComponent from "../../../../components/Form/TextFieldComponent";
+import ActionIcon from "../../../../components/surfaces/ActionIconComponent";
 
 type AdoptsCreateDialogFormProps = {
   open: boolean;
@@ -213,7 +214,8 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
             animation={false}
             hover={false}
           />
-          <TextField
+
+          <TextFieldComponent
             className={styles.textFieldForm}
             id="adoptName"
             label={strings.ADOPT_NAME}
@@ -243,7 +245,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                 required={ownerOption === 1}
               />
             ) : (
-              <TextField
+              <TextFieldComponent
                 style={{ marginTop: "10px" }}
                 key={`owner_texField${ownerOption}`}
                 id="owner"
@@ -289,32 +291,13 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
               animation={false}
               hover={false}
             />
-            <ControlPointRoundedIcon
-              fontSize="large"
-              style={{
-                color:
-                  availableDesignerSection &&
-                  designersFields !== 2 &&
-                  !isLoading
-                    ? colors.CTX_BUTTON_SHADOW_COLOR_2
-                    : "grey",
-                cursor:
-                  availableDesignerSection &&
-                  designersFields !== 2 &&
-                  !isLoading
-                    ? "pointer"
-                    : "not-allowed",
-              }}
-              className={
-                availableDesignerSection && designersFields !== 2 && !isLoading
-                  ? styles.addDesignerButton
-                  : ""
-              }
-              onClick={() =>
-                availableDesignerSection &&
-                designersFields !== 2 &&
-                !isLoading &&
-                addDesignerField()
+
+            <ActionIcon
+              Icon={ControlPointRoundedIcon}
+              fontsize="large"
+              handleClick={addDesignerField}
+              disabled={
+                !availableDesignerSection || designersFields === 2 || isLoading
               }
             />
           </div>
@@ -349,7 +332,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                     }
                   />
                 ) : (
-                  <TextField
+                  <TextFieldComponent
                     style={{ marginTop: "10px", width: "100%" }}
                     key={`owner_texField${ownerOption}`}
                     id="owner"
@@ -365,38 +348,18 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                     }
                   />
                 )}
-                <div className={styles.iconContainer}>
-                  <DeleteForeverRoundedIcon
-                    fontSize="large"
-                    className={
-                      availableDesignerSection &&
-                      designersFields !== 1 &&
-                      !isLoading
-                        ? styles.deleteDesignerButton
-                        : ""
-                    }
-                    style={{
-                      color:
-                        availableDesignerSection &&
-                        designersFields !== 1 &&
-                        !isLoading
-                          ? colors.CTX_BUTTON_SHADOW_COLOR_2
-                          : "grey",
-                      cursor:
-                        availableDesignerSection &&
-                        designersFields !== 1 &&
-                        !isLoading
-                          ? "pointer"
-                          : "not-allowed",
-                    }}
-                    onClick={() =>
-                      availableDesignerSection &&
-                      designersFields !== 1 &&
-                      !isLoading &&
-                      deleteDesignerField(index)
-                    }
-                  />
-                </div>
+
+                <ActionIcon
+                  Icon={DeleteForeverRoundedIcon}
+                  fontsize="large"
+                  handleClick={() => deleteDesignerField(index)}
+                  disabled={
+                    !availableDesignerSection ||
+                    designersFields === 1 ||
+                    isLoading
+                  }
+                  marginTop="5px"
+                />
               </div>
             ))}
           </div>

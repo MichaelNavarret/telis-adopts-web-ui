@@ -1,4 +1,3 @@
-import { TextField } from "@mui/material";
 import styles from "./LoginForm.module.scss";
 import { FormEvent, useState } from "react";
 import Button from "../../components/surfaces/Button";
@@ -10,6 +9,7 @@ import { login } from "../../api/login";
 import { saveFirstToken } from "../../context/UserSession/userSessionReducer";
 import TextComponent from "../../components/TextComponents/TextComponent";
 import strings from "../../l10n";
+import TextFieldComponent from "../../components/Form/TextFieldComponent";
 
 type LoginFormProps = {
   handleStep: (val: number) => void;
@@ -48,7 +48,7 @@ export const LoginForm = (props: LoginFormProps) => {
     <div className={styles.loginContainer}>
       <form onSubmit={onSubmit}>
         <div className={styles.formContainer}>
-          <TextField
+          <TextFieldComponent
             id="emailAddressLoginForm"
             label={strings.EMAIL_ADDRESS}
             type="text"
@@ -57,7 +57,7 @@ export const LoginForm = (props: LoginFormProps) => {
             onChange={(e) => setEmail(e.target.value)}
             disabled={isLoginLoading}
           />
-          <TextField
+          <TextFieldComponent
             id="passwordLoginForm"
             label={strings.PASSWORD}
             type="password"

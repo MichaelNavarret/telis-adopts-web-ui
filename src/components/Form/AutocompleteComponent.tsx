@@ -43,8 +43,17 @@ const AutocompleteComponent = (props: AutocompleteComponentProps) => {
             handleChange({ label: "", value: "" });
           }
         }}
+        style={{ width: "100%", borderRadius: "10px" }}
         renderInput={(params) => (
-          <TextField {...params} label={label} required={required} />
+          <TextField
+            {...params}
+            label={label}
+            required={required}
+            InputProps={{
+              style: { borderRadius: "10px" },
+              ...params.InputProps,
+            }}
+          />
         )}
         renderOption={(props, option) => (
           <AutocompleteLi {...props} option={option.label} />

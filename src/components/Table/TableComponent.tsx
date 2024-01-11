@@ -104,7 +104,21 @@ export const TableComponent = (props: TableComponentProps) => {
           )}
         </div>
       </div>
-      <TableContainer className={styles.tableContainer}>
+      <TableContainer
+        className={styles.tableContainer}
+        sx={{
+          //-webkit-scrollbar
+          "&::-webkit-scrollbar": {
+            width: "5px",
+          },
+          "&::-webkit-scrollbar-track": {
+            background: colors.CTX_FORM_CONTAINER_COLOR,
+          },
+          "&::-webkit-scrollbar-thumb": {
+            background: colors.CTX_MENUBAR_COLOR,
+          },
+        }}
+      >
         <Table stickyHeader={stickyHeader}>
           <TableHead>
             <TableRow>

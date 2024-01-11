@@ -1,4 +1,3 @@
-import { TextField } from "@mui/material";
 import styles from "./ForgotPasswordForm.module.scss";
 import { useState } from "react";
 import Button from "../../components/surfaces/Button";
@@ -8,6 +7,7 @@ import { resetPasswordLink } from "../../api/login";
 import TextComponent from "../../components/TextComponents/TextComponent";
 import strings from "../../l10n";
 import { successToast } from "../../constants/toasts";
+import TextFieldComponent from "../../components/Form/TextFieldComponent";
 
 type ResetPasswordFormProps = {
   handleStep: (val: number) => void;
@@ -38,7 +38,7 @@ export const ForgotPasswordForm = (props: ResetPasswordFormProps) => {
   return (
     <form onSubmit={onSubmit}>
       <div className={styles.formContainer}>
-        <TextField
+        <TextFieldComponent
           id="emailAddressForgotForm"
           label={strings.EMAIL_ADDRESS}
           type="text"

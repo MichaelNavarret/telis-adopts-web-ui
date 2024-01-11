@@ -1,7 +1,6 @@
 import { FormEvent, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import styles from "./TraitsCreateDialogForm.module.scss";
-import { TextField } from "@mui/material";
 import { Button } from "../../../../components";
 import { getSpeciesAutocomplete } from "../../../../api/species";
 import DialogComponent from "../../../../components/surfaces/DialogComponent";
@@ -15,6 +14,7 @@ import AutocompleteComponent, {
   AutocompleteOption,
 } from "../../../../components/Form/AutocompleteComponent";
 import { errorToast, successToast } from "../../../../constants/toasts";
+import TextFieldComponent from "../../../../components/Form/TextFieldComponent";
 
 type TraitsCreateDialogFormProps = {
   open: boolean;
@@ -115,7 +115,7 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
         selectMultiple
         disabled={isLoading}
       />
-      <TextField
+      <TextFieldComponent
         className={styles.textFieldForm}
         id="trait"
         label={strings.TRAIT}

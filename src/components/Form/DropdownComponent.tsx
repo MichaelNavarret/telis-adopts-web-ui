@@ -33,7 +33,7 @@ const DropdownComponent = (props: DropdownComponentProps) => {
       <InputLabel id={`${label}Label`}>{name}</InputLabel>
       <Select
         labelId={`${label}Label`}
-        style={{ width: "100%" }}
+        style={{ width: "100%", borderRadius: "10px" }}
         label={label}
         value={value}
         onChange={(e) => handleChange(e)}

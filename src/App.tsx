@@ -74,7 +74,6 @@ const App: React.FunctionComponent<RouteProps> = () => {
         <UserSessionProvider>
           <QueryClientProvider client={queryClient}>
             <MainContainer />
-
             <QueryConfig />
           </QueryClientProvider>
         </UserSessionProvider>

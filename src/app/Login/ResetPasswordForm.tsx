@@ -1,4 +1,3 @@
-import { TextField } from "@mui/material";
 import Button from "../../components/surfaces/Button";
 import styles from "./ResetPasswordForm.module.scss";
 import { FormEvent, useEffect, useState } from "react";
@@ -10,6 +9,7 @@ import { useMutation } from "react-query";
 import { updatePasswordByLink } from "../../api/login";
 import strings from "../../l10n";
 import { successToast } from "../../constants/toasts";
+import TextFieldComponent from "../../components/Form/TextFieldComponent";
 
 type ResetPasswordFormProps = {
   handleStep: (val: number) => void;
@@ -80,7 +80,7 @@ export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
           password={formValues.password}
           isValid={(val) => setIsValid(val)}
         >
-          <TextField
+          <TextFieldComponent
             id="newPasswordResetPasswordForm"
             label={strings.PASSWORD}
             type="password"
@@ -90,7 +90,7 @@ export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
             onChange={(e) => handleFormChange(e, "password")}
           />
         </PasswordValidator>
-        <TextField
+        <TextFieldComponent
           id="confirmNewPasswordResetPasswordForm"
           label={strings.CONFIRM_PASSWORD}
           type="password"

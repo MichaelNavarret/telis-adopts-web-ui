@@ -1,4 +1,3 @@
-import { TextField } from "@mui/material";
 import { FormEvent, useState } from "react";
 import DialogComponent from "../../../../components/surfaces/DialogComponent";
 import styles from "./SpeciesCreateDialogForm.module.scss";
@@ -7,6 +6,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { createSpecie } from "../../../../api/species";
 import strings from "../../../../l10n";
 import { successToast } from "../../../../constants/toasts";
+import TextFieldComponent from "../../../../components/Form/TextFieldComponent";
 
 type SpecieCreateDialogFormProps = {
   open: boolean;
@@ -45,7 +45,7 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
 
   const dialogContent = (
     <form onSubmit={onSubmit} className={styles.formMainContainer}>
-      <TextField
+      <TextFieldComponent
         className={styles.textFieldForm}
         id="speciesName"
         label={strings.NAME}
