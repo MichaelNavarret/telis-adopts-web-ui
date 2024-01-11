@@ -69,7 +69,13 @@ export const TableComponent = (props: TableComponentProps) => {
   };
 
   const displayNoContent = () => {
-    if (loading) return <CatsLoading />;
+    if (loading) {
+      return (
+        <div className={styles.notFoundData}>
+          <CatsLoading colorDots={colors.CTX_MENUBAR_COLOR} withDots />
+        </div>
+      );
+    }
     if (!loading && data.length === 0) return <NotFoundData />;
   };
 
@@ -80,7 +86,9 @@ export const TableComponent = (props: TableComponentProps) => {
           {title && (
             <h1 style={{ color: colors.CTX_TABLE_TITLE_COLOR }}>{title}</h1>
           )}
-          {fetching && <CatsLoading />}
+          {fetching && (
+            <CatsLoading withDots colorDots={colors.CTX_MENUBAR_COLOR} />
+          )}
         </div>
         <div className={styles.buttonsContainer}>
           {primaryButton && (

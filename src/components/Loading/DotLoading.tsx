@@ -4,11 +4,17 @@ import styles from "./DotLoading.module.scss";
 type DotLoadingProps = {
   dotNumber?: number;
   size?: string;
+  color?: string;
 };
 
 const DotLoading = (props: DotLoadingProps) => {
-  const { dotNumber = 3, size = "20px" } = props;
   const { colors } = useTheme();
+  const {
+    dotNumber = 3,
+    size = "20px",
+    color = colors.CTX_MENUBAR_TEXT_COLOR,
+  } = props;
+
   return (
     <div className={styles.dotLoading}>
       {Array(dotNumber)
@@ -18,7 +24,7 @@ const DotLoading = (props: DotLoadingProps) => {
             key={index}
             className={styles.dot}
             style={{
-              backgroundColor: colors.CTX_MENUBAR_TEXT_COLOR,
+              backgroundColor: color,
               width: size,
               height: size,
             }}
