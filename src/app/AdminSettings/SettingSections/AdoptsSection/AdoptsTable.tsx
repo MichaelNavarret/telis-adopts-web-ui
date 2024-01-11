@@ -5,7 +5,6 @@ import TableComponent, {
 } from "../../../../components/Table/TableComponent";
 import { adoptsTableColumns } from "../../../../constants/TablesColumns";
 import strings from "../../../../l10n";
-import { useState } from "react";
 
 type AdoptsTableProps = {
   handleOpen: () => void;
@@ -16,7 +15,7 @@ const AdoptsTable = (props: AdoptsTableProps) => {
   const { state } = useDataTable();
 
   const { data: adoptsResponse } = useQuery({
-    queryKey: ["adopts"],
+    queryKey: ["adopts", state.currentPage],
     queryFn: () => {
       return getAdopts(state.currentPage);
     },

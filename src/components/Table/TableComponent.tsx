@@ -11,16 +11,10 @@ import styles from "./TableComponent.module.scss";
 import { Button } from "..";
 import { useTheme } from "../../context/ThemeProvider";
 import TableRowComponent from "./TableRowComponent";
-import { useSearchParams } from "react-router-dom";
+import { useState } from "react";
 
 export const useDataTable = () => {
-  const [searchParams] = useSearchParams();
-
-  const currentPage = Number(searchParams.get("p")) || 0;
-
-  const setCurrentPage = (value: any) => {
-    searchParams.set("p", value);
-  };
+  const [currentPage, setCurrentPage] = useState(0);
 
   return {
     state: { currentPage, setCurrentPage },
@@ -60,16 +54,13 @@ export const TableComponent = (props: TableComponentProps) => {
     totalPages = 1,
     state,
   } = props;
-  const [searchParams, setSearchParams] = useSearchParams();
 
   const NotFoundData = () => {
     return <div className={styles.notFoundData}>Data Not Found</div>;
   };
 
   const handlePagination = (pageNumber: number) => {
-    console.log("Cambiando...");
-    searchParams.set("p", (pageNumber - 1).toString());
-    setSearchParams(searchParams);
+    state.setCurrentPage(pageNumber - 1);
   };
 
   return (

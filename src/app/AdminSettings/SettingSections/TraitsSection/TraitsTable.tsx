@@ -18,7 +18,7 @@ const TraitsTable = (props: TraitsTableProps) => {
   const { data: traitList } = useQuery({
     queryKey: ["traits"],
     queryFn: () => {
-      return getTraits();
+      return getTraits(state.currentPage);
     },
   });
 

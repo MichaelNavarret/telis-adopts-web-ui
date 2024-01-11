@@ -1,8 +1,11 @@
+import { getPaginationHeaders } from "../tools/headers";
 import request from "../tools/request";
 
-export const getSpecies = async () => {
+export const getSpecies = async (pageNumber: number = 0) => {
   const data = await request
-    .get<SpecieCollectionResponse>("/species")
+    .get<SpecieCollectionResponse>("/species", {
+      headers: getPaginationHeaders(pageNumber),
+    })
     .then((res) => {
       return {
         headers: res.headers,

@@ -15,9 +15,9 @@ const SpeciesTable = (props: SpeciesTableProps) => {
   const { state } = useDataTable();
 
   const { data: speciesList } = useQuery({
-    queryKey: ["species"],
+    queryKey: ["species", state.currentPage],
     queryFn: () => {
-      return getSpecies();
+      return getSpecies(state.currentPage);
     },
   });
 

@@ -259,6 +259,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
             label={strings.SPECIE}
             options={formatSpecieInfoForDropdown(speciesOptions)}
             handleChange={(value: AutocompleteOption) => setSpecie(value)}
+            required
           />
 
           <DropdownComponent
@@ -334,6 +335,9 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                       handleChangeDesigners(value, index)
                     }
                     disabled={!availableDesignerSection}
+                    required={
+                      designersOption[index] === 0 && availableDesignerSection
+                    }
                   />
                 ) : (
                   <TextField
@@ -347,7 +351,9 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                       handleChangeNotRegisteredDesigners(e.target.value, index)
                     }
                     disabled={!availableDesignerSection}
-                    required
+                    required={
+                      designersOption[index] === 1 && availableDesignerSection
+                    }
                   />
                 )}
                 <div className={styles.iconContainer}>
