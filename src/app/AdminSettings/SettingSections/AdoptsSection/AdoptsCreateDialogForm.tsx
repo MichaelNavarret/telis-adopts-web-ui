@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import DialogComponent from "../../../../components/surfaces/DialogComponent";
 import styles from "./AdoptsCreateDialogForm.module.scss";
 import { getOwnersAutocomplete } from "../../../../api/owners";
-import { getSpeciesAutocomplete } from "../../../../api/species";
+import { getSpecie, getSpeciesAutocomplete } from "../../../../api/species";
 import { CREATION_TYPE } from "../../../../constants/SelectOptions";
 import { Button } from "../../../../components";
 import { AdoptCreateRequest, CreationType } from "../../../../types/adopt";
@@ -28,7 +28,7 @@ import TextComponent from "../../../../components/TextComponents/TextComponent";
 import ControlPointRoundedIcon from "@mui/icons-material/ControlPointRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 import { OwnerDesignerCreateRequest } from "../../../../types/owner";
-import { isDefined } from "../../../../tools/commons";
+import { getImageFromBytes, isDefined } from "../../../../tools/commons";
 import { successToast } from "../../../../constants/toasts";
 import TextFieldComponent from "../../../../components/Form/TextFieldComponent";
 import ActionIcon from "../../../../components/surfaces/ActionIconComponent";
@@ -36,7 +36,7 @@ import { getTraitsAutocomplete } from "../../../../api/traits";
 import { Container } from "@mui/system";
 import { SubTraitCreateRequest } from "../../../../types/subTraits";
 import { getRarityByString } from "../../utils/format";
-import traitsInfoEj from "../../../../assets/utils/ej.png";
+import CatsLoading from "../../../../components/Loading/CatsLoading";
 
 type AdoptsCreateDialogFormProps = {
   open: boolean;
@@ -93,6 +93,14 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
       return getTraitsAutocomplete({
         specieId: isDefined(specie) ? specie.value : "",
       });
+    },
+    enabled: isDefined(specie),
+  });
+
+  const { data: specieInfo, isLoading: isSpecieInfoLoading } = useQuery({
+    queryKey: ["getSpecie", specie?.value],
+    queryFn: () => {
+      return getSpecie(isDefined(specie) ? specie.value : "");
     },
     enabled: isDefined(specie),
   });
@@ -158,6 +166,12 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
     setNotRegisteredOwner("");
     setSpecie(null);
     setCreationType("PREMADE");
+    setDesignersFields(1);
+    setDesignersOption([0]);
+    setDesigners([]);
+    setDesignersNotRegistered(["", ""]);
+    setTraitsFields(1);
+    setTraitsPayload([{}]);
   };
 
   const mergeDesigners = () => {
@@ -263,6 +277,30 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
     newTraitsPayload.splice(index, 1);
     setTraitsPayload(newTraitsPayload);
     setTraitsFields(traitsFields - 1);
+  };
+
+  const getTraitsInformationImage = () => {
+    if (isDefined(specie)) {
+      if (isDefined(specieInfo?.traitsInformation)) {
+        return (
+          <img
+            src={getImageFromBytes(specieInfo.traitsInformation)}
+            width={515}
+            height={660}
+          />
+        );
+      } else if (isSpecieInfoLoading) {
+        return (
+          <CatsLoading
+            withDots={true}
+            width="150px"
+            colorDots={colors.CTX_MENUBAR_HOVER_COLOR}
+          />
+        );
+      } else {
+        return <div>{"This Specie not have a traits info"}</div>;
+      }
+    }
   };
 
   const dialogContent = (
@@ -483,7 +521,6 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                     handleTraitChange(value, index);
                   }}
                   disabled={isLoading || !isDefined(specie)}
-                  required
                 />
                 <DropdownComponent
                   name={strings.RARITY}
@@ -494,7 +531,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                   }
                   options={getRaritiesOptions(index)}
                   disabled={isLoading || !isDefined(specie)}
-                  required
+                  required={isDefined(traitsPayload[index].mainTraitId)}
                 />
 
                 <TextFieldComponent
@@ -510,7 +547,6 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                   }
                   value={traitsPayload[index].additionalInfo || ""}
                   disabled={isLoading || !isDefined(specie)}
-                  required
                 />
                 <ActionIcon
                   Icon={DeleteForeverRoundedIcon}
@@ -524,10 +560,21 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
           </div>
         </Container>
         <div className={styles.sectionTraitInfoContainer}>
-          {isDefined(specie) && (
-            <img src={traitsInfoEj} width={515} height={660} />
-          )}
+          {getTraitsInformationImage()}
         </div>
+      </div>
+      <div className={styles.submitButton}>
+        <Button
+          type="submit"
+          content={strings.CREATE}
+          width="150px"
+          height="35px"
+          colorButton={colors.CTX_FORM_BUTTON_COLOR}
+          buttonColorShadow={colors.CTX_BUTTON_SHADOW_COLOR_2}
+          loading={isLoading}
+          disabled={isLoading}
+          catsLoading={isLoading}
+        />
       </div>
     </form>
   );
@@ -540,19 +587,6 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
       content={dialogContent}
       fullScreen={true}
       withoutPadding={true}
-      primaryButton={
-        <Button
-          type="submit"
-          content={strings.CREATE}
-          width="150px"
-          height="35px"
-          colorButton={colors.CTX_FORM_BUTTON_COLOR}
-          buttonColorShadow={colors.CTX_BUTTON_SHADOW_COLOR_2}
-          loading={isLoading}
-          disabled={isLoading}
-          catsLoading={isLoading}
-        />
-      }
     />
   );
 };

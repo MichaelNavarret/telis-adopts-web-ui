@@ -4,7 +4,7 @@ type TexFieldComponentProps = {
   className?: string;
   id: string;
   label: string;
-  type: "text" | "password" | "number" | "date" | "email";
+  type: "text" | "password" | "number" | "date" | "email" | "file";
   onChange: (e: any) => void;
   disabled?: boolean;
   required?: boolean;

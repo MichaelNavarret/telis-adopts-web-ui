@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useCallback, useState } from "react";
 import DialogComponent from "../../../../components/surfaces/DialogComponent";
 import styles from "./SpeciesCreateDialogForm.module.scss";
 import { Button } from "../../../../components";
@@ -7,6 +7,10 @@ import { createSpecie } from "../../../../api/species";
 import strings from "../../../../l10n";
 import { successToast } from "../../../../constants/toasts";
 import TextFieldComponent from "../../../../components/Form/TextFieldComponent";
+import { useDropzone } from "react-dropzone";
+import { useTheme } from "../../../../context/ThemeProvider";
+import { isDefined } from "../../../../tools/commons";
+import TextComponent from "../../../../components/TextComponents/TextComponent";
 
 type SpecieCreateDialogFormProps = {
   open: boolean;
@@ -15,12 +19,15 @@ type SpecieCreateDialogFormProps = {
 
 const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
   const { open, handleClose } = props;
+  const { colors } = useTheme();
   const [specieName, setSpecieName] = useState("");
   const queryClient = useQueryClient();
 
   const { mutate: crateSpecieMutation, isLoading } = useMutation({
-    mutationFn: (data: SpecieCreateRequest) => {
-      return createSpecie(data);
+    mutationFn: () => {
+      return createSpecie(acceptedFiles[0] as File, {
+        specieName: specieName,
+      });
     },
     onSuccess: () => {
       successToast(strings.SPECIE_CREATED_SUCCESSFULLY);
@@ -37,11 +44,14 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const payload: SpecieCreateRequest = {
-      name: specieName,
-    };
-    crateSpecieMutation(payload);
+    crateSpecieMutation();
   };
+
+  const onDrop = useCallback(() => {}, []);
+
+  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
+    onDrop,
+  });
 
   const dialogContent = (
     <form onSubmit={onSubmit} className={styles.formMainContainer}>
@@ -54,6 +64,31 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
         required
         disabled={isLoading}
       />
+      <TextComponent
+        content={strings.TRAITS_INFORMATION}
+        animation={false}
+        hover={false}
+      />
+      <div
+        {...getRootProps()}
+        style={{
+          width: "500px",
+          backgroundColor: colors.CTX_TABLE_ROW_HOVER_COLOR,
+          padding: "10px",
+          borderRadius: "15px",
+          border: "5px dashed" + colors.CTX_MENUBAR_COLOR,
+          textAlign: "center",
+          cursor: "pointer",
+        }}
+      >
+        <input {...getInputProps()} />
+        {!isDefined(acceptedFiles[0]) ? (
+          <p>Drag 'n' drop some files here, or click to select files</p>
+        ) : (
+          <div>{acceptedFiles[0].name}</div>
+        )}
+      </div>
+
       <Button
         content={strings.CREATE}
         type="submit"

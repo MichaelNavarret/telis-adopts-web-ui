@@ -10,4 +10,5 @@ export const traitEn = {
   EPIC: "Epic",
   TRAIT_CREATE_SUCCESSFULLY: "Trait created successfully",
   SELECT_AT_LEAST_ONE_RARITY: "Select at least one rarity",
+  TRAITS_INFORMATION: "Traits information",
 };

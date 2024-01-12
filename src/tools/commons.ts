@@ -35,3 +35,7 @@ export function hideBubbleLocations(
 export function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+export function getImageFromBytes(image: ArrayBufferLike) {
+  return "data:image/jpeg;base64," + image;
+}

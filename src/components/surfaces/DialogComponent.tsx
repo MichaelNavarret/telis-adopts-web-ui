@@ -99,11 +99,6 @@ const DialogComponent = (props: DialogComponentProps) => {
       </DialogTitle>
 
       {customDialog ? customDialog : dialogContent}
-
-      <DialogActions className={styles.dialogActionsContainer}>
-        {cancelButton && <Button onClick={handleClose}>Cancel</Button>}
-        <div className={styles.primaryButton}>{primaryButton}</div>
-      </DialogActions>
     </Dialog>
   );
 };
