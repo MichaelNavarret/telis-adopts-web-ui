@@ -1,7 +1,6 @@
 // ------ Request --------
 export type SubTraitCreateRequest = {
-  subTraitCharacteristic: string;
-  mainTraitId: string;
-  adoptId: string;
-  rarity: "COMMON" | "UNCOMMON" | "RARE" | "EPIC";
+  additionalInfo?: string;
+  mainTraitId?: string;
+  rarity?: "COMMON" | "UNCOMMON" | "RARE" | "EPIC";
 };

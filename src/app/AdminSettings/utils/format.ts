@@ -16,3 +16,18 @@ export function getRarityByValuesArray(values: number[]) {
     }
   });
 }
+
+export function getRarityByString(value: string) {
+  switch (value) {
+    case "COMMON":
+      return "COMMON";
+    case "UNCOMMON":
+      return "UNCOMMON";
+    case "RARE":
+      return "RARE";
+    case "EPIC":
+      return "EPIC";
+    default:
+      return "COMMON";
+  }
+}

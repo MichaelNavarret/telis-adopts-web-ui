@@ -18,3 +18,7 @@ export type TraitCreateRequest = {
   trait: string;
   rarities: string[];
 };
+
+export type TraitAutocompleteParams = {
+  specieId: string;
+};

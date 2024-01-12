@@ -22,6 +22,7 @@ type DialogComponentProps = {
   fullScreen?: boolean;
   height?: string;
   width?: string;
+  withoutPadding?: boolean;
 };
 
 const DialogComponent = (props: DialogComponentProps) => {
@@ -36,12 +37,27 @@ const DialogComponent = (props: DialogComponentProps) => {
     height,
     width,
     fullScreen = false,
+    withoutPadding = false,
   } = props;
 
   const { colors } = useTheme();
 
   const dialogContent = (
-    <DialogContent className={styles.dialogContentContainer}>
+    <DialogContent
+      className={styles.dialogContentContainer}
+      sx={{
+        //-webkit-scrollbar
+        "&::-webkit-scrollbar": {
+          width: "5px",
+        },
+        "&::-webkit-scrollbar-track": {
+          background: colors.CTX_FORM_CONTAINER_COLOR,
+        },
+        "&::-webkit-scrollbar-thumb": {
+          background: colors.CTX_MENUBAR_COLOR,
+        },
+      }}
+    >
       <DialogContentText component={"div"}>{content}</DialogContentText>
     </DialogContent>
   );
@@ -58,7 +74,7 @@ const DialogComponent = (props: DialogComponentProps) => {
           borderRadius: "10px",
           width: width ? width : fullScreen ? "" : "auto",
           height: height ? height : fullScreen ? "" : "auto",
-          padding: "20px",
+          padding: withoutPadding ? "0px" : "20px",
         },
       }}
     >
@@ -84,9 +100,9 @@ const DialogComponent = (props: DialogComponentProps) => {
 
       {customDialog ? customDialog : dialogContent}
 
-      <DialogActions>
+      <DialogActions className={styles.dialogActionsContainer}>
         {cancelButton && <Button onClick={handleClose}>Cancel</Button>}
-        {primaryButton}
+        <div className={styles.primaryButton}>{primaryButton}</div>
       </DialogActions>
     </Dialog>
   );

@@ -1,4 +1,5 @@
 import { OwnerInfo } from "../types/owner";
+import { TraitInfo } from "../types/traits";
 import { isDefined } from "./commons";
 
 export function formatOwnerInfoForDropdown(ownerResponse?: OwnerInfo[]) {
@@ -18,6 +19,17 @@ export function formatSpecieInfoForDropdown(specieResponse?: SpecieInfo[]) {
     return {
       label: specie.name,
       value: specie.id,
+    };
+  });
+  return formattedOptions;
+}
+
+export function formatTraitInfoForDropdown(traitResponse?: TraitInfo[]) {
+  if (!isDefined(traitResponse)) return [];
+  const formattedOptions = traitResponse.map((trait) => {
+    return {
+      label: trait.trait,
+      value: trait.id,
     };
   });
   return formattedOptions;

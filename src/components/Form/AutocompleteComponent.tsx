@@ -27,7 +27,7 @@ const AutocompleteComponent = (props: AutocompleteComponentProps) => {
   } = props;
 
   return (
-    <div style={{ width: "100%", marginTop: "10px" }}>
+    <div style={{ width: "100%", marginTop: "1.5rem" }}>
       <Autocomplete
         id={label}
         freeSolo={freeSolo}

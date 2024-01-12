@@ -1,6 +1,7 @@
 import { getPaginationHeaders } from "../tools/headers";
 import request from "../tools/request";
 import {
+  TraitAutocompleteParams,
   TraitCollectionResponse,
   TraitCreateRequest,
   TraitSingletonResponse,
@@ -26,5 +27,16 @@ export const createTrait = async (payload: TraitCreateRequest) => {
     .then((res) => {
       return res.data.traitSingletonInfo;
     });
+  return data;
+};
+
+export const getTraitsAutocomplete = async (
+  params: TraitAutocompleteParams
+) => {
+  const data = await request
+    .get<TraitCollectionResponse>("/traits/autocomplete", {
+      params: params,
+    })
+    .then((res) => res.data.traitInfoList);
   return data;
 };
