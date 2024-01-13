@@ -1,11 +1,9 @@
 import {
   Dialog,
-  DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import { Button } from "..";
 import styles from "./DialogComponent.module.scss";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { useTheme } from "../../context/ThemeProvider";
@@ -29,10 +27,8 @@ const DialogComponent = (props: DialogComponentProps) => {
   const {
     open,
     handleClose,
-    cancelButton = false,
     customDialog,
     content,
-    primaryButton,
     dialogTitle,
     height,
     width,
