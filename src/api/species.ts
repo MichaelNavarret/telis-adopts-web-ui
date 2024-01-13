@@ -24,9 +24,22 @@ export const getSpeciesAutocomplete = async () => {
   return data;
 };
 
-export const createSpecie = async (payload: SpecieCreateRequest) => {
+export const createSpecie = async (file: File, params: SpecieCreateParams) => {
+  const formData = new FormData();
+  formData.append("file", file);
   const data = await request
-    .post<SpecieSingletonResponse>("/species", payload)
+    .post<SpecieSingletonResponse>("/species", formData, {
+      params: params,
+    })
+    .then((res) => {
+      return res.data.specieSingletonInfo;
+    });
+  return data;
+};
+
+export const getSpecie = async (specieId: string) => {
+  const data = await request
+    .get<SpecieSingletonResponse>(`/species/${specieId}`)
     .then((res) => {
       return res.data.specieSingletonInfo;
     });

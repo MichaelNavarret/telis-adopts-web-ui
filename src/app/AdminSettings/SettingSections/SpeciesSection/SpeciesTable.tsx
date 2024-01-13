@@ -14,7 +14,11 @@ const SpeciesTable = (props: SpeciesTableProps) => {
   const { handleOpen } = props;
   const { state } = useDataTable();
 
-  const { data: speciesList } = useQuery({
+  const {
+    data: speciesList,
+    isLoading,
+    isFetching,
+  } = useQuery({
     queryKey: ["species", state.currentPage],
     queryFn: () => {
       return getSpecies(state.currentPage);
@@ -33,6 +37,8 @@ const SpeciesTable = (props: SpeciesTableProps) => {
       handlePrimaryButton={handleOpen}
       totalPages={totalPages}
       state={state}
+      loading={isLoading}
+      fetching={isFetching}
     />
   );
 };

@@ -27,7 +27,7 @@ const App: React.FunctionComponent<RouteProps> = () => {
     console.log("onErrorHandler");
     if (isError(error)) {
       errorToast(errorMsg(error));
-      return Promise.reject(error);
+      return;
     }
     return error;
   }

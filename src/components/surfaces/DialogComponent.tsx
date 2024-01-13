@@ -1,11 +1,9 @@
 import {
   Dialog,
-  DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import { Button } from "..";
 import styles from "./DialogComponent.module.scss";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { useTheme } from "../../context/ThemeProvider";
@@ -22,26 +20,40 @@ type DialogComponentProps = {
   fullScreen?: boolean;
   height?: string;
   width?: string;
+  withoutPadding?: boolean;
 };
 
 const DialogComponent = (props: DialogComponentProps) => {
   const {
     open,
     handleClose,
-    cancelButton = false,
     customDialog,
     content,
-    primaryButton,
     dialogTitle,
     height,
     width,
     fullScreen = false,
+    withoutPadding = false,
   } = props;
 
   const { colors } = useTheme();
 
   const dialogContent = (
-    <DialogContent className={styles.dialogContentContainer}>
+    <DialogContent
+      className={styles.dialogContentContainer}
+      sx={{
+        //-webkit-scrollbar
+        "&::-webkit-scrollbar": {
+          width: "5px",
+        },
+        "&::-webkit-scrollbar-track": {
+          background: colors.CTX_FORM_CONTAINER_COLOR,
+        },
+        "&::-webkit-scrollbar-thumb": {
+          background: colors.CTX_MENUBAR_COLOR,
+        },
+      }}
+    >
       <DialogContentText component={"div"}>{content}</DialogContentText>
     </DialogContent>
   );
@@ -58,7 +70,7 @@ const DialogComponent = (props: DialogComponentProps) => {
           borderRadius: "10px",
           width: width ? width : fullScreen ? "" : "auto",
           height: height ? height : fullScreen ? "" : "auto",
-          padding: "20px",
+          padding: withoutPadding ? "0px" : "20px",
         },
       }}
     >
@@ -83,11 +95,6 @@ const DialogComponent = (props: DialogComponentProps) => {
       </DialogTitle>
 
       {customDialog ? customDialog : dialogContent}
-
-      <DialogActions>
-        {cancelButton && <Button onClick={handleClose}>Cancel</Button>}
-        {primaryButton}
-      </DialogActions>
     </Dialog>
   );
 };

@@ -13,6 +13,7 @@ type DropdownComponentProps = {
   handleChange: (e: any) => void;
   options: DropdownComponentOption[];
   required?: boolean;
+  disabled?: boolean;
 };
 
 const DropdownComponent = (props: DropdownComponentProps) => {
@@ -23,6 +24,7 @@ const DropdownComponent = (props: DropdownComponentProps) => {
     options = [],
     label,
     required = false,
+    disabled = false,
   } = props;
   const { colors } = useTheme();
 
@@ -31,11 +33,12 @@ const DropdownComponent = (props: DropdownComponentProps) => {
       <InputLabel id={`${label}Label`}>{name}</InputLabel>
       <Select
         labelId={`${label}Label`}
-        style={{ width: "100%" }}
+        style={{ width: "100%", borderRadius: "10px" }}
         label={label}
         value={value}
         onChange={(e) => handleChange(e)}
         required={required}
+        disabled={disabled}
       >
         {options.map((option, index) => {
           return (

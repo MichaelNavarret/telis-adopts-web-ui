@@ -2,6 +2,7 @@ type SpecieInfo = {
   id: string;
   code: string;
   name: string;
+  traitSheetUrl: string;
 };
 
 type SpecieSingletonResponse = {
@@ -14,6 +15,10 @@ type SpecieCollectionResponse = {
 
 type SpecieCreateRequest = {
   name: string;
+};
+
+type SpecieCreateParams = {
+  specieName: string;
 };
 
 type SpecieUpdateRequest = {

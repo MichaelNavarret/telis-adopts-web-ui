@@ -12,4 +12,5 @@ export const commonEn = {
   GUEST_ARTIST: "Guest Artist",
   ADD: "Add",
   SETTINGS: "Settings",
+  ADDITIONAL_INFO: "Additional Info",
 };

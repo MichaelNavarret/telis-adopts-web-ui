@@ -1,7 +1,6 @@
 import { FormEvent, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import styles from "./TraitsCreateDialogForm.module.scss";
-import { TextField } from "@mui/material";
 import { Button } from "../../../../components";
 import { getSpeciesAutocomplete } from "../../../../api/species";
 import DialogComponent from "../../../../components/surfaces/DialogComponent";
@@ -15,6 +14,7 @@ import AutocompleteComponent, {
   AutocompleteOption,
 } from "../../../../components/Form/AutocompleteComponent";
 import { errorToast, successToast } from "../../../../constants/toasts";
+import TextFieldComponent from "../../../../components/Form/TextFieldComponent";
 
 type TraitsCreateDialogFormProps = {
   open: boolean;
@@ -35,7 +35,7 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
     },
   });
 
-  const { mutate: createTraitMutation } = useMutation({
+  const { mutate: createTraitMutation, isLoading } = useMutation({
     mutationFn: (data: TraitCreateRequest) => {
       return createTrait(data);
     },
@@ -107,25 +107,31 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
         options={formatSpecieInfoForDropdown(speciesOptions)}
         handleChange={(value: AutocompleteOption) => setSpecie(value)}
         required
+        disabled={isLoading}
       />
       <MenuButton
         options={MenuButtonRarityOptions}
         handleClick={handleMultipleStep}
         selectMultiple
+        disabled={isLoading}
       />
-      <TextField
+      <TextFieldComponent
         className={styles.textFieldForm}
         id="trait"
         label={strings.TRAIT}
         type="text"
         onChange={(e) => setTrait(e.target.value)}
         required
+        disabled={isLoading}
       />
       <Button
         content={strings.CREATE}
         type="submit"
         width="150px"
         height="35px"
+        disabled={isLoading}
+        loading={isLoading}
+        catsLoading={isLoading}
       />
     </form>
   );

@@ -15,7 +15,11 @@ const TraitsTable = (props: TraitsTableProps) => {
   const { handleOpen } = props;
   const { state } = useDataTable();
 
-  const { data: traitList } = useQuery({
+  const {
+    data: traitList,
+    isLoading,
+    isFetching,
+  } = useQuery({
     queryKey: ["traits"],
     queryFn: () => {
       return getTraits(state.currentPage);
@@ -35,6 +39,8 @@ const TraitsTable = (props: TraitsTableProps) => {
         handlePrimaryButton={handleOpen}
         totalPages={totalPages}
         state={state}
+        loading={isLoading}
+        fetching={isFetching}
       />
     </>
   );

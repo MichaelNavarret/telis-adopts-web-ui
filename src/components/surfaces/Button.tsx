@@ -1,6 +1,7 @@
 import { CircularProgress } from "@mui/material";
 import styles from "./Button.module.scss";
 import { useTheme } from "../../context/ThemeProvider";
+import CatsLoading from "../Loading/CatsLoading";
 
 type ButtonProps = {
   colorButton?: string;
@@ -16,6 +17,7 @@ type ButtonProps = {
   loading?: boolean;
   marginTop?: string;
   className?: string;
+  catsLoading?: boolean;
 };
 
 export const Button = (props: ButtonProps) => {
@@ -33,7 +35,14 @@ export const Button = (props: ButtonProps) => {
     loading = false,
     marginTop = "0px",
     className,
+    catsLoading = false,
   } = props;
+
+  const getLoadingIcon = () => {
+    if (catsLoading) return <CatsLoading withDots />;
+    return <CircularProgress />;
+  };
+
   return (
     <button
       className={
@@ -56,7 +65,7 @@ export const Button = (props: ButtonProps) => {
       disabled={disabled}
       onClick={props.onClick}
     >
-      {loading ? <CircularProgress /> : children ? children : content}
+      {loading ? getLoadingIcon() : children ? children : content}
     </button>
   );
 };

@@ -23,6 +23,7 @@ export const successToast = (message: string) => {
       borderRadius: "10px",
       background: toastColors.success.background,
       color: toastColors.success.text,
+      width: "100%",
     },
   });
 };
@@ -35,6 +36,7 @@ export const errorToast = (message: string) => {
       borderRadius: "10px",
       background: toastColors.error.background,
       color: toastColors.error.text,
+      width: "100%",
     },
   });
 };
@@ -47,6 +49,7 @@ export const warningToast = (message: string) => {
       borderRadius: "10px",
       background: toastColors.warning.background,
       color: toastColors.warning.text,
+      width: "100%",
     },
   });
 };

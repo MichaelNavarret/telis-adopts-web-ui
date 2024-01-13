@@ -1,70 +1,40 @@
 .formMainContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
   gap: 1rem;
+  margin: 0;
+  padding: 0;
   .sectionsContainer {
     display: flex;
     flex-direction: row;
-    gap: 2rem;
-    flex-wrap: nowrap;
-    margin-bottom: 15rem;
-    .principalSectionContainer {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem;
-    }
-    .designerSectionContainer {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-      padding: 10px;
-      .sectionTitleContainer {
-        margin-bottom: 1rem;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        .addDesignerButton {
-          transition: all 0.3s ease;
-          &:hover {
-            transform: scale(1.1);
-            cursor: pointer;
-          }
-          &:active {
-            transform: scale(0.9);
-          }
-        }
-      }
-      .designersContainer {
-        padding: 10px;
+    justify-content: space-between;
+    gap: 1rem;
+    .firstContainer {
+      flex: 0.25;
+      .principalSectionContainer {
+        flex: 1.3;
         display: flex;
         flex-direction: column;
-        flex-wrap: wrap;
         justify-content: center;
+        align-items: center;
         gap: 1rem;
-        max-height: 450px;
-        .designerContainer {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          align-items: center;
-          width: auto;
+      }
+      .designerSectionContainer {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding: 10px;
+        .sectionTitleContainer {
           margin-bottom: 1rem;
-          padding: 10px;
-        }
-        .iconContainer {
-          margin-top: 5px;
           display: flex;
           flex-direction: row;
           justify-content: center;
-          gap: 1rem;
-          .deleteDesignerButton {
+          align-items: center;
+          gap: 10px;
+          .addDesignerButton {
             transition: all 0.3s ease;
             &:hover {
               transform: scale(1.1);
@@ -75,7 +45,65 @@
             }
           }
         }
+        .designersContainer {
+          padding: 10px;
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 1rem;
+          max-height: 450px;
+          .designerContainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            width: auto;
+            margin-bottom: 1rem;
+            padding: 10px;
+          }
+        }
       }
+    }
+    // ---------------- 2nd container ----------------
+    .sectionTraitsContainer {
+      flex: 0.4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      padding: 10px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      max-height: 660px;
+      .titleTraitsContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+      .traitsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding: 10px;
+        width: 100%;
+        .singleTraitContainer {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          gap: 1rem;
+        }
+      }
+    }
+    // ------------------ 3rd container ------------------
+    .sectionTraitInfoContainer {
+      flex: 0.35;
+      margin-left: 10px;
     }
   }
   .textFieldForm {
@@ -87,5 +115,10 @@
     display: flex;
     flex-direction: column;
     padding: 10px;
+  }
+  .submitButton {
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
   }
 }
