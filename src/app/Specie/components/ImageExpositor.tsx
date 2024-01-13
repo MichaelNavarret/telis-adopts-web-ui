@@ -3,7 +3,7 @@ import styles from "./ImageExpositor.module.scss";
 type ImageExpositorProps = {
   src: string;
   alt: string;
-  classNameImage: string;
+  classNameImage?: string;
   onClick?: () => void;
   align?:
     | "center"
@@ -13,10 +13,18 @@ type ImageExpositorProps = {
     | "match-parent"
     | "right"
     | "start";
+  disabledHover?: boolean;
 };
 
 const ImageExpositor = (props: ImageExpositorProps) => {
-  const { src, alt, classNameImage, onClick, align = "center" } = props;
+  const {
+    src,
+    alt,
+    classNameImage,
+    onClick,
+    align = "center",
+    disabledHover = false,
+  } = props;
 
   return (
     <div
@@ -28,7 +36,12 @@ const ImageExpositor = (props: ImageExpositorProps) => {
       <img
         src={src}
         alt={alt}
-        className={`${styles.imgStyles} ${classNameImage}`}
+        style={{
+          width: "70%",
+        }}
+        className={`${
+          disabledHover ? styles.imgStylesWithoutHover : styles.imgStyles
+        } ${classNameImage}`}
         onClick={onClick}
       />
     </div>

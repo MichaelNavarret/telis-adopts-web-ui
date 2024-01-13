@@ -22,10 +22,16 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
   const { colors } = useTheme();
   const [specieName, setSpecieName] = useState("");
   const queryClient = useQueryClient();
+  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({});
+  const {
+    getRootProps: getRootProps2,
+    getInputProps: getInputProps2,
+    acceptedFiles: acceptedFiles2,
+  } = useDropzone({});
 
   const { mutate: crateSpecieMutation, isLoading } = useMutation({
     mutationFn: () => {
-      return createSpecie(acceptedFiles[0] as File, {
+      return createSpecie(acceptedFiles[0] as File, acceptedFiles2[0] as File, {
         specieName: specieName,
       });
     },
@@ -47,12 +53,6 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
     crateSpecieMutation();
   };
 
-  const onDrop = useCallback(() => {}, []);
-
-  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
-    onDrop,
-  });
-
   const dialogContent = (
     <form onSubmit={onSubmit} className={styles.formMainContainer}>
       <TextFieldComponent
@@ -64,29 +64,54 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
         required
         disabled={isLoading}
       />
-      <TextComponent
-        content={strings.TRAITS_INFORMATION}
-        animation={false}
-        hover={false}
-      />
-      <div
-        {...getRootProps()}
-        style={{
-          width: "500px",
-          backgroundColor: colors.CTX_TABLE_ROW_HOVER_COLOR,
-          padding: "10px",
-          borderRadius: "15px",
-          border: "5px dashed" + colors.CTX_MENUBAR_COLOR,
-          textAlign: "center",
-          cursor: "pointer",
-        }}
-      >
-        <input {...getInputProps()} />
-        {!isDefined(acceptedFiles[0]) ? (
-          <p>Drag 'n' drop some files here, or click to select files</p>
-        ) : (
-          <div>{acceptedFiles[0].name}</div>
-        )}
+      <div>
+        <TextComponent
+          content={strings.TRAITS_INFORMATION}
+          animation={false}
+          hover={false}
+        />
+        <div
+          {...getRootProps()}
+          style={{
+            width: "500px",
+            backgroundColor: colors.CTX_TABLE_ROW_HOVER_COLOR,
+            padding: "10px",
+            borderRadius: "15px",
+            border: "5px dashed" + colors.CTX_MENUBAR_COLOR,
+            textAlign: "center",
+            cursor: "pointer",
+          }}
+        >
+          <input {...getInputProps()} />
+          {!isDefined(acceptedFiles[0]) ? (
+            <p>Drag 'n' drop some files here, or click to select files</p>
+          ) : (
+            <div>{acceptedFiles[0].name}</div>
+          )}
+        </div>
+      </div>
+
+      <div>
+        <TextComponent content={strings.LOGO} animation={false} hover={false} />
+        <div
+          {...getRootProps2()}
+          style={{
+            width: "500px",
+            backgroundColor: colors.CTX_TABLE_ROW_HOVER_COLOR,
+            padding: "10px",
+            borderRadius: "15px",
+            border: "5px dashed" + colors.CTX_MENUBAR_COLOR,
+            textAlign: "center",
+            cursor: "pointer",
+          }}
+        >
+          <input {...getInputProps2()} />
+          {!isDefined(acceptedFiles2[0]) ? (
+            <p>Drag 'n' drop some files here, or click to select files</p>
+          ) : (
+            <div>{acceptedFiles2[0].name}</div>
+          )}
+        </div>
       </div>
 
       <Button

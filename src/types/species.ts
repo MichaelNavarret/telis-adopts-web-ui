@@ -3,6 +3,7 @@ type SpecieInfo = {
   code: string;
   name: string;
   traitSheetUrl: string;
+  logoUrl: string;
 };
 
 type SpecieSingletonResponse = {

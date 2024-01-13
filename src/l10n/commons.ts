@@ -13,4 +13,5 @@ export const commonEn = {
   ADD: "Add",
   SETTINGS: "Settings",
   ADDITIONAL_INFO: "Additional Info",
+  LOGO: "Logo",
 };

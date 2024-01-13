@@ -24,9 +24,14 @@ export const getSpeciesAutocomplete = async () => {
   return data;
 };
 
-export const createSpecie = async (file: File, params: SpecieCreateParams) => {
+export const createSpecie = async (
+  file: File,
+  file2: File,
+  params: SpecieCreateParams
+) => {
   const formData = new FormData();
   formData.append("file", file);
+  formData.append("file2", file2);
   const data = await request
     .post<SpecieSingletonResponse>("/species", formData, {
       params: params,
