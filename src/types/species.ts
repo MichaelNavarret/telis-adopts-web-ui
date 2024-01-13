@@ -2,7 +2,7 @@ type SpecieInfo = {
   id: string;
   code: string;
   name: string;
-  traitsInformation: ArrayBufferLike;
+  traitSheetUrl: string;
 };
 
 type SpecieSingletonResponse = {

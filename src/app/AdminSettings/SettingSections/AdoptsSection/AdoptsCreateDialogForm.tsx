@@ -28,7 +28,7 @@ import TextComponent from "../../../../components/TextComponents/TextComponent";
 import ControlPointRoundedIcon from "@mui/icons-material/ControlPointRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 import { OwnerDesignerCreateRequest } from "../../../../types/owner";
-import { getImageFromBytes, isDefined } from "../../../../tools/commons";
+import { isDefined } from "../../../../tools/commons";
 import { successToast } from "../../../../constants/toasts";
 import TextFieldComponent from "../../../../components/Form/TextFieldComponent";
 import ActionIcon from "../../../../components/surfaces/ActionIconComponent";
@@ -281,14 +281,8 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
 
   const getTraitsInformationImage = () => {
     if (isDefined(specie)) {
-      if (isDefined(specieInfo?.traitsInformation)) {
-        return (
-          <img
-            src={getImageFromBytes(specieInfo.traitsInformation)}
-            width={515}
-            height={660}
-          />
-        );
+      if (isDefined(specieInfo?.traitSheetUrl)) {
+        return <img src={specieInfo.traitSheetUrl} width={515} height={660} />;
       } else if (isSpecieInfoLoading) {
         return (
           <CatsLoading
