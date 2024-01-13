@@ -4,6 +4,7 @@ type SpecieInfo = {
   name: string;
   traitSheetUrl: string;
   logoUrl: string;
+  masterListBannerUrl: string;
 };
 
 type SpecieSingletonResponse = {

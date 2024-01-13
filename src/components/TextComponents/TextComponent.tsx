@@ -18,6 +18,7 @@ type TextComponentProps = {
     | "large"
     | "x-large"
     | "xx-large";
+  letterSpacing?: string;
 };
 
 export const TextComponent = (props: TextComponentProps) => {
@@ -31,6 +32,7 @@ export const TextComponent = (props: TextComponentProps) => {
     hover = true,
     fontSize = "medium",
     className = "",
+    letterSpacing,
   } = props;
   const [isHover, setIsHover] = useState(false);
 
@@ -44,6 +46,7 @@ export const TextComponent = (props: TextComponentProps) => {
       style={{
         color: isHover && hover ? colorTextHover : colorText,
         fontSize: fontSize,
+        letterSpacing: letterSpacing,
       }}
       onClick={onClick}
       onMouseEnter={() => setIsHover(true)}

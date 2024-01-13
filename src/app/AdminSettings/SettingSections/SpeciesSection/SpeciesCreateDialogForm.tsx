@@ -1,4 +1,4 @@
-import { FormEvent, useCallback, useState } from "react";
+import { FormEvent, useState } from "react";
 import DialogComponent from "../../../../components/surfaces/DialogComponent";
 import styles from "./SpeciesCreateDialogForm.module.scss";
 import { Button } from "../../../../components";
@@ -28,12 +28,22 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
     getInputProps: getInputProps2,
     acceptedFiles: acceptedFiles2,
   } = useDropzone({});
+  const {
+    getRootProps: getRootProps3,
+    getInputProps: getInputProps3,
+    acceptedFiles: acceptedFiles3,
+  } = useDropzone({});
 
   const { mutate: crateSpecieMutation, isLoading } = useMutation({
     mutationFn: () => {
-      return createSpecie(acceptedFiles[0] as File, acceptedFiles2[0] as File, {
-        specieName: specieName,
-      });
+      return createSpecie(
+        acceptedFiles[0] as File,
+        acceptedFiles2[0] as File,
+        acceptedFiles3[0] as File,
+        {
+          specieName: specieName,
+        }
+      );
     },
     onSuccess: () => {
       successToast(strings.SPECIE_CREATED_SUCCESSFULLY);
@@ -110,6 +120,33 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
             <p>Drag 'n' drop some files here, or click to select files</p>
           ) : (
             <div>{acceptedFiles2[0].name}</div>
+          )}
+        </div>
+      </div>
+
+      <div>
+        <TextComponent
+          content={strings.MASTER_LIST_BANNER}
+          animation={false}
+          hover={false}
+        />
+        <div
+          {...getRootProps3()}
+          style={{
+            width: "500px",
+            backgroundColor: colors.CTX_TABLE_ROW_HOVER_COLOR,
+            padding: "10px",
+            borderRadius: "15px",
+            border: "5px dashed" + colors.CTX_MENUBAR_COLOR,
+            textAlign: "center",
+            cursor: "pointer",
+          }}
+        >
+          <input {...getInputProps3()} />
+          {!isDefined(acceptedFiles3[0]) ? (
+            <p>Drag 'n' drop some files here, or click to select files</p>
+          ) : (
+            <div>{acceptedFiles3[0].name}</div>
           )}
         </div>
       </div>

@@ -14,6 +14,7 @@ type ImageExpositorProps = {
     | "right"
     | "start";
   disabledHover?: boolean;
+  width?: string;
 };
 
 const ImageExpositor = (props: ImageExpositorProps) => {
@@ -24,6 +25,7 @@ const ImageExpositor = (props: ImageExpositorProps) => {
     onClick,
     align = "center",
     disabledHover = false,
+    width = "60%",
   } = props;
 
   return (
@@ -37,7 +39,7 @@ const ImageExpositor = (props: ImageExpositorProps) => {
         src={src}
         alt={alt}
         style={{
-          width: "70%",
+          width: width,
         }}
         className={`${
           disabledHover ? styles.imgStylesWithoutHover : styles.imgStyles

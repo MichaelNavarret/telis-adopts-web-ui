@@ -25,7 +25,7 @@ export const Button = (props: ButtonProps) => {
   const {
     colorButton = colors.CTX_BUTTON_COLOR,
     colorTextButton = colors.CTX_TEXT_COLOR,
-    buttonColorShadow = colors.CTX_BUTTON_SHADOW_COLOR,
+    buttonColorShadow = colors.CTX_BUTTON_SHADOW_COLOR_2,
     children,
     content,
     type = "submit",
