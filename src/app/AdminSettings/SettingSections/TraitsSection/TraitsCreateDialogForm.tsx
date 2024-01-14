@@ -174,6 +174,7 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
               data={orderTraitsByDisplayPriority(traits) || []}
               state={state}
               withPagination={false}
+              height="auto"
             />
           </div>
         )}
@@ -190,17 +191,11 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
         />
       </div>
 
-      <div className={styles.traitSheetContainer}>
-        {specieInfo?.traitSheetUrl ? (
+      {specieInfo && specieInfo.logoUrl && (
+        <div className={styles.traitSheetContainer} style={{}}>
           <img src={specieInfo?.traitSheetUrl} width={515} height={660} />
-        ) : (
-          <p>
-            {
-              "The trait sheet cannot be loaded. Maybe the specie not have, or is a network problem. "
-            }
-          </p>
-        )}
-      </div>
+        </div>
+      )}
     </form>
   );
 

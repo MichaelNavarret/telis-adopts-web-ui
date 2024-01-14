@@ -60,7 +60,7 @@ export const TableComponent = (props: TableComponentProps) => {
     state,
     loading = false,
     fetching = false,
-    height = "auto",
+    height,
     withPagination = true,
   } = props;
 
@@ -111,7 +111,7 @@ export const TableComponent = (props: TableComponentProps) => {
       <TableContainer
         className={styles.tableContainer}
         style={{
-          height: height,
+          height: height ? height : "700px",
         }}
         sx={{
           //-webkit-scrollbar

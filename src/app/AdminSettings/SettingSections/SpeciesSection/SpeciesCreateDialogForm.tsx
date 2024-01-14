@@ -76,7 +76,7 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
       />
       <div>
         <TextComponent
-          content={strings.TRAITS_INFORMATION}
+          content={strings.TRAITS_SHEET}
           animation={false}
           hover={false}
         />
@@ -94,7 +94,7 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
         >
           <input {...getInputProps()} />
           {!isDefined(acceptedFiles[0]) ? (
-            <p>Drag 'n' drop some files here, or click to select files</p>
+            <p>{strings.DRAG_AND_DROP}</p>
           ) : (
             <div>{acceptedFiles[0].name}</div>
           )}
@@ -117,7 +117,7 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
         >
           <input {...getInputProps2()} />
           {!isDefined(acceptedFiles2[0]) ? (
-            <p>Drag 'n' drop some files here, or click to select files</p>
+            <p>{strings.DRAG_AND_DROP}</p>
           ) : (
             <div>{acceptedFiles2[0].name}</div>
           )}
@@ -144,7 +144,7 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
         >
           <input {...getInputProps3()} />
           {!isDefined(acceptedFiles3[0]) ? (
-            <p>Drag 'n' drop some files here, or click to select files</p>
+            <p>{strings.DRAG_AND_DROP}</p>
           ) : (
             <div>{acceptedFiles3[0].name}</div>
           )}
