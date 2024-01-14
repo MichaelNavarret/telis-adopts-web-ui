@@ -13,7 +13,6 @@ import DropdownComponent from "../../../../components/Form/DropdownComponent";
 import {
   formatOwnerInfoForDropdown,
   formatSpecieInfoForDropdown,
-  formatTraitInfoForDropdown,
 } from "../../../../tools/dropdown";
 import AutocompleteComponent, {
   AutocompleteOption,
@@ -29,7 +28,7 @@ import ControlPointRoundedIcon from "@mui/icons-material/ControlPointRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 import { OwnerDesignerCreateRequest } from "../../../../types/owner";
 import { isDefined } from "../../../../tools/commons";
-import { successToast } from "../../../../constants/toasts";
+import { errorToast, successToast } from "../../../../constants/toasts";
 import TextFieldComponent from "../../../../components/Form/TextFieldComponent";
 import ActionIcon from "../../../../components/surfaces/ActionIconComponent";
 import { getTraitsAutocomplete } from "../../../../api/traits";
@@ -38,6 +37,8 @@ import { SubTraitCreateRequest } from "../../../../types/subTraits";
 import { getRarityByString } from "../../utils/format";
 import CatsLoading from "../../../../components/Loading/CatsLoading";
 import { useDropzone } from "react-dropzone";
+import { TraitInfo } from "../../../../types/traits";
+import { Checkbox } from "@mui/material";
 
 type AdoptsCreateDialogFormProps = {
   open: boolean;
@@ -61,7 +62,9 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
   const [designersNotRegistered, setDesignersNotRegistered] = useState<
     string[]
   >(["", ""]);
-  const [traitsFields, setTraitsFields] = useState<number>(1);
+  const [traitsFields, setTraitsFields] = useState<TraitInfo[] | undefined>();
+  const [availableTraits, setAvailableTraits] = useState<string[]>([]);
+  const [checked, setChecked] = useState<boolean[]>([]);
   const [traitsPayload, setTraitsPayload] = useState<SubTraitCreateRequest[]>([
     {},
   ]);
@@ -89,14 +92,30 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
     },
   });
 
-  const { data: traitsOptions } = useQuery({
+  const {} = useQuery({
     queryKey: ["autocompleteTraits", specie?.value],
     queryFn: () => {
       return getTraitsAutocomplete({
         specieId: isDefined(specie) ? specie.value : "",
       });
     },
+    onSuccess: (data) => {
+      const traitsOrderByDisplayPriority = data.sort(
+        (a, b) => a.displayPriority - b.displayPriority
+      );
+      setTraitsFields(traitsOrderByDisplayPriority);
+      setTraitsPayload(
+        traitsOrderByDisplayPriority.map((trait) => ({
+          mainTraitId: trait.id,
+        }))
+      );
+      data.map((trait) => {
+        setChecked((checked) => [...checked, true]);
+        setAvailableTraits((availableTraits) => [...availableTraits, trait.id]);
+      });
+    },
     enabled: isDefined(specie),
+    refetchOnWindowFocus: false,
   });
 
   const { data: specieInfo, isLoading: isSpecieInfoLoading } = useQuery({
@@ -132,7 +151,14 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
       },
       onSuccess: () => {
         successToast(strings.ADOPT_ICON_UPLOAD_SUCCESSFULLY);
-
+        queryClient.invalidateQueries("adopts");
+        queryClient.invalidateQueries("autocompleteOwners");
+        clearStates();
+        setOwnerOption(0);
+        handleClose();
+      },
+      onError: () => {
+        errorToast(strings.ADOPT_ICON_UPLOAD_FAILED);
         queryClient.invalidateQueries("adopts");
         queryClient.invalidateQueries("autocompleteOwners");
         clearStates();
@@ -154,9 +180,19 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
       creationType: creationType,
       notRegisteredOwner: owner ? false : true,
       designers: mergeDesigners(),
-      subTraits: traitsPayload[0].mainTraitId == null ? [] : traitsPayload,
+      subTraits: filteredTraitsPayload(traitsPayload),
     };
+    console.log(payload);
     createAdoptMutation(payload);
+  };
+
+  const filteredTraitsPayload = (payload: SubTraitCreateRequest[]) => {
+    const newPayload = payload.filter((trait) =>
+      availableTraits.find(
+        (availableTrait) => availableTrait === trait.mainTraitId
+      )
+    );
+    return newPayload;
   };
 
   const handleOwnerOption = (value: number) => {
@@ -192,7 +228,6 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
     setDesignersOption([0]);
     setDesigners([]);
     setDesignersNotRegistered(["", ""]);
-    setTraitsFields(1);
     setTraitsPayload([{}]);
   };
 
@@ -255,50 +290,22 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
     setDesignersFields(designersFields - 1);
   };
 
-  const addTraitField = () => {
-    setTraitsFields(traitsFields + 1);
+  const handleRarityChange = (value: string, id: string) => {
     const newTraitsPayload = [...traitsPayload];
-    newTraitsPayload.push({});
-    setTraitsPayload(newTraitsPayload);
-  };
-
-  const handleTraitChange = (value: AutocompleteOption, index: number) => {
-    const newTraitsPayload = [...traitsPayload];
-    newTraitsPayload[index].mainTraitId = value.value;
-    setTraitsPayload(newTraitsPayload);
-  };
-
-  const handleRarityChange = (value: string, index: number) => {
-    const newTraitsPayload = [...traitsPayload];
+    const index = newTraitsPayload.findIndex(
+      (trait) => trait.mainTraitId === id
+    );
     newTraitsPayload[index].rarity = getRarityByString(value);
     setTraitsPayload(newTraitsPayload);
   };
 
-  const getRaritiesOptions = (index: number) => {
-    const mainTrait = traitsOptions?.find(
-      (trait) => trait.id === traitsPayload[index].mainTraitId
-    );
-
-    if (isDefined(mainTrait)) {
-      return mainTrait?.rarities.map((rarity) => ({
-        label: rarity,
-        value: getRarityByString(rarity),
-      }));
-    }
-    return [];
-  };
-
-  const handleAdditionalInfoChange = (value: string, index: number) => {
+  const handleAdditionalInfoChange = (value: string, id: string) => {
     const newTraitsPayload = [...traitsPayload];
+    const index = newTraitsPayload.findIndex(
+      (trait) => trait.mainTraitId === id
+    );
     newTraitsPayload[index].additionalInfo = value;
     setTraitsPayload(newTraitsPayload);
-  };
-
-  const deleteTraitsField = (index: number) => {
-    const newTraitsPayload = [...traitsPayload];
-    newTraitsPayload.splice(index, 1);
-    setTraitsPayload(newTraitsPayload);
-    setTraitsFields(traitsFields - 1);
   };
 
   const getTraitsInformationImage = () => {
@@ -317,6 +324,35 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
         return <div>{"This Specie not have a traits info"}</div>;
       }
     }
+  };
+
+  const getRaritiesOptions = (trait: TraitInfo) => {
+    const options = trait.rarities.map((rarity) => ({
+      label: rarity,
+      value: getRarityByString(rarity),
+    }));
+    return options;
+  };
+
+  const handleDisableTraits = (index: number, traitId: string) => {
+    const newChecked = [...checked];
+    newChecked[index] = !checked[index];
+    setChecked(newChecked);
+
+    const newDisabledTraits = [...availableTraits];
+    if (newDisabledTraits.find((trait) => trait === traitId)) {
+      newDisabledTraits.splice(
+        newDisabledTraits.findIndex((trait) => trait === traitId),
+        1
+      );
+    } else {
+      newDisabledTraits.push(traitId);
+    }
+    setAvailableTraits(newDisabledTraits);
+  };
+
+  const isAvailableTrait = (traitId: string) => {
+    return isDefined(availableTraits.find((trait) => trait === traitId));
   };
 
   const dialogContent = (
@@ -560,67 +596,71 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
               animation={false}
               hover={false}
             />
-            <ActionIcon
-              Icon={ControlPointRoundedIcon}
-              fontsize="large"
-              handleClick={addTraitField}
-              disabled={isLoading || isUploadIconLoading}
-            />
           </div>
           <div className={styles.traitsContainer}>
-            {Array.from(Array(traitsFields).keys()).map((index) => (
+            {traitsFields?.map((trait, index) => (
               <div
                 key={`trait_container${index}`}
                 className={styles.singleTraitContainer}
               >
-                <AutocompleteComponent
-                  label={strings.TRAIT + (index + 1)}
-                  options={formatTraitInfoForDropdown(traitsOptions)}
-                  handleChange={(value: AutocompleteOption) => {
-                    handleTraitChange(value, index);
-                  }}
-                  disabled={
-                    isLoading || !isDefined(specie) || isUploadIconLoading
-                  }
-                />
-                <DropdownComponent
-                  name={strings.RARITY}
-                  label={`trait${index}`}
-                  value={traitsPayload[index].rarity || ""}
-                  handleChange={(e) =>
-                    handleRarityChange(e.target.value, index)
-                  }
-                  options={getRaritiesOptions(index)}
-                  disabled={
-                    isLoading || !isDefined(specie) || isUploadIconLoading
-                  }
-                  required={isDefined(traitsPayload[index].mainTraitId)}
-                />
-
-                <TextFieldComponent
-                  className={styles.textFieldForm}
+                <div
                   style={{
-                    marginTop: "1.5rem",
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    width: "25%",
+                    cursor: "pointer",
                   }}
-                  id={`trait${index}`}
-                  label={strings.ADDITIONAL_INFO}
-                  type="text"
-                  onChange={(e) =>
-                    handleAdditionalInfoChange(e.target.value, index)
+                  onClick={() => handleDisableTraits(index, trait.id)}
+                >
+                  <Checkbox checked={checked[index]} />
+                  <p
+                    style={{
+                      color: isAvailableTrait(trait.id)
+                        ? colors.CTX_MENUBAR_COLOR
+                        : "gray",
+                      fontSize: "11px",
+                      letterSpacing: "0.1rem",
+                    }}
+                  >
+                    {trait.trait}
+                  </p>
+                </div>
+                <DropdownComponent
+                  label={"rarity"}
+                  options={getRaritiesOptions(trait)}
+                  width="35%"
+                  value={
+                    traitsPayload.find(
+                      (traitPayload) => traitPayload.mainTraitId === trait.id
+                    )?.rarity
                   }
-                  value={traitsPayload[index].additionalInfo || ""}
+                  handleChange={(e) =>
+                    handleRarityChange(e.target.value, trait.id)
+                  }
                   disabled={
-                    isLoading || !isDefined(specie) || isUploadIconLoading
+                    isLoading ||
+                    isUploadIconLoading ||
+                    !isAvailableTrait(trait.id)
                   }
                 />
-                <ActionIcon
-                  Icon={DeleteForeverRoundedIcon}
-                  fontsize="large"
-                  handleClick={() => deleteTraitsField(index)}
-                  disabled={
-                    traitsFields === 0 || isLoading || isUploadIconLoading
+                <TextFieldComponent
+                  label={strings.ADDITIONAL_INFO + " " + (index + 1)}
+                  id="trait"
+                  type="text"
+                  value={
+                    traitsPayload.find(
+                      (traitPayload) => traitPayload.mainTraitId === trait.id
+                    )?.additionalInfo
                   }
-                  marginTop="5px"
+                  onChange={(e) =>
+                    handleAdditionalInfoChange(e.target.value, trait.id)
+                  }
+                  disabled={
+                    isLoading ||
+                    isUploadIconLoading ||
+                    !isAvailableTrait(trait.id)
+                  }
                 />
               </div>
             ))}

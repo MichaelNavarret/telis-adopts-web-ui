@@ -7,13 +7,14 @@ export type DropdownComponentOption = {
 };
 
 type DropdownComponentProps = {
-  name: string;
+  name?: string;
   label: string;
-  value: string | number;
+  value?: string | number;
   handleChange: (e: any) => void;
   options: DropdownComponentOption[];
   required?: boolean;
   disabled?: boolean;
+  width?: string;
 };
 
 const DropdownComponent = (props: DropdownComponentProps) => {
@@ -25,11 +26,12 @@ const DropdownComponent = (props: DropdownComponentProps) => {
     label,
     required = false,
     disabled = false,
+    width = "100%",
   } = props;
   const { colors } = useTheme();
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: width }}>
       <InputLabel id={`${label}Label`}>{name}</InputLabel>
       <Select
         labelId={`${label}Label`}

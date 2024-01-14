@@ -15,7 +15,6 @@ import AutocompleteComponent, {
 } from "../../../../components/Form/AutocompleteComponent";
 import { errorToast, successToast } from "../../../../constants/toasts";
 import TextFieldComponent from "../../../../components/Form/TextFieldComponent";
-import { Divider } from "@mui/material";
 import TableComponent, {
   useDataTable,
 } from "../../../../components/Table/TableComponent";
@@ -163,7 +162,6 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
           type="number"
           onChange={(e) => setDisplayPriority(Number(e.target.value))}
           required
-          min={1}
           disabled={isLoading}
         />
 

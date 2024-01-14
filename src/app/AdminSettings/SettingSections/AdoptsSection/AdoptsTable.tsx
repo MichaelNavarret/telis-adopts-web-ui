@@ -21,7 +21,7 @@ const AdoptsTable = (props: AdoptsTableProps) => {
   } = useQuery({
     queryKey: ["adopts", state.currentPage],
     queryFn: () => {
-      return getAdopts(state.currentPage);
+      return getAdopts({}, state.currentPage);
     },
   });
 

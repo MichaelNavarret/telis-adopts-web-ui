@@ -12,8 +12,6 @@ type TexFieldComponentProps = {
   style?: React.CSSProperties;
   helperText?: string;
   error?: boolean;
-  min?: number;
-  max?: number;
 };
 
 const TextFieldComponent = (props: TexFieldComponentProps) => {
@@ -29,8 +27,6 @@ const TextFieldComponent = (props: TexFieldComponentProps) => {
     style,
     helperText,
     error,
-    min = 0,
-    max = 100,
   } = props;
 
   return (
@@ -44,7 +40,6 @@ const TextFieldComponent = (props: TexFieldComponentProps) => {
       onChange={onChange}
       disabled={disabled}
       required={required}
-      inputProps={{ inputMode: "numeric", pattern: `[${min}-${max}]` }}
       helperText={helperText}
       error={error}
       InputProps={{
