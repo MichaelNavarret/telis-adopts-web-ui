@@ -20,6 +20,7 @@ type TextComponentProps = {
     | "xx-large";
   letterSpacing?: string;
   starAdornment?: React.ReactNode;
+  backgroundColor?: string;
 };
 
 export const TextComponent = (props: TextComponentProps) => {
@@ -34,6 +35,7 @@ export const TextComponent = (props: TextComponentProps) => {
     fontSize = "medium",
     className = "",
     letterSpacing,
+    backgroundColor,
   } = props;
   const [isHover, setIsHover] = useState(false);
 
@@ -48,6 +50,7 @@ export const TextComponent = (props: TextComponentProps) => {
         color: isHover && hover ? colorTextHover : colorText,
         fontSize: fontSize,
         letterSpacing: letterSpacing,
+        backgroundColor: backgroundColor,
       }}
       onClick={onClick}
       onMouseEnter={() => setIsHover(true)}

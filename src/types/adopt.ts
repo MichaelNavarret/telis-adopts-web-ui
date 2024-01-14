@@ -1,5 +1,5 @@
 import { OwnerDesignerCreateRequest } from "./owner";
-import { SubTraitCreateRequest } from "./subTraits";
+import { SubTraitCreateRequest, SubTraitInfo } from "./subTraits";
 
 export type CreationType = "PREMADE" | "CUSTOM" | "MYO" | "GUEST_ARTIST";
 
@@ -28,6 +28,7 @@ export type AdoptInfo = {
   registeredOn: string;
   rarity: string;
   iconUrl: string;
+  traits: SubTraitInfo[];
 };
 
 export type AdoptSingletonResponse = {

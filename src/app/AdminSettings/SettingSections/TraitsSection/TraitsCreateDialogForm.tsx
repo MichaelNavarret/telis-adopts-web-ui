@@ -4,8 +4,8 @@ import styles from "./TraitsCreateDialogForm.module.scss";
 import { Button } from "../../../../components";
 import { getSpecie, getSpeciesAutocomplete } from "../../../../api/species";
 import DialogComponent from "../../../../components/surfaces/DialogComponent";
-import { TraitCreateRequest } from "../../../../types/traits";
-import { createTrait } from "../../../../api/traits";
+import { TraitCreateRequest, TraitInfo } from "../../../../types/traits";
+import { createTrait, getTraitsAutocomplete } from "../../../../api/traits";
 import { formatSpecieInfoForDropdown } from "../../../../tools/dropdown";
 import strings from "../../../../l10n";
 import MenuButton from "../../../../components/surfaces/MenuButton";
@@ -15,6 +15,11 @@ import AutocompleteComponent, {
 } from "../../../../components/Form/AutocompleteComponent";
 import { errorToast, successToast } from "../../../../constants/toasts";
 import TextFieldComponent from "../../../../components/Form/TextFieldComponent";
+import { Divider } from "@mui/material";
+import TableComponent, {
+  useDataTable,
+} from "../../../../components/Table/TableComponent";
+import { traitsCreateDialogFormTable } from "./traitsCreateDialogFormTable";
 
 type TraitsCreateDialogFormProps = {
   open: boolean;
@@ -26,7 +31,9 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
   const [specie, setSpecie] = useState<AutocompleteOption | null>(null);
   const [multipleStep, setMultipleStep] = useState<number[]>([]);
   const [trait, setTrait] = useState<string>("");
+  const [displayPriority, setDisplayPriority] = useState<number | null>(null);
   const queryClient = useQueryClient();
+  const { state } = useDataTable();
 
   const { data: speciesOptions } = useQuery({
     queryKey: ["autocompleteSpecies"],
@@ -39,6 +46,16 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
     queryKey: ["specieInfo", specie?.value],
     queryFn: () => {
       return getSpecie(specie?.value || "");
+    },
+    enabled: !!specie,
+  });
+
+  const { data: traits } = useQuery({
+    queryKey: ["traitsTable", specie?.value],
+    queryFn: () => {
+      return getTraitsAutocomplete({
+        specieId: specie?.value || "",
+      });
     },
     enabled: !!specie,
   });
@@ -84,6 +101,7 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
               }
             })
           : [strings.COMMON.toUpperCase()],
+      displayPriority: displayPriority,
     };
     createTraitMutation(payload);
   };
@@ -102,6 +120,10 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
     } else {
       setMultipleStep((prev) => [...prev, value]);
     }
+  };
+
+  const orderTraitsByDisplayPriority = (traits: TraitInfo[]) => {
+    return traits.sort((a, b) => a.displayPriority - b.displayPriority);
   };
 
   const dialogContent = (
@@ -133,7 +155,31 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
           required
           disabled={isLoading}
         />
+
+        <TextFieldComponent
+          className={styles.textFieldForm}
+          id="displayPriority"
+          label={"Display Priority"}
+          type="number"
+          onChange={(e) => setDisplayPriority(Number(e.target.value))}
+          required
+          min={1}
+          disabled={isLoading}
+        />
+
+        {traits && traits.length > 0 && (
+          <div className={styles.tableContainer}>
+            <TableComponent
+              columns={traitsCreateDialogFormTable}
+              data={orderTraitsByDisplayPriority(traits) || []}
+              state={state}
+              withPagination={false}
+            />
+          </div>
+        )}
+
         <Button
+          className={styles.submitButton}
           content={strings.CREATE}
           type="submit"
           width="150px"
@@ -143,6 +189,7 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
           catsLoading={isLoading}
         />
       </div>
+
       <div className={styles.traitSheetContainer}>
         {specieInfo?.traitSheetUrl ? (
           <img src={specieInfo?.traitSheetUrl} width={515} height={660} />

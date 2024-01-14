@@ -11,10 +11,14 @@ import TextComponent from "../../../../components/TextComponents/TextComponent";
 import CurrentOwnerSection from "./CurrentOwnerSection";
 import DesignersSection from "./DesignersSection";
 import { FaTree } from "react-icons/fa";
+import ToyhouseIcon from "../../../../icons/ToyhouseIcon";
+import { ImCross } from "react-icons/im";
+import TraitList from "./TraitsList";
 
 type AdoptCardProps = {
   open: boolean;
   adopt: AdoptInfo;
+  handleClose: () => void;
 };
 
 const Transition = forwardRef(function Transition(
@@ -28,7 +32,7 @@ const Transition = forwardRef(function Transition(
 
 const AdoptCard = (props: AdoptCardProps) => {
   const { colors } = useTheme();
-  const { open = false, adopt } = props;
+  const { open = false, adopt, handleClose } = props;
   return (
     <Dialog
       open={open}
@@ -38,10 +42,11 @@ const AdoptCard = (props: AdoptCardProps) => {
       PaperProps={{
         style: {
           backgroundColor: colors.CTX_FORM_CONTAINER_COLOR,
-          borderRadius: "60px",
+          borderRadius: "100px",
           width: "750px",
           height: "500px",
           border: `15px solid ${colors.CTX_BORDER_ICON_COLOR}`,
+          overflow: "hidden",
         },
       }}
     >
@@ -67,6 +72,7 @@ const AdoptCard = (props: AdoptCardProps) => {
                   label={strings.DESIGNERS}
                   color={colors.CTX_TEXT_COLOR}
                   backgroundColor={colors.CTX_BUTTON_COLOR}
+                  fontSize="11px"
                 />
                 {adopt.designers.map((designer) => (
                   <DesignersSection key={designer} designer={designer} />
@@ -83,8 +89,11 @@ const AdoptCard = (props: AdoptCardProps) => {
                 hover={false}
                 fontSize="small"
                 animation={false}
+                letterSpacing="0.2rem"
               />
-              <FaTree fontSize={50} color="green" />
+              <div className={styles.badgesContainer}>
+                <FaTree fontSize={50} color="green" />
+              </div>
             </div>
             <Divider
               style={{ marginLeft: "25%", marginRight: "2%", marginTop: "3px" }}
@@ -92,7 +101,38 @@ const AdoptCard = (props: AdoptCardProps) => {
           </div>
         </div>
 
-        <div className={styles.bodyContainer}></div>
+        {/* ---------------------------------------------------------
+        -------------------------------Body--------------------
+        --------------------------------------------------------- */}
+        <div className={styles.bodyContainer}>
+          <TraitList traits={adopt.traits} rarity={adopt.rarity} />
+        </div>
+
+        {/* ---------------------------------------------------------
+        -------------------------------Footer--------------------
+        --------------------------------------------------------- */}
+        <div className={styles.footerContainer}>
+          <ToyhouseIcon
+            className={styles.iconStyles}
+            iconColor={colors.CTX_TEXT_COLOR}
+            style={{
+              background: colors.CTX_BUBBLE_COLOR,
+              padding: "5px",
+              boxShadow: `0px 0px 10px 0px ${colors.CTX_BUTTON_SHADOW_COLOR_2}`,
+              width: "40px",
+              height: "40px",
+              borderRadius: "50%",
+            }}
+          />
+          <ImCross
+            className={styles.iconStyles}
+            style={{
+              marginBottom: "5px",
+              color: colors.CTX_BUBBLE_COLOR,
+            }}
+            onClick={handleClose}
+          />
+        </div>
       </div>
     </Dialog>
   );

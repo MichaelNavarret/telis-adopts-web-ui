@@ -10,11 +10,18 @@ const DesignersSection = (props: DesignersSectionProps) => {
   const { colors } = useTheme();
   const { designer } = props;
   return (
-    <div style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        marginTop: "10px",
+        justifyContent: "center",
+      }}
+    >
       <StarRoundedIcon
         style={{
           color: colors.CTX_BUTTON_COLOR,
-          fontSize: "30px",
+          fontSize: "25px",
           marginRight: "5px",
         }}
       />
@@ -23,6 +30,8 @@ const DesignersSection = (props: DesignersSectionProps) => {
         hover={false}
         animation={false}
         colorText={colors.CTX_BUTTON_SHADOW_COLOR_2}
+        letterSpacing="0.2rem"
+        fontSize="small"
       />
     </div>
   );

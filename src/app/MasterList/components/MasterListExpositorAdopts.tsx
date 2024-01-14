@@ -41,7 +41,11 @@ const MasterListExpositorAdopts = (props: MasterListExpositorAdoptsProps) => {
         </div>
       ))}
       {selectedAdopt && (
-        <AdoptCard open={openAdoptCard} adopt={selectedAdopt} />
+        <AdoptCard
+          open={openAdoptCard}
+          adopt={selectedAdopt}
+          handleClose={() => setOpenAdoptCard(false)}
+        />
       )}
     </div>
   );

@@ -41,6 +41,8 @@ type TableComponentProps = {
   state: HookDataTable;
   loading?: boolean;
   fetching?: boolean;
+  height?: string;
+  withPagination?: boolean;
 };
 
 export const TableComponent = (props: TableComponentProps) => {
@@ -58,6 +60,8 @@ export const TableComponent = (props: TableComponentProps) => {
     state,
     loading = false,
     fetching = false,
+    height = "auto",
+    withPagination = true,
   } = props;
 
   const NotFoundData = () => {
@@ -106,6 +110,9 @@ export const TableComponent = (props: TableComponentProps) => {
       </div>
       <TableContainer
         className={styles.tableContainer}
+        style={{
+          height: height,
+        }}
         sx={{
           //-webkit-scrollbar
           "&::-webkit-scrollbar": {
@@ -149,21 +156,23 @@ export const TableComponent = (props: TableComponentProps) => {
         </Table>
         {displayNoContent()}
       </TableContainer>
-      <Pagination
-        className={styles.pagination}
-        page={state.currentPage + 1}
-        sx={{
-          "& .MuiPaginationItem-root": {
-            color: "black",
-          },
-          "& .MuiPaginationItem-root.Mui-selected": {
-            backgroundColor: colors.CTX_BUTTON_COLOR,
-          },
-        }}
-        count={Number(totalPages)}
-        onChange={(_e, value) => handlePagination(value)}
-        variant="outlined"
-      />
+      {withPagination && (
+        <Pagination
+          className={styles.pagination}
+          page={state.currentPage + 1}
+          sx={{
+            "& .MuiPaginationItem-root": {
+              color: "black",
+            },
+            "& .MuiPaginationItem-root.Mui-selected": {
+              backgroundColor: colors.CTX_BUTTON_COLOR,
+            },
+          }}
+          count={Number(totalPages)}
+          onChange={(_e, value) => handlePagination(value)}
+          variant="outlined"
+        />
+      )}
     </div>
   );
 };
