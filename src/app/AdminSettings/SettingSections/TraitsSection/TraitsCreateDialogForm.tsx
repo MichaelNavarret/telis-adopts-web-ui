@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import styles from "./TraitsCreateDialogForm.module.scss";
 import { Button } from "../../../../components";
-import { getSpeciesAutocomplete } from "../../../../api/species";
+import { getSpecie, getSpeciesAutocomplete } from "../../../../api/species";
 import DialogComponent from "../../../../components/surfaces/DialogComponent";
 import { TraitCreateRequest } from "../../../../types/traits";
 import { createTrait } from "../../../../api/traits";
@@ -33,6 +33,14 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
     queryFn: () => {
       return getSpeciesAutocomplete();
     },
+  });
+
+  const { data: specieInfo } = useQuery({
+    queryKey: ["specieInfo", specie?.value],
+    queryFn: () => {
+      return getSpecie(specie?.value || "");
+    },
+    enabled: !!specie,
   });
 
   const { mutate: createTraitMutation, isLoading } = useMutation({
@@ -102,37 +110,50 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
       className={styles.formMainContainer}
       autoComplete="off"
     >
-      <AutocompleteComponent
-        label={strings.SPECIE}
-        options={formatSpecieInfoForDropdown(speciesOptions)}
-        handleChange={(value: AutocompleteOption) => setSpecie(value)}
-        required
-        disabled={isLoading}
-      />
-      <MenuButton
-        options={MenuButtonRarityOptions}
-        handleClick={handleMultipleStep}
-        selectMultiple
-        disabled={isLoading}
-      />
-      <TextFieldComponent
-        className={styles.textFieldForm}
-        id="trait"
-        label={strings.TRAIT}
-        type="text"
-        onChange={(e) => setTrait(e.target.value)}
-        required
-        disabled={isLoading}
-      />
-      <Button
-        content={strings.CREATE}
-        type="submit"
-        width="150px"
-        height="35px"
-        disabled={isLoading}
-        loading={isLoading}
-        catsLoading={isLoading}
-      />
+      <div className={styles.principalSectionContainer}>
+        <AutocompleteComponent
+          label={strings.SPECIE}
+          options={formatSpecieInfoForDropdown(speciesOptions)}
+          handleChange={(value: AutocompleteOption) => setSpecie(value)}
+          required
+          disabled={isLoading}
+        />
+        <MenuButton
+          options={MenuButtonRarityOptions}
+          handleClick={handleMultipleStep}
+          selectMultiple
+          disabled={isLoading}
+        />
+        <TextFieldComponent
+          className={styles.textFieldForm}
+          id="trait"
+          label={strings.TRAIT}
+          type="text"
+          onChange={(e) => setTrait(e.target.value)}
+          required
+          disabled={isLoading}
+        />
+        <Button
+          content={strings.CREATE}
+          type="submit"
+          width="150px"
+          height="35px"
+          disabled={isLoading}
+          loading={isLoading}
+          catsLoading={isLoading}
+        />
+      </div>
+      <div className={styles.traitSheetContainer}>
+        {specieInfo?.traitSheetUrl ? (
+          <img src={specieInfo?.traitSheetUrl} width={515} height={660} />
+        ) : (
+          <p>
+            {
+              "The trait sheet cannot be loaded. Maybe the specie not have, or is a network problem. "
+            }
+          </p>
+        )}
+      </div>
     </form>
   );
 
@@ -142,8 +163,8 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
       open={open}
       handleClose={handleClose}
       content={dialogContent}
-      width="500px"
-      height="400px"
+      height="800px"
+      maxWidth="lg"
     />
   );
 };

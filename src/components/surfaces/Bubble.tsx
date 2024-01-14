@@ -16,6 +16,7 @@ type BubbleProps = {
   top?: string;
   bubbleColor?: string;
   bubbleShadowColor?: string;
+  position?: "absolute" | "relative" | "fixed";
 };
 
 const Bubble = (props: BubbleProps) => {
@@ -33,6 +34,7 @@ const Bubble = (props: BubbleProps) => {
     right,
     bubbleColor = colors.CTX_BUBBLE_HOME_COLOR,
     bubbleShadowColor = colors.CTX_BUTTON_SHADOW_COLOR,
+    position,
   } = props;
 
   return (
@@ -64,6 +66,7 @@ const Bubble = (props: BubbleProps) => {
           bottom: bottom,
           left: left,
           right: right,
+          position: position,
         }}
         onClick={handleClick}
       >

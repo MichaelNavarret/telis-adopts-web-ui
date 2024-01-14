@@ -27,6 +27,7 @@ export type AdoptInfo = {
   boughtOn: string;
   registeredOn: string;
   rarity: string;
+  iconUrl: string;
 };
 
 export type AdoptSingletonResponse = {
@@ -35,4 +36,9 @@ export type AdoptSingletonResponse = {
 
 export type AdoptCollectionResponse = {
   adoptInfoList: AdoptInfo[];
+};
+
+export type AdoptAutocompleteParams = {
+  specieId?: string;
+  creationType?: CreationType;
 };

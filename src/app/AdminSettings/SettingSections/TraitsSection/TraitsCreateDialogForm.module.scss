@@ -1,12 +1,21 @@
 .formMainContainer {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
   gap: 1rem;
-  .textFieldForm {
-    margin-top: 5px;
-    width: 100%;
+  .principalSectionContainer {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    flex: 1;
+    gap: 1rem;
+    .textFieldForm {
+      margin-top: 5px;
+      width: 100%;
+    }
+  }
+  .traitSheetContainer {
+    flex: 1;
   }
 }
 

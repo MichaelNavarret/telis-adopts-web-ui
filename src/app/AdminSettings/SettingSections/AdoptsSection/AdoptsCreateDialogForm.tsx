@@ -7,7 +7,7 @@ import { getSpecie, getSpeciesAutocomplete } from "../../../../api/species";
 import { CREATION_TYPE } from "../../../../constants/SelectOptions";
 import { Button } from "../../../../components";
 import { AdoptCreateRequest, CreationType } from "../../../../types/adopt";
-import { createAdopt } from "../../../../api/adopts";
+import { createAdopt, uploadAdoptIcon } from "../../../../api/adopts";
 import { useTheme } from "../../../../context/ThemeProvider";
 import DropdownComponent from "../../../../components/Form/DropdownComponent";
 import {
@@ -37,6 +37,7 @@ import { Container } from "@mui/system";
 import { SubTraitCreateRequest } from "../../../../types/subTraits";
 import { getRarityByString } from "../../utils/format";
 import CatsLoading from "../../../../components/Loading/CatsLoading";
+import { useDropzone } from "react-dropzone";
 
 type AdoptsCreateDialogFormProps = {
   open: boolean;
@@ -45,6 +46,7 @@ type AdoptsCreateDialogFormProps = {
 
 const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
   const { open, handleClose } = props;
+  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({});
   const [ownerOption, setOwnerOption] = useState<number>(0);
   const { colors } = useTheme();
   const queryClient = useQueryClient();
@@ -109,15 +111,34 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
     mutationFn: (data: AdoptCreateRequest) => {
       return createAdopt(data);
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       successToast(strings.ADOPT_CREATE_SUCCESSFULLY);
-      queryClient.invalidateQueries("adopts");
-      queryClient.invalidateQueries("autocompleteOwners");
-      clearStates();
-      setOwnerOption(0);
-      handleClose();
+      if (isDefined(acceptedFiles[0])) {
+        uploadIconMutation(data.id);
+      } else {
+        queryClient.invalidateQueries("adopts");
+        queryClient.invalidateQueries("autocompleteOwners");
+        clearStates();
+        setOwnerOption(0);
+        handleClose();
+      }
     },
   });
+
+  const { mutate: uploadIconMutation, isLoading: isUploadIconLoading } =
+    useMutation({
+      mutationFn: (adoptId: string) => {
+        return uploadAdoptIcon(acceptedFiles[0], adoptId);
+      },
+      onSuccess: () => {
+        successToast(strings.ADOPT_ICON_UPLOAD_SUCCESSFULLY);
+        queryClient.invalidateQueries("adopts");
+        queryClient.invalidateQueries("autocompleteOwners");
+        clearStates();
+        setOwnerOption(0);
+        handleClose();
+      },
+    });
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -321,8 +342,35 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
               label={strings.ADOPT_NAME}
               type="text"
               onChange={(e) => setAdoptName(e.target.value)}
-              disabled={isLoading}
+              disabled={isLoading || isUploadIconLoading}
             />
+
+            <div>
+              <TextComponent
+                content={strings.ADOPT_ICON}
+                animation={false}
+                hover={false}
+              />
+              <div
+                {...getRootProps()}
+                style={{
+                  width: "500px",
+                  backgroundColor: colors.CTX_TABLE_ROW_HOVER_COLOR,
+                  padding: "10px",
+                  borderRadius: "15px",
+                  border: "5px dashed" + colors.CTX_MENUBAR_COLOR,
+                  textAlign: "center",
+                  cursor: "pointer",
+                }}
+              >
+                <input {...getInputProps()} />
+                {!isDefined(acceptedFiles[0]) ? (
+                  <p>Drag 'n' drop some files here, or click to select files</p>
+                ) : (
+                  <div>{acceptedFiles[0].name}</div>
+                )}
+              </div>
+            </div>
 
             <div
               className={styles.ownersContainer}
@@ -341,7 +389,9 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                   label={strings.OWNER}
                   options={formatOwnerInfoForDropdown(ownersResponse)}
                   handleChange={(value: AutocompleteOption) => setOwner(value)}
-                  disabled={ownerOption === 0 || isLoading}
+                  disabled={
+                    ownerOption === 0 || isLoading || isUploadIconLoading
+                  }
                   required={ownerOption === 1}
                 />
               ) : (
@@ -354,7 +404,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                   value={notRegisteredOwner}
                   onChange={(e) => setNotRegisteredOwner(e.target.value)}
                   required
-                  disabled={isLoading}
+                  disabled={isLoading || isUploadIconLoading}
                 />
               )}
             </div>
@@ -364,7 +414,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
               options={formatSpecieInfoForDropdown(speciesOptions)}
               handleChange={(value: AutocompleteOption) => setSpecie(value)}
               required
-              disabled={isLoading}
+              disabled={isLoading || isUploadIconLoading}
             />
 
             <DropdownComponent
@@ -373,7 +423,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
               value={creationType}
               handleChange={(e) => setCreationType(e.target.value)}
               options={CREATION_TYPE}
-              disabled={isLoading}
+              disabled={isLoading || isUploadIconLoading}
             />
           </div>
           {/* ------------------------------------------------------------------------------------------- */}
@@ -399,7 +449,8 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                 disabled={
                   !availableDesignerSection ||
                   designersFields === 2 ||
-                  isLoading
+                  isLoading ||
+                  isUploadIconLoading
                 }
               />
             </div>
@@ -418,7 +469,11 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                     options={MenuButtonDesignersOptions}
                     handleClick={handleDesignersOption}
                     externalIndex={index}
-                    disabled={!availableDesignerSection || isLoading}
+                    disabled={
+                      !availableDesignerSection ||
+                      isLoading ||
+                      isUploadIconLoading
+                    }
                   />
                   {designersOption[index] !== 1 ? (
                     <AutocompleteComponent
@@ -428,7 +483,11 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                       handleChange={(value: AutocompleteOption) =>
                         handleChangeDesigners(value, index)
                       }
-                      disabled={!availableDesignerSection || isLoading}
+                      disabled={
+                        !availableDesignerSection ||
+                        isLoading ||
+                        isUploadIconLoading
+                      }
                       required={
                         designersOption[index] === 0 && availableDesignerSection
                       }
@@ -447,7 +506,11 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                           index
                         )
                       }
-                      disabled={!availableDesignerSection || isLoading}
+                      disabled={
+                        !availableDesignerSection ||
+                        isLoading ||
+                        isUploadIconLoading
+                      }
                       required={
                         designersOption[index] === 1 && availableDesignerSection
                       }
@@ -461,7 +524,8 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                     disabled={
                       !availableDesignerSection ||
                       designersFields === 1 ||
-                      isLoading
+                      isLoading ||
+                      isUploadIconLoading
                     }
                     marginTop="5px"
                   />
@@ -499,7 +563,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
               Icon={ControlPointRoundedIcon}
               fontsize="large"
               handleClick={addTraitField}
-              disabled={isLoading}
+              disabled={isLoading || isUploadIconLoading}
             />
           </div>
           <div className={styles.traitsContainer}>
@@ -514,7 +578,9 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                   handleChange={(value: AutocompleteOption) => {
                     handleTraitChange(value, index);
                   }}
-                  disabled={isLoading || !isDefined(specie)}
+                  disabled={
+                    isLoading || !isDefined(specie) || isUploadIconLoading
+                  }
                 />
                 <DropdownComponent
                   name={strings.RARITY}
@@ -524,7 +590,9 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                     handleRarityChange(e.target.value, index)
                   }
                   options={getRaritiesOptions(index)}
-                  disabled={isLoading || !isDefined(specie)}
+                  disabled={
+                    isLoading || !isDefined(specie) || isUploadIconLoading
+                  }
                   required={isDefined(traitsPayload[index].mainTraitId)}
                 />
 
@@ -540,13 +608,17 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                     handleAdditionalInfoChange(e.target.value, index)
                   }
                   value={traitsPayload[index].additionalInfo || ""}
-                  disabled={isLoading || !isDefined(specie)}
+                  disabled={
+                    isLoading || !isDefined(specie) || isUploadIconLoading
+                  }
                 />
                 <ActionIcon
                   Icon={DeleteForeverRoundedIcon}
                   fontsize="large"
                   handleClick={() => deleteTraitsField(index)}
-                  disabled={traitsFields === 0 || isLoading}
+                  disabled={
+                    traitsFields === 0 || isLoading || isUploadIconLoading
+                  }
                   marginTop="5px"
                 />
               </div>
@@ -565,9 +637,9 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
           height="35px"
           colorButton={colors.CTX_FORM_BUTTON_COLOR}
           buttonColorShadow={colors.CTX_BUTTON_SHADOW_COLOR_2}
-          loading={isLoading}
-          disabled={isLoading}
-          catsLoading={isLoading}
+          loading={isLoading || isUploadIconLoading}
+          disabled={isLoading || isUploadIconLoading}
+          catsLoading={isLoading || isUploadIconLoading}
         />
       </div>
     </form>
