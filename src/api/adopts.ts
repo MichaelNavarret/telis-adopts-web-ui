@@ -23,9 +23,13 @@ export const uploadAdoptIcon = async (file: File, adoptId: string) => {
   return data;
 };
 
-export const getAdopts = async (pageNumber: number = 0) => {
+export const getAdopts = async (
+  params: AdoptAutocompleteParams,
+  pageNumber: number = 0
+) => {
   const data = await request
     .get<AdoptCollectionResponse>("/adopts", {
+      params,
       headers: getPaginationHeaders(pageNumber),
     })
     .then((res) => {
@@ -34,14 +38,5 @@ export const getAdopts = async (pageNumber: number = 0) => {
         data: res.data.adoptInfoList,
       };
     });
-  return data;
-};
-
-export const getAdoptAutocomplete = async (params: AdoptAutocompleteParams) => {
-  const data = await request
-    .get<AdoptCollectionResponse>("/adopts/autocomplete", {
-      params,
-    })
-    .then((res) => res.data.adoptInfoList);
   return data;
 };

@@ -7,4 +7,6 @@ export const ownerEn = {
   REGISTERED_OWNER_OPTION: "Select this option to choose a registered owner.",
   NOT_REGISTERED_OWNER_OPTION:
     "Select 'Not Registered' for an owner who is not registered.",
+  CURRENT_OWNER: "Current Owner",
+  DESIGNERS: "Designers",
 };

@@ -41,4 +41,5 @@ export type AdoptCollectionResponse = {
 export type AdoptAutocompleteParams = {
   specieId?: string;
   creationType?: CreationType;
+  sort?: string;
 };

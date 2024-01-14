@@ -132,6 +132,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
       },
       onSuccess: () => {
         successToast(strings.ADOPT_ICON_UPLOAD_SUCCESSFULLY);
+
         queryClient.invalidateQueries("adopts");
         queryClient.invalidateQueries("autocompleteOwners");
         clearStates();
@@ -153,7 +154,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
       creationType: creationType,
       notRegisteredOwner: owner ? false : true,
       designers: mergeDesigners(),
-      subTraits: traitsPayload,
+      subTraits: traitsPayload[0].mainTraitId == null ? [] : traitsPayload,
     };
     createAdoptMutation(payload);
   };

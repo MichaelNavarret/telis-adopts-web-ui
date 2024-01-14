@@ -21,6 +21,7 @@ export const PLUNIES_BUTTON_SHADOW_COLOR_2 = "#983456";
 export const PLUNIES_FORM_BUTTON_COLOR = "#C6537A";
 export const PLUNIES_TABLE_TITLE_COLOR = "#C35374";
 export const PLUNIES_MENUBAR_TEXT_COLOR = "#FEF1DF";
+export const PLUNIES_BORDER_ICON_COLOR = "#C3557A";
 
 export const pluniesColors: Colors = {
   text: PLUNIES_TEXT_COLOR,
@@ -44,4 +45,5 @@ export const pluniesColors: Colors = {
   formButton: PLUNIES_FORM_BUTTON_COLOR,
   tableTitle: PLUNIES_TABLE_TITLE_COLOR,
   menubarText: PLUNIES_MENUBAR_TEXT_COLOR,
+  borderIcon: PLUNIES_BORDER_ICON_COLOR,
 };

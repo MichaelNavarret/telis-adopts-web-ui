@@ -21,6 +21,7 @@ export const CLOUDYSTARS_BUTTON_SHADOW_COLOR_2 = "#809FBB";
 export const CLOUDYSTARS_FORM_BUTTON_COLOR = "#82B5E2";
 export const CLOUDYSTARS_TABLE_TITLE_COLOR = "#9AD2E7";
 export const CLOUDYSTARS_MENUBAR_TEXT_COLOR = "#FFFFFF";
+export const CLOUDYSTARS_BORDER_ICON_COLOR = "#82B8DE";
 
 export const cloudystarsColors: Colors = {
   text: CLOUDYSTARS_TEXT_COLOR,
@@ -44,4 +45,5 @@ export const cloudystarsColors: Colors = {
   formButton: CLOUDYSTARS_FORM_BUTTON_COLOR,
   tableTitle: CLOUDYSTARS_TABLE_TITLE_COLOR,
   menubarText: CLOUDYSTARS_MENUBAR_TEXT_COLOR,
+  borderIcon: CLOUDYSTARS_BORDER_ICON_COLOR,
 };

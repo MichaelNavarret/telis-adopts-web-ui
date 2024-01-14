@@ -17,7 +17,6 @@ const BackArrowIcon = (props: BackArrowIconProps) => {
         y="0px"
         width="100%"
         viewBox="0 0 500 420"
-        enable-background="new 0 0 500 420"
       >
         <path
           stroke="none"

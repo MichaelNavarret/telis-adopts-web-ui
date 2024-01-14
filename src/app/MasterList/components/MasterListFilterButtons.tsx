@@ -15,7 +15,7 @@ const MasterListFilterButtons = (props: MasterListFilterButtonsProps) => {
       <Button
         content="Guest Artist"
         width="400px"
-        onClick={() => handleClick("Guest Artist")}
+        onClick={() => handleClick("GUEST_ARTIST")}
       />
     </div>
   );

@@ -4,8 +4,8 @@ import { getSpecie } from "../../api/species";
 import { useState } from "react";
 import MasterListFilterButtons from "./components/MasterListFilterButtons";
 import MasterListExpositorAdopts from "./components/MasterListExpositorAdopts";
-import { getAdoptAutocomplete } from "../../api/adopts";
 import { CreationType } from "../../types/adopt";
+import { getAdopts } from "../../api/adopts";
 
 const MasterListScreen = () => {
   const [creationTypeFilter, setCreationTypeFilter] = useState("PREMADE");
@@ -19,11 +19,12 @@ const MasterListScreen = () => {
   });
 
   const { data: adopts } = useQuery({
-    queryKey: ["adopts", specieId, creationTypeFilter],
+    queryKey: ["adopts", specieId, creationTypeFilter, "code:ASC"],
     queryFn: () => {
-      return getAdoptAutocomplete({
+      return getAdopts({
         specieId: specieId,
         creationType: creationTypeFilter as CreationType,
+        sort: "code:ASC",
       });
     },
   });
@@ -40,7 +41,7 @@ const MasterListScreen = () => {
         masterListBannerUrl={specieInfo?.masterListBannerUrl || ""}
       />
       <MasterListFilterButtons handleClick={handleFilterClick} />
-      {adopts && <MasterListExpositorAdopts adopts={adopts} />}
+      {adopts && <MasterListExpositorAdopts adopts={adopts?.data} />}
     </div>
   );
 };

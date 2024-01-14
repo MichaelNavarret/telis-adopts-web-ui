@@ -19,6 +19,7 @@ type TextComponentProps = {
     | "x-large"
     | "xx-large";
   letterSpacing?: string;
+  starAdornment?: React.ReactNode;
 };
 
 export const TextComponent = (props: TextComponentProps) => {

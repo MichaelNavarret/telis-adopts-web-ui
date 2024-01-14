@@ -47,4 +47,5 @@ export type Colors = {
   formButton: string;
   tableTitle: string;
   menubarText: string;
+  borderIcon: string;
 };

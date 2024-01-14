@@ -1,0 +1,58 @@
+.contentContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .headerContainer {
+    flex: 1;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    .iconAdoptContainer {
+      position: absolute;
+      width: 30%;
+      text-align: center;
+      padding: 5px;
+      margin-top: 3.5%;
+    }
+    .subHeaderContainer {
+      display: flex;
+      flex-direction: column;
+      width: 65%;
+      margin-left: 32%;
+      height: 150px;
+      .topSubHeaderContainer {
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        .currentOwnerContainer {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .listDesignersContainer {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    }
+  }
+  .bottomSubHeaderContainer {
+    .codeAdoptAndBadgeContainer {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: end;
+      .codeAdopt {
+        margin-left: 27%;
+      }
+    }
+  }
+  .bodyContainer {
+    flex: 1;
+    height: 100px;
+  }
+}

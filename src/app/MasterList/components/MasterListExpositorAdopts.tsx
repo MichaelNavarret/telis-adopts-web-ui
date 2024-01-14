@@ -1,7 +1,9 @@
 import { useTheme } from "../../../context/ThemeProvider";
-import { isDefined } from "../../../tools/commons";
 import { AdoptInfo } from "../../../types/adopt";
 import styles from "./MasterListExpositorAdopts.module.scss";
+import AdoptCard from "./AdoptCard/AdoptCard";
+import { useState } from "react";
+import IconAdopt from "../../../components/utils/IconAdopt";
 
 type MasterListExpositorAdoptsProps = {
   adopts: AdoptInfo[];
@@ -10,23 +12,37 @@ type MasterListExpositorAdoptsProps = {
 const MasterListExpositorAdopts = (props: MasterListExpositorAdoptsProps) => {
   const { adopts } = props;
   const { colors } = useTheme();
-  const borderIconColor = colors.CTX_BUTTON_COLOR;
+  const [openAdoptCard, setOpenAdoptCard] = useState(false);
+  const [selectedAdopt, setSelectedAdopt] = useState<AdoptInfo | null>(null);
+  const borderIconColor = colors.CTX_BORDER_ICON_COLOR;
+
+  const handleIconClick = (adopt: AdoptInfo) => {
+    setSelectedAdopt(adopt);
+    setOpenAdoptCard(true);
+  };
 
   return (
     <div className={styles.adoptsExpositorContainer}>
       {adopts.map((adopt, index) => (
-        <img
-          key={index}
-          className={styles.adoptIcon}
-          src={adopt.iconUrl}
-          alt={"logo"}
-          width={190}
-          style={{
-            filter: `drop-shadow(5px 5px 0 ${borderIconColor}) drop-shadow(-5px 5px 0 ${borderIconColor})
-                drop-shadow(5px -5px 0 ${borderIconColor}) drop-shadow(-5px -5px 0 ${borderIconColor})`,
-          }}
-        />
+        <div key={adopt.id} className={styles.adoptIconContainer}>
+          <p
+            className={styles.adoptCode}
+            style={{ color: colors.CTX_BUTTON_COLOR }}
+          >
+            {`#${adopt.code}`}
+          </p>
+          <IconAdopt
+            key={adopt.id + index}
+            adopt={adopt}
+            handleIconClick={handleIconClick}
+            width={190}
+            borderIconColor={borderIconColor}
+          />
+        </div>
       ))}
+      {selectedAdopt && (
+        <AdoptCard open={openAdoptCard} adopt={selectedAdopt} />
+      )}
     </div>
   );
 };
