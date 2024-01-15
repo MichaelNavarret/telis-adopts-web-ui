@@ -28,6 +28,7 @@
     "react-query": "^3.39.3",
     "react-router-dom": "^6.21.1",
     "react-social-icons": "^6.7.0",
+    "react-uuid": "^2.0.0",
     "react18-input-otp": "^1.1.4",
     "uuid": "^9.0.1"
   },

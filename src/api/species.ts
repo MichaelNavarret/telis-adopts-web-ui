@@ -52,3 +52,24 @@ export const getSpecie = async (specieId: string) => {
     });
   return data;
 };
+
+export const addSpecieFormToSpecie = async (
+  specieId: string,
+  params: SpecieAddSpecieFormParams,
+  file: File
+) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  const data = await request
+    .post<SpecieSingletonResponse>(
+      `/species/${specieId}/specieForm`,
+      formData,
+      {
+        params: params,
+      }
+    )
+    .then((res) => {
+      return res.data.specieSingletonInfo;
+    });
+  return data;
+};

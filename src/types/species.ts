@@ -23,6 +23,10 @@ type SpecieCreateParams = {
   specieName: string;
 };
 
+type SpecieAddSpecieFormParams = {
+  code: string;
+};
+
 type SpecieUpdateRequest = {
   name: string;
 };

@@ -1,0 +1,49 @@
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .specieFormFieldsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+    .deleteIcon {
+      margin-top: 10px;
+      font-size: xx-large;
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+      }
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+  }
+  .addIcon {
+    position: absolute;
+    left: 12px;
+    top: 10px;
+    margin-top: 10px;
+    font-size: xx-large;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+  .submitButton {
+    position: absolute;
+    right: 12px;
+    bottom: 10px;
+    margin-top: 10px;
+  }
+}
