@@ -28,3 +28,12 @@
   width: 43%;
   pointer-events: none;
 }
+
+@media screen and (max-width: 1400px) and (max-height: 768px) {
+  .mainContainer {
+    .buttonsContainer {
+      height: 100%;
+      gap: 30px;
+    }
+  }
+}
