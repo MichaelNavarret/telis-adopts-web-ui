@@ -59,6 +59,16 @@
   .bodyContainer {
     flex: 1;
     height: 100px;
+    .specieFormContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      right: 10px;
+      top: 45%;
+      margin-right: 10px;
+    }
   }
   .footerContainer {
     position: absolute;

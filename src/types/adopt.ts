@@ -13,6 +13,7 @@ export type AdoptCreateRequest = {
   creationType: CreationType;
   notRegisteredOwner?: boolean;
   designers: OwnerDesignerCreateRequest[];
+  specieFormId?: string;
 };
 
 // -------- Response --------
@@ -29,6 +30,7 @@ export type AdoptInfo = {
   rarity: string;
   iconUrl: string;
   traits: SubTraitInfo[];
+  specieFormId: string;
 };
 
 export type AdoptSingletonResponse = {

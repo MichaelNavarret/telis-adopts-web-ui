@@ -7,7 +7,6 @@ import strings from "../../../../l10n";
 import TextFieldComponent from "../../../../components/Form/TextFieldComponent";
 import Dropzone from "../../../../components/Form/Dropzone";
 import { FaCirclePlus } from "react-icons/fa6";
-import { IoTrashBin } from "react-icons/io5";
 import { useTheme } from "../../../../context/ThemeProvider";
 import uuid from "react-uuid";
 import { errorToast, successToast } from "../../../../constants/toasts";

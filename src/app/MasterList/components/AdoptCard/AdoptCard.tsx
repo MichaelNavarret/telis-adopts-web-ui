@@ -14,6 +14,8 @@ import { FaTree } from "react-icons/fa";
 import ToyhouseIcon from "../../../../icons/ToyhouseIcon";
 import { ImCross } from "react-icons/im";
 import TraitList from "./TraitsList";
+import { useQuery } from "react-query";
+import { getSpecieForm } from "../../../../api/species";
 
 type AdoptCardProps = {
   open: boolean;
@@ -33,6 +35,15 @@ const Transition = forwardRef(function Transition(
 const AdoptCard = (props: AdoptCardProps) => {
   const { colors } = useTheme();
   const { open = false, adopt, handleClose } = props;
+
+  const { data: specieForm } = useQuery({
+    queryKey: ["specieForm", adopt.specieFormId],
+    queryFn: () => {
+      return getSpecieForm(adopt.specieFormId);
+    },
+    enabled: !!adopt && !!adopt.specieFormId,
+  });
+
   return (
     <Dialog
       open={open}
@@ -106,6 +117,22 @@ const AdoptCard = (props: AdoptCardProps) => {
         --------------------------------------------------------- */}
         <div className={styles.bodyContainer}>
           <TraitList traits={adopt.traits} rarity={adopt.rarity} />
+          {specieForm && (
+            <div className={styles.specieFormContainer}>
+              <TextComponent
+                content={specieForm?.code}
+                animation={false}
+                hover={false}
+                fontSize="small"
+              />
+              <img
+                src={specieForm?.imageUrl}
+                alt="specieForm"
+                width={137.75}
+                height={170.25}
+              />
+            </div>
+          )}
         </div>
 
         {/* ---------------------------------------------------------

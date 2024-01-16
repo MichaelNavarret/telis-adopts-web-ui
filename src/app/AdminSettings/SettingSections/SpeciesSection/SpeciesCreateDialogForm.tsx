@@ -7,9 +7,6 @@ import { createSpecie } from "../../../../api/species";
 import strings from "../../../../l10n";
 import { successToast } from "../../../../constants/toasts";
 import TextFieldComponent from "../../../../components/Form/TextFieldComponent";
-import { useDropzone } from "react-dropzone";
-import { useTheme } from "../../../../context/ThemeProvider";
-import { isDefined } from "../../../../tools/commons";
 import TextComponent from "../../../../components/TextComponents/TextComponent";
 import { Checkbox } from "@mui/material";
 import SpecieFormAddDialog from "./SpecieFormAddDialog";
@@ -24,7 +21,7 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
   const { open, handleClose } = props;
   const [displaySpecieForm, setDisplaySpecieForm] = useState(false);
   const [openSpecieForm, setOpenSpecieForm] = useState(false);
-  const { colors } = useTheme();
+
   const [specieName, setSpecieName] = useState("");
   const queryClient = useQueryClient();
   const [traitSheet, setTraitSheet] = useState<File | undefined>();

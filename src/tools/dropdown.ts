@@ -1,4 +1,5 @@
 import { OwnerInfo } from "../types/owner";
+import { SpecieInfo } from "../types/species";
 import { TraitInfo } from "../types/traits";
 import { isDefined } from "./commons";
 

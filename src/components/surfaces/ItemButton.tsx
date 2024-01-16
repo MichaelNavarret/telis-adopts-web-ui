@@ -42,6 +42,7 @@ const ItemButton = (props: itemButtonProps) => {
             ? `5px dashed ${colors.CTX_BUTTON_SHADOW_COLOR_2}`
             : "",
         fontSize: "0.8rem",
+        filter: disabled ? "grayscale(100%)" : "",
       }}
       onMouseEnter={() => !disabled && setHover(true)}
       onMouseLeave={() => !disabled && setHover(false)}

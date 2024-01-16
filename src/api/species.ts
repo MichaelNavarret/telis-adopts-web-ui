@@ -1,5 +1,12 @@
 import { getPaginationHeaders } from "../tools/headers";
 import request from "../tools/request";
+import {
+  SpecieAddSpecieFormParams,
+  SpecieCollectionResponse,
+  SpecieCreateParams,
+  SpecieFormSingletonResponse,
+  SpecieSingletonResponse,
+} from "../types/species";
 
 export const getSpecies = async (pageNumber: number = 0) => {
   const data = await request
@@ -71,5 +78,12 @@ export const addSpecieFormToSpecie = async (
     .then((res) => {
       return res.data.specieSingletonInfo;
     });
+  return data;
+};
+
+export const getSpecieForm = async (specieFormId: string) => {
+  const data = request
+    .get<SpecieFormSingletonResponse>(`species-form/${specieFormId}`)
+    .then((res) => res.data.specieFormSingletonInfo);
   return data;
 };
