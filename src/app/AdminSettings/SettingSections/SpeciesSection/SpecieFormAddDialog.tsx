@@ -120,7 +120,6 @@ const SpecieFormAddDialog = (props: SpecieFormAddDialogProps) => {
               id={"_" + index}
               value={specieForm.code}
               onChange={(e) => handleCodeChange(e, specieForm.id)}
-              required
               disabled={isAddSpecieFormLoading}
             />
             <Dropzone

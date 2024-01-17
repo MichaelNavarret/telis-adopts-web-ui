@@ -1,4 +1,10 @@
-import { Dialog, Divider, Slide } from "@mui/material";
+import {
+  CircularProgress,
+  Dialog,
+  Divider,
+  Skeleton,
+  Slide,
+} from "@mui/material";
 import { AdoptInfo } from "../../../../types/adopt";
 import { useTheme } from "../../../../context/ThemeProvider";
 import styles from "./AdoptCard.module.scss";
@@ -36,7 +42,7 @@ const AdoptCard = (props: AdoptCardProps) => {
   const { colors } = useTheme();
   const { open = false, adopt, handleClose } = props;
 
-  const { data: specieForm } = useQuery({
+  const { data: specieForm, isLoading: isSpecieFormLoading } = useQuery({
     queryKey: ["specieForm", adopt.specieFormId],
     queryFn: () => {
       return getSpecieForm(adopt.specieFormId);
@@ -113,31 +119,33 @@ const AdoptCard = (props: AdoptCardProps) => {
         </div>
 
         {/* ---------------------------------------------------------
-        -------------------------------Body--------------------
-        --------------------------------------------------------- */}
+     -------------------------------Body--------------------
+     --------------------------------------------------------- */}
         <div className={styles.bodyContainer}>
           <TraitList traits={adopt.traits} rarity={adopt.rarity} />
           {specieForm && (
             <div className={styles.specieFormContainer}>
-              <TextComponent
-                content={specieForm?.code}
-                animation={false}
-                hover={false}
-                fontSize="small"
-              />
-              <img
-                src={specieForm?.imageUrl}
-                alt="specieForm"
-                width={137.75}
-                height={170.25}
-              />
+              {isSpecieFormLoading ? (
+                <CircularProgress
+                  style={{
+                    color: colors.CTX_BUTTON_COLOR,
+                  }}
+                />
+              ) : (
+                <img
+                  src={specieForm?.imageUrl}
+                  alt="specieForm"
+                  width={137.75}
+                  height={170.25}
+                />
+              )}
             </div>
           )}
         </div>
 
         {/* ---------------------------------------------------------
-        -------------------------------Footer--------------------
-        --------------------------------------------------------- */}
+     -------------------------------Footer--------------------
+     --------------------------------------------------------- */}
         <div className={styles.footerContainer}>
           <ToyhouseIcon
             className={styles.iconStyles}

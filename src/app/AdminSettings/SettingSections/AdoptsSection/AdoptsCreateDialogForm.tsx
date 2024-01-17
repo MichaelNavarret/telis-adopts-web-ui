@@ -619,6 +619,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                     isUploadIconLoading ||
                     !isAvailableTrait(trait.id)
                   }
+                  required={isAvailableTrait(trait.id)}
                 />
                 <TextFieldComponent
                   label={strings.ADDITIONAL_INFO + " " + (index + 1)}
