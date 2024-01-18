@@ -2,7 +2,9 @@ import { RoleInfo } from "./role";
 
 export type OwnerInfo = {
   id: string;
-  name: string;
+  nickName: string;
+  email: string;
+  status: boolean;
   role: RoleInfo;
 };
 
