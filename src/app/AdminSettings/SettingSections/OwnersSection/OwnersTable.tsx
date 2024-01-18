@@ -7,10 +7,12 @@ import strings from "../../../../l10n";
 import { ownersTableColumns } from "../../../../constants/TablesColumns";
 import { formatOwnersTableRows } from "./ownersTableFormat";
 
-type OwnersTableProps = {};
+type OwnersTableProps = {
+  handleClick: () => void;
+};
 
 const OwnersTable = (props: OwnersTableProps) => {
-  const {} = props;
+  const { handleClick } = props;
   const { state } = useDataTable();
 
   const {
@@ -33,7 +35,7 @@ const OwnersTable = (props: OwnersTableProps) => {
       data={formatOwnersTableRows(ownerList?.data || [])}
       primaryButton={true}
       primaryButtonLabel={`${strings.ADD} ${strings.OWNER}`}
-      handlePrimaryButton={() => {}}
+      handlePrimaryButton={handleClick}
       totalPages={totalPages}
       state={state}
       loading={isLoading}

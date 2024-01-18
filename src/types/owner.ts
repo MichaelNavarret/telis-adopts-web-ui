@@ -24,3 +24,8 @@ export type OwnerDesignerCreateRequest = {
   id: string;
   notRegisteredDesigner: boolean;
 };
+
+export type OwnerCreateRequest = {
+  nickName: string;
+  email: string;
+};

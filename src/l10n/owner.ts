@@ -9,4 +9,8 @@ export const ownerEn = {
     "Select 'Not Registered' for an owner who is not registered.",
   CURRENT_OWNER: "Current Owner",
   DESIGNERS: "Designers",
+  CREATE_OWNER_FORM: "Create Owner Form",
+  OWNER_PASSWORD_MESSAGE:
+    "The password will be the nickName of the owner by default.",
+  OWNER_CREATED_SUCCESSFULLY: "Owner created successfully",
 };

@@ -2,6 +2,7 @@ import { getPaginationHeaders } from "../tools/headers";
 import request from "../tools/request";
 import {
   OwnerCollectionResponse,
+  OwnerCreateRequest,
   OwnerSingletonResponse,
 } from "../types/owner";
 
@@ -31,5 +32,12 @@ export const getOwnersCollection = async (pageNumber: number = 0) => {
         data: res.data.ownerInfoList,
       };
     });
+  return data;
+};
+
+export const createOwner = async (payload: OwnerCreateRequest) => {
+  const data = await request
+    .post<OwnerSingletonResponse>("/owners", payload)
+    .then((res) => res.data.owner);
   return data;
 };
