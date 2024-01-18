@@ -3,6 +3,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import SpeciesRoutes from "./SpeciesRoutes";
 import HomeRoutes from "./HomeRoutes";
 import AdminSettingsRoutes from "./AdminSettingsRoutes";
+import MasterListRoutes from "./MasterListRoutes";
 
 export const DEFAULT_PATH = "/species";
 
@@ -37,6 +38,15 @@ const ApplicationRoutes = (props: ApplicationRouteProps) => {
         element={
           <ProtectedRoute isAuth={isAuth}>
             <SpeciesRoutes />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/master-list/*"
+        element={
+          <ProtectedRoute isAuth={isAuth}>
+            <MasterListRoutes />
           </ProtectedRoute>
         }
       />

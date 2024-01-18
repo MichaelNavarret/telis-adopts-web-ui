@@ -21,6 +21,7 @@ export const MAIN_BUTTON_SHADOW_COLOR_2 = "#B75971";
 export const MAIN_FORM_BUTTON_COLOR = "#F781A0";
 export const MAIN_TABLE_TITLE_COLOR = "#F1889E";
 export const MAIN_MENUBAR_TEXT_COLOR = "#FEF1DF";
+export const MAIN_BORDER_ICON_COLOR = "#F08F86";
 
 export const mainColors: Colors = {
   text: MAIN_TEXT_COLOR,
@@ -44,4 +45,5 @@ export const mainColors: Colors = {
   formButton: MAIN_FORM_BUTTON_COLOR,
   tableTitle: MAIN_TABLE_TITLE_COLOR,
   menubarText: MAIN_MENUBAR_TEXT_COLOR,
+  borderIcon: MAIN_BORDER_ICON_COLOR,
 };

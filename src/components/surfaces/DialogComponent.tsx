@@ -21,6 +21,8 @@ type DialogComponentProps = {
   height?: string;
   width?: string;
   withoutPadding?: boolean;
+  maxWidth?: "xs" | "sm" | "md" | "lg" | "xl" | false;
+  TransitionComponent?: any;
 };
 
 const DialogComponent = (props: DialogComponentProps) => {
@@ -34,6 +36,8 @@ const DialogComponent = (props: DialogComponentProps) => {
     width,
     fullScreen = false,
     withoutPadding = false,
+    maxWidth = "sm",
+    TransitionComponent,
   } = props;
 
   const { colors } = useTheme();
@@ -64,6 +68,8 @@ const DialogComponent = (props: DialogComponentProps) => {
       component={"div"}
       className={styles.dialogContainer}
       fullScreen={fullScreen}
+      maxWidth={maxWidth}
+      TransitionComponent={TransitionComponent}
       PaperProps={{
         style: {
           backgroundColor: colors.CTX_FORM_CONTAINER_COLOR,

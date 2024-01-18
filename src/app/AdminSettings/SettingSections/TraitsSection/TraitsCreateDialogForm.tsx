@@ -2,10 +2,10 @@ import { FormEvent, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import styles from "./TraitsCreateDialogForm.module.scss";
 import { Button } from "../../../../components";
-import { getSpeciesAutocomplete } from "../../../../api/species";
+import { getSpecie, getSpeciesAutocomplete } from "../../../../api/species";
 import DialogComponent from "../../../../components/surfaces/DialogComponent";
-import { TraitCreateRequest } from "../../../../types/traits";
-import { createTrait } from "../../../../api/traits";
+import { TraitCreateRequest, TraitInfo } from "../../../../types/traits";
+import { createTrait, getTraitsAutocomplete } from "../../../../api/traits";
 import { formatSpecieInfoForDropdown } from "../../../../tools/dropdown";
 import strings from "../../../../l10n";
 import MenuButton from "../../../../components/surfaces/MenuButton";
@@ -15,6 +15,10 @@ import AutocompleteComponent, {
 } from "../../../../components/Form/AutocompleteComponent";
 import { errorToast, successToast } from "../../../../constants/toasts";
 import TextFieldComponent from "../../../../components/Form/TextFieldComponent";
+import TableComponent, {
+  useDataTable,
+} from "../../../../components/Table/TableComponent";
+import { traitsCreateDialogFormTable } from "./traitsCreateDialogFormTable";
 
 type TraitsCreateDialogFormProps = {
   open: boolean;
@@ -26,13 +30,33 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
   const [specie, setSpecie] = useState<AutocompleteOption | null>(null);
   const [multipleStep, setMultipleStep] = useState<number[]>([]);
   const [trait, setTrait] = useState<string>("");
+  const [displayPriority, setDisplayPriority] = useState<number | null>(null);
   const queryClient = useQueryClient();
+  const { state } = useDataTable();
 
   const { data: speciesOptions } = useQuery({
     queryKey: ["autocompleteSpecies"],
     queryFn: () => {
       return getSpeciesAutocomplete();
     },
+  });
+
+  const { data: specieInfo } = useQuery({
+    queryKey: ["specieInfo", specie?.value],
+    queryFn: () => {
+      return getSpecie(specie?.value || "");
+    },
+    enabled: !!specie,
+  });
+
+  const { data: traits } = useQuery({
+    queryKey: ["traitsTable", specie?.value],
+    queryFn: () => {
+      return getTraitsAutocomplete({
+        specieId: specie?.value || "",
+      });
+    },
+    enabled: !!specie,
   });
 
   const { mutate: createTraitMutation, isLoading } = useMutation({
@@ -76,6 +100,7 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
               }
             })
           : [strings.COMMON.toUpperCase()],
+      displayPriority: displayPriority,
     };
     createTraitMutation(payload);
   };
@@ -96,43 +121,79 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
     }
   };
 
+  const orderTraitsByDisplayPriority = (traits: TraitInfo[]) => {
+    return traits.sort((a, b) => a.displayPriority - b.displayPriority);
+  };
+
   const dialogContent = (
     <form
       onSubmit={onSubmit}
       className={styles.formMainContainer}
       autoComplete="off"
     >
-      <AutocompleteComponent
-        label={strings.SPECIE}
-        options={formatSpecieInfoForDropdown(speciesOptions)}
-        handleChange={(value: AutocompleteOption) => setSpecie(value)}
-        required
-        disabled={isLoading}
-      />
-      <MenuButton
-        options={MenuButtonRarityOptions}
-        handleClick={handleMultipleStep}
-        selectMultiple
-        disabled={isLoading}
-      />
-      <TextFieldComponent
-        className={styles.textFieldForm}
-        id="trait"
-        label={strings.TRAIT}
-        type="text"
-        onChange={(e) => setTrait(e.target.value)}
-        required
-        disabled={isLoading}
-      />
-      <Button
-        content={strings.CREATE}
-        type="submit"
-        width="150px"
-        height="35px"
-        disabled={isLoading}
-        loading={isLoading}
-        catsLoading={isLoading}
-      />
+      <div className={styles.principalSectionContainer}>
+        <AutocompleteComponent
+          label={strings.SPECIE}
+          options={formatSpecieInfoForDropdown(speciesOptions)}
+          handleChange={(value: AutocompleteOption) => setSpecie(value)}
+          required
+          disabled={isLoading}
+        />
+        <MenuButton
+          options={MenuButtonRarityOptions}
+          handleClick={handleMultipleStep}
+          selectMultiple
+          disabled={isLoading}
+        />
+        <TextFieldComponent
+          className={styles.textFieldForm}
+          id="trait"
+          label={strings.TRAIT}
+          type="text"
+          onChange={(e) => setTrait(e.target.value)}
+          required
+          disabled={isLoading}
+        />
+
+        <TextFieldComponent
+          className={styles.textFieldForm}
+          id="displayPriority"
+          label={"Display Priority"}
+          type="number"
+          onChange={(e) => setDisplayPriority(Number(e.target.value))}
+          required
+          disabled={isLoading}
+        />
+
+        {traits && traits.length > 0 && (
+          <div className={styles.tableContainer}>
+            <TableComponent
+              columns={traitsCreateDialogFormTable}
+              data={orderTraitsByDisplayPriority(traits) || []}
+              state={state}
+              withPagination={false}
+              height="auto"
+            />
+          </div>
+        )}
+
+        <Button
+          className={styles.submitButton}
+          content={strings.CREATE}
+          type="submit"
+          width="150px"
+          height="35px"
+          disabled={isLoading}
+          loading={isLoading}
+          catsLoading={isLoading}
+        />
+      </div>
+
+      {specieInfo && specieInfo.logoUrl && (
+        <div className={styles.traitSheetContainer} style={{}}>
+          <img src={specieInfo?.traitSheetUrl} width={515} height={660} />
+        </div>
+      )}
     </form>
   );
 
@@ -142,8 +203,8 @@ const TraitsCreateDialogForm = (props: TraitsCreateDialogFormProps) => {
       open={open}
       handleClose={handleClose}
       content={dialogContent}
-      width="500px"
-      height="400px"
+      height="800px"
+      maxWidth="lg"
     />
   );
 };

@@ -1,5 +1,5 @@
 import { OwnerDesignerCreateRequest } from "./owner";
-import { SubTraitCreateRequest } from "./subTraits";
+import { SubTraitCreateRequest, SubTraitInfo } from "./subTraits";
 
 export type CreationType = "PREMADE" | "CUSTOM" | "MYO" | "GUEST_ARTIST";
 
@@ -13,6 +13,7 @@ export type AdoptCreateRequest = {
   creationType: CreationType;
   notRegisteredOwner?: boolean;
   designers: OwnerDesignerCreateRequest[];
+  specieFormId?: string;
 };
 
 // -------- Response --------
@@ -27,6 +28,9 @@ export type AdoptInfo = {
   boughtOn: string;
   registeredOn: string;
   rarity: string;
+  iconUrl: string;
+  traits: SubTraitInfo[];
+  specieFormId: string;
 };
 
 export type AdoptSingletonResponse = {
@@ -35,4 +39,10 @@ export type AdoptSingletonResponse = {
 
 export type AdoptCollectionResponse = {
   adoptInfoList: AdoptInfo[];
+};
+
+export type AdoptAutocompleteParams = {
+  specieId?: string;
+  creationType?: CreationType;
+  sort?: string;
 };

@@ -1,26 +1,43 @@
-type SpecieInfo = {
+export type SpecieInfo = {
   id: string;
   code: string;
   name: string;
   traitSheetUrl: string;
+  logoUrl: string;
+  masterListBannerUrl: string;
+  specieFormInfoList: SpecieFormInfo[];
 };
 
-type SpecieSingletonResponse = {
+export type SpecieSingletonResponse = {
   specieSingletonInfo: SpecieInfo;
 };
 
-type SpecieCollectionResponse = {
+export type SpecieCollectionResponse = {
   specieInfoList: SpecieInfo[];
 };
 
-type SpecieCreateRequest = {
+export type SpecieCreateRequest = {
   name: string;
 };
 
-type SpecieCreateParams = {
+export type SpecieCreateParams = {
   specieName: string;
 };
 
-type SpecieUpdateRequest = {
+export type SpecieAddSpecieFormParams = {
+  code: string;
+};
+
+export type SpecieUpdateRequest = {
   name: string;
+};
+
+export type SpecieFormInfo = {
+  id: string;
+  code: string;
+  imageUrl: string;
+};
+
+export type SpecieFormSingletonResponse = {
+  specieFormSingletonInfo: SpecieFormInfo;
 };

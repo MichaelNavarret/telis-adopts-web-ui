@@ -1,5 +1,6 @@
 .homeBubbleContainer {
-  position: absolute;
+  z-index: 1000;
+  position: fixed;
   border-radius: 50px;
   width: 80px !important;
   height: 80px !important;

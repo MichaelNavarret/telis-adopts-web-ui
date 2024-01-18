@@ -1,0 +1,31 @@
+.adoptIcon {
+  transition: transform 0.2s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    animation: jiggle 0.8s ease-in-out;
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+@keyframes jiggle {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(8deg);
+  }
+  40% {
+    transform: rotate(-8deg);
+  }
+  60% {
+    transform: rotate(6deg);
+  }
+  80% {
+    transform: rotate(-4deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}

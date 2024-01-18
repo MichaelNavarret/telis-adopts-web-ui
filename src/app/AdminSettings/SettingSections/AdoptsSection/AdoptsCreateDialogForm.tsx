@@ -7,13 +7,12 @@ import { getSpecie, getSpeciesAutocomplete } from "../../../../api/species";
 import { CREATION_TYPE } from "../../../../constants/SelectOptions";
 import { Button } from "../../../../components";
 import { AdoptCreateRequest, CreationType } from "../../../../types/adopt";
-import { createAdopt } from "../../../../api/adopts";
+import { createAdopt, uploadAdoptIcon } from "../../../../api/adopts";
 import { useTheme } from "../../../../context/ThemeProvider";
 import DropdownComponent from "../../../../components/Form/DropdownComponent";
 import {
   formatOwnerInfoForDropdown,
   formatSpecieInfoForDropdown,
-  formatTraitInfoForDropdown,
 } from "../../../../tools/dropdown";
 import AutocompleteComponent, {
   AutocompleteOption,
@@ -29,7 +28,7 @@ import ControlPointRoundedIcon from "@mui/icons-material/ControlPointRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 import { OwnerDesignerCreateRequest } from "../../../../types/owner";
 import { isDefined } from "../../../../tools/commons";
-import { successToast } from "../../../../constants/toasts";
+import { errorToast, successToast } from "../../../../constants/toasts";
 import TextFieldComponent from "../../../../components/Form/TextFieldComponent";
 import ActionIcon from "../../../../components/surfaces/ActionIconComponent";
 import { getTraitsAutocomplete } from "../../../../api/traits";
@@ -37,6 +36,10 @@ import { Container } from "@mui/system";
 import { SubTraitCreateRequest } from "../../../../types/subTraits";
 import { getRarityByString } from "../../utils/format";
 import CatsLoading from "../../../../components/Loading/CatsLoading";
+import { TraitInfo } from "../../../../types/traits";
+import { Checkbox } from "@mui/material";
+import AdoptIconDropzone from "./components/AdoptIconDropzone";
+import SpecieFormExpositor from "./components/SpecieFormExpositor";
 
 type AdoptsCreateDialogFormProps = {
   open: boolean;
@@ -45,6 +48,7 @@ type AdoptsCreateDialogFormProps = {
 
 const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
   const { open, handleClose } = props;
+  const [icon, setIcon] = useState<File | undefined>();
   const [ownerOption, setOwnerOption] = useState<number>(0);
   const { colors } = useTheme();
   const queryClient = useQueryClient();
@@ -56,10 +60,13 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
   const [designersFields, setDesignersFields] = useState<number>(1);
   const [designersOption, setDesignersOption] = useState<number[]>([0]);
   const [designers, setDesigners] = useState<AutocompleteOption[]>([]);
+  const [specieFormId, setSpecieFormId] = useState<string>("");
   const [designersNotRegistered, setDesignersNotRegistered] = useState<
     string[]
   >(["", ""]);
-  const [traitsFields, setTraitsFields] = useState<number>(1);
+  const [traitsFields, setTraitsFields] = useState<TraitInfo[] | undefined>();
+  const [availableTraits, setAvailableTraits] = useState<string[]>([]);
+  const [checked, setChecked] = useState<boolean[]>([]);
   const [traitsPayload, setTraitsPayload] = useState<SubTraitCreateRequest[]>([
     {},
   ]);
@@ -87,14 +94,30 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
     },
   });
 
-  const { data: traitsOptions } = useQuery({
+  const {} = useQuery({
     queryKey: ["autocompleteTraits", specie?.value],
     queryFn: () => {
       return getTraitsAutocomplete({
         specieId: isDefined(specie) ? specie.value : "",
       });
     },
+    onSuccess: (data) => {
+      const traitsOrderByDisplayPriority = data.sort(
+        (a, b) => a.displayPriority - b.displayPriority
+      );
+      setTraitsFields(traitsOrderByDisplayPriority);
+      setTraitsPayload(
+        traitsOrderByDisplayPriority.map((trait) => ({
+          mainTraitId: trait.id,
+        }))
+      );
+      data.map((trait) => {
+        setChecked((checked) => [...checked, true]);
+        setAvailableTraits((availableTraits) => [...availableTraits, trait.id]);
+      });
+    },
     enabled: isDefined(specie),
+    refetchOnWindowFocus: false,
   });
 
   const { data: specieInfo, isLoading: isSpecieInfoLoading } = useQuery({
@@ -103,21 +126,49 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
       return getSpecie(isDefined(specie) ? specie.value : "");
     },
     enabled: isDefined(specie),
+    refetchOnWindowFocus: false,
   });
 
   const { mutate: createAdoptMutation, isLoading } = useMutation({
     mutationFn: (data: AdoptCreateRequest) => {
       return createAdopt(data);
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       successToast(strings.ADOPT_CREATE_SUCCESSFULLY);
-      queryClient.invalidateQueries("adopts");
-      queryClient.invalidateQueries("autocompleteOwners");
-      clearStates();
-      setOwnerOption(0);
-      handleClose();
+      if (isDefined(icon)) {
+        uploadIconMutation(data.id);
+      } else {
+        queryClient.invalidateQueries("adopts");
+        queryClient.invalidateQueries("autocompleteOwners");
+        clearStates();
+        setOwnerOption(0);
+        handleClose();
+      }
     },
   });
+
+  const { mutate: uploadIconMutation, isLoading: isUploadIconLoading } =
+    useMutation({
+      mutationFn: (adoptId: string) => {
+        return uploadAdoptIcon(icon as File, adoptId);
+      },
+      onSuccess: () => {
+        successToast(strings.ADOPT_ICON_UPLOAD_SUCCESSFULLY);
+        queryClient.invalidateQueries("adopts");
+        queryClient.invalidateQueries("autocompleteOwners");
+        clearStates();
+        setOwnerOption(0);
+        handleClose();
+      },
+      onError: () => {
+        errorToast(strings.ADOPT_ICON_UPLOAD_FAILED);
+        queryClient.invalidateQueries("adopts");
+        queryClient.invalidateQueries("autocompleteOwners");
+        clearStates();
+        setOwnerOption(0);
+        handleClose();
+      },
+    });
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -132,9 +183,20 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
       creationType: creationType,
       notRegisteredOwner: owner ? false : true,
       designers: mergeDesigners(),
-      subTraits: traitsPayload,
+      subTraits: filteredTraitsPayload(traitsPayload),
+      specieFormId: specieFormId,
     };
+    console.log(payload);
     createAdoptMutation(payload);
+  };
+
+  const filteredTraitsPayload = (payload: SubTraitCreateRequest[]) => {
+    const newPayload = payload.filter((trait) =>
+      availableTraits.find(
+        (availableTrait) => availableTrait === trait.mainTraitId
+      )
+    );
+    return newPayload;
   };
 
   const handleOwnerOption = (value: number) => {
@@ -170,7 +232,6 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
     setDesignersOption([0]);
     setDesigners([]);
     setDesignersNotRegistered(["", ""]);
-    setTraitsFields(1);
     setTraitsPayload([{}]);
   };
 
@@ -233,50 +294,22 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
     setDesignersFields(designersFields - 1);
   };
 
-  const addTraitField = () => {
-    setTraitsFields(traitsFields + 1);
+  const handleRarityChange = (value: string, id: string) => {
     const newTraitsPayload = [...traitsPayload];
-    newTraitsPayload.push({});
-    setTraitsPayload(newTraitsPayload);
-  };
-
-  const handleTraitChange = (value: AutocompleteOption, index: number) => {
-    const newTraitsPayload = [...traitsPayload];
-    newTraitsPayload[index].mainTraitId = value.value;
-    setTraitsPayload(newTraitsPayload);
-  };
-
-  const handleRarityChange = (value: string, index: number) => {
-    const newTraitsPayload = [...traitsPayload];
+    const index = newTraitsPayload.findIndex(
+      (trait) => trait.mainTraitId === id
+    );
     newTraitsPayload[index].rarity = getRarityByString(value);
     setTraitsPayload(newTraitsPayload);
   };
 
-  const getRaritiesOptions = (index: number) => {
-    const mainTrait = traitsOptions?.find(
-      (trait) => trait.id === traitsPayload[index].mainTraitId
-    );
-
-    if (isDefined(mainTrait)) {
-      return mainTrait?.rarities.map((rarity) => ({
-        label: rarity,
-        value: getRarityByString(rarity),
-      }));
-    }
-    return [];
-  };
-
-  const handleAdditionalInfoChange = (value: string, index: number) => {
+  const handleAdditionalInfoChange = (value: string, id: string) => {
     const newTraitsPayload = [...traitsPayload];
+    const index = newTraitsPayload.findIndex(
+      (trait) => trait.mainTraitId === id
+    );
     newTraitsPayload[index].additionalInfo = value;
     setTraitsPayload(newTraitsPayload);
-  };
-
-  const deleteTraitsField = (index: number) => {
-    const newTraitsPayload = [...traitsPayload];
-    newTraitsPayload.splice(index, 1);
-    setTraitsPayload(newTraitsPayload);
-    setTraitsFields(traitsFields - 1);
   };
 
   const getTraitsInformationImage = () => {
@@ -297,74 +330,73 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
     }
   };
 
+  const getRaritiesOptions = (trait: TraitInfo) => {
+    const options = trait.rarities.map((rarity) => ({
+      label: rarity,
+      value: getRarityByString(rarity),
+    }));
+    return options;
+  };
+
+  const handleDisableTraits = (index: number, traitId: string) => {
+    const newChecked = [...checked];
+    newChecked[index] = !checked[index];
+    setChecked(newChecked);
+
+    const newDisabledTraits = [...availableTraits];
+    if (newDisabledTraits.find((trait) => trait === traitId)) {
+      newDisabledTraits.splice(
+        newDisabledTraits.findIndex((trait) => trait === traitId),
+        1
+      );
+    } else {
+      newDisabledTraits.push(traitId);
+    }
+    setAvailableTraits(newDisabledTraits);
+  };
+
+  const isAvailableTrait = (traitId: string) => {
+    return isDefined(availableTraits.find((trait) => trait === traitId));
+  };
+
+  const handleSpecieFormClick = (value: string) => {
+    setSpecieFormId(value);
+  };
+
   const dialogContent = (
     <form
       onSubmit={onSubmit}
       className={styles.formMainContainer}
       autoComplete="off"
     >
-      <div className={styles.sectionsContainer}>
-        <div className={styles.firstContainer}>
-          {/* ------------------------------------------------------------------------------------------- */}
-          {/*--------------------------------------PRINCIPAL SECTION--------------------------------------*/}
-          {/* ------------------------------------------------------------------------------------------- */}
-          <div className={styles.principalSectionContainer}>
+      <div className={styles.firstContainer}>
+        <div className={styles.adoptInfoSection}>
+          <AdoptIconDropzone
+            className={styles.iconAdoptField}
+            handleDrop={(files) => {
+              setIcon(files[0]);
+            }}
+            disabled={isLoading}
+          />
+          <div className={styles.fieldsContainer}>
             <TextComponent
-              content={"Principal Information"}
+              content={"Adopt Information"}
               animation={false}
               hover={false}
             />
-
             <TextFieldComponent
-              className={styles.textFieldForm}
               id="adoptName"
               label={strings.ADOPT_NAME}
               type="text"
               onChange={(e) => setAdoptName(e.target.value)}
-              disabled={isLoading}
+              disabled={isLoading || isUploadIconLoading}
             />
-
-            <div
-              className={styles.ownersContainer}
-              style={{
-                border: `1px dashed ${colors.CTX_MENUBAR_COLOR}`,
-                borderRadius: "5px",
-              }}
-            >
-              <MenuButton
-                options={MenuButtonOwnerOptions}
-                handleClick={handleOwnerOption}
-              />
-              {ownerOption !== 2 ? (
-                <AutocompleteComponent
-                  key={`owner_autocomplete${ownerOption}`}
-                  label={strings.OWNER}
-                  options={formatOwnerInfoForDropdown(ownersResponse)}
-                  handleChange={(value: AutocompleteOption) => setOwner(value)}
-                  disabled={ownerOption === 0 || isLoading}
-                  required={ownerOption === 1}
-                />
-              ) : (
-                <TextFieldComponent
-                  style={{ marginTop: "10px" }}
-                  key={`owner_texField${ownerOption}`}
-                  id="owner"
-                  label={strings.NOT_REGISTERED_OWNER}
-                  type="text"
-                  value={notRegisteredOwner}
-                  onChange={(e) => setNotRegisteredOwner(e.target.value)}
-                  required
-                  disabled={isLoading}
-                />
-              )}
-            </div>
-
             <AutocompleteComponent
               label={strings.SPECIE}
               options={formatSpecieInfoForDropdown(speciesOptions)}
               handleChange={(value: AutocompleteOption) => setSpecie(value)}
               required
-              disabled={isLoading}
+              disabled={isLoading || isUploadIconLoading}
             />
 
             <DropdownComponent
@@ -373,109 +405,160 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
               value={creationType}
               handleChange={(e) => setCreationType(e.target.value)}
               options={CREATION_TYPE}
-              disabled={isLoading}
+              disabled={isLoading || isUploadIconLoading}
             />
           </div>
-          {/* ------------------------------------------------------------------------------------------- */}
-          {/*--------------------------------------DESIGNERS SECTION--------------------------------------*/}
-          {/* ------------------------------------------------------------------------------------------- */}
-          <div
-            className={styles.designerSectionContainer}
-            style={{
-              filter: !availableDesignerSection ? "grayscale(100%)" : "none",
-            }}
-          >
-            <div className={styles.sectionTitleContainer}>
-              <TextComponent
-                content={"Designers Information"}
-                animation={false}
-                hover={false}
+        </div>
+        <div className={styles.ownerInfoSection}>
+          <TextComponent content={"Owner"} animation={false} hover={false} />
+          <div>
+            <MenuButton
+              options={MenuButtonOwnerOptions}
+              handleClick={handleOwnerOption}
+            />
+            {ownerOption !== 2 ? (
+              <AutocompleteComponent
+                key={`owner_autocomplete${ownerOption}`}
+                label={strings.OWNER}
+                options={formatOwnerInfoForDropdown(ownersResponse)}
+                handleChange={(value: AutocompleteOption) => setOwner(value)}
+                disabled={ownerOption === 0 || isLoading || isUploadIconLoading}
+                required={ownerOption === 1}
               />
-
-              <ActionIcon
-                Icon={ControlPointRoundedIcon}
-                fontsize="large"
-                handleClick={addDesignerField}
-                disabled={
-                  !availableDesignerSection ||
-                  designersFields === 2 ||
-                  isLoading
-                }
+            ) : (
+              <TextFieldComponent
+                style={{ width: "100%" }}
+                key={`owner_texField${ownerOption}`}
+                id="owner"
+                label={strings.NOT_REGISTERED_OWNER}
+                type="text"
+                value={notRegisteredOwner}
+                onChange={(e) => setNotRegisteredOwner(e.target.value)}
+                required
+                disabled={isLoading || isUploadIconLoading}
               />
-            </div>
-            <div className={styles.designersContainer}>
-              {Array.from(Array(designersFields).keys()).map((index) => (
-                <div
-                  key={`designer_container${index}`}
-                  className={styles.designerContainer}
-                  style={{
-                    border: `1px dashed ${colors.CTX_MENUBAR_COLOR}`,
-                    borderRadius: "5px",
-                  }}
-                >
-                  <MenuButton
-                    key={`designer_menuButton${index}`}
-                    options={MenuButtonDesignersOptions}
-                    handleClick={handleDesignersOption}
-                    externalIndex={index}
-                    disabled={!availableDesignerSection || isLoading}
-                  />
-                  {designersOption[index] !== 1 ? (
-                    <AutocompleteComponent
-                      key={`owner_autocomplete${ownerOption}`}
-                      label={"Designer " + (index + 1)}
-                      options={formatOwnerInfoForDropdown(ownersResponse)}
-                      handleChange={(value: AutocompleteOption) =>
-                        handleChangeDesigners(value, index)
-                      }
-                      disabled={!availableDesignerSection || isLoading}
-                      required={
-                        designersOption[index] === 0 && availableDesignerSection
-                      }
-                    />
-                  ) : (
-                    <TextFieldComponent
-                      style={{ marginTop: "10px", width: "100%" }}
-                      key={`owner_texField${ownerOption}`}
-                      id="owner"
-                      label={"Designer " + (index + 1)}
-                      type="text"
-                      value={designersNotRegistered[index]}
-                      onChange={(e) =>
-                        handleChangeNotRegisteredDesigners(
-                          e.target.value,
-                          index
-                        )
-                      }
-                      disabled={!availableDesignerSection || isLoading}
-                      required={
-                        designersOption[index] === 1 && availableDesignerSection
-                      }
-                    />
-                  )}
-
-                  <ActionIcon
-                    Icon={DeleteForeverRoundedIcon}
-                    fontsize="large"
-                    handleClick={() => deleteDesignerField(index)}
-                    disabled={
-                      !availableDesignerSection ||
-                      designersFields === 1 ||
-                      isLoading
-                    }
-                    marginTop="5px"
-                  />
-                </div>
-              ))}
-            </div>
+            )}
           </div>
         </div>
-
-        {/* ------------------------------------------------------------------------------------------- */}
-        {/*--------------------------------------TRAITS SECTION--------------------------------------*/}
-        {/* ------------------------------------------------------------------------------------------- */}
         <Container
-          className={styles.sectionTraitsContainer}
+          className={styles.designersInfoSection}
+          sx={{
+            //-webkit-scrollbar
+            "&::-webkit-scrollbar": {
+              width: "5px",
+            },
+            "&::-webkit-scrollbar-track": {
+              background: colors.CTX_FORM_CONTAINER_COLOR,
+            },
+            "&::-webkit-scrollbar-thumb": {
+              background: colors.CTX_MENUBAR_COLOR,
+            },
+          }}
+        >
+          <div className={styles.sectionTitleContainer}>
+            <TextComponent
+              content={"Designers Information"}
+              animation={false}
+              hover={false}
+              colorText={
+                !availableDesignerSection || isLoading || isUploadIconLoading
+                  ? "gray"
+                  : undefined
+              }
+            />
+
+            <ActionIcon
+              Icon={ControlPointRoundedIcon}
+              fontsize="large"
+              handleClick={addDesignerField}
+              disabled={
+                !availableDesignerSection ||
+                designersFields === 2 ||
+                isLoading ||
+                isUploadIconLoading
+              }
+            />
+          </div>
+          <div className={styles.designersContainer}>
+            {Array.from(Array(designersFields).keys()).map((index) => (
+              <div
+                key={`designer_container${index}`}
+                className={styles.designerContainer}
+                style={{
+                  border: `1px dashed ${colors.CTX_MENUBAR_COLOR}`,
+                  borderRadius: "5px",
+                }}
+              >
+                <MenuButton
+                  key={`designer_menuButton${index}`}
+                  options={MenuButtonDesignersOptions}
+                  handleClick={handleDesignersOption}
+                  externalIndex={index}
+                  disabled={
+                    !availableDesignerSection ||
+                    isLoading ||
+                    isUploadIconLoading
+                  }
+                />
+                {designersOption[index] !== 1 ? (
+                  <AutocompleteComponent
+                    key={`owner_autocomplete${ownerOption}`}
+                    label={"Designer " + (index + 1)}
+                    options={formatOwnerInfoForDropdown(ownersResponse)}
+                    handleChange={(value: AutocompleteOption) =>
+                      handleChangeDesigners(value, index)
+                    }
+                    disabled={
+                      !availableDesignerSection ||
+                      isLoading ||
+                      isUploadIconLoading
+                    }
+                    required={
+                      designersOption[index] === 0 && availableDesignerSection
+                    }
+                  />
+                ) : (
+                  <TextFieldComponent
+                    style={{ marginTop: "10px", width: "100%" }}
+                    key={`owner_texField${ownerOption}`}
+                    id="owner"
+                    label={"Designer " + (index + 1)}
+                    type="text"
+                    value={designersNotRegistered[index]}
+                    onChange={(e) =>
+                      handleChangeNotRegisteredDesigners(e.target.value, index)
+                    }
+                    disabled={
+                      !availableDesignerSection ||
+                      isLoading ||
+                      isUploadIconLoading
+                    }
+                    required={
+                      designersOption[index] === 1 && availableDesignerSection
+                    }
+                  />
+                )}
+
+                <ActionIcon
+                  Icon={DeleteForeverRoundedIcon}
+                  fontsize="large"
+                  handleClick={() => deleteDesignerField(index)}
+                  disabled={
+                    !availableDesignerSection ||
+                    designersFields === 1 ||
+                    isLoading ||
+                    isUploadIconLoading
+                  }
+                  marginTop="5px"
+                />
+              </div>
+            ))}
+          </div>
+        </Container>
+      </div>
+      <div className={styles.secondContainer}>
+        <Container
+          className={styles.traitsSection}
           sx={{
             //-webkit-scrollbar
             "&::-webkit-scrollbar": {
@@ -495,68 +578,82 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
               animation={false}
               hover={false}
             />
-            <ActionIcon
-              Icon={ControlPointRoundedIcon}
-              fontsize="large"
-              handleClick={addTraitField}
-              disabled={isLoading}
-            />
           </div>
           <div className={styles.traitsContainer}>
-            {Array.from(Array(traitsFields).keys()).map((index) => (
+            {traitsFields?.map((trait, index) => (
               <div
                 key={`trait_container${index}`}
-                className={styles.singleTraitContainer}
+                className={styles.traitContainer}
               >
-                <AutocompleteComponent
-                  label={strings.TRAIT + (index + 1)}
-                  options={formatTraitInfoForDropdown(traitsOptions)}
-                  handleChange={(value: AutocompleteOption) => {
-                    handleTraitChange(value, index);
-                  }}
-                  disabled={isLoading || !isDefined(specie)}
-                />
+                <div
+                  className={styles.titleTraitContainer}
+                  onClick={() => handleDisableTraits(index, trait.id)}
+                >
+                  <Checkbox checked={checked[index]} />
+                  <p
+                    style={{
+                      color: isAvailableTrait(trait.id)
+                        ? colors.CTX_MENUBAR_COLOR
+                        : "gray",
+                      fontSize: "11px",
+                      letterSpacing: "0.1rem",
+                    }}
+                  >
+                    {trait.trait}
+                  </p>
+                </div>
                 <DropdownComponent
-                  name={strings.RARITY}
-                  label={`trait${index}`}
-                  value={traitsPayload[index].rarity || ""}
+                  label={"rarity"}
+                  options={getRaritiesOptions(trait)}
+                  width="35%"
+                  value={
+                    traitsPayload.find(
+                      (traitPayload) => traitPayload.mainTraitId === trait.id
+                    )?.rarity
+                  }
                   handleChange={(e) =>
-                    handleRarityChange(e.target.value, index)
+                    handleRarityChange(e.target.value, trait.id)
                   }
-                  options={getRaritiesOptions(index)}
-                  disabled={isLoading || !isDefined(specie)}
-                  required={isDefined(traitsPayload[index].mainTraitId)}
+                  disabled={
+                    isLoading ||
+                    isUploadIconLoading ||
+                    !isAvailableTrait(trait.id)
+                  }
+                  required={isAvailableTrait(trait.id)}
                 />
-
                 <TextFieldComponent
-                  className={styles.textFieldForm}
-                  style={{
-                    marginTop: "1.5rem",
-                  }}
-                  id={`trait${index}`}
-                  label={strings.ADDITIONAL_INFO}
+                  label={strings.ADDITIONAL_INFO + " " + (index + 1)}
+                  id="trait"
                   type="text"
-                  onChange={(e) =>
-                    handleAdditionalInfoChange(e.target.value, index)
+                  value={
+                    traitsPayload.find(
+                      (traitPayload) => traitPayload.mainTraitId === trait.id
+                    )?.additionalInfo
                   }
-                  value={traitsPayload[index].additionalInfo || ""}
-                  disabled={isLoading || !isDefined(specie)}
-                />
-                <ActionIcon
-                  Icon={DeleteForeverRoundedIcon}
-                  fontsize="large"
-                  handleClick={() => deleteTraitsField(index)}
-                  disabled={traitsFields === 0 || isLoading}
-                  marginTop="5px"
+                  onChange={(e) =>
+                    handleAdditionalInfoChange(e.target.value, trait.id)
+                  }
+                  disabled={
+                    isLoading ||
+                    isUploadIconLoading ||
+                    !isAvailableTrait(trait.id)
+                  }
                 />
               </div>
             ))}
           </div>
         </Container>
-        <div className={styles.sectionTraitInfoContainer}>
-          {getTraitsInformationImage()}
+        <div className={styles.formSpecieSection}>
+          {specieInfo && specieInfo.specieFormInfoList && (
+            <SpecieFormExpositor
+              specieFormList={specieInfo?.specieFormInfoList || []}
+              borderColor={colors.CTX_BORDER_ICON_COLOR}
+              handleClick={handleSpecieFormClick}
+            />
+          )}
         </div>
       </div>
+      <div className={styles.thirdContainer}>{getTraitsInformationImage()}</div>
       <div className={styles.submitButton}>
         <Button
           type="submit"
@@ -565,9 +662,9 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
           height="35px"
           colorButton={colors.CTX_FORM_BUTTON_COLOR}
           buttonColorShadow={colors.CTX_BUTTON_SHADOW_COLOR_2}
-          loading={isLoading}
-          disabled={isLoading}
-          catsLoading={isLoading}
+          loading={isLoading || isUploadIconLoading}
+          disabled={isLoading || isUploadIconLoading}
+          catsLoading={isLoading || isUploadIconLoading}
         />
       </div>
     </form>

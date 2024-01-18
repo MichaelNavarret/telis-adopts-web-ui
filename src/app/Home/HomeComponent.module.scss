@@ -5,19 +5,20 @@
   align-items: center;
   justify-content: center;
   margin: auto;
-  margin-top: 0;
+  margin-top: 130px;
   gap: 30px;
-  .logo {
-    width: 80%;
-  }
-  .spectraLumenLogo {
-    width: 50%;
-  }
   .buttonsContainer {
     display: flex;
     flex-direction: column;
     gap: 50px;
   }
+}
+
+.speciesLogoContainer {
+  position: fixed;
+  top: 2%;
+  right: 16%;
+  width: 25%;
 }
 
 .lanniesCharacter {
@@ -26,4 +27,14 @@
   left: 0;
   width: 43%;
   pointer-events: none;
+}
+
+@media screen and (max-width: 1400px) and (max-height: 768px) {
+  .mainContainer {
+    margin-top: 50px;
+    .buttonsContainer {
+      height: 100%;
+      gap: 30px;
+    }
+  }
 }

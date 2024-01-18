@@ -3,6 +3,7 @@ export type TraitInfo = {
   specie: string;
   trait: string;
   rarities: string[];
+  displayPriority: number;
 };
 
 export type TraitSingletonResponse = {
@@ -17,6 +18,7 @@ export type TraitCreateRequest = {
   specieId: string;
   trait: string;
   rarities: string[];
+  displayPriority: number | null;
 };
 
 export type TraitAutocompleteParams = {

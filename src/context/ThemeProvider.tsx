@@ -27,6 +27,7 @@ interface ThemeContextProps {
     CTX_FORM_BUTTON_COLOR: string;
     CTX_TABLE_TITLE_COLOR: string;
     CTX_MENUBAR_TEXT_COLOR: string;
+    CTX_BORDER_ICON_COLOR: string;
   };
   background: string;
   setColors: React.Dispatch<React.SetStateAction<ThemeContextProps["colors"]>>;
@@ -75,6 +76,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     CTX_FORM_BUTTON_COLOR: defaultColors.formButton,
     CTX_TABLE_TITLE_COLOR: defaultColors.tableTitle,
     CTX_MENUBAR_TEXT_COLOR: defaultColors.menubarText,
+    CTX_BORDER_ICON_COLOR: defaultColors.borderIcon,
   });
   const [background, setBackground] = useState(defaultBackground);
   const [logo, setLogo] = useState(defaultLogo);
@@ -107,6 +109,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       CTX_FORM_BUTTON_COLOR: colors.formButton,
       CTX_TABLE_TITLE_COLOR: colors.tableTitle,
       CTX_MENUBAR_TEXT_COLOR: colors.menubarText,
+      CTX_BORDER_ICON_COLOR: colors.borderIcon,
     });
     setBackground(background);
     setLogo(logo);

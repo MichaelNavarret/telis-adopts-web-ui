@@ -21,6 +21,7 @@ export const LANIES_BUTTON_SHADOW_COLOR_2 = "#B75971";
 export const LANIES_FORM_BUTTON_COLOR = "#F781A0";
 export const LANIES_TABLE_TITLE_COLOR = "#F5839C";
 export const LANIES_MENUBAR_TEXT_COLOR = "#FFE7E4";
+export const LANIES_BORDER_ICON_COLOR = "#F16184";
 
 export const laniesColors: Colors = {
   text: LANIES_TEXT_COLOR,
@@ -44,4 +45,5 @@ export const laniesColors: Colors = {
   formButton: LANIES_FORM_BUTTON_COLOR,
   tableTitle: LANIES_TABLE_TITLE_COLOR,
   menubarText: LANIES_MENUBAR_TEXT_COLOR,
+  borderIcon: LANIES_BORDER_ICON_COLOR,
 };

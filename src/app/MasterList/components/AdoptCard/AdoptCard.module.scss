@@ -1,0 +1,93 @@
+.contentContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .headerContainer {
+    flex: 1;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    .iconAdoptContainer {
+      position: absolute;
+      width: 30%;
+      text-align: center;
+      padding: 5px;
+      margin-top: 3.5%;
+    }
+    .subHeaderContainer {
+      display: flex;
+      flex-direction: column;
+      width: 65%;
+      margin-left: 32%;
+      height: 150px;
+      .topSubHeaderContainer {
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        .currentOwnerContainer {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .listDesignersContainer {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    }
+  }
+  .bottomSubHeaderContainer {
+    .codeAdoptAndBadgeContainer {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: end;
+      .badgesContainer {
+        display: flex;
+        flex-direction: row;
+      }
+      .codeAdopt {
+        margin-left: 27%;
+      }
+    }
+  }
+  .bodyContainer {
+    flex: 1;
+    height: 100px;
+    .specieFormContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      right: 10px;
+      top: 45%;
+      margin-right: 10px;
+    }
+  }
+  .footerContainer {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 20px;
+    align-items: end;
+    bottom: 5px;
+    right: 50px;
+    .iconStyles {
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+      }
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+  }
+}

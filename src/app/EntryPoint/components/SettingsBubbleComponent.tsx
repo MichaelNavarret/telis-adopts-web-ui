@@ -28,6 +28,7 @@ const SettingsBubbleComponent = () => {
       left="1%"
       bubbleColor={colors.CTX_BUBBLE_COLOR}
       handleClick={handleNavigate}
+      position="fixed"
     />
   );
 };

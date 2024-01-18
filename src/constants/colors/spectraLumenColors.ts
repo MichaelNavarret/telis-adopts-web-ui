@@ -21,6 +21,7 @@ export const SPECTRALUMEN_BUTTON_SHADOW_COLOR_2 = "#7F5180";
 export const SPECTRALUMEN_FORM_BUTTON_COLOR = "#FD76FE";
 export const SPECTRALUMEN_TABLE_TITLE_COLOR = "#FA75F8";
 export const SPECTRALUMEN_MENUBAR_TEXT_COLOR = "#F2F5FE";
+export const SPECTRALUMEN_BORDER_ICON_COLOR = "#000000";
 
 export const spectraLumenColors: Colors = {
   text: SPECTRALUMEN_TEXT_COLOR,
@@ -44,4 +45,5 @@ export const spectraLumenColors: Colors = {
   formButton: SPECTRALUMEN_FORM_BUTTON_COLOR,
   tableTitle: SPECTRALUMEN_TABLE_TITLE_COLOR,
   menubarText: SPECTRALUMEN_MENUBAR_TEXT_COLOR,
+  borderIcon: SPECTRALUMEN_BORDER_ICON_COLOR,
 };

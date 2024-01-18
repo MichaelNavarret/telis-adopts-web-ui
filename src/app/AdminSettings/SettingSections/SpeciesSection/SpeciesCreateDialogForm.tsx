@@ -1,4 +1,4 @@
-import { FormEvent, useCallback, useState } from "react";
+import { FormEvent, useState } from "react";
 import DialogComponent from "../../../../components/surfaces/DialogComponent";
 import styles from "./SpeciesCreateDialogForm.module.scss";
 import { Button } from "../../../../components";
@@ -7,10 +7,10 @@ import { createSpecie } from "../../../../api/species";
 import strings from "../../../../l10n";
 import { successToast } from "../../../../constants/toasts";
 import TextFieldComponent from "../../../../components/Form/TextFieldComponent";
-import { useDropzone } from "react-dropzone";
-import { useTheme } from "../../../../context/ThemeProvider";
-import { isDefined } from "../../../../tools/commons";
 import TextComponent from "../../../../components/TextComponents/TextComponent";
+import { Checkbox } from "@mui/material";
+import SpecieFormAddDialog from "./SpecieFormAddDialog";
+import Dropzone from "../../../../components/Form/Dropzone";
 
 type SpecieCreateDialogFormProps = {
   open: boolean;
@@ -19,18 +19,33 @@ type SpecieCreateDialogFormProps = {
 
 const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
   const { open, handleClose } = props;
-  const { colors } = useTheme();
+  const [displaySpecieForm, setDisplaySpecieForm] = useState(false);
+  const [openSpecieForm, setOpenSpecieForm] = useState(false);
+
   const [specieName, setSpecieName] = useState("");
   const queryClient = useQueryClient();
+  const [traitSheet, setTraitSheet] = useState<File | undefined>();
+  const [logo, setLogo] = useState<File | undefined>();
+  const [masterListBanner, setMasterListBanner] = useState<File | undefined>();
+  const [specieId, setSpecieId] = useState<string>("");
 
   const { mutate: crateSpecieMutation, isLoading } = useMutation({
     mutationFn: () => {
-      return createSpecie(acceptedFiles[0] as File, {
-        specieName: specieName,
-      });
+      return createSpecie(
+        traitSheet as File,
+        logo as File,
+        masterListBanner as File,
+        {
+          specieName: specieName,
+        }
+      );
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       successToast(strings.SPECIE_CREATED_SUCCESSFULLY);
+      if (displaySpecieForm) {
+        setOpenSpecieForm(true);
+        setSpecieId(data.id);
+      }
       queryClient.invalidateQueries("species");
       queryClient.invalidateQueries("autocompleteSpecies");
       clearStates();
@@ -47,14 +62,12 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
     crateSpecieMutation();
   };
 
-  const onDrop = useCallback(() => {}, []);
-
-  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
-    onDrop,
-  });
-
   const dialogContent = (
-    <form onSubmit={onSubmit} className={styles.formMainContainer}>
+    <form
+      onSubmit={onSubmit}
+      className={styles.formMainContainer}
+      autoComplete="off"
+    >
       <TextFieldComponent
         className={styles.textFieldForm}
         id="speciesName"
@@ -64,31 +77,55 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
         required
         disabled={isLoading}
       />
-      <TextComponent
-        content={strings.TRAITS_INFORMATION}
-        animation={false}
-        hover={false}
-      />
       <div
-        {...getRootProps()}
         style={{
-          width: "500px",
-          backgroundColor: colors.CTX_TABLE_ROW_HOVER_COLOR,
-          padding: "10px",
-          borderRadius: "15px",
-          border: "5px dashed" + colors.CTX_MENUBAR_COLOR,
-          textAlign: "center",
-          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "row",
+          width: "100%",
         }}
       >
-        <input {...getInputProps()} />
-        {!isDefined(acceptedFiles[0]) ? (
-          <p>Drag 'n' drop some files here, or click to select files</p>
-        ) : (
-          <div>{acceptedFiles[0].name}</div>
-        )}
+        <Checkbox
+          checked={displaySpecieForm}
+          onChange={() => setDisplaySpecieForm(!displaySpecieForm)}
+        />
+        <p>
+          Dou you wanna set a Extra Specie Form before create this new Specie?
+        </p>
       </div>
-
+      <div>
+        <TextComponent
+          content={strings.TRAITS_SHEET}
+          animation={false}
+          hover={false}
+        />
+        <Dropzone
+          handleDrop={(files) => {
+            setTraitSheet(files[0]);
+          }}
+        />
+      </div>
+      <div>
+        <TextComponent content={strings.LOGO} animation={false} hover={false} />
+        <Dropzone
+          handleDrop={(files) => {
+            setLogo(files[0]);
+          }}
+        />
+      </div>
+      <div>
+        <TextComponent
+          content={strings.MASTER_LIST_BANNER}
+          animation={false}
+          hover={false}
+        />
+        <Dropzone
+          handleDrop={(files) => {
+            setMasterListBanner(files[0]);
+          }}
+        />
+      </div>
       <Button
         content={strings.CREATE}
         type="submit"
@@ -102,12 +139,19 @@ const SpeciesCreateDialogForm = (props: SpecieCreateDialogFormProps) => {
   );
 
   return (
-    <DialogComponent
-      dialogTitle={`${strings.CREATE} ${strings.SPECIE}`}
-      open={open}
-      handleClose={handleClose}
-      content={dialogContent}
-    />
+    <>
+      <DialogComponent
+        dialogTitle={`${strings.CREATE} ${strings.SPECIE}`}
+        open={open}
+        handleClose={handleClose}
+        content={dialogContent}
+      />
+      <SpecieFormAddDialog
+        open={openSpecieForm}
+        handleClose={() => setOpenSpecieForm(false)}
+        specieId={specieId}
+      />
+    </>
   );
 };
 
