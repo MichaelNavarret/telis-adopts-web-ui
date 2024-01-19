@@ -1,0 +1,40 @@
+.mainContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  //-------------------------------------------------------------------------------------- Header
+  .headerContainer {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .imagesContainer {
+    margin-top: 10px;
+    width: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    .firstImageContainer {
+      flex: 0.8;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .secondImageContainer {
+      border-radius: 30px;
+      flex: 1.2;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      .historySection {
+        flex: 4;
+        border-radius: 30px;
+      }
+    }
+  }
+}

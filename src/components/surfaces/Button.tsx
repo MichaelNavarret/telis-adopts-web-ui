@@ -18,6 +18,7 @@ type ButtonProps = {
   marginTop?: string;
   className?: string;
   catsLoading?: boolean;
+  fontSize?: string;
 };
 
 export const Button = (props: ButtonProps) => {
@@ -36,6 +37,7 @@ export const Button = (props: ButtonProps) => {
     marginTop = "0px",
     className,
     catsLoading = false,
+    fontSize = "medium",
   } = props;
 
   const getLoadingIcon = () => {
@@ -60,6 +62,7 @@ export const Button = (props: ButtonProps) => {
         cursor: disabled ? "not-allowed" : "pointer",
         marginTop: marginTop,
         padding: "10px",
+        fontSize: fontSize,
       }}
       type={type}
       disabled={disabled}

@@ -5,6 +5,7 @@ import TableComponent, {
 } from "../../../../components/Table/TableComponent";
 import { speciesTableColumns } from "../../../../constants/TablesColumns";
 import strings from "../../../../l10n";
+import { formatSpeciesTableRows } from "./speciesTableFormat";
 
 type SpeciesTableProps = {
   handleOpen: () => void;
@@ -31,7 +32,7 @@ const SpeciesTable = (props: SpeciesTableProps) => {
     <TableComponent
       title={strings.SPECIES}
       columns={speciesTableColumns}
-      data={speciesList?.data || []}
+      data={formatSpeciesTableRows(speciesList?.data || [])}
       primaryButton={true}
       primaryButtonLabel={`${strings.ADD} ${strings.SPECIE}`}
       handlePrimaryButton={handleOpen}

@@ -53,7 +53,7 @@ const ApplicationRoutes = (props: ApplicationRouteProps) => {
       />
 
       <Route
-        path="/detailsSections/SpeciesDetails/*"
+        path="/detailsSections/speciesDetails/*"
         element={
           <ProtectedRoute isAuth={isAuth}>
             <SpeciesDetailsRoutes />
