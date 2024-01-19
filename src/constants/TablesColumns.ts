@@ -19,3 +19,9 @@ export const traitsTableColumns: ColumnsTable[] = [
   { value: "specie", label: strings.SPECIE },
   { value: "rarities", label: strings.RARITIES },
 ];
+
+export const ownersTableColumns: ColumnsTable[] = [
+  { value: "nickName", label: strings.NICKNAME },
+  { value: "email", label: strings.EMAIL },
+  { value: "status", label: strings.STATUS },
+];

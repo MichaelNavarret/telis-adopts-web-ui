@@ -1,6 +1,7 @@
 import { Chip } from "@mui/material";
 import { TraitInfo } from "../../../../types/traits";
 import styles from "./traitsTableFormat.module.scss";
+import uuid from "react-uuid";
 
 export function formatTraitTableRows(data: TraitInfo[]) {
   return data.map((item) => {
@@ -14,7 +15,7 @@ export function formatTraitTableRows(data: TraitInfo[]) {
 
 const formatRarities = (rarities: string[]) => {
   return (
-    <div key={"key"} className={styles.raritiesChipContainer}>
+    <div key={uuid()} className={styles.raritiesChipContainer}>
       {rarities.map((item) => {
         return <Chip label={item} />;
       })}

@@ -5,6 +5,7 @@ import adminSettingsOptions from "./utils/MenuBarOptions";
 import SpeciesSection from "./SettingSections/SpeciesSection/SpeciesSection";
 import AdoptsSection from "./SettingSections/AdoptsSection/AdoptsSection";
 import TraitsSection from "./SettingSections/TraitsSection/TraitsSection";
+import OwnersSection from "./SettingSections/OwnersSection/OwnersSection";
 
 const AdminSettingsComponent = () => {
   const [step, setStep] = useState<number>(0);
@@ -17,13 +18,15 @@ const AdminSettingsComponent = () => {
     const { step } = props;
     switch (step) {
       case 0:
-        return <AdoptsSection />;
+        return <SpeciesSection />;
       case 1:
-        return <SpeciesSection />;
-      case 2:
         return <TraitsSection />;
+      case 2:
+        return <AdoptsSection />;
+      case 3:
+        return <OwnersSection />;
       default:
-        return <SpeciesSection />;
+        return <OwnersSection />;
     }
   };
 
