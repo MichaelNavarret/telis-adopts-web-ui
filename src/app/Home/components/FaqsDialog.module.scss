@@ -1,0 +1,52 @@
+.faqsDialogContainer {
+  padding: 15px;
+  position: relative;
+  .exitIcon {
+    position: fixed;
+    align-self: flex-end;
+    font-size: 30px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      transform: scale(1.1);
+    }
+    &.active {
+      transform: rotate(180deg);
+    }
+  }
+  .faqsContainer {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    .faqContainer {
+      .question {
+        font-size: 13px;
+      }
+      padding-bottom: 10px;
+      .answer {
+        margin-top: 5px;
+        font-family: sans-serif;
+        font-size: 18px;
+      }
+      .warningContainer {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border-radius: 40px;
+        gap: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
+        .warningIcon {
+          font-size: 30px;
+        }
+        .warning {
+          font-size: 19px;
+          font-family: sans-serif;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

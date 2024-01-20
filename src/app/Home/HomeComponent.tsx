@@ -8,12 +8,14 @@ import strings from "../../l10n";
 import DialogComponent from "../../components/surfaces/DialogComponent";
 import { useState } from "react";
 import ImageDialog from "./components/ImageDialog";
+import FaqsDialog from "./components/FaqsDialog";
 
 const HomeComponent = () => {
   const { character } = useTheme();
   const navigate = useNavigate();
   const [openStory, setOpenStory] = useState(false);
   const [openGuide, setOpenGuide] = useState(false);
+  const [openFaq, setOpenFaq] = useState(false);
 
   const { data: specieInfo } = useQuery({
     queryKey: ["specieInfo"],
@@ -52,6 +54,7 @@ const HomeComponent = () => {
       case 4:
         break;
       case 5:
+        setOpenFaq(true);
         break;
       case 6:
         break;
@@ -83,7 +86,7 @@ const HomeComponent = () => {
             {strings.OPTION_MASTER_LIST}{" "}
           </Button>
           <Button disabled> ADOPTS OPEN </Button>
-          <Button disabled> FAQ / TOS </Button>
+          <Button onClick={() => handleButtonClick(5)}> FAQ / TOS </Button>
           <Button disabled> TRADE CENTER </Button>
         </div>
         <DialogComponent
@@ -97,6 +100,11 @@ const HomeComponent = () => {
           imageUrl={specieInfo?.guideSheetUrl || ""}
           open={openGuide}
           handleClose={() => setOpenGuide(false)}
+        />
+        <FaqsDialog
+          open={openFaq}
+          handleClose={() => setOpenFaq(false)}
+          specieId={specieInfo?.id || ""}
         />
       </div>
     </>
