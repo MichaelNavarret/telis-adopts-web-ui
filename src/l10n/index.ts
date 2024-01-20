@@ -6,6 +6,7 @@ import { adoptEn } from "./adopt";
 import { specieEn } from "./specie";
 import { traitEn } from "./trait";
 import { masterListEn } from "./masterList";
+import { homeMenuEn } from "./homeMenu";
 
 let stringObject = {
   en: {
@@ -16,6 +17,7 @@ let stringObject = {
     ...specieEn,
     ...traitEn,
     ...masterListEn,
+    ...homeMenuEn,
   },
 };
 

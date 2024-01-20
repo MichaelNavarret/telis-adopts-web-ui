@@ -23,6 +23,7 @@ type DialogComponentProps = {
   withoutPadding?: boolean;
   maxWidth?: "xs" | "sm" | "md" | "lg" | "xl" | false;
   TransitionComponent?: any;
+  texAlign?: "center" | "left" | "right";
 };
 
 const DialogComponent = (props: DialogComponentProps) => {
@@ -38,6 +39,7 @@ const DialogComponent = (props: DialogComponentProps) => {
     withoutPadding = false,
     maxWidth = "sm",
     TransitionComponent,
+    texAlign,
   } = props;
 
   const { colors } = useTheme();
@@ -77,6 +79,7 @@ const DialogComponent = (props: DialogComponentProps) => {
           width: width ? width : fullScreen ? "" : "auto",
           height: height ? height : fullScreen ? "" : "auto",
           padding: withoutPadding ? "0px" : "20px",
+          textAlign: texAlign,
         },
       }}
     >
