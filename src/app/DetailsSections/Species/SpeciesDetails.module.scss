@@ -31,10 +31,21 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      .historySection {
-        flex: 4;
-        border-radius: 30px;
-      }
+    }
+  }
+  .extrasContainer {
+    margin-top: 10px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    .guideSheetContainer {
+      flex: 1.1;
+      height: 100%;
+    }
+    .specieFormContainer {
+      flex: 0.9;
+      height: 100%;
     }
   }
 }

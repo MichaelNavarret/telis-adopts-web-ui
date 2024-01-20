@@ -7,6 +7,8 @@ import SectionComponent from "../../../components/SectionComponent/SectionCompon
 import SectionField from "../../../components/SectionComponent/SectionField";
 import strings from "../../../l10n";
 import ImageSection from "./components/ImageSection";
+import HistorySection from "./components/HistorySection";
+import SpecieFormSection from "./components/SpecieFormSection";
 
 type SpeciesDetailsProps = {
   specieId: string;
@@ -61,12 +63,23 @@ const SpeciesDetails = (props: SpeciesDetailsProps) => {
               imageUrl={specieInfo?.masterListBannerUrl || ""}
               onEdit={() => {}}
             />
-            <div
-              className={styles.historySection}
-              style={{ border: `1px solid ${colors.CTX_BUTTON_COLOR}` }}
-            >
-              <p>History</p>
-            </div>
+            <HistorySection history={specieInfo?.history || ""} />
+          </div>
+        </div>
+        <div className={styles.extrasContainer}>
+          <div className={styles.guideSheetContainer}>
+            <ImageSection
+              titleSection={strings.GUIDE_SHEET}
+              imageUrl={specieInfo?.guideSheetUrl || ""}
+              onEdit={() => {}}
+              padding={"15px"}
+              roundedImage="20px"
+            />
+          </div>
+          <div className={styles.specieFormContainer}>
+            <SpecieFormSection
+              specieFormList={specieInfo?.specieFormInfoList || []}
+            />
           </div>
         </div>
       </div>
