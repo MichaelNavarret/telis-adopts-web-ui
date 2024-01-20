@@ -6,6 +6,8 @@ export type SpecieInfo = {
   logoUrl: string;
   masterListBannerUrl: string;
   specieFormInfoList: SpecieFormInfo[];
+  history: string;
+  guideSheetUrl: string;
 };
 
 export type SpecieSingletonResponse = {

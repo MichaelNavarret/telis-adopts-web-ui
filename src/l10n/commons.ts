@@ -21,4 +21,5 @@ export const commonEn = {
   STATUS: "Status",
   ACTIVE: "Active",
   INACTIVE: "Inactive",
+  EDIT: "Edit",
 };

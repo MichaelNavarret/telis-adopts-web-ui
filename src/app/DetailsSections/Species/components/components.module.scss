@@ -1,0 +1,105 @@
+.imageContainer {
+  border-radius: 30px;
+  flex: 0.8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  .titleImage {
+    margin-top: 10px;
+  }
+  .editImageIcon {
+    font-size: 30px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      transform: scaleX(1.1) scaleY(1.1);
+    }
+    &:active {
+      transform: scaleX(0.9) scaleY(0.9);
+    }
+  }
+}
+
+.historySection {
+  flex: 4;
+  border-radius: 30px;
+  padding: 15px;
+  position: relative;
+  .historyTitleContainer {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .history {
+    white-space: pre-wrap;
+    font-family: sans-serif;
+    font-size: 18px;
+  }
+  .editHistoryIcon {
+    font-size: 30px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      transform: scaleX(1.1) scaleY(1.1);
+    }
+    &:active {
+      transform: scaleX(0.9) scaleY(0.9);
+    }
+  }
+}
+
+.specieFormSectionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 15px;
+  border-radius: 30px;
+  position: relative;
+  .addIcon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      transform: scaleX(1.1) scaleY(1.1);
+    }
+    &:active {
+      transform: scaleX(0.9) scaleY(0.9);
+    }
+  }
+  .specieFormsContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20%;
+    .specieFormItemContainer {
+      padding: 25px;
+      border-radius: 10px;
+      margin-top: 10px;
+      position: relative;
+      .removeIcon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 30px;
+        transition: all 0.3s ease-in-out;
+        &:hover {
+          cursor: pointer;
+          transform: scaleX(1.1) scaleY(1.1);
+        }
+        &:active {
+          transform: scaleX(0.9) scaleY(0.9);
+        }
+      }
+    }
+  }
+}
