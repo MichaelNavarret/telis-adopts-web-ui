@@ -9,6 +9,9 @@ import strings from "../../../l10n";
 import ImageSection from "./components/ImageSection";
 import HistorySection from "./components/HistorySection";
 import SpecieFormSection from "./components/SpecieFormSection";
+import { useState } from "react";
+import UpdateNameDialog from "./DialogsForms/UpdateNameDialog";
+import { queryKeys } from "../../../constants/queryKeys";
 
 type SpeciesDetailsProps = {
   specieId: string;
@@ -17,9 +20,10 @@ type SpeciesDetailsProps = {
 const SpeciesDetails = (props: SpeciesDetailsProps) => {
   const { specieId } = props;
   const { colors } = useTheme();
+  const [openUpdateName, setOpenUpdateName] = useState(false);
 
   const { data: specieInfo, isLoading: isSpecieInfoLoading } = useQuery({
-    queryKey: ["specie", specieId],
+    queryKey: [queryKeys.specie, specieId],
     queryFn: () => {
       return getSpecie(specieId);
     },
@@ -39,7 +43,10 @@ const SpeciesDetails = (props: SpeciesDetailsProps) => {
           />
         </div>
         {/* //-------------------------------------------------------------------------------------- Main Information */}
-        <SectionComponent titleSection={"Main Information"} onEdit={() => {}}>
+        <SectionComponent
+          titleSection={"Main Information"}
+          onEdit={() => setOpenUpdateName(true)}
+        >
           <SectionField label={strings.NAME} value={specieInfo?.name} />
           <SectionField label={strings.CODE} value={specieInfo?.code} />
         </SectionComponent>
@@ -83,6 +90,13 @@ const SpeciesDetails = (props: SpeciesDetailsProps) => {
           </div>
         </div>
       </div>
+
+      {/* //-------------------------------------------------------------------------------------- Dialogs */}
+      <UpdateNameDialog
+        open={openUpdateName}
+        handleClose={() => setOpenUpdateName(false)}
+        specieId={specieId}
+      />
     </>
   );
 };

@@ -6,4 +6,5 @@ export const specieEn = {
   EXTRAS_ADDED_SUCCESSFULLY: "Extras added successfully!",
   MASTER_LIST_BANNER: "Master list banner",
   GUIDE_SHEET: "Guide sheet",
+  SPECIE_UPDATED_SUCCESSFULLY: "Specie updated successfully!",
 };

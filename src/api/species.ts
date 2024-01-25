@@ -6,6 +6,7 @@ import {
   SpecieCreateParams,
   SpecieFormSingletonResponse,
   SpecieSingletonResponse,
+  SpecieUpdateRequest,
 } from "../types/species";
 
 export const getSpecies = async (pageNumber: number = 0) => {
@@ -85,5 +86,17 @@ export const getSpecieForm = async (specieFormId: string) => {
   const data = request
     .get<SpecieFormSingletonResponse>(`species-form/${specieFormId}`)
     .then((res) => res.data.specieFormSingletonInfo);
+  return data;
+};
+
+export const updateSpecie = async (
+  specieId: string,
+  payload: SpecieUpdateRequest
+) => {
+  const data = await request
+    .put<SpecieSingletonResponse>(`/species/${specieId}`, payload)
+    .then((res) => {
+      return res.data.specieSingletonInfo;
+    });
   return data;
 };
