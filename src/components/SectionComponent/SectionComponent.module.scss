@@ -28,13 +28,14 @@
 
 .sectionField {
   margin-bottom: 20px;
-  letter-spacing: 0.2rem;
   .label {
     font-weight: normal;
     font-size: 0.7rem;
     padding-bottom: 5px;
+    letter-spacing: 0.2rem;
   }
   .value {
-    font-size: 1rem;
+    font-family: sans-serif !important;
+    font-size: 1.5rem;
   }
 }

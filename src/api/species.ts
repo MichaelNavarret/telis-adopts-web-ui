@@ -6,6 +6,7 @@ import {
   SpecieCreateParams,
   SpecieFormSingletonResponse,
   SpecieSingletonResponse,
+  SpecieUpdateAssetParams,
   SpecieUpdateRequest,
 } from "../types/species";
 
@@ -95,6 +96,27 @@ export const updateSpecie = async (
 ) => {
   const data = await request
     .put<SpecieSingletonResponse>(`/species/${specieId}`, payload)
+    .then((res) => {
+      return res.data.specieSingletonInfo;
+    });
+  return data;
+};
+
+export const updateSpecieAsset = async (
+  specieId: string,
+  params: SpecieUpdateAssetParams,
+  file: File
+) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  const data = await request
+    .patch<SpecieSingletonResponse>(
+      `/species/${specieId}/update-asset`,
+      formData,
+      {
+        params: params,
+      }
+    )
     .then((res) => {
       return res.data.specieSingletonInfo;
     });

@@ -1,7 +1,7 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import TextComponent from "../../../components/TextComponents/TextComponent";
 import styles from "./SpeciesDetails.module.scss";
-import { getSpecie } from "../../../api/species";
+import { getSpecie, updateSpecieAsset } from "../../../api/species";
 import { useTheme } from "../../../context/ThemeProvider";
 import SectionComponent from "../../../components/SectionComponent/SectionComponent";
 import SectionField from "../../../components/SectionComponent/SectionField";
@@ -12,13 +12,22 @@ import SpecieFormSection from "./components/SpecieFormSection";
 import { useState } from "react";
 import UpdateNameDialog from "./DialogsForms/UpdateNameDialog";
 import { queryKeys } from "../../../constants/queryKeys";
+import { successToast } from "../../../constants/toasts";
 
 type SpeciesDetailsProps = {
   specieId: string;
 };
 
+type AssetType = "LOGO" | "GUIDE_SHEET" | "TRAIT_SHEET" | "MASTER_LIST_BANNER";
+
+type AssetUploadPayload = {
+  file: File;
+  assetType: AssetType;
+};
+
 const SpeciesDetails = (props: SpeciesDetailsProps) => {
   const { specieId } = props;
+  const queryClient = useQueryClient();
   const { colors } = useTheme();
   const [openUpdateName, setOpenUpdateName] = useState(false);
 
@@ -28,6 +37,54 @@ const SpeciesDetails = (props: SpeciesDetailsProps) => {
       return getSpecie(specieId);
     },
   });
+
+  const { mutate: updateAssetMutation } = useMutation({
+    mutationFn: (payload: AssetUploadPayload) => {
+      return updateSpecieAsset(
+        specieId,
+        {
+          assetType: payload.assetType,
+        },
+        payload.file
+      );
+    },
+    onSuccess: () => {
+      successToast("Asset updated successfully!");
+      queryClient.invalidateQueries(queryKeys.specie);
+    },
+  });
+
+  const handleLogoDrop = (files: File[]) => {
+    const payload: AssetUploadPayload = {
+      file: files[0],
+      assetType: "LOGO",
+    };
+    updateAssetMutation(payload);
+  };
+
+  const handleTraitSheetDrop = (files: File[]) => {
+    const payload: AssetUploadPayload = {
+      file: files[0],
+      assetType: "TRAIT_SHEET",
+    };
+    updateAssetMutation(payload);
+  };
+
+  const handleMasterListBannerDrop = (files: File[]) => {
+    const payload: AssetUploadPayload = {
+      file: files[0],
+      assetType: "MASTER_LIST_BANNER",
+    };
+    updateAssetMutation(payload);
+  };
+
+  const handleGuideSheetDrop = (files: File[]) => {
+    const payload: AssetUploadPayload = {
+      file: files[0],
+      assetType: "GUIDE_SHEET",
+    };
+    updateAssetMutation(payload);
+  };
 
   return (
     <>
@@ -56,19 +113,19 @@ const SpeciesDetails = (props: SpeciesDetailsProps) => {
             <ImageSection
               titleSection={strings.LOGO}
               imageUrl={specieInfo?.logoUrl || ""}
-              onEdit={() => {}}
+              onEdit={handleLogoDrop}
             />
             <ImageSection
               titleSection={strings.TRAITS_SHEET}
               imageUrl={specieInfo?.traitSheetUrl || ""}
-              onEdit={() => {}}
+              onEdit={handleTraitSheetDrop}
             />
           </div>
           <div className={styles.secondImageContainer}>
             <ImageSection
               titleSection={strings.MASTER_LIST_BANNER}
               imageUrl={specieInfo?.masterListBannerUrl || ""}
-              onEdit={() => {}}
+              onEdit={handleMasterListBannerDrop}
             />
             <HistorySection history={specieInfo?.history || ""} />
           </div>
@@ -78,7 +135,7 @@ const SpeciesDetails = (props: SpeciesDetailsProps) => {
             <ImageSection
               titleSection={strings.GUIDE_SHEET}
               imageUrl={specieInfo?.guideSheetUrl || ""}
-              onEdit={() => {}}
+              onEdit={handleGuideSheetDrop}
               padding={"15px"}
               roundedImage="20px"
             />
