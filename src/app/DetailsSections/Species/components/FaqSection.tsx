@@ -1,13 +1,18 @@
-import { useQuery } from "react-query";
-import { getFaqsBySpecie } from "../../../../api/faqs";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { deleteFaq, getFaqsBySpecie } from "../../../../api/faqs";
 import styles from "./components.module.scss";
 import { useTheme } from "../../../../context/ThemeProvider";
 import { isDefined } from "../../../../tools/commons";
 import { IoIosWarning } from "react-icons/io";
 import { FaEdit } from "react-icons/fa";
 import { useState } from "react";
-import FaqDialogForm from "./FaqDialogForm";
+import FaqUpdateDialogForm from "./DialogForms/FaqUpdateDialogForm";
 import { FaqInfo } from "../../../../types/faqs";
+import { MdDelete } from "react-icons/md";
+import { IoAddCircleSharp } from "react-icons/io5";
+import FaqCreateDialogForm from "./DialogForms/FaqCreateDialogForm";
+import TextComponent from "../../../../components/TextComponents/TextComponent";
+import { successToast } from "../../../../constants/toasts";
 
 type FaqSectionProps = {
   specieId: string;
@@ -17,7 +22,9 @@ const FaqSection = (props: FaqSectionProps) => {
   const { specieId } = props;
   const { colors } = useTheme();
   const [openFaqsDialog, setOpenFaqsDialog] = useState(false);
+  const [openCreateFaqDialog, setOpenCreateFaqDialog] = useState(false);
   const [selectedFaq, setSelectedFaq] = useState<FaqInfo>();
+  const queryClient = useQueryClient();
 
   const { data: faqsData } = useQuery({
     queryKey: ["faqs", specieId],
@@ -28,8 +35,26 @@ const FaqSection = (props: FaqSectionProps) => {
     },
   });
 
+  const { mutate: deleteFaqMutation } = useMutation({
+    mutationFn: () => {
+      return deleteFaq(selectedFaq?.id || "", {
+        specieId: specieId,
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["faqs", specieId]);
+      successToast("Faq deleted successfully!");
+    },
+  });
+
   return (
-    <div className={styles.faqSectionContainer}>
+    <div
+      className={styles.faqSectionContainer}
+      style={{
+        border: `1px solid ${colors.CTX_BUTTON_COLOR}`,
+      }}
+    >
+      <TextComponent content="FAQs" animation={false} hover={false} />
       {faqsData?.map((faq, index) => {
         return (
           <div
@@ -56,25 +81,51 @@ const FaqSection = (props: FaqSectionProps) => {
                 <p className={styles.warning}>{faq.warning}</p>
               </div>
             )}
-            <FaEdit
-              style={{
-                color: colors.CTX_BUTTON_COLOR,
-              }}
-              onClick={() => {
-                setSelectedFaq(faq);
-                setOpenFaqsDialog(true);
-              }}
-            />
+            <div className={styles.iconsContainer}>
+              <FaEdit
+                className={styles.actionIcon}
+                style={{
+                  color: colors.CTX_BUTTON_COLOR,
+                }}
+                onClick={() => {
+                  setSelectedFaq(faq);
+                  setOpenFaqsDialog(true);
+                }}
+              />
+              <MdDelete
+                className={styles.actionIcon}
+                style={{
+                  color: colors.CTX_BUTTON_COLOR,
+                }}
+                onClick={() => {
+                  setSelectedFaq(faq);
+                  deleteFaqMutation();
+                }}
+              />
+            </div>
           </div>
         );
       })}
       {isDefined(selectedFaq) && (
-        <FaqDialogForm
+        <FaqUpdateDialogForm
           open={openFaqsDialog}
           handleClose={() => setOpenFaqsDialog(false)}
           currentFaq={selectedFaq}
+          specieId={specieId}
         />
       )}
+      <FaqCreateDialogForm
+        open={openCreateFaqDialog}
+        handleClose={() => setOpenCreateFaqDialog(false)}
+        specieId={specieId}
+      />
+      <IoAddCircleSharp
+        className={styles.addFaqButton}
+        style={{
+          color: colors.CTX_BUTTON_COLOR,
+        }}
+        onClick={() => setOpenCreateFaqDialog(true)}
+      />
     </div>
   );
 };

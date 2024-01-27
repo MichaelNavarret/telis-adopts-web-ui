@@ -108,15 +108,27 @@
 
 .faqSectionContainer {
   margin-top: 10px;
-  border: 1px solid black;
   border-radius: 30px;
   height: auto;
-  position: relative;
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  .addFaqButton {
+    align-self: center;
+    font-size: 30px;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      transform: scaleX(1.1) scaleY(1.1);
+    }
+    &:active {
+      transform: scaleX(0.9) scaleY(0.9);
+    }
+  }
   .faqContainer {
+    position: relative;
+    padding: 10px;
     .question {
       font-size: 13px;
     }
@@ -144,19 +156,24 @@
         font-weight: bold;
       }
     }
-  }
-  .editFaqIcon {
-    font-size: 30px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    transition: all 0.3s ease-in-out;
-    &:hover {
-      cursor: pointer;
-      transform: scaleX(1.1) scaleY(1.1);
-    }
-    &:active {
-      transform: scaleX(0.9) scaleY(0.9);
+    .iconsContainer {
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+      position: absolute;
+      top: 3px;
+      right: 5px;
+      .actionIcon {
+        font-size: 25px;
+        transition: all 0.3s ease-in-out;
+        &:hover {
+          cursor: pointer;
+          transform: scaleX(1.1) scaleY(1.1);
+        }
+        &:active {
+          transform: scaleX(0.9) scaleY(0.9);
+        }
+      }
     }
   }
 }
