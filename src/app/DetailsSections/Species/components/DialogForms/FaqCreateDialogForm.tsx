@@ -1,14 +1,10 @@
-import { FormEvent, useEffect, useState } from "react";
-import {
-  FaqCreationRequest,
-  FaqInfo,
-  FaqUpdateRequest,
-} from "../../../../../types/faqs";
+import { FormEvent, useState } from "react";
+import { FaqCreationRequest } from "../../../../../types/faqs";
 import TextFieldComponent from "../../../../../components/Form/TextFieldComponent";
 import { Button } from "../../../../../components";
 import DialogComponent from "../../../../../components/surfaces/DialogComponent";
 import { useMutation, useQueryClient } from "react-query";
-import { createFaq, updateFaq } from "../../../../../api/faqs";
+import { createFaq } from "../../../../../api/faqs";
 import { successToast } from "../../../../../constants/toasts";
 import styles from "./FaqUpdateDialogForm.module.scss";
 import TextComponent from "../../../../../components/TextComponents/TextComponent";

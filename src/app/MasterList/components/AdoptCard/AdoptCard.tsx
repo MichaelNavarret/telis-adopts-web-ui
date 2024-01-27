@@ -1,10 +1,4 @@
-import {
-  CircularProgress,
-  Dialog,
-  Divider,
-  Skeleton,
-  Slide,
-} from "@mui/material";
+import { CircularProgress, Dialog, Divider, Slide } from "@mui/material";
 import { AdoptInfo } from "../../../../types/adopt";
 import { useTheme } from "../../../../context/ThemeProvider";
 import styles from "./AdoptCard.module.scss";

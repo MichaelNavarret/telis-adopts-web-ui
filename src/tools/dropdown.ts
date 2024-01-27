@@ -7,7 +7,7 @@ export function formatOwnerInfoForDropdown(ownerResponse?: OwnerInfo[]) {
   if (!isDefined(ownerResponse)) return [];
   const formattedOptions = ownerResponse.map((owner) => {
     return {
-      label: owner.name,
+      label: owner.nickName,
       value: owner.id,
     };
   });
