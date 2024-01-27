@@ -19,6 +19,7 @@ import { queryKeys } from "../../../constants/queryKeys";
 import { successToast } from "../../../constants/toasts";
 import { SpecieUpdateRequest } from "../../../types/species";
 import UpdateStoryDialog from "./DialogsForms/UpdateStoryDialog";
+import FaqSection from "./components/faqSection";
 
 type SpeciesDetailsProps = {
   specieId: string;
@@ -156,6 +157,8 @@ const SpeciesDetails = (props: SpeciesDetailsProps) => {
             />
           </div>
         </div>
+        {/* //-------------------------------------------------------------------------------------- FAQ */}
+        <FaqSection specieId={specieId} />
       </div>
 
       {/* //-------------------------------------------------------------------------------------- Dialogs */}
