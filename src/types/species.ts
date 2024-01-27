@@ -31,7 +31,8 @@ export type SpecieAddSpecieFormParams = {
 };
 
 export type SpecieUpdateRequest = {
-  name: string;
+  name?: string;
+  story?: string;
 };
 
 export type SpecieFormInfo = {

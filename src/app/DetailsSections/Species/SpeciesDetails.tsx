@@ -1,7 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import TextComponent from "../../../components/TextComponents/TextComponent";
 import styles from "./SpeciesDetails.module.scss";
-import { getSpecie, updateSpecieAsset } from "../../../api/species";
+import {
+  getSpecie,
+  updateSpecie,
+  updateSpecieAsset,
+} from "../../../api/species";
 import { useTheme } from "../../../context/ThemeProvider";
 import SectionComponent from "../../../components/SectionComponent/SectionComponent";
 import SectionField from "../../../components/SectionComponent/SectionField";
@@ -13,6 +17,8 @@ import { useState } from "react";
 import UpdateNameDialog from "./DialogsForms/UpdateNameDialog";
 import { queryKeys } from "../../../constants/queryKeys";
 import { successToast } from "../../../constants/toasts";
+import { SpecieUpdateRequest } from "../../../types/species";
+import UpdateStoryDialog from "./DialogsForms/UpdateStoryDialog";
 
 type SpeciesDetailsProps = {
   specieId: string;
@@ -30,6 +36,7 @@ const SpeciesDetails = (props: SpeciesDetailsProps) => {
   const queryClient = useQueryClient();
   const { colors } = useTheme();
   const [openUpdateName, setOpenUpdateName] = useState(false);
+  const [openUpdateStory, setOpenUpdateStory] = useState(false);
 
   const { data: specieInfo, isLoading: isSpecieInfoLoading } = useQuery({
     queryKey: [queryKeys.specie, specieId],
@@ -127,7 +134,10 @@ const SpeciesDetails = (props: SpeciesDetailsProps) => {
               imageUrl={specieInfo?.masterListBannerUrl || ""}
               onEdit={handleMasterListBannerDrop}
             />
-            <HistorySection history={specieInfo?.history || ""} />
+            <HistorySection
+              history={specieInfo?.history || ""}
+              onEdit={() => setOpenUpdateStory(true)}
+            />
           </div>
         </div>
         <div className={styles.extrasContainer}>
@@ -154,6 +164,14 @@ const SpeciesDetails = (props: SpeciesDetailsProps) => {
         handleClose={() => setOpenUpdateName(false)}
         specieId={specieId}
       />
+      {specieInfo && (
+        <UpdateStoryDialog
+          currentStory={specieInfo?.history || ""}
+          open={openUpdateStory}
+          handleClose={() => setOpenUpdateStory(false)}
+          specieId={specieId}
+        />
+      )}
     </>
   );
 };
