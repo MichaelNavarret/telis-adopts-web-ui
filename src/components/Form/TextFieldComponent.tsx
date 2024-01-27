@@ -12,6 +12,9 @@ type TexFieldComponentProps = {
   style?: React.CSSProperties;
   helperText?: string;
   error?: boolean;
+  multiline?: boolean;
+  rows?: number;
+  fullWidth?: boolean;
 };
 
 const TextFieldComponent = (props: TexFieldComponentProps) => {
@@ -27,12 +30,16 @@ const TextFieldComponent = (props: TexFieldComponentProps) => {
     style,
     helperText,
     error,
+    multiline,
+    rows,
+    fullWidth,
   } = props;
 
   return (
     <TextField
       className={className}
       id={id}
+      spellCheck={false}
       value={value}
       style={style}
       label={label}
@@ -42,6 +49,9 @@ const TextFieldComponent = (props: TexFieldComponentProps) => {
       required={required}
       helperText={helperText}
       error={error}
+      fullWidth={fullWidth}
+      multiline={multiline}
+      rows={rows}
       InputProps={{
         style: { borderRadius: "10px" },
       }}

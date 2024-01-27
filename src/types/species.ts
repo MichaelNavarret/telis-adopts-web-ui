@@ -31,7 +31,8 @@ export type SpecieAddSpecieFormParams = {
 };
 
 export type SpecieUpdateRequest = {
-  name: string;
+  name?: string;
+  story?: string;
 };
 
 export type SpecieFormInfo = {
@@ -42,4 +43,8 @@ export type SpecieFormInfo = {
 
 export type SpecieFormSingletonResponse = {
   specieFormSingletonInfo: SpecieFormInfo;
+};
+
+export type SpecieUpdateAssetParams = {
+  assetType?: "LOGO" | "MASTER_LIST_BANNER" | "TRAIT_SHEET" | "GUIDE_SHEET";
 };

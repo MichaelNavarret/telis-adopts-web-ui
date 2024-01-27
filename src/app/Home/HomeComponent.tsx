@@ -16,11 +16,12 @@ const HomeComponent = () => {
   const [openStory, setOpenStory] = useState(false);
   const [openGuide, setOpenGuide] = useState(false);
   const [openFaq, setOpenFaq] = useState(false);
+  const specieId = localStorage.getItem("specieId") || "";
 
   const { data: specieInfo } = useQuery({
     queryKey: ["specieInfo"],
     queryFn: () => {
-      return getSpecie(localStorage.getItem("specieId") || "");
+      return getSpecie(specieId);
     },
   });
 
@@ -34,10 +35,6 @@ const HomeComponent = () => {
     >
       {specieInfo?.history}
     </pre>
-  );
-
-  const guide = (
-    <img src={specieInfo?.guideSheetUrl || ""} alt="guide" width={"50%"} />
   );
 
   const handleButtonClick = (action: number) => {
@@ -97,6 +94,7 @@ const HomeComponent = () => {
           maxWidth="xl"
         />
         <ImageDialog
+          code={specieInfo?.code || ""}
           imageUrl={specieInfo?.guideSheetUrl || ""}
           open={openGuide}
           handleClose={() => setOpenGuide(false)}

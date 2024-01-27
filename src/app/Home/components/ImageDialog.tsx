@@ -1,13 +1,22 @@
 import { Dialog } from "@mui/material";
 
 type ImageDialogProps = {
+  code: string;
   imageUrl: string;
   open: boolean;
   handleClose: () => void;
 };
 
 const ImageDialog = (props: ImageDialogProps) => {
-  const { imageUrl, open, handleClose } = props;
+  const { imageUrl, open, handleClose, code } = props;
+
+  const getHeight = () => {
+    if (code === "spectralumen") {
+      return "auto";
+    }
+    return "800px";
+  };
+
   return (
     <Dialog
       open={open}
@@ -22,7 +31,7 @@ const ImageDialog = (props: ImageDialogProps) => {
       <img
         src={imageUrl}
         alt="Image"
-        height={800}
+        height={getHeight()}
         style={{
           borderRadius: "20px",
         }}
