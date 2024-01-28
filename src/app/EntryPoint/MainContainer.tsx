@@ -11,14 +11,12 @@ import EntryPointContainer from "./components/EntryPointContainer";
 import BackgroundContainer from "./components/BackgroundContainer";
 import { hideNavigationButtons } from "../../tools/commons";
 import SettingsBubbleComponent from "./components/SettingsBubbleComponent";
-import {
-  NOT_SHOW_ADMIN_SETTINGS_BUBBLE_ON_LOCATION,
-  NOT_SHOW_NAVIGATION_BUTTONS,
-} from "../../constants/commons";
+import { NOT_SHOW_NAVIGATION_BUTTONS } from "../../constants/commons";
 import NavigationBubbles from "../../components/surfaces/NavigationBubbles";
 
 export const MainContainer = () => {
-  const { _loadTokenFromStorage, logout, isAuth, _token } = useUserSession();
+  const { _loadTokenFromStorage, logout, isAuth, _token, ownerInfo } =
+    useUserSession();
   const { colors, background } = useTheme();
   const location = window.location.pathname;
 
@@ -54,6 +52,8 @@ export const MainContainer = () => {
     mainContent = <ApplicationRoutes isAuth={isAuth} />;
   }
 
+  const isAdmin = ownerInfo?.role.name === "Admin";
+
   return (
     <Container>
       <BackgroundContainer background={background}>
@@ -67,10 +67,7 @@ export const MainContainer = () => {
           }
         >
           {mainContent}
-          {hideNavigationButtons(
-            location,
-            NOT_SHOW_ADMIN_SETTINGS_BUBBLE_ON_LOCATION
-          ) && <SettingsBubbleComponent />}
+          {isAdmin && <SettingsBubbleComponent />}
         </EntryPointContainer>
       </BackgroundContainer>
     </Container>

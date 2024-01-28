@@ -15,7 +15,6 @@ const SpecieFormExpositor = (props: SpecieFormExpositorProps) => {
   const [selected, setSelected] = useState<string>("");
 
   const handleSelected = (value: string) => {
-    console.log("handleSelected", value);
     setSelected(value);
   };
 
