@@ -25,7 +25,7 @@ export function getCurrentSpecie() {
   return currentSpecie;
 }
 
-export function hideBubbleLocations(
+export function hideNavigationButtons(
   location: string,
   excludeLocations: string[] = []
 ) {

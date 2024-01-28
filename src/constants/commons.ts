@@ -1,5 +1,4 @@
-export const NOT_SHOW_HOME_BUBBLE_ON_LOCATION: string[] = [
-  "/species",
+export const NOT_SHOW_NAVIGATION_BUTTONS: string[] = [
   "/login",
   "/reset-password",
 ];

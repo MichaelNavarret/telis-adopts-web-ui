@@ -9,13 +9,13 @@ import { Container } from "../../components";
 import { useTheme } from "../../context/ThemeProvider";
 import EntryPointContainer from "./components/EntryPointContainer";
 import BackgroundContainer from "./components/BackgroundContainer";
-import HomeBubbleComponent from "./components/HomeBubbleComponent";
-import { hideBubbleLocations } from "../../tools/commons";
+import { hideNavigationButtons } from "../../tools/commons";
 import SettingsBubbleComponent from "./components/SettingsBubbleComponent";
 import {
   NOT_SHOW_ADMIN_SETTINGS_BUBBLE_ON_LOCATION,
-  NOT_SHOW_HOME_BUBBLE_ON_LOCATION,
+  NOT_SHOW_NAVIGATION_BUTTONS,
 } from "../../constants/commons";
+import NavigationBubbles from "../../components/surfaces/NavigationBubbles";
 
 export const MainContainer = () => {
   const { _loadTokenFromStorage, logout, isAuth, _token } = useUserSession();
@@ -58,8 +58,8 @@ export const MainContainer = () => {
     <Container>
       <BackgroundContainer background={background}>
         <SocialNetworksMenu />
-        {hideBubbleLocations(location, NOT_SHOW_HOME_BUBBLE_ON_LOCATION) && (
-          <HomeBubbleComponent />
+        {hideNavigationButtons(location, NOT_SHOW_NAVIGATION_BUTTONS) && (
+          <NavigationBubbles />
         )}
         <EntryPointContainer
           backGroundColor={
@@ -67,7 +67,7 @@ export const MainContainer = () => {
           }
         >
           {mainContent}
-          {hideBubbleLocations(
+          {hideNavigationButtons(
             location,
             NOT_SHOW_ADMIN_SETTINGS_BUBBLE_ON_LOCATION
           ) && <SettingsBubbleComponent />}
