@@ -6,7 +6,6 @@ import MasterListFilterButtons from "./components/MasterListFilterButtons";
 import MasterListExpositorAdopts from "./components/MasterListExpositorAdopts";
 import { CreationType } from "../../types/adopt";
 import { getAdopts } from "../../api/adopts";
-import { Skeleton } from "@mui/material";
 
 const MasterListScreen = () => {
   const [creationTypeFilter, setCreationTypeFilter] = useState("PREMADE");
