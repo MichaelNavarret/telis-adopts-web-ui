@@ -10,13 +10,13 @@ import strings from "../../../../l10n";
 import TextComponent from "../../../../components/TextComponents/TextComponent";
 import CurrentOwnerSection from "./CurrentOwnerSection";
 import DesignersSection from "./DesignersSection";
-import { FaTree } from "react-icons/fa";
 import ToyhouseIcon from "../../../../icons/ToyhouseIcon";
 import { ImCross } from "react-icons/im";
 import TraitList from "./TraitsList";
 import { useQuery } from "react-query";
 import { getSpecieForm } from "../../../../api/species";
 import { badges } from "../../../../constants/badges";
+import BadgesExpositor from "./BadgesExpositor";
 
 type AdoptCardProps = {
   open: boolean;
@@ -104,11 +104,7 @@ const AdoptCard = (props: AdoptCardProps) => {
                 letterSpacing="0.2rem"
               />
               <div className={styles.badgesContainer}>
-                <img
-                  src={badges.halloween}
-                  alt="halloween-badge"
-                  width={"50px"}
-                />
+                <BadgesExpositor adoptsBadge={adopt.badges} />
               </div>
             </div>
             <Divider

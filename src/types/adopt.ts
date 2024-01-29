@@ -1,3 +1,4 @@
+import { BadgeInfo } from "./badge";
 import { OwnerDesignerCreateRequest } from "./owner";
 import { SubTraitCreateRequest, SubTraitInfo } from "./subTraits";
 
@@ -31,6 +32,7 @@ export type AdoptInfo = {
   iconUrl: string;
   traits: SubTraitInfo[];
   specieFormId: string;
+  badges: BadgeInfo[];
 };
 
 export type AdoptSingletonResponse = {
