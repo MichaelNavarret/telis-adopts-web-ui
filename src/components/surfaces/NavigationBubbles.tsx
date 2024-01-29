@@ -16,23 +16,26 @@ const NavigationBubbles = () => {
 
   return (
     <div className={styles.navigationBubblesContainer}>
-      <div className={styles.bubble} style={styleConfig}>
-        <CgProfile
-          className={styles.iconBubble}
-          onClick={() => navigate("/")}
-        />
+      <div
+        className={styles.bubble}
+        style={styleConfig}
+        onClick={() => navigate("/")}
+      >
+        <CgProfile className={styles.iconBubble} />
       </div>
-      <div className={styles.bubble} style={styleConfig}>
-        <FaHome
-          className={styles.iconBubble}
-          onClick={() => navigate("/species")}
-        />
+      <div
+        className={styles.bubble}
+        style={styleConfig}
+        onClick={() => navigate("/species")}
+      >
+        <FaHome className={styles.iconBubble} />
       </div>
-      <div className={styles.bubble} style={styleConfig}>
-        <IoMdSettings
-          className={styles.iconBubble}
-          onClick={() => navigate("/")}
-        />
+      <div
+        className={styles.bubble}
+        style={styleConfig}
+        onClick={() => navigate("/")}
+      >
+        <IoMdSettings className={styles.iconBubble} />
       </div>
     </div>
   );

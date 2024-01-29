@@ -9,8 +9,7 @@ import {
 export const getMyOwner = async () => {
   const data = await request
     .get<OwnerSingletonResponse>("/owners/me")
-    .then((res) => res.data.owner);
-
+    .then((res) => res.data.ownerSingletonInfo);
   return data;
 };
 
@@ -38,6 +37,6 @@ export const getOwnersCollection = async (pageNumber: number = 0) => {
 export const createOwner = async (payload: OwnerCreateRequest) => {
   const data = await request
     .post<OwnerSingletonResponse>("/owners", payload)
-    .then((res) => res.data.owner);
+    .then((res) => res.data.ownerSingletonInfo);
   return data;
 };

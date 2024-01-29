@@ -10,7 +10,9 @@ export const listRoles = async () => {
 
 export const loadPermissions = async (roleId: string) => {
   const data = await request
-    .get<RoleSingletonResponse>(`roles/${roleId}`)
-    .then((res) => res.data.role.permissions);
+    .get<RoleSingletonResponse>(`roles/${roleId}/permissions`)
+    .then((res) => {
+      return res.data.roleSingletonInfo.permissions;
+    });
   return data;
 };

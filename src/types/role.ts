@@ -12,5 +12,5 @@ export type RoleCollectionResponse = {
 };
 
 export type RoleSingletonResponse = {
-  role: RoleInfo;
+  roleSingletonInfo: RoleInfo;
 };

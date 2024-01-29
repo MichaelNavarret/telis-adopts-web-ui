@@ -9,7 +9,7 @@ export type OwnerInfo = {
 };
 
 export type OwnerSingletonResponse = {
-  owner: OwnerInfo;
+  ownerSingletonInfo: OwnerInfo;
 };
 
 export type OwnerRequest = {

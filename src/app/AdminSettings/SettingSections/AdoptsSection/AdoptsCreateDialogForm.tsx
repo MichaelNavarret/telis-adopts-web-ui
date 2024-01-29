@@ -186,7 +186,6 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
       subTraits: filteredTraitsPayload(traitsPayload),
       specieFormId: specieFormId,
     };
-    console.log(payload);
     createAdoptMutation(payload);
   };
 
