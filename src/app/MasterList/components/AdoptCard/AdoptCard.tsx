@@ -16,6 +16,7 @@ import { ImCross } from "react-icons/im";
 import TraitList from "./TraitsList";
 import { useQuery } from "react-query";
 import { getSpecieForm } from "../../../../api/species";
+import { badges } from "../../../../constants/badges";
 
 type AdoptCardProps = {
   open: boolean;
@@ -103,7 +104,11 @@ const AdoptCard = (props: AdoptCardProps) => {
                 letterSpacing="0.2rem"
               />
               <div className={styles.badgesContainer}>
-                <FaTree fontSize={50} color="green" />
+                <img
+                  src={badges.halloween}
+                  alt="halloween-badge"
+                  width={"50px"}
+                />
               </div>
             </div>
             <Divider
