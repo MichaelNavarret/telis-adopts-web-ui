@@ -36,11 +36,6 @@ interface ThemeContextProps {
   >;
   logo: string;
   setLogo: React.Dispatch<React.SetStateAction<ThemeContextProps["logo"]>>;
-  character: string;
-  setCharacter: React.Dispatch<
-    React.SetStateAction<ThemeContextProps["character"]>
-  >;
-  reloadTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
@@ -53,7 +48,6 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const defaultColors = getColors();
   const defaultBackground = getBackground();
   const defaultLogo = getLogo();
-  const defaultCharacter = getCharacter();
   const [colors, setColors] = useState({
     CTX_TEXT_COLOR: defaultColors.text,
     CTX_BUTTON_COLOR: defaultColors.button,
@@ -80,13 +74,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   });
   const [background, setBackground] = useState(defaultBackground);
   const [logo, setLogo] = useState(defaultLogo);
-  const [character, setCharacter] = useState(defaultCharacter);
   //this method will be call to reload the theme when click in some button
   const reloadTheme = () => {
     const colors = getColors();
     const background = getBackground();
     const logo = getLogo();
-    const character = getCharacter();
     setColors({
       CTX_TEXT_COLOR: colors.text,
       CTX_BUTTON_COLOR: colors.button,
@@ -113,7 +105,6 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     });
     setBackground(background);
     setLogo(logo);
-    setCharacter(character);
   };
 
   return (
@@ -125,8 +116,6 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         setBackground,
         logo,
         setLogo,
-        character,
-        setCharacter,
         reloadTheme,
       }}
     >

@@ -1,14 +1,11 @@
-import lannies_character from "../assets/characters/lannies.png";
-import { getCurrentSpecie } from "../tools/commons";
+import lanies from "../assets/characters/main-lanies.png";
+import plunies from "../assets/characters/main-plunies.png";
+import spectralumen from "../assets/characters/main-spectralumen.png";
+import cloudystars from "../assets/characters/main-cloudystars.png";
 
-export const LANNIES_CHARACTER = lannies_character;
-
-export const getCharacter = () => {
-  const species = getCurrentSpecie();
-  switch (species) {
-    case "lannies":
-      return LANNIES_CHARACTER;
-    default:
-      return LANNIES_CHARACTER;
-  }
+export const characters = {
+  lanies: lanies,
+  plunies: plunies,
+  spectralumen: spectralumen,
+  cloudystars: cloudystars,
 };

@@ -6,12 +6,12 @@ import { getSpecie } from "../../api/species";
 import { useNavigate } from "react-router-dom";
 import strings from "../../l10n";
 import DialogComponent from "../../components/surfaces/DialogComponent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ImageDialog from "./components/ImageDialog";
 import FaqsDialog from "./components/FaqsDialog";
+import { getMainCharacter } from "../../tools/assets";
 
 const HomeComponent = () => {
-  const { character } = useTheme();
   const navigate = useNavigate();
   const [openStory, setOpenStory] = useState(false);
   const [openGuide, setOpenGuide] = useState(false);
@@ -24,6 +24,25 @@ const HomeComponent = () => {
       return getSpecie(specieId);
     },
   });
+
+  useEffect(() => {
+    const logo = document.querySelector(
+      `.${styles.speciesLogoContainer}`
+    ) as HTMLImageElement;
+    const character = document.querySelector(
+      `.${styles.mainCharacter}`
+    ) as HTMLImageElement;
+    if (logo && character) {
+      logo.style.opacity = "0";
+      character.style.opacity = "0";
+      setTimeout(() => {
+        logo.style.opacity = "1";
+        logo.style.transition = "opacity 0.5s";
+        character.style.opacity = "1";
+        character.style.transition = "opacity 0.5s";
+      }, 100);
+    }
+  }, [specieId]);
 
   const history = (
     <pre
@@ -62,16 +81,20 @@ const HomeComponent = () => {
 
   return (
     <>
-      <img
-        src={specieInfo?.logoUrl || ""}
-        alt="logo"
-        className={styles.speciesLogoContainer}
-      />
-      <img
-        src={character}
-        alt="character"
-        className={styles.lanniesCharacter}
-      />
+      {specieInfo && (
+        <>
+          <img
+            src={specieInfo?.logoUrl || ""}
+            alt="logo"
+            className={styles.speciesLogoContainer}
+          />
+          <img
+            src={getMainCharacter(specieInfo?.code || "")}
+            alt="character"
+            className={styles.mainCharacter}
+          />
+        </>
+      )}
 
       <div className={styles.mainContainer}>
         <div className={styles.buttonsContainer}>
