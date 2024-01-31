@@ -1,12 +1,10 @@
-import { lazy } from "react";
 import { Route, RouteProps, Routes } from "react-router-dom";
-
-const Species = lazy(() => import("../pages/species/page"));
+import SpeciesPage from "../pages/species/page";
 
 const SpeciesRoutes: React.FunctionComponent<RouteProps> = () => {
   return (
     <Routes>
-      <Route path="/" element={<Species />} />
+      <Route path="/" element={<SpeciesPage />} />
     </Routes>
   );
 };
