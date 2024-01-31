@@ -19,23 +19,9 @@ const NavigationBubbles = () => {
       <div
         className={styles.bubble}
         style={styleConfig}
-        onClick={() => navigate("/")}
-      >
-        <CgProfile className={styles.iconBubble} />
-      </div>
-      <div
-        className={styles.bubble}
-        style={styleConfig}
         onClick={() => navigate("/species")}
       >
         <FaHome className={styles.iconBubble} />
-      </div>
-      <div
-        className={styles.bubble}
-        style={styleConfig}
-        onClick={() => navigate("/")}
-      >
-        <IoMdSettings className={styles.iconBubble} />
       </div>
     </div>
   );

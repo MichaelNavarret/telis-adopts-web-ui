@@ -6,6 +6,7 @@ export type OwnerInfo = {
   email: string;
   status: boolean;
   role: RoleInfo;
+  iconUrl: string;
 };
 
 export type OwnerSingletonResponse = {
