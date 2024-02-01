@@ -58,7 +58,7 @@ export const MainContainer = () => {
   return (
     <Container>
       <BackgroundContainer background={background}>
-        {isAuth && <OwnerIconProfile />}
+        {isAuth && !location.includes("/profile") && <OwnerIconProfile />}
         <SocialNetworksMenu />
         {hideNavigationButtons(location, NOT_SHOW_NAVIGATION_BUTTONS) && (
           <NavigationBubbles />

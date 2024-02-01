@@ -1,0 +1,45 @@
+.headerContainer {
+  height: 250px;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid black;
+  .informationContainer {
+    flex: 1.2;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    align-items: center;
+    margin: 20px;
+    .settingsIcon {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      font-size: 40px;
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+      }
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+    .iconContainer {
+      position: absolute;
+      border: 5px solid;
+      border-radius: 100%;
+      width: 200px;
+    }
+    .information {
+      margin-left: 20px;
+      width: 90%;
+      height: 200px;
+      border-radius: 80px;
+    }
+  }
+  .favoriteContainer {
+    border: 1px solid black;
+    flex: 0.8;
+  }
+}
