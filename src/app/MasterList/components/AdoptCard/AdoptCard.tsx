@@ -15,7 +15,6 @@ import { ImCross } from "react-icons/im";
 import TraitList from "./TraitsList";
 import { useQuery } from "react-query";
 import { getSpecieForm } from "../../../../api/species";
-import { badges } from "../../../../constants/badges";
 import BadgesExpositor from "./BadgesExpositor";
 
 type AdoptCardProps = {
@@ -104,7 +103,9 @@ const AdoptCard = (props: AdoptCardProps) => {
                 letterSpacing="0.2rem"
               />
               <div className={styles.badgesContainer}>
-                <BadgesExpositor adoptsBadge={adopt.badges} />
+                <BadgesExpositor
+                  badgesCode={adopt.badges.map((badge) => badge.code)}
+                />
               </div>
             </div>
             <Divider

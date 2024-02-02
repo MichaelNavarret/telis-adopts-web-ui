@@ -26,7 +26,7 @@ const ProfileScreen = (props: ProfileScreenProps) => {
 
   return (
     <div className={styles.profileScreen_MainContainer}>
-      <ProfileHeader owner={ownerResponse} canEdit={canEdit} />
+      <ProfileHeader data={ownerResponse} canEdit={canEdit} />
     </div>
   );
 };

@@ -11,6 +11,7 @@ export type OwnerInfo = {
 
 export type OwnerSingletonResponse = {
   ownerSingletonInfo: OwnerInfo;
+  badgesCode: string[];
 };
 
 export type OwnerRequest = {

@@ -2,7 +2,6 @@
   height: 250px;
   display: flex;
   flex-direction: row;
-  border: 1px solid black;
   .informationContainer {
     flex: 1.2;
     padding: 15px;
@@ -36,10 +35,62 @@
       width: 90%;
       height: 200px;
       border-radius: 80px;
+      display: flex;
+      flex-direction: column;
+      padding-left: 30%;
+      .nickname {
+        font-size: 40px;
+        flex: 1;
+        letter-spacing: 0.5rem;
+      }
+      .socialNetworks {
+        margin-top: 10px;
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+      }
+      .badges {
+        display: flex;
+        flex-direction: row;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        gap: 20px;
+        flex: 1;
+      }
     }
   }
   .favoriteContainer {
-    border: 1px solid black;
     flex: 0.8;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .headerContainer {
+    .informationContainer {
+      .information {
+        margin-left: 60px;
+        width: 90%;
+        height: 200px;
+        border-radius: 80px;
+        display: flex;
+        flex-direction: column;
+        padding-left: 30%;
+        .nickname {
+          font-size: 30px;
+          flex: 1;
+          letter-spacing: 0.5rem;
+        }
+        .socialNetworks {
+          flex: 1;
+          display: flex;
+          flex-direction: row;
+          gap: 15px;
+        }
+        .badges {
+          flex: 1;
+        }
+      }
+    }
   }
 }

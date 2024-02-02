@@ -44,6 +44,6 @@ export const createOwner = async (payload: OwnerCreateRequest) => {
 export const getOwner = async (ownerId: string) => {
   const data = await request
     .get<OwnerSingletonResponse>(`/owners/${ownerId}`)
-    .then((res) => res.data.ownerSingletonInfo);
+    .then((res) => res.data);
   return data;
 };

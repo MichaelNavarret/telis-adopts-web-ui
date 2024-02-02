@@ -1,15 +1,17 @@
 import { useTheme } from "../../context/ThemeProvider";
-import { OwnerInfo } from "../../types/owner";
+import { OwnerInfo, OwnerSingletonResponse } from "../../types/owner";
 import styles from "./ProfileHeader.module.scss";
 import { TbSettingsFilled } from "react-icons/tb";
+import { NetworkProfile } from "./components/NetworkProfile";
+import BadgesExpositor from "../MasterList/components/AdoptCard/BadgesExpositor";
 
 type ProfileHeaderProps = {
-  owner?: OwnerInfo;
+  data?: OwnerSingletonResponse;
   canEdit: boolean;
 };
 
 const ProfileHeader = (props: ProfileHeaderProps) => {
-  const { owner } = props;
+  const { data } = props;
   const { colors } = useTheme();
   const borderIconColor = colors.CTX_FORM_CONTAINER_COLOR;
 
@@ -24,7 +26,7 @@ const ProfileHeader = (props: ProfileHeaderProps) => {
           style={{ color: colors.CTX_MENUBAR_HOVER_COLOR }}
         />
         <img
-          src={owner?.iconUrl}
+          src={data?.ownerSingletonInfo.iconUrl || ""}
           alt="Owner Icon"
           width={"100%"}
           className={styles.iconContainer}
@@ -37,7 +39,21 @@ const ProfileHeader = (props: ProfileHeaderProps) => {
         <div
           className={styles.information}
           style={{ background: colors.CTX_FORM_CONTAINER_COLOR }}
-        ></div>
+        >
+          <div
+            className={styles.nickname}
+            style={{ color: colors.CTX_FORM_TITLE_COLOR }}
+          >
+            {data?.ownerSingletonInfo?.nickName}
+          </div>
+          <NetworkProfile className={styles.socialNetworks} />
+          <div className={styles.badges}>
+            <BadgesExpositor
+              badgesCode={data?.badgesCode || []}
+              badgeSize={50}
+            />
+          </div>
+        </div>
       </div>
       <div className={styles.favoriteContainer}></div>
     </div>
