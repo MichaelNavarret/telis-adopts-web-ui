@@ -16,6 +16,7 @@ import TraitList from "./TraitsList";
 import { useQuery } from "react-query";
 import { getSpecieForm } from "../../../../api/species";
 import BadgesExpositor from "./BadgesExpositor";
+import { isDefined } from "../../../../tools/commons";
 
 type AdoptCardProps = {
   open: boolean;
@@ -93,10 +94,27 @@ const AdoptCard = (props: AdoptCardProps) => {
           </div>
           <div className={styles.bottomSubHeaderContainer}>
             <div className={styles.codeAdoptAndBadgeContainer}>
+              <div className={styles.codeAdopt}>
+                <TextComponent
+                  content={`Name:`}
+                  colorText={"black"}
+                  hover={false}
+                  fontSize="small"
+                  animation={false}
+                  letterSpacing="0.2rem"
+                />
+                <TextComponent
+                  content={`${adopt.name}`}
+                  colorText={colors.CTX_BUTTON_SHADOW_COLOR_2}
+                  hover={false}
+                  fontSize="small"
+                  animation={false}
+                  letterSpacing="0.2rem"
+                />
+              </div>
               <TextComponent
-                content={`Code: ${adopt.code}`}
-                className={styles.codeAdopt}
-                colorText={colors.CTX_BUTTON_SHADOW_COLOR_2}
+                content={`#${adopt.code}`}
+                colorText={"black"}
                 hover={false}
                 fontSize="small"
                 animation={false}
@@ -104,7 +122,11 @@ const AdoptCard = (props: AdoptCardProps) => {
               />
               <div className={styles.badgesContainer}>
                 <BadgesExpositor
-                  badgesCode={adopt.badges.map((badge) => badge.code)}
+                  badgesCode={
+                    isDefined(adopt.badges)
+                      ? adopt.badges.map((badge) => badge.code)
+                      : []
+                  }
                 />
               </div>
             </div>

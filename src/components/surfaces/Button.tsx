@@ -19,6 +19,9 @@ type ButtonProps = {
   className?: string;
   catsLoading?: boolean;
   fontSize?: string;
+  withShadow?: boolean;
+  selected?: boolean;
+  notSelected?: boolean;
 };
 
 export const Button = (props: ButtonProps) => {
@@ -38,11 +41,22 @@ export const Button = (props: ButtonProps) => {
     className,
     catsLoading = false,
     fontSize = "medium",
+    withShadow = true,
+    selected,
+    notSelected,
   } = props;
 
   const getLoadingIcon = () => {
     if (catsLoading) return <CatsLoading withDots />;
     return <CircularProgress />;
+  };
+
+  const boxShadow = `0 0 10px ${buttonColorShadow}`;
+
+  const getBackgroundColor = () => {
+    if (selected) return colors.CTX_MENUBAR_HOVER_COLOR;
+    if (notSelected) return "grey";
+    return colorButton;
   };
 
   return (
@@ -51,11 +65,11 @@ export const Button = (props: ButtonProps) => {
         className ? `${styles.buttonStyles} ${className}` : styles.buttonStyles
       }
       style={{
-        backgroundColor: colorButton,
+        backgroundColor: getBackgroundColor(),
         color: colorTextButton,
         width: width,
         height: height,
-        boxShadow: `0 0 10px ${buttonColorShadow}`,
+        boxShadow: withShadow ? boxShadow : "none",
         //grayFilter when disabled
         filter: disabled ? "grayscale(100%)" : "none",
         //disabled cursor pointer when disabled

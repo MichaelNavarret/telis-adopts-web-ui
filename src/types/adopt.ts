@@ -47,4 +47,5 @@ export type AdoptAutocompleteParams = {
   specieId?: string;
   creationType?: CreationType;
   sort?: string;
+  ownerId?: string;
 };

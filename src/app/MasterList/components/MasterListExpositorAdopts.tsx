@@ -9,16 +9,18 @@ import { Skeleton } from "@mui/material";
 type MasterListExpositorAdoptsProps = {
   adopts: AdoptInfo[];
   isLoading?: boolean;
+  disabledOnClicked?: boolean;
 };
 
 const MasterListExpositorAdopts = (props: MasterListExpositorAdoptsProps) => {
-  const { adopts, isLoading = false } = props;
+  const { adopts, isLoading = false, disabledOnClicked = false } = props;
   const { colors } = useTheme();
   const [openAdoptCard, setOpenAdoptCard] = useState(false);
   const [selectedAdopt, setSelectedAdopt] = useState<AdoptInfo | null>(null);
   const borderIconColor = colors.CTX_BORDER_ICON_COLOR;
 
   const handleIconClick = (adopt: AdoptInfo) => {
+    if (disabledOnClicked) return;
     setSelectedAdopt(adopt);
     setOpenAdoptCard(true);
   };
