@@ -7,3 +7,12 @@
   padding-top: 30px;
   padding-bottom: 30px;
 }
+
+@media screen and (max-width: 1400px) {
+  .profileButtons_MainContainer {
+    gap: 20px;
+    .profileButtons_Button {
+      width: 30%;
+    }
+  }
+}

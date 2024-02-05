@@ -21,6 +21,7 @@ const ProfileButtons = (props: ProfileButtonsProps) => {
       {buttons.map((button) => (
         <Button
           key={button}
+          className={styles.profileButtons_Button}
           content={button}
           withShadow={false}
           selected={activeButton !== "" && button === activeButton}

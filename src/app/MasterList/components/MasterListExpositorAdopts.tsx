@@ -5,15 +5,22 @@ import AdoptCard from "./AdoptCard/AdoptCard";
 import { useState } from "react";
 import IconAdopt from "../../../components/utils/IconAdopt";
 import { Skeleton } from "@mui/material";
+import FavoriteSelector from "./FavoriteSelector";
 
 type MasterListExpositorAdoptsProps = {
   adopts: AdoptInfo[];
   isLoading?: boolean;
   disabledOnClicked?: boolean;
+  onProfile?: boolean;
 };
 
 const MasterListExpositorAdopts = (props: MasterListExpositorAdoptsProps) => {
-  const { adopts, isLoading = false, disabledOnClicked = false } = props;
+  const {
+    adopts,
+    isLoading = false,
+    disabledOnClicked = false,
+    onProfile = false,
+  } = props;
   const { colors } = useTheme();
   const [openAdoptCard, setOpenAdoptCard] = useState(false);
   const [selectedAdopt, setSelectedAdopt] = useState<AdoptInfo | null>(null);
@@ -51,6 +58,8 @@ const MasterListExpositorAdopts = (props: MasterListExpositorAdoptsProps) => {
               width={190}
               borderIconColor={borderIconColor}
             />
+
+            <FavoriteSelector />
           </div>
         )
       )}

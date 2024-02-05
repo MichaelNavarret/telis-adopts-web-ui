@@ -25,8 +25,15 @@ const IconAdopt = (props: IconAdoptProps) => {
       alt={"logo"}
       width={width}
       style={{
-        filter: `drop-shadow(5px 5px 0 ${borderIconColor}) drop-shadow(-5px 5px 0 ${borderIconColor})
-          drop-shadow(5px -5px 0 ${borderIconColor}) drop-shadow(-5px -5px 0 ${borderIconColor})`,
+        filter: ` drop-shadow(3px 0 0 ${borderIconColor})
+                  drop-shadow(3px 3px 0 ${borderIconColor})
+                  drop-shadow(3px -3px 0 ${borderIconColor})
+                  drop-shadow(0 3px 0 ${borderIconColor})
+
+                  drop-shadow(-3px 0 0 ${borderIconColor})
+                  drop-shadow(-3px 3px 0 ${borderIconColor})
+                  drop-shadow(-3px -3px 0 ${borderIconColor})
+                  drop-shadow(0 -3px 0 ${borderIconColor})`,
       }}
       onClick={() => handleIconClick(adopt)}
     />
