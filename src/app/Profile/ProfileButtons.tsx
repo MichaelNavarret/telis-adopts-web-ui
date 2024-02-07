@@ -9,7 +9,7 @@ type ProfileButtonsProps = {
 const ProfileButtons = (props: ProfileButtonsProps) => {
   const { handleButtonSelection } = props;
   const [activeButton, setActiveButton] = useState("");
-  const buttons = ["Characters", "Own Design", "Wish List", "Trade Center"];
+  const buttons = ["Characters", "Own Design", "Favorites", "Trade Center"];
 
   const handleSelection = (button: string) => {
     setActiveButton(button);

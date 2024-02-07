@@ -22,6 +22,7 @@ const ProfileCharactersSection = (props: ProfileCharactersSectionProps) => {
       <MasterListExpositorAdopts
         adopts={ownerAdopts?.data || []}
         isLoading={isLoading}
+        onProfile
       />
     </div>
   );

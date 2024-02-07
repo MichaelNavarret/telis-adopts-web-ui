@@ -7,6 +7,7 @@ export type OwnerInfo = {
   status: boolean;
   role: RoleInfo;
   iconUrl: string;
+  favoriteAdopts: string[];
 };
 
 export type OwnerSingletonResponse = {
@@ -30,4 +31,8 @@ export type OwnerDesignerCreateRequest = {
 export type OwnerCreateRequest = {
   nickName: string;
   email: string;
+};
+
+export type OwnerUpdateRequest = {
+  favoriteAdoptsIds: string[];
 };

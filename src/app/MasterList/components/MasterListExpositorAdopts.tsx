@@ -6,6 +6,8 @@ import { useState } from "react";
 import IconAdopt from "../../../components/utils/IconAdopt";
 import { Skeleton } from "@mui/material";
 import FavoriteSelector from "./FavoriteSelector";
+import useUserSession from "../../../hooks/useUserSession";
+import { isDefined } from "../../../tools/commons";
 
 type MasterListExpositorAdoptsProps = {
   adopts: AdoptInfo[];
@@ -24,12 +26,18 @@ const MasterListExpositorAdopts = (props: MasterListExpositorAdoptsProps) => {
   const { colors } = useTheme();
   const [openAdoptCard, setOpenAdoptCard] = useState(false);
   const [selectedAdopt, setSelectedAdopt] = useState<AdoptInfo | null>(null);
+  const { ownerInfo } = useUserSession();
   const borderIconColor = colors.CTX_BORDER_ICON_COLOR;
 
   const handleIconClick = (adopt: AdoptInfo) => {
     if (disabledOnClicked) return;
     setSelectedAdopt(adopt);
     setOpenAdoptCard(true);
+  };
+
+  const searchIsFavorite = (adoptId: string) => {
+    if (!isDefined(ownerInfo?.favoriteAdopts)) return false;
+    return ownerInfo.favoriteAdopts.includes(adoptId);
   };
 
   return (
@@ -59,7 +67,13 @@ const MasterListExpositorAdopts = (props: MasterListExpositorAdoptsProps) => {
               borderIconColor={borderIconColor}
             />
 
-            <FavoriteSelector />
+            {ownerInfo && !onProfile && (
+              <FavoriteSelector
+                isFavorite={searchIsFavorite(adopt.id)}
+                owner={ownerInfo}
+                adoptId={adopt.id}
+              />
+            )}
           </div>
         )
       )}
