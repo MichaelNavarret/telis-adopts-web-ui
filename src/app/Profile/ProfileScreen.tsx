@@ -7,6 +7,7 @@ import ProfileHeader from "./ProfileHeader";
 import ProfileButtons from "./ProfileButtons";
 import { useState } from "react";
 import ProfileCharactersSection from "./ProfileSections/ProfileCharactersSection";
+import { ProfileFavoritesSections } from "./ProfileSections/ProfileFavoritesSections";
 
 type ProfileScreenProps = {
   ownerId?: string;
@@ -36,6 +37,11 @@ const ProfileScreen = (props: ProfileScreenProps) => {
     const { selectedButton } = props;
     if (selectedButton === "Characters") {
       return <ProfileCharactersSection ownerId={ownerId || ""} />;
+    }
+    if (selectedButton === "Favorites") {
+      return (
+        <ProfileFavoritesSections owner={ownerResponse?.ownerSingletonInfo} />
+      );
     }
 
     return <></>;

@@ -7,20 +7,30 @@ import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import { FaDeviantart, FaDiscord, FaTwitter } from "react-icons/fa";
 import { RiInstagramFill } from "react-icons/ri";
 import styles from "./CurrentOwnerSection.module.scss";
+import { Colors } from "../../../../types/commons";
 
 type CurrentOwnerSectionProps = {
   currentOwnerName?: string;
+  colorSpecie: Colors;
+  onProfile?: boolean;
 };
 
 const CurrentOwnerSection = (props: CurrentOwnerSectionProps) => {
   const { colors } = useTheme();
-  const { currentOwnerName } = props;
+  const { currentOwnerName, onProfile, colorSpecie } = props;
+  const textColor = onProfile ? colorSpecie.text : colors.CTX_BUTTON_COLOR;
+  const bubbleColor = onProfile ? colorSpecie.bubble : colors.CTX_BUBBLE_COLOR;
+  const shadowColor2 = onProfile
+    ? colorSpecie.buttonShadow2
+    : colors.CTX_BUTTON_SHADOW_COLOR_2;
+  const buttonColor = onProfile ? colorSpecie.button : colors.CTX_BUTTON_COLOR;
+
   return (
     <>
       <Label
         label={strings.CURRENT_OWNER}
-        color={colors.CTX_TEXT_COLOR}
-        backgroundColor={colors.CTX_BUTTON_COLOR}
+        color={textColor}
+        backgroundColor={buttonColor}
         fontSize="11px"
       />
       <div
@@ -33,7 +43,7 @@ const CurrentOwnerSection = (props: CurrentOwnerSectionProps) => {
       >
         <StarRoundedIcon
           style={{
-            color: colors.CTX_BUTTON_COLOR,
+            color: buttonColor,
             fontSize: "25px",
             marginRight: "5px",
           }}
@@ -42,7 +52,7 @@ const CurrentOwnerSection = (props: CurrentOwnerSectionProps) => {
           content={currentOwnerName || "No owner"}
           hover={false}
           animation={false}
-          colorText={colors.CTX_BUTTON_SHADOW_COLOR_2}
+          colorText={shadowColor2}
           letterSpacing="0.2rem"
           fontSize="small"
         />
@@ -59,49 +69,49 @@ const CurrentOwnerSection = (props: CurrentOwnerSectionProps) => {
           className={styles.iconStyles}
           fontSize="30px"
           style={{
-            fill: colors.CTX_TEXT_COLOR,
-            background: colors.CTX_BUBBLE_COLOR,
+            fill: textColor,
+            background: bubbleColor,
             padding: "5px",
-            boxShadow: `0px 0px 10px 0px ${colors.CTX_BUTTON_SHADOW_COLOR_2}`,
+            boxShadow: `0px 0px 10px 0px ${shadowColor2}`,
           }}
         />
         <FaDiscord
           className={styles.iconStyles}
           fontSize="30px"
           style={{
-            fill: colors.CTX_TEXT_COLOR,
-            background: colors.CTX_BUBBLE_COLOR,
+            fill: textColor,
+            background: bubbleColor,
             padding: "5px",
-            boxShadow: `0px 0px 10px 0px ${colors.CTX_BUTTON_SHADOW_COLOR_2}`,
+            boxShadow: `0px 0px 10px 0px ${shadowColor2}`,
           }}
         />
         <FaTwitter
           className={styles.iconStyles}
           fontSize="30px"
           style={{
-            fill: colors.CTX_TEXT_COLOR,
-            background: colors.CTX_BUBBLE_COLOR,
+            fill: textColor,
+            background: bubbleColor,
             padding: "5px",
-            boxShadow: `0px 0px 10px 0px ${colors.CTX_BUTTON_SHADOW_COLOR_2}`,
+            boxShadow: `0px 0px 10px 0px ${shadowColor2}`,
           }}
         />
         <RiInstagramFill
           className={styles.iconStyles}
           fontSize="30px"
           style={{
-            fill: colors.CTX_TEXT_COLOR,
-            background: colors.CTX_BUBBLE_COLOR,
+            fill: textColor,
+            background: bubbleColor,
             padding: "5px",
-            boxShadow: `0px 0px 10px 0px ${colors.CTX_BUTTON_SHADOW_COLOR_2}`,
+            boxShadow: `0px 0px 10px 0px ${shadowColor2}`,
           }}
         />
         <ToyhouseIcon
           className={styles.iconStyles}
-          iconColor={colors.CTX_TEXT_COLOR}
+          iconColor={textColor}
           style={{
-            background: colors.CTX_BUBBLE_COLOR,
+            background: bubbleColor,
             padding: "3px",
-            boxShadow: `0px 0px 10px 0px ${colors.CTX_BUTTON_SHADOW_COLOR_2}`,
+            boxShadow: `0px 0px 10px 0px ${shadowColor2}`,
             width: "35px",
             height: "35px",
           }}

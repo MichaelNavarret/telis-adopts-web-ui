@@ -40,3 +40,20 @@ export const getAdopts = async (
     });
   return data;
 };
+
+export const getFavoriteAdopts = async (
+  ownerId: string,
+  pageNumber: number = 0
+) => {
+  const data = await request
+    .get<AdoptCollectionResponse>(`/adopts/${ownerId}/favorites`, {
+      headers: getPaginationHeaders(pageNumber),
+    })
+    .then((res) => {
+      return {
+        headers: res.headers,
+        data: res.data.adoptInfoList,
+      };
+    });
+  return data;
+};

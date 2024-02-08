@@ -1,15 +1,18 @@
 import TextComponent from "../../../../components/TextComponents/TextComponent";
 import { useTheme } from "../../../../context/ThemeProvider";
+import { Colors } from "../../../../types/commons";
 import { SubTraitInfo } from "../../../../types/subTraits";
 import styles from "./TraitList.module.scss";
 
 type TraitListProps = {
   rarity: string;
   traits: SubTraitInfo[];
+  onProfile?: boolean;
+  colorSpecie: Colors;
 };
 
 const TraitList = (props: TraitListProps) => {
-  const { traits, rarity } = props;
+  const { traits, rarity, onProfile, colorSpecie } = props;
   const { colors } = useTheme();
 
   const orderTraitsByDisplayPriority = (traits: SubTraitInfo[]) => {
@@ -23,11 +26,13 @@ const TraitList = (props: TraitListProps) => {
       <TextComponent
         className={styles.titleTrait}
         content={rarity}
-        colorText={colors.CTX_TEXT_COLOR}
+        colorText={onProfile ? colorSpecie.text : colors.CTX_TEXT_COLOR}
         animation={false}
         hover={false}
         fontSize="large"
-        backgroundColor={colors.CTX_BUTTON_COLOR}
+        backgroundColor={
+          onProfile ? colorSpecie.button : colors.CTX_BUTTON_COLOR
+        }
         letterSpacing="0.3rem"
       />
 
@@ -37,7 +42,9 @@ const TraitList = (props: TraitListProps) => {
             <p
               style={{
                 fontSize: "11px",
-                color: colors.CTX_BUTTON_SHADOW_COLOR_2,
+                color: onProfile
+                  ? colorSpecie.buttonShadow2
+                  : colors.CTX_BUTTON_SHADOW_COLOR_2,
                 letterSpacing: "0.2rem",
               }}
             >{`${trait.mainTrait}:`}</p>
@@ -48,7 +55,9 @@ const TraitList = (props: TraitListProps) => {
                 style={{
                   fontSize: "11px",
                   letterSpacing: "0.2rem",
-                  color: colors.CTX_BUTTON_SHADOW_COLOR_2,
+                  color: onProfile
+                    ? colorSpecie.buttonShadow2
+                    : colors.CTX_BUTTON_SHADOW_COLOR_2,
                 }}
               >
                 {trait.additionalInfo}
@@ -57,8 +66,10 @@ const TraitList = (props: TraitListProps) => {
             {/* ----------------- */}
             <p
               style={{
-                color: colors.CTX_TEXT_COLOR,
-                backgroundColor: colors.CTX_BUTTON_COLOR,
+                color: onProfile ? colorSpecie.text : colors.CTX_TEXT_COLOR,
+                backgroundColor: onProfile
+                  ? colorSpecie.button
+                  : colors.CTX_BUTTON_COLOR,
                 padding: "6px",
                 paddingLeft: "10px",
                 paddingRight: "10px",

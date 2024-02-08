@@ -17,11 +17,15 @@ import { useQuery } from "react-query";
 import { getSpecieForm } from "../../../../api/species";
 import BadgesExpositor from "./BadgesExpositor";
 import { isDefined } from "../../../../tools/commons";
+import { laniesColors } from "../../../../constants/colors/laniesColors";
+import { getColorsBySpecie } from "../../../../constants/colors";
 
 type AdoptCardProps = {
   open: boolean;
   adopt: AdoptInfo;
   handleClose: () => void;
+  onProfile?: boolean;
+  specie?: string;
 };
 
 const Transition = forwardRef(function Transition(
@@ -35,7 +39,8 @@ const Transition = forwardRef(function Transition(
 
 const AdoptCard = (props: AdoptCardProps) => {
   const { colors } = useTheme();
-  const { open = false, adopt, handleClose } = props;
+  const { open = false, adopt, handleClose, specie, onProfile } = props;
+  const colorsSpecie = getColorsBySpecie(specie || "");
 
   const { data: specieForm, isLoading: isSpecieFormLoading } = useQuery({
     queryKey: ["specieForm", adopt.specieFormId],
@@ -53,11 +58,15 @@ const AdoptCard = (props: AdoptCardProps) => {
       TransitionComponent={Transition}
       PaperProps={{
         style: {
-          backgroundColor: colors.CTX_FORM_CONTAINER_COLOR,
+          backgroundColor: onProfile
+            ? colorsSpecie.formContainer
+            : colors.CTX_FORM_CONTAINER_COLOR,
           borderRadius: "100px",
           width: "750px",
           height: "500px",
-          border: `15px solid ${colors.CTX_BORDER_ICON_COLOR}`,
+          border: `15px solid ${
+            onProfile ? colorsSpecie.borderIcon : colors.CTX_BORDER_ICON_COLOR
+          }`,
           overflow: "hidden",
         },
       }}
@@ -70,24 +79,36 @@ const AdoptCard = (props: AdoptCardProps) => {
               adopt={adopt}
               handleIconClick={() => {}}
               width={190}
-              borderIconColor={colors.CTX_BORDER_ICON_COLOR}
+              specie={specie}
+              onProfile={onProfile}
               notAnimation
             />
           </div>
           <div className={styles.subHeaderContainer}>
             <div className={styles.topSubHeaderContainer}>
               <div className={styles.currentOwnerContainer}>
-                <CurrentOwnerSection currentOwnerName={adopt.ownerName} />
+                <CurrentOwnerSection
+                  currentOwnerName={adopt.ownerName}
+                  onProfile={onProfile}
+                  colorSpecie={colorsSpecie}
+                />
               </div>
               <div className={styles.listDesignersContainer}>
                 <Label
                   label={strings.DESIGNERS}
-                  color={colors.CTX_TEXT_COLOR}
-                  backgroundColor={colors.CTX_BUTTON_COLOR}
+                  color={onProfile ? colorsSpecie.text : colors.CTX_TEXT_COLOR}
+                  backgroundColor={
+                    onProfile ? colorsSpecie.button : colors.CTX_BUTTON_COLOR
+                  }
                   fontSize="11px"
                 />
                 {adopt.designers.map((designer) => (
-                  <DesignersSection key={designer} designer={designer} />
+                  <DesignersSection
+                    key={designer}
+                    designer={designer}
+                    onProfile={onProfile}
+                    colorSpecie={colorsSpecie}
+                  />
                 ))}
               </div>
             </div>
@@ -105,7 +126,11 @@ const AdoptCard = (props: AdoptCardProps) => {
                 />
                 <TextComponent
                   content={`${adopt.name}`}
-                  colorText={colors.CTX_BUTTON_SHADOW_COLOR_2}
+                  colorText={
+                    onProfile
+                      ? colorsSpecie.buttonShadow2
+                      : colors.CTX_BUTTON_SHADOW_COLOR_2
+                  }
                   hover={false}
                   fontSize="small"
                   animation={false}
@@ -140,13 +165,20 @@ const AdoptCard = (props: AdoptCardProps) => {
      -------------------------------Body--------------------
      --------------------------------------------------------- */}
         <div className={styles.bodyContainer}>
-          <TraitList traits={adopt.traits} rarity={adopt.rarity} />
+          <TraitList
+            traits={adopt.traits}
+            rarity={adopt.rarity}
+            onProfile={onProfile}
+            colorSpecie={colorsSpecie}
+          />
           {specieForm && (
             <div className={styles.specieFormContainer}>
               {isSpecieFormLoading ? (
                 <CircularProgress
                   style={{
-                    color: colors.CTX_BUTTON_COLOR,
+                    color: onProfile
+                      ? colorsSpecie.button
+                      : colors.CTX_BUTTON_COLOR,
                   }}
                 />
               ) : (
@@ -167,11 +199,17 @@ const AdoptCard = (props: AdoptCardProps) => {
         <div className={styles.footerContainer}>
           <ToyhouseIcon
             className={styles.iconStyles}
-            iconColor={colors.CTX_TEXT_COLOR}
+            iconColor={onProfile ? colorsSpecie.text : colors.CTX_TEXT_COLOR}
             style={{
-              background: colors.CTX_BUBBLE_COLOR,
+              background: onProfile
+                ? colorsSpecie.bubble
+                : colors.CTX_BUBBLE_COLOR,
               padding: "5px",
-              boxShadow: `0px 0px 10px 0px ${colors.CTX_BUTTON_SHADOW_COLOR_2}`,
+              boxShadow: `0px 0px 10px 0px ${
+                onProfile
+                  ? colorsSpecie.buttonShadow2
+                  : colors.CTX_BUTTON_SHADOW_COLOR_2
+              }`,
               width: "40px",
               height: "40px",
               borderRadius: "50%",
@@ -181,7 +219,7 @@ const AdoptCard = (props: AdoptCardProps) => {
             className={styles.iconStyles}
             style={{
               marginBottom: "5px",
-              color: colors.CTX_BUBBLE_COLOR,
+              color: onProfile ? colorsSpecie.bubble : colors.CTX_BUBBLE_COLOR,
             }}
             onClick={handleClose}
           />

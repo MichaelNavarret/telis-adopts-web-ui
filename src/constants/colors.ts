@@ -20,3 +20,18 @@ export function getColors() {
       return mainColors;
   }
 }
+
+export function getColorsBySpecie(specie: string) {
+  switch (specie) {
+    case "lanies":
+      return laniesColors;
+    case "spectralumen":
+      return spectraLumenColors;
+    case "cloudystars":
+      return cloudystarsColors;
+    case "plunies":
+      return pluniesColors;
+    default:
+      return mainColors;
+  }
+}
