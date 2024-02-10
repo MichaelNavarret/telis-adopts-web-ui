@@ -3,7 +3,7 @@ import { TextField } from "@mui/material";
 type TexFieldComponentProps = {
   className?: string;
   id: string;
-  label: string;
+  label?: string;
   type: "text" | "password" | "number" | "date" | "email" | "file";
   onChange: (e: any) => void;
   disabled?: boolean;

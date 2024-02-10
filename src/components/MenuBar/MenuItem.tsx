@@ -8,12 +8,16 @@ type MenuItem = {
   handleClick: (value: number) => void;
   handleSelected?: (value: number) => void;
   selected?: boolean;
+  className?: string;
 };
 
 const MenuItem = (props: MenuItem) => {
   const [hover, setHover] = useState<boolean>(false);
-  const { option, handleClick, selected, handleSelected } = props;
+  const { option, handleClick, selected, handleSelected, className } = props;
   const { colors } = useTheme();
+  const currentClassName = selected
+    ? styles.liMenuBarSelected
+    : styles.liMenuBar;
 
   const handleOptionClick = (value: number) => {
     handleClick(value);
@@ -22,7 +26,7 @@ const MenuItem = (props: MenuItem) => {
 
   return (
     <li
-      className={selected ? styles.liMenuBarSelected : styles.liMenuBar}
+      className={`${currentClassName} ${className}`}
       style={{
         backgroundColor:
           hover || selected

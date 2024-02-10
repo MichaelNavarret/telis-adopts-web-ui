@@ -13,4 +13,5 @@ export const ownerEn = {
   OWNER_PASSWORD_MESSAGE:
     "The password will be the nickName of the owner by default.",
   OWNER_CREATED_SUCCESSFULLY: "Owner created successfully",
+  OWNER_UPDATED_SUCCESSFULLY: "Owner updated successfully",
 };

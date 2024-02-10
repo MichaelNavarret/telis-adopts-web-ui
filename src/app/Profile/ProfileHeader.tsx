@@ -1,9 +1,10 @@
 import { useTheme } from "../../context/ThemeProvider";
-import { OwnerInfo, OwnerSingletonResponse } from "../../types/owner";
+import { OwnerSingletonResponse } from "../../types/owner";
 import styles from "./ProfileHeader.module.scss";
 import { TbSettingsFilled } from "react-icons/tb";
 import { NetworkProfile } from "./components/NetworkProfile";
 import BadgesExpositor from "../MasterList/components/AdoptCard/BadgesExpositor";
+import { useNavigate } from "react-router-dom";
 
 type ProfileHeaderProps = {
   data?: OwnerSingletonResponse;
@@ -11,9 +12,10 @@ type ProfileHeaderProps = {
 };
 
 const ProfileHeader = (props: ProfileHeaderProps) => {
-  const { data } = props;
+  const { data, canEdit } = props;
   const { colors } = useTheme();
   const borderIconColor = colors.CTX_FORM_CONTAINER_COLOR;
+  const navigate = useNavigate();
 
   return (
     <div
@@ -21,10 +23,13 @@ const ProfileHeader = (props: ProfileHeaderProps) => {
       style={{ background: colors.CTX_MENUBAR_COLOR }}
     >
       <div className={styles.informationContainer}>
-        <TbSettingsFilled
-          className={styles.settingsIcon}
-          style={{ color: colors.CTX_MENUBAR_HOVER_COLOR }}
-        />
+        {canEdit && (
+          <TbSettingsFilled
+            className={styles.settingsIcon}
+            style={{ color: colors.CTX_MENUBAR_HOVER_COLOR }}
+            onClick={() => navigate("edit")}
+          />
+        )}
         <img
           src={data?.ownerSingletonInfo.iconUrl || ""}
           alt="Owner Icon"
@@ -46,7 +51,7 @@ const ProfileHeader = (props: ProfileHeaderProps) => {
           >
             {data?.ownerSingletonInfo?.nickName}
           </div>
-          <NetworkProfile className={styles.socialNetworks} />
+          <NetworkProfile className={styles.socialNetworks} owner={data} />
           <div className={styles.badges}>
             <BadgesExpositor
               badgesCode={data?.badgesCode || []}

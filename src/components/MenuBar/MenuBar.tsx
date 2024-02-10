@@ -11,10 +11,19 @@ export type MenuBarOption = {
 type MenuBar = {
   options: MenuBarOption[];
   handleClick: (value: number) => void;
+  className?: string;
+  menuListClassName?: string;
+  menuItemClassName?: string;
 };
 
 const MenuBar = (props: MenuBar) => {
-  const { options = [], handleClick } = props;
+  const {
+    options = [],
+    handleClick,
+    className,
+    menuItemClassName,
+    menuListClassName,
+  } = props;
   const { colors } = useTheme();
   const [selected, setSelected] = useState<number>(0);
 
@@ -24,13 +33,13 @@ const MenuBar = (props: MenuBar) => {
 
   return (
     <div
-      className={styles.menuBarContainer}
+      className={`${styles.menuBarContainer} ${className}`}
       style={{
         backgroundColor: colors.CTX_MENUBAR_COLOR,
         color: colors.CTX_MENUBAR_TEXT_COLOR,
       }}
     >
-      <ul className={styles.ulMenuBar}>
+      <ul className={`${styles.ulMenuBar} ${menuListClassName} `}>
         {options.map((option, index) => {
           return (
             <MenuItem
@@ -39,6 +48,7 @@ const MenuBar = (props: MenuBar) => {
               handleClick={handleClick}
               handleSelected={handleSelected}
               selected={option.value == selected}
+              className={menuItemClassName}
             />
           );
         })}

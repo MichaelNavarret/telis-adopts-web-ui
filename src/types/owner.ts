@@ -8,6 +8,11 @@ export type OwnerInfo = {
   role: RoleInfo;
   iconUrl: string;
   favoriteAdopts: string[];
+  discord: string;
+  instagram: string;
+  devianart: string;
+  twitter: string;
+  toyhouse: string;
 };
 
 export type OwnerSingletonResponse = {
@@ -34,5 +39,12 @@ export type OwnerCreateRequest = {
 };
 
 export type OwnerUpdateRequest = {
-  favoriteAdoptsIds: string[];
+  nickName?: string;
+  email?: string;
+  discord?: string;
+  instagram?: string;
+  devianart?: string;
+  twitter?: string;
+  toyhouse?: string;
+  favoriteAdoptsIds?: string[];
 };
