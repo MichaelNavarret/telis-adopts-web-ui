@@ -47,4 +47,5 @@ export type OwnerUpdateRequest = {
   twitter?: string;
   toyhouse?: string;
   favoriteAdoptsIds?: string[];
+  iconId?: string;
 };

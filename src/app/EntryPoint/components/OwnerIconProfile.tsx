@@ -4,12 +4,22 @@ import styles from "./OwnerIconProfile.module.scss";
 import { CircularProgress } from "@mui/material";
 import { useTheme } from "../../../context/ThemeProvider";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
+import { getOwner } from "../../../api/owners";
 
 const OwnerIconProfile = () => {
   const { ownerInfo } = useUserSession();
   const [isLoadingImage, setIsLoadingImage] = useState(true);
   const { colors } = useTheme();
   const navigate = useNavigate();
+
+  const { data: ownerResponse } = useQuery({
+    queryKey: ["owner", "profile"],
+    queryFn: () => {
+      return getOwner(ownerInfo?.id || "");
+    },
+    enabled: !!ownerInfo,
+  });
 
   return (
     <div
@@ -18,7 +28,7 @@ const OwnerIconProfile = () => {
       onClick={() => navigate(`profile/${ownerInfo?.id}`)}
     >
       <img
-        src={ownerInfo?.iconUrl}
+        src={ownerResponse?.ownerSingletonInfo.iconUrl}
         width={"100%"}
         onLoad={() => setIsLoadingImage(false)}
       />
