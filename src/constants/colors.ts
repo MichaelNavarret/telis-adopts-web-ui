@@ -22,7 +22,7 @@ export function getColors() {
 }
 
 export function getColorsBySpecie(specie: string) {
-  switch (specie) {
+  switch (specie.toLocaleLowerCase()) {
     case "lanies":
       return laniesColors;
     case "spectralumen":

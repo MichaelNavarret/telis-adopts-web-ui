@@ -1,6 +1,10 @@
 import { BadgeInfo } from "./badge";
 import { OwnerDesignerCreateRequest } from "./owner";
-import { SubTraitCreateRequest, SubTraitInfo } from "./subTraits";
+import {
+  SubTraitCreateRequest,
+  SubTraitInfo,
+  SubTraitUpdateRequest,
+} from "./subTraits";
 
 export type CreationType = "PREMADE" | "CUSTOM" | "MYO" | "GUEST_ARTIST";
 
@@ -15,6 +19,11 @@ export type AdoptCreateRequest = {
   notRegisteredOwner?: boolean;
   designers: OwnerDesignerCreateRequest[];
   specieFormId?: string;
+};
+
+export type AdoptUpdateRequest = {
+  name: string;
+  subTraits?: SubTraitUpdateRequest[];
 };
 
 // -------- Response --------

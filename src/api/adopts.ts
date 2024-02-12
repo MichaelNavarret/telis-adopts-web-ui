@@ -5,6 +5,7 @@ import {
   AdoptCollectionResponse,
   AdoptCreateRequest,
   AdoptSingletonResponse,
+  AdoptUpdateRequest,
 } from "../types/adopt";
 
 export const createAdopt = async (payload: AdoptCreateRequest) => {
@@ -72,5 +73,15 @@ export const getDesignedAdopts = async (
         data: res.data.adoptInfoList,
       };
     });
+  return data;
+};
+
+export const updateAdopt = async (
+  adoptId: string,
+  payload: AdoptUpdateRequest
+) => {
+  const data = await request
+    .put<AdoptSingletonResponse>(`/adopts/${adoptId}`, payload)
+    .then((res) => res.data.adoptSingletonInfo);
   return data;
 };
