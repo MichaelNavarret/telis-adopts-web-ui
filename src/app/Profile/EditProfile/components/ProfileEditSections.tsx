@@ -1,5 +1,6 @@
 import { OwnerSingletonResponse } from "../../../../types/owner";
 import CharactersSection from "./EditSections/CharactersSection";
+import { FavoriteSection } from "./EditSections/FavoirteSection";
 import { IconSection } from "./EditSections/IconSection";
 import { InformationSection } from "./EditSections/InformationSection";
 import styles from "./ProfileEditSections.module.scss";
@@ -22,7 +23,7 @@ const ProfileEditSections = (props: ProfileEditSectionsProps) => {
       case 2:
         return <CharactersSection owner={owner} />;
       case 3:
-        return <div>Favorites</div>;
+        return <FavoriteSection owner={owner} />;
       case 4:
         return <div>Security</div>;
       case 5:

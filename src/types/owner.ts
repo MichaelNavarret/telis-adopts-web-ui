@@ -13,6 +13,7 @@ export type OwnerInfo = {
   devianart: string;
   twitter: string;
   toyhouse: string;
+  favoriteCharacters: string[];
 };
 
 export type OwnerSingletonResponse = {
