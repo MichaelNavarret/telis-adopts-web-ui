@@ -1,6 +1,7 @@
 import { getPaginationHeaders } from "../tools/headers";
 import request from "../tools/request";
 import {
+  OwnerAddCharacterFavoriteRequest,
   OwnerCollectionResponse,
   OwnerCreateRequest,
   OwnerSingletonResponse,
@@ -55,6 +56,19 @@ export const updateOwner = async (
 ) => {
   const data = await request
     .put<OwnerSingletonResponse>(`/owners/${ownerId}`, payload)
+    .then((res) => res.data.ownerSingletonInfo);
+  return data;
+};
+
+export const addFavoriteCharacter = async (
+  ownerId: string,
+  payload: OwnerAddCharacterFavoriteRequest
+) => {
+  const data = await request
+    .put<OwnerSingletonResponse>(
+      `/owners/${ownerId}/favorite-character`,
+      payload
+    )
     .then((res) => res.data.ownerSingletonInfo);
   return data;
 };

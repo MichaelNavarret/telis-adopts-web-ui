@@ -18,8 +18,19 @@
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
     .favoriteSection_content_icon_container {
+      padding-top: 10px;
       position: relative;
+      transition: all 0.3s ease;
+      &:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+      }
+      &:active {
+        transform: scale(1);
+      }
       .favoriteSection_content_adoptContainer {
         width: 190px;
         height: 190px;

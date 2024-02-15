@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { OwnerSingletonResponse } from "../../../../../types/owner";
 import { getAdopts, getFavoriteCharacters } from "../../../../../api/adopts";
 import styles from "./FavoriteSection.module.scss";
@@ -7,6 +7,9 @@ import { isDefined } from "../../../../../tools/commons";
 import { getColorsBySpecie } from "../../../../../constants/colors";
 import { useTheme } from "../../../../../context/ThemeProvider";
 import { MdFavorite } from "react-icons/md";
+import { addFavoriteCharacter } from "../../../../../api/owners";
+import { successToast } from "../../../../../constants/toasts";
+import strings from "../../../../../l10n";
 
 type FavoriteSectionProps = {
   owner?: OwnerSingletonResponse;
@@ -16,6 +19,7 @@ export const FavoriteSection = (props: FavoriteSectionProps) => {
   const { owner } = props;
   const { colors } = useTheme();
   const iconFavoriteColor = colors.CTX_FORM_CONTAINER_COLOR;
+  const queryClient = useQueryClient();
   const pixelSize = "1";
 
   const { data: ownerAdopts, isLoading } = useQuery({
@@ -40,6 +44,29 @@ export const FavoriteSection = (props: FavoriteSectionProps) => {
       },
       enabled: !!owner,
     });
+
+  const {
+    mutate: addFavoriteCharacterMutation,
+    isLoading: isAddFavoriteCharacterLoading,
+  } = useMutation({
+    mutationFn: (adoptId: string) => {
+      return addFavoriteCharacter(owner?.ownerSingletonInfo.id || "", {
+        adoptId: adoptId,
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries([
+        "favoriteCharacters",
+        owner?.ownerSingletonInfo.favoriteCharacters,
+      ]);
+      queryClient.invalidateQueries([
+        "ownerCharacters",
+        owner?.ownerSingletonInfo.id,
+      ]);
+      queryClient.invalidateQueries(["owner", owner?.ownerSingletonInfo.id]);
+      successToast(strings.ADOPT_MARK_AS_FAVORITE_SUCCESSFULLY);
+    },
+  });
 
   const isFavorite = (adoptId: string) => {
     return favoriteCharacters?.data.some(
@@ -85,11 +112,17 @@ export const FavoriteSection = (props: FavoriteSectionProps) => {
           </div>
         ))}
       </div>
-      <div className={styles.favoriteSection_contentContainer}>
+      <div
+        className={styles.favoriteSection_contentContainer}
+        style={{ borderTop: "1px solid " + colors.CTX_BORDER_ICON_COLOR }}
+      >
         {ownerAdopts?.data.map((adopt) => (
           <div
             key={adopt.id}
             className={styles.favoriteSection_content_icon_container}
+            onClick={() => {
+              addFavoriteCharacterMutation(adopt.id);
+            }}
           >
             <img
               src={isDefined(adopt.iconUrl) ? adopt.iconUrl : DEFAULT_ICON}

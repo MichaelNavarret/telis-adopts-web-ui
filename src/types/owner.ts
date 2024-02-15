@@ -50,3 +50,7 @@ export type OwnerUpdateRequest = {
   favoriteAdoptsIds?: string[];
   iconId?: string;
 };
+
+export type OwnerAddCharacterFavoriteRequest = {
+  adoptId: string;
+};

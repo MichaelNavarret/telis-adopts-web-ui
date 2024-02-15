@@ -42,6 +42,7 @@ export type AdoptInfo = {
   traits: SubTraitInfo[];
   specieFormId: string;
   badges: BadgeInfo[];
+  favoriteCharacterIndex: number;
 };
 
 export type AdoptSingletonResponse = {
