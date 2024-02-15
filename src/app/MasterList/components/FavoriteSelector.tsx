@@ -4,7 +4,6 @@ import { useTheme } from "../../../context/ThemeProvider";
 import { OwnerInfo, OwnerUpdateRequest } from "../../../types/owner";
 import { useMutation, useQueryClient } from "react-query";
 import { updateOwner } from "../../../api/owners";
-import { successToast } from "../../../constants/toasts";
 import { isDefined } from "../../../tools/commons";
 
 type FavoriteSelectorProps = {

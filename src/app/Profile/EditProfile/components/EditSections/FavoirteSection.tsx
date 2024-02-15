@@ -1,6 +1,12 @@
 import { useQuery } from "react-query";
 import { OwnerSingletonResponse } from "../../../../../types/owner";
 import { getAdopts, getFavoriteCharacters } from "../../../../../api/adopts";
+import styles from "./FavoriteSection.module.scss";
+import DEFAULT_ICON from "../../../../../assets/utils/not_icon.png";
+import { isDefined } from "../../../../../tools/commons";
+import { getColorsBySpecie } from "../../../../../constants/colors";
+import { useTheme } from "../../../../../context/ThemeProvider";
+import { MdFavorite } from "react-icons/md";
 
 type FavoriteSectionProps = {
   owner?: OwnerSingletonResponse;
@@ -8,6 +14,9 @@ type FavoriteSectionProps = {
 
 export const FavoriteSection = (props: FavoriteSectionProps) => {
   const { owner } = props;
+  const { colors } = useTheme();
+  const iconFavoriteColor = colors.CTX_FORM_CONTAINER_COLOR;
+  const pixelSize = "1";
 
   const { data: ownerAdopts, isLoading } = useQuery({
     queryKey: ["ownerCharacters", owner?.ownerSingletonInfo.id],
@@ -32,17 +41,85 @@ export const FavoriteSection = (props: FavoriteSectionProps) => {
       enabled: !!owner,
     });
 
-  return (
-    <div>
-      <div>Favorites</div>
-      {favoriteCharacters?.data.map((character) => (
-        <div key={character.id}>{character.name}</div>
-      ))}
+  const isFavorite = (adoptId: string) => {
+    return favoriteCharacters?.data.some(
+      (character) => character.id === adoptId
+    );
+  };
 
-      <div>Characters</div>
-      {ownerAdopts?.data.map((adopt) => (
-        <div key={adopt.id}>{adopt.code}</div>
-      ))}
+  return (
+    <div className={styles.favoriteSection_mainContainer}>
+      <div className={styles.favoriteSection_headerContainer}>
+        {favoriteCharacters?.data.map((character) => (
+          <div
+            key={character.id}
+            className={styles.favoriteSection_header_icon_container}
+          >
+            <img
+              src={
+                isDefined(character.iconUrl) ? character.iconUrl : DEFAULT_ICON
+              }
+              className={styles.favoriteSection_header_adoptContainer}
+              alt={character.name}
+              style={{
+                border:
+                  "5px solid " +
+                  getColorsBySpecie(character.specieName).borderIcon,
+              }}
+            />
+            <MdFavorite
+              className={styles.favoriteSection_favorite_header_icon}
+              style={{
+                fontSize: "50px",
+                color: "#FF83B3",
+                filter: ` drop-shadow(${pixelSize}px 0 0 ${iconFavoriteColor})
+                drop-shadow(${pixelSize}px ${pixelSize}px 0 ${iconFavoriteColor})
+                drop-shadow(${pixelSize}px -${pixelSize}px 0 ${iconFavoriteColor})
+                drop-shadow(0 ${pixelSize}px 0 ${iconFavoriteColor})
+                drop-shadow(-${pixelSize}px 0 0 ${iconFavoriteColor})
+                drop-shadow(-${pixelSize}px ${pixelSize}px 0 ${iconFavoriteColor})
+                drop-shadow(-${pixelSize}px -${pixelSize}px 0 ${iconFavoriteColor})
+                drop-shadow(0 -${pixelSize}px 0 ${iconFavoriteColor})`,
+              }}
+            />
+          </div>
+        ))}
+      </div>
+      <div className={styles.favoriteSection_contentContainer}>
+        {ownerAdopts?.data.map((adopt) => (
+          <div
+            key={adopt.id}
+            className={styles.favoriteSection_content_icon_container}
+          >
+            <img
+              src={isDefined(adopt.iconUrl) ? adopt.iconUrl : DEFAULT_ICON}
+              className={styles.favoriteSection_content_adoptContainer}
+              alt={adopt.name}
+              style={{
+                border:
+                  "5px solid " + getColorsBySpecie(adopt.specieName).borderIcon,
+              }}
+            />
+            {isFavorite(adopt.id) && (
+              <MdFavorite
+                className={styles.favoriteSection_favorite_content_icon}
+                style={{
+                  fontSize: "60px",
+                  color: "#FF83B3",
+                  filter: ` drop-shadow(${pixelSize}px 0 0 ${iconFavoriteColor})
+                drop-shadow(${pixelSize}px ${pixelSize}px 0 ${iconFavoriteColor})
+                drop-shadow(${pixelSize}px -${pixelSize}px 0 ${iconFavoriteColor})
+                drop-shadow(0 ${pixelSize}px 0 ${iconFavoriteColor})
+                drop-shadow(-${pixelSize}px 0 0 ${iconFavoriteColor})
+                drop-shadow(-${pixelSize}px ${pixelSize}px 0 ${iconFavoriteColor})
+                drop-shadow(-${pixelSize}px -${pixelSize}px 0 ${iconFavoriteColor})
+                drop-shadow(0 -${pixelSize}px 0 ${iconFavoriteColor})`,
+                }}
+              />
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
