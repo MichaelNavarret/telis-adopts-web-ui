@@ -1,0 +1,20 @@
+.socialNetworkContainer {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+  margin-left: 10px;
+  position: fixed;
+  .svgContainer {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 50%;
+    transition: filter 0.3s ease;
+    transition: transform 0.2s ease;
+    &:hover {
+      transform: translateX(5px);
+    }
+    &:active {
+      transform: scale(1.2);
+    }
+  }
+}

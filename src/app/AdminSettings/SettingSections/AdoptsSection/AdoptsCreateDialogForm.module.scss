@@ -1,0 +1,172 @@
+.formMainContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  height: 750px;
+  // ----------------------------------------------------------------------------------- First Container ---------------------------------//
+  .firstContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    // --------------------------------------------------------------Adopt Section ---------------------------------//
+    .adoptInfoSection {
+      flex: 0.8;
+      margin-bottom: 10px;
+      display: flex;
+      .iconAdoptField {
+        position: relative;
+        margin: 15px;
+        margin-top: 45px;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        text-align: center;
+      }
+      .fieldsContainer {
+        width: 57%;
+        height: 100%;
+        float: right;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+    }
+    // --------------------------------------------------------------Owner Section ---------------------------------//
+    .ownerInfoSection {
+      flex: 0.6;
+      padding: 50px;
+      padding-bottom: 0;
+      padding-top: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+    // --------------------------------------------------------------Designers Section -----------------------------//
+    .designersInfoSection {
+      flex: 1;
+      overflow-y: auto;
+      .sectionTitleContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+      .designersContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        .designerContainer {
+          width: 80%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+          margin: auto;
+          padding: 10px;
+        }
+      }
+    }
+  }
+  // ----------------------------------------------------------------------------------- Second Container ---------------------------------//
+  .secondContainer {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .traitsSection {
+      flex: 1.2;
+      overflow-y: auto;
+      .titleTraitsContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+      .traitsContainer {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        overflow: auto;
+        .traitContainer {
+          .titleTraitContainer {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 25%;
+            cursor: pointer;
+          }
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+        }
+      }
+    }
+    .formSpecieSection {
+      flex: 1.5;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      margin: auto;
+      overflow-y: auto;
+    }
+  }
+
+  // ----------------------------------------------------------------------------------- Third Container ---------------------------------//
+  .thirdContainer {
+    flex: 1;
+  }
+
+  .submitButton {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+  }
+}
+
+@media screen and (max-width: 1400px) and (max-height: 768px) {
+  .formMainContainer {
+    height: 100%;
+    .firstContainer {
+      .adoptInfoSection {
+        .iconAdoptField {
+          margin-top: 0;
+        }
+        .fieldsContainer {
+          width: 100%;
+        }
+      }
+      .ownerInfoSection {
+        padding: 0;
+      }
+    }
+    .secondContainer {
+      .traitsSection {
+        .titleTraitsContainer {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .traitsContainer {
+          .traitContainer {
+            .titleTraitContainer {
+              width: 100%;
+            }
+          }
+        }
+      }
+      .formSpecieSection {
+        margin: 0;
+      }
+    }
+  }
+}

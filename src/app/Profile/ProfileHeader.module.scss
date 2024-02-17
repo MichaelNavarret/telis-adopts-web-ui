@@ -1,0 +1,96 @@
+.headerContainer {
+  height: 250px;
+  display: flex;
+  flex-direction: row;
+  .informationContainer {
+    flex: 1.2;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    align-items: center;
+    margin: 20px;
+    .settingsIcon {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      font-size: 40px;
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+      }
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+    .iconContainer {
+      position: absolute;
+      border: 5px solid;
+      border-radius: 100%;
+      width: 200px;
+    }
+    .information {
+      margin-left: 20px;
+      width: 90%;
+      height: 200px;
+      border-radius: 80px;
+      display: flex;
+      flex-direction: column;
+      padding-left: 30%;
+      .nickname {
+        font-size: 40px;
+        flex: 1;
+        letter-spacing: 0.5rem;
+      }
+      .socialNetworks {
+        margin-top: 10px;
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+      }
+      .badges {
+        display: flex;
+        flex-direction: row;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        gap: 20px;
+        flex: 1;
+      }
+    }
+  }
+  .favoriteContainer {
+    flex: 0.8;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .headerContainer {
+    .informationContainer {
+      .information {
+        margin-left: 60px;
+        width: 90%;
+        height: 200px;
+        border-radius: 80px;
+        display: flex;
+        flex-direction: column;
+        padding-left: 30%;
+        .nickname {
+          font-size: 30px;
+          flex: 1;
+          letter-spacing: 0.5rem;
+        }
+        .socialNetworks {
+          flex: 1;
+          display: flex;
+          flex-direction: row;
+          gap: 15px;
+        }
+        .badges {
+          flex: 1;
+        }
+      }
+    }
+  }
+}

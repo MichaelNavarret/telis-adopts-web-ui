@@ -10,10 +10,31 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.1",
+    "@mui/material": "^5.15.1",
+    "@mui/system": "^5.15.4",
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
+    "react-hot-toast": "^2.4.1",
+    "react-icons": "^5.0.1",
+    "react-localization": "^1.0.19",
+    "react-otp-input": "^3.1.1",
+    "react-query": "^3.39.3",
+    "react-router-dom": "^6.21.1",
+    "react-social-icons": "^6.7.0",
+    "react-uuid": "^2.0.0",
+    "react18-input-otp": "^1.1.4",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.0",
+    "@types/node": "^20.10.5",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
@@ -22,6 +43,7 @@
     "eslint": "^8.55.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "sass": "^1.69.5",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
   }

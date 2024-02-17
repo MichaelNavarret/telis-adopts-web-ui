@@ -1,0 +1,39 @@
+.ownerIconProfile_MainContainer {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  right: 30px;
+  top: 20px;
+  border-radius: 50%;
+  background-color: azure;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+  &:active {
+    transform: scale(1);
+  }
+  .circularProgress {
+    position: absolute;
+  }
+}
+
+@media screen and (max-width: 1700px) {
+  .ownerIconProfile_MainContainer {
+    width: 180px;
+    height: 180px;
+    right: 10px;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .ownerIconProfile_MainContainer {
+    width: 150px;
+    height: 150px;
+    right: 15px;
+  }
+}

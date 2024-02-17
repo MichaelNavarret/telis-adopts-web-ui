@@ -1,0 +1,35 @@
+.formMainContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  .principalSectionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    gap: 1rem;
+    .textFieldForm {
+      margin-top: 5px;
+      width: 100%;
+    }
+    .tableContainer {
+      width: 100%;
+    }
+  }
+  .traitSheetContainer {
+    flex: 1;
+  }
+}
+
+.ownersContainer {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.submitButton {
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+}

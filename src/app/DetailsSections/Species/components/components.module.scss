@@ -1,0 +1,179 @@
+.imageContainer {
+  border-radius: 30px;
+  flex: 0.8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  .titleImage {
+    margin-top: 10px;
+  }
+  .editImageIcon {
+    font-size: 30px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      transform: scaleX(1.1) scaleY(1.1);
+    }
+    &:active {
+      transform: scaleX(0.9) scaleY(0.9);
+    }
+  }
+}
+
+.historySection {
+  flex: 4;
+  border-radius: 30px;
+  padding: 15px;
+  position: relative;
+  overflow-y: auto;
+  max-height: 900px;
+  .historyTitleContainer {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .history {
+    white-space: pre-wrap;
+    font-family: sans-serif;
+    font-size: 18px;
+  }
+  .editHistoryIcon {
+    font-size: 30px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      transform: scaleX(1.1) scaleY(1.1);
+    }
+    &:active {
+      transform: scaleX(0.9) scaleY(0.9);
+    }
+  }
+}
+
+.specieFormSectionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 15px;
+  border-radius: 30px;
+  position: relative;
+  .addIcon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      transform: scaleX(1.1) scaleY(1.1);
+    }
+    &:active {
+      transform: scaleX(0.9) scaleY(0.9);
+    }
+  }
+  .specieFormsContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20%;
+    .specieFormItemContainer {
+      padding: 25px;
+      border-radius: 10px;
+      margin-top: 10px;
+      position: relative;
+      .removeIcon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 30px;
+        transition: all 0.3s ease-in-out;
+        &:hover {
+          cursor: pointer;
+          transform: scaleX(1.1) scaleY(1.1);
+        }
+        &:active {
+          transform: scaleX(0.9) scaleY(0.9);
+        }
+      }
+    }
+  }
+}
+
+.faqSectionContainer {
+  margin-top: 10px;
+  border-radius: 30px;
+  height: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  .addFaqButton {
+    align-self: center;
+    font-size: 30px;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      transform: scaleX(1.1) scaleY(1.1);
+    }
+    &:active {
+      transform: scaleX(0.9) scaleY(0.9);
+    }
+  }
+  .faqContainer {
+    position: relative;
+    padding: 10px;
+    .question {
+      font-size: 13px;
+    }
+    padding-bottom: 10px;
+    .answer {
+      margin-top: 5px;
+      font-family: sans-serif;
+      font-size: 18px;
+    }
+    .warningContainer {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      border-radius: 40px;
+      gap: 10px;
+      padding-left: 15px;
+      padding-right: 15px;
+      .warningIcon {
+        font-size: 30px;
+      }
+      .warning {
+        font-size: 19px;
+        font-family: sans-serif;
+        font-weight: bold;
+      }
+    }
+    .iconsContainer {
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+      position: absolute;
+      top: 3px;
+      right: 5px;
+      .actionIcon {
+        font-size: 25px;
+        transition: all 0.3s ease-in-out;
+        &:hover {
+          cursor: pointer;
+          transform: scaleX(1.1) scaleY(1.1);
+        }
+        &:active {
+          transform: scaleX(0.9) scaleY(0.9);
+        }
+      }
+    }
+  }
+}

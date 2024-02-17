@@ -1,0 +1,23 @@
+.updateNameDialogFormContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  .updateNameContainer {
+    margin-top: 10px;
+  }
+}
+
+.updateStoryDialogFormContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 1000px;
+  .updateStoryContainer {
+    margin-top: 10px;
+    width: 100%;
+  }
+}

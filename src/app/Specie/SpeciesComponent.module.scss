@@ -1,0 +1,29 @@
+.MainContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.speciesContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+
+//Custom size for each logo
+.laniesLogo {
+  margin-top: 20px;
+  width: 70%;
+}
+
+.cloudyStarsLogo {
+  width: 80%;
+}
+
+.pluniesLogo {
+  width: 80%;
+}
+
+.spectraLumenLogo {
+  width: 50%;
+}

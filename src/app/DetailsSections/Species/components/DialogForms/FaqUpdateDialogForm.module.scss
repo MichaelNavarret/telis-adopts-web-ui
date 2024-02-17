@@ -1,0 +1,17 @@
+.faqUpdateDialogFormContainer {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  .faqContainer {
+    .faqFormTitle {
+      text-align: center;
+    }
+    .faqInput {
+      width: 100%;
+      margin-top: 15px;
+    }
+  }
+}

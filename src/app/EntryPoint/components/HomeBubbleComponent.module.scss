@@ -1,0 +1,24 @@
+.homeBubbleContainer {
+  z-index: 1000;
+  position: fixed;
+  border-radius: 50px;
+  width: 80px !important;
+  height: 80px !important;
+  bottom: 3%;
+  right: 18%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    transform: scaleX(1.1) scaleY(1.1);
+  }
+  &:active {
+    transform: scaleX(0.9) scaleY(0.9);
+  }
+  .bubble {
+    width: 60px;
+    height: 60px;
+  }
+}

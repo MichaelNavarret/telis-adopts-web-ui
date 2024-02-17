@@ -1,0 +1,5 @@
+export const homeMenuEn = {
+  OPTION_MASTER_LIST: "MASTER LIST",
+  OPTION_STORY: "STORY",
+  OPTION_GUIDE: "GUIDE",
+};

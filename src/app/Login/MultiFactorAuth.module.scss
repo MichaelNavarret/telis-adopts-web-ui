@@ -1,0 +1,37 @@
+@font-face {
+  font-family: "ToJapan";
+  src: url("../../assets/fonts/To_Japan.ttf");
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  .multiFactorSubtitle {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  .otpContainer {
+    margin: auto;
+    margin-bottom: 50px;
+    padding: 1rem;
+    .otpStyles {
+      width: 3rem !important;
+      height: 3rem !important;
+      font-size: 35px;
+      border-radius: 40px;
+      border: none !important;
+      color: #f08f86;
+      margin: 4px;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .footerMultiFactorContainer {
+    display: grid;
+    grid-template-columns: auto auto;
+    margin: auto;
+    grid-gap: 50px;
+  }
+}

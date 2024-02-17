@@ -1,0 +1,26 @@
+@font-face {
+  font-family: "ToJapan";
+  src: url("../assets/fonts/To_Japan.ttf");
+}
+
+.buttonStyles {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40px;
+  font-family: ToJapan;
+  font-size: large;
+  letter-spacing: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  transition: all 0.2s ease-in-out;
+  border: none;
+  &:hover {
+    cursor: pointer;
+    transform: scaleX(1.1) scaleY(1.1);
+  }
+  &:active {
+    transform: scaleX(0.9) scaleY(0.9);
+  }
+}

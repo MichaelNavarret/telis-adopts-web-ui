@@ -1,0 +1,26 @@
+.imgContainer {
+  margin-top: 10px;
+  width: 30%;
+  .imgStyles {
+    object-fit: cover;
+    -webkit-filter: drop-shadow(5px 5px 5px #d489b5b7);
+    transition: all 0.2s ease-in-out;
+    margin-bottom: 15px;
+    filter: drop-shadow(5px 5px 5px #d489b5b7);
+    &:hover {
+      cursor: pointer;
+      transform: scaleX(1.1) scaleY(1.1);
+    }
+    &:active {
+      transform: scaleX(0.9) scaleY(0.9);
+    }
+  }
+
+  .imgStylesWithoutHover {
+    object-fit: cover;
+    -webkit-filter: drop-shadow(5px 5px 5px #d489b5b7);
+    transition: all 0.2s ease-in-out;
+    margin-bottom: 15px;
+    filter: drop-shadow(5px 5px 5px #d489b5b7);
+  }
+}
