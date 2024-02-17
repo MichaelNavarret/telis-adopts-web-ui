@@ -13,7 +13,7 @@ const ToyhouseIcon = (props: ToyhouseIconProps) => {
         version="1.0"
         xmlns="http://www.w3.org/2000/svg"
         width="100%"
-        viewBox="-10 0 275 420"
+        viewBox="-10 -15 275 420"
         preserveAspectRatio="xMidYMid meet"
       >
         <g

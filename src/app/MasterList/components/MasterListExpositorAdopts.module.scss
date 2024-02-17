@@ -4,7 +4,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 50px;
-  padding-left: 5%;
+  padding-left: 3%;
   padding-bottom: 30px;
 
   .adoptIconContainer {
@@ -13,6 +13,9 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
+    position: relative;
+    width: 270px;
+    height: 250px;
   }
 }
 

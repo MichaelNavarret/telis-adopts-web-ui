@@ -5,6 +5,7 @@ import HomeRoutes from "./HomeRoutes";
 import AdminSettingsRoutes from "./AdminSettingsRoutes";
 import MasterListRoutes from "./MasterListRoutes";
 import SpeciesDetailsRoutes from "./SpeciesDetailsRoutes";
+import ProfileRoutes from "./ProfileRoutes";
 
 export const DEFAULT_PATH = "/species";
 
@@ -57,6 +58,15 @@ const ApplicationRoutes = (props: ApplicationRouteProps) => {
         element={
           <ProtectedRoute isAuth={isAuth}>
             <SpeciesDetailsRoutes />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/profile/*"
+        element={
+          <ProtectedRoute isAuth={isAuth}>
+            <ProfileRoutes />
           </ProtectedRoute>
         }
       />

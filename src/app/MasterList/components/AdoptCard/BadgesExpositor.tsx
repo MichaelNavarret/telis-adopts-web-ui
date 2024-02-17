@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
-import { BadgeInfo } from "../../../../types/badge";
 import { badges } from "../../../../constants/badges";
 import { isDefined } from "../../../../tools/commons";
 
 type BadgesExpositorProps = {
-  adoptsBadge: BadgeInfo[];
+  badgesCode: string[];
+  badgeSize?: number;
 };
 
 const BadgesExpositor = (props: BadgesExpositorProps) => {
-  const { adoptsBadge } = props;
+  const { badgesCode, badgeSize = 40 } = props;
   const [badgesArray, setBadgesArray] = useState<string[]>([]);
 
   useEffect(() => {
     let arrayOfBadges: string[] = [];
-    if (isDefined(adoptsBadge)) {
-      adoptsBadge.forEach((adoptBadge) => {
-        switch (adoptBadge.code) {
+    if (isDefined(badgesCode)) {
+      badgesCode.forEach((code) => {
+        switch (code) {
           case "halloween":
             arrayOfBadges.push(badges.halloween);
             break;
@@ -37,12 +37,18 @@ const BadgesExpositor = (props: BadgesExpositorProps) => {
         setBadgesArray(arrayOfBadges);
       });
     }
-  }, [adoptsBadge]);
+  }, [badgesCode]);
 
   return (
     <>
       {badgesArray.map((badge, index) => (
-        <img key={index} src={badge} alt="badge" className="badge" width={40} />
+        <img
+          key={index}
+          src={badge}
+          alt="badge"
+          className="badge"
+          width={badgeSize}
+        />
       ))}
     </>
   );

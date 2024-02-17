@@ -5,6 +5,7 @@ import {
   AdoptCollectionResponse,
   AdoptCreateRequest,
   AdoptSingletonResponse,
+  AdoptUpdateRequest,
 } from "../types/adopt";
 
 export const createAdopt = async (payload: AdoptCreateRequest) => {
@@ -30,6 +31,67 @@ export const getAdopts = async (
   const data = await request
     .get<AdoptCollectionResponse>("/adopts", {
       params,
+      headers: getPaginationHeaders(pageNumber),
+    })
+    .then((res) => {
+      return {
+        headers: res.headers,
+        data: res.data.adoptInfoList,
+      };
+    });
+  return data;
+};
+
+export const getFavoriteAdopts = async (
+  ownerId: string,
+  pageNumber: number = 0
+) => {
+  const data = await request
+    .get<AdoptCollectionResponse>(`/adopts/${ownerId}/favorites`, {
+      headers: getPaginationHeaders(pageNumber),
+    })
+    .then((res) => {
+      return {
+        headers: res.headers,
+        data: res.data.adoptInfoList,
+      };
+    });
+  return data;
+};
+
+export const getDesignedAdopts = async (
+  ownerId: string,
+  pageNumber: number = 0
+) => {
+  const data = await request
+    .get<AdoptCollectionResponse>(`/adopts/${ownerId}/designs`, {
+      headers: getPaginationHeaders(pageNumber),
+    })
+    .then((res) => {
+      return {
+        headers: res.headers,
+        data: res.data.adoptInfoList,
+      };
+    });
+  return data;
+};
+
+export const updateAdopt = async (
+  adoptId: string,
+  payload: AdoptUpdateRequest
+) => {
+  const data = await request
+    .put<AdoptSingletonResponse>(`/adopts/${adoptId}`, payload)
+    .then((res) => res.data.adoptSingletonInfo);
+  return data;
+};
+
+export const getFavoriteCharacters = async (
+  ownerId: string,
+  pageNumber: number = 0
+) => {
+  const data = await request
+    .get<AdoptCollectionResponse>(`/adopts/${ownerId}/favorite-characters`, {
       headers: getPaginationHeaders(pageNumber),
     })
     .then((res) => {

@@ -24,6 +24,10 @@ type DialogComponentProps = {
   maxWidth?: "xs" | "sm" | "md" | "lg" | "xl" | false;
   TransitionComponent?: any;
   texAlign?: "center" | "left" | "right";
+  border?: string;
+  colorTitle?: string;
+  backgroundColor?: string;
+  borderRadius?: string;
 };
 
 const DialogComponent = (props: DialogComponentProps) => {
@@ -33,6 +37,7 @@ const DialogComponent = (props: DialogComponentProps) => {
     customDialog,
     content,
     dialogTitle,
+    colorTitle,
     height,
     width,
     fullScreen = false,
@@ -40,6 +45,9 @@ const DialogComponent = (props: DialogComponentProps) => {
     maxWidth = "sm",
     TransitionComponent,
     texAlign,
+    border,
+    backgroundColor,
+    borderRadius = "10px",
   } = props;
 
   const { colors } = useTheme();
@@ -74,12 +82,15 @@ const DialogComponent = (props: DialogComponentProps) => {
       TransitionComponent={TransitionComponent}
       PaperProps={{
         style: {
-          backgroundColor: colors.CTX_FORM_CONTAINER_COLOR,
-          borderRadius: "10px",
+          backgroundColor: backgroundColor
+            ? backgroundColor
+            : colors.CTX_FORM_CONTAINER_COLOR,
+          borderRadius,
           width: width ? width : fullScreen ? "" : "auto",
           height: height ? height : fullScreen ? "" : "auto",
           padding: withoutPadding ? "0px" : "20px",
           textAlign: texAlign,
+          border,
         },
       }}
     >
@@ -98,7 +109,7 @@ const DialogComponent = (props: DialogComponentProps) => {
             content={dialogTitle}
             animation={false}
             hover={false}
-            colorText={colors.CTX_FORM_TITLE_COLOR}
+            colorText={colorTitle ? colorTitle : colors.CTX_FORM_TITLE_COLOR}
           />
         )}
       </DialogTitle>

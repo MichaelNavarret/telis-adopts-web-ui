@@ -1,6 +1,5 @@
 import { useQuery } from "react-query";
 import { Button } from "../../components";
-import { useTheme } from "../../context/ThemeProvider";
 import styles from "./HomeComponent.module.scss";
 import { getSpecie } from "../../api/species";
 import { useNavigate } from "react-router-dom";

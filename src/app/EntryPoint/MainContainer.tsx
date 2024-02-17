@@ -13,6 +13,7 @@ import { hideNavigationButtons } from "../../tools/commons";
 import SettingsBubbleComponent from "./components/SettingsBubbleComponent";
 import { NOT_SHOW_NAVIGATION_BUTTONS } from "../../constants/commons";
 import NavigationBubbles from "../../components/surfaces/NavigationBubbles";
+import OwnerIconProfile from "./components/OwnerIconProfile";
 
 export const MainContainer = () => {
   const { _loadTokenFromStorage, logout, isAuth, _token, ownerInfo } =
@@ -57,6 +58,7 @@ export const MainContainer = () => {
   return (
     <Container>
       <BackgroundContainer background={background}>
+        {isAuth && !location.includes("/profile") && <OwnerIconProfile />}
         <SocialNetworksMenu />
         {hideNavigationButtons(location, NOT_SHOW_NAVIGATION_BUTTONS) && (
           <NavigationBubbles />

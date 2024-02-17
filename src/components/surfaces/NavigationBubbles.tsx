@@ -1,7 +1,5 @@
 import styles from "./NavigationBubbles.module.scss";
-import { CgProfile } from "react-icons/cg";
 import { FaHome } from "react-icons/fa";
-import { IoMdSettings } from "react-icons/io";
 import { useTheme } from "../../context/ThemeProvider";
 import { useNavigate } from "react-router-dom";
 
@@ -19,23 +17,9 @@ const NavigationBubbles = () => {
       <div
         className={styles.bubble}
         style={styleConfig}
-        onClick={() => navigate("/")}
-      >
-        <CgProfile className={styles.iconBubble} />
-      </div>
-      <div
-        className={styles.bubble}
-        style={styleConfig}
         onClick={() => navigate("/species")}
       >
         <FaHome className={styles.iconBubble} />
-      </div>
-      <div
-        className={styles.bubble}
-        style={styleConfig}
-        onClick={() => navigate("/")}
-      >
-        <IoMdSettings className={styles.iconBubble} />
       </div>
     </div>
   );

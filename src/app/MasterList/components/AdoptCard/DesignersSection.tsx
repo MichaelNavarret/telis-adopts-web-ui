@@ -1,14 +1,17 @@
 import TextComponent from "../../../../components/TextComponents/TextComponent";
 import { useTheme } from "../../../../context/ThemeProvider";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
+import { Colors } from "../../../../types/commons";
 
 type DesignersSectionProps = {
   designer: string;
+  onProfile?: boolean;
+  colorSpecie?: Colors;
 };
 
 const DesignersSection = (props: DesignersSectionProps) => {
   const { colors } = useTheme();
-  const { designer } = props;
+  const { designer, onProfile, colorSpecie } = props;
   return (
     <div
       style={{
@@ -20,7 +23,7 @@ const DesignersSection = (props: DesignersSectionProps) => {
     >
       <StarRoundedIcon
         style={{
-          color: colors.CTX_BUTTON_COLOR,
+          color: onProfile ? colorSpecie?.button : colors.CTX_BUTTON_COLOR,
           fontSize: "25px",
           marginRight: "5px",
         }}
@@ -29,7 +32,11 @@ const DesignersSection = (props: DesignersSectionProps) => {
         content={designer}
         hover={false}
         animation={false}
-        colorText={colors.CTX_BUTTON_SHADOW_COLOR_2}
+        colorText={
+          onProfile
+            ? colorSpecie?.buttonShadow2
+            : colors.CTX_BUTTON_SHADOW_COLOR_2
+        }
         letterSpacing="0.2rem"
         fontSize="small"
       />

@@ -1,0 +1,20 @@
+.profileEditMenubar_mainContainer {
+  flex: 0.5;
+  padding: 10px;
+  .profileEditMenubar_menuBar {
+    height: auto;
+    border-radius: 40px;
+
+    .profileEditMenubar_menuList {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .profileEditMenubar_menuItem {
+        width: 90%;
+        margin: 10px;
+        justify-content: center;
+      }
+    }
+  }
+}
