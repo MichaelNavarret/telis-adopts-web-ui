@@ -22,7 +22,7 @@ export const FavoriteSection = (props: FavoriteSectionProps) => {
   const queryClient = useQueryClient();
   const pixelSize = "1";
 
-  const { data: ownerAdopts, isLoading } = useQuery({
+  const { data: ownerAdopts } = useQuery({
     queryKey: ["ownerCharacters", owner?.ownerSingletonInfo.id],
     queryFn: () => {
       return getAdopts({
@@ -33,22 +33,18 @@ export const FavoriteSection = (props: FavoriteSectionProps) => {
     enabled: !!owner,
   });
 
-  const { data: favoriteCharacters, isLoading: isLoadingFavoriteCharacters } =
-    useQuery({
-      queryKey: [
-        "favoriteCharacters",
-        owner?.ownerSingletonInfo.favoriteCharacters,
-      ],
-      queryFn: () => {
-        return getFavoriteCharacters(owner?.ownerSingletonInfo.id || "");
-      },
-      enabled: !!owner,
-    });
+  const { data: favoriteCharacters } = useQuery({
+    queryKey: [
+      "favoriteCharacters",
+      owner?.ownerSingletonInfo.favoriteCharacters,
+    ],
+    queryFn: () => {
+      return getFavoriteCharacters(owner?.ownerSingletonInfo.id || "");
+    },
+    enabled: !!owner,
+  });
 
-  const {
-    mutate: addFavoriteCharacterMutation,
-    isLoading: isAddFavoriteCharacterLoading,
-  } = useMutation({
+  const { mutate: addFavoriteCharacterMutation } = useMutation({
     mutationFn: (adoptId: string) => {
       return addFavoriteCharacter(owner?.ownerSingletonInfo.id || "", {
         adoptId: adoptId,

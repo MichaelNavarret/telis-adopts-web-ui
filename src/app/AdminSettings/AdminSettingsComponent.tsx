@@ -1,18 +1,16 @@
 import MenuBar from "../../components/MenuBar/MenuBar";
 import styles from "./AdminSettingsComponent.module.scss";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import adminSettingsOptions from "./utils/MenuBarOptions";
 import SpeciesSection from "./SettingSections/SpeciesSection/SpeciesSection";
 import AdoptsSection from "./SettingSections/AdoptsSection/AdoptsSection";
 import TraitsSection from "./SettingSections/TraitsSection/TraitsSection";
 import OwnersSection from "./SettingSections/OwnersSection/OwnersSection";
 import useUserSession from "../../hooks/useUserSession";
-import { useNavigate } from "react-router-dom";
 
 const AdminSettingsComponent = () => {
   const [step, setStep] = useState<number>(0);
   const { ownerInfo } = useUserSession();
-  const navigate = useNavigate();
 
   if (ownerInfo?.role.name !== "Admin") {
     return <>You don't have permissions to view this resource</>;

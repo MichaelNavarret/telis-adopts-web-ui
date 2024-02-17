@@ -1,7 +1,5 @@
 import styles from "./NavigationBubbles.module.scss";
-import { CgProfile } from "react-icons/cg";
 import { FaHome } from "react-icons/fa";
-import { IoMdSettings } from "react-icons/io";
 import { useTheme } from "../../context/ThemeProvider";
 import { useNavigate } from "react-router-dom";
 

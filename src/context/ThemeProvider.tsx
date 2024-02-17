@@ -2,7 +2,6 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 import { getBackground } from "../constants/backgrounds";
 import { getColors } from "../constants/colors";
 import { getLogo } from "../constants/logos";
-import { getCharacter } from "../constants/characters";
 
 interface ThemeContextProps {
   colors: {
@@ -36,6 +35,7 @@ interface ThemeContextProps {
   >;
   logo: string;
   setLogo: React.Dispatch<React.SetStateAction<ThemeContextProps["logo"]>>;
+  reloadTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);

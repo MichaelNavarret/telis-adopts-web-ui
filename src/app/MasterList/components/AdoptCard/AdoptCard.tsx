@@ -17,7 +17,6 @@ import { useQuery } from "react-query";
 import { getSpecieForm } from "../../../../api/species";
 import BadgesExpositor from "./BadgesExpositor";
 import { isDefined } from "../../../../tools/commons";
-import { laniesColors } from "../../../../constants/colors/laniesColors";
 import { getColorsBySpecie } from "../../../../constants/colors";
 
 type AdoptCardProps = {

@@ -6,7 +6,6 @@ import { useTheme } from "../../../../../context/ThemeProvider";
 import { updateOwner } from "../../../../../api/owners";
 import { successToast } from "../../../../../constants/toasts";
 import strings from "../../../../../l10n";
-import { CircularProgress } from "@mui/material";
 import { IconItem } from "./IconItem";
 
 type IconSectionProps = {

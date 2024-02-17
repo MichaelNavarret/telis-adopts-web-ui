@@ -1,5 +1,4 @@
 import { useQuery } from "react-query";
-import { useTheme } from "../../context/ThemeProvider";
 import useUserSession from "../../hooks/useUserSession";
 import styles from "./ProfileScreen.module.scss";
 import { getOwner } from "../../api/owners";
@@ -18,7 +17,6 @@ const ProfileScreen = (props: ProfileScreenProps) => {
   const { ownerId } = props;
   const { ownerInfo } = useUserSession();
   const [selectedButton, setSelectedButton] = useState("");
-  const { colors } = useTheme();
 
   const { data: ownerResponse } = useQuery({
     queryKey: ["ownerInfo"],

@@ -1,6 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
 import DialogComponent from "../../../../../components/surfaces/DialogComponent";
-import { useTheme } from "../../../../../context/ThemeProvider";
 import { AdoptInfo, AdoptUpdateRequest } from "../../../../../types/adopt";
 import styles from "./UpdateAdoptDialog.module.scss";
 import TextFieldComponent from "../../../../../components/Form/TextFieldComponent";
@@ -33,17 +32,16 @@ const UpdateAdoptDialog = (props: UpdateAdoptDialogProps) => {
     adopt?.traits && setTraits(adopt?.traits);
   }, [adopt]);
 
-  const { mutate: adoptUpdateMutation, isLoading: isAdoptUpdateLoading } =
-    useMutation({
-      mutationFn: (data: AdoptUpdateRequest) => {
-        return updateAdopt(adopt.id, data);
-      },
-      onSuccess: () => {
-        handleClose();
-        queryClient.invalidateQueries(["ownerCharacters"]);
-        successToast("Adopt Updated successfully!");
-      },
-    });
+  const { mutate: adoptUpdateMutation } = useMutation({
+    mutationFn: (data: AdoptUpdateRequest) => {
+      return updateAdopt(adopt.id, data);
+    },
+    onSuccess: () => {
+      handleClose();
+      queryClient.invalidateQueries(["ownerCharacters"]);
+      successToast("Adopt Updated successfully!");
+    },
+  });
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();

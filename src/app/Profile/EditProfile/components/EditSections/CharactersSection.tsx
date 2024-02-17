@@ -25,7 +25,7 @@ const CharactersSection = (props: CharactersSectionProps) => {
     undefined
   );
 
-  const { data: ownerAdopts, isLoading } = useQuery({
+  const { data: ownerAdopts } = useQuery({
     queryKey: ["ownerCharacters", owner?.ownerSingletonInfo.id],
     queryFn: () => {
       return getAdopts({
