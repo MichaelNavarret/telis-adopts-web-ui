@@ -10,6 +10,7 @@ import { useState } from "react";
 import UpdateAdoptDialog from "./UpdateAdoptDialog";
 import { AdoptInfo } from "../../../../../types/adopt";
 import { getColorsBySpecie } from "../../../../../constants/colors";
+import { Pagination } from "@mui/material";
 
 type CharactersSectionProps = {
   owner: OwnerSingletonResponse | undefined;
@@ -24,53 +25,64 @@ const CharactersSection = (props: CharactersSectionProps) => {
   const [selectedAdopt, setSelectedAdopt] = useState<AdoptInfo | undefined>(
     undefined
   );
+  const [currentPage, setCurrentPage] = useState(0);
 
   const { data: ownerAdopts } = useQuery({
-    queryKey: ["ownerCharacters", owner?.ownerSingletonInfo.id],
+    queryKey: ["ownerCharacters", owner?.ownerSingletonInfo.id, currentPage],
     queryFn: () => {
-      return getAdopts({
-        ownerId: owner?.ownerSingletonInfo.id,
-        sort: "code:ASC",
-      });
+      return getAdopts(
+        {
+          ownerId: owner?.ownerSingletonInfo.id,
+          sort: "code:ASC",
+        },
+        currentPage
+      );
     },
     enabled: !!owner,
   });
+
+  const totalPages = ownerAdopts?.headers["x-pagination-total-pages"];
 
   const handleSettingsClick = (adopt: AdoptInfo) => {
     setSelectedAdopt(adopt);
     setOpenEditAdoptDialog(true);
   };
 
+  const handlePagination = (pageNumber: number) => {
+    setCurrentPage(pageNumber - 1);
+  };
+
   return (
-    <div className={styles.charactersSection_mainContainer}>
-      {ownerAdopts?.data.map((adopt) => (
-        <div
-          key={"adopt_container_" + adopt.id}
-          className={styles.charactersSection_adoptContainer}
-        >
+    <>
+      <div className={styles.charactersSection_mainContainer}>
+        {ownerAdopts?.data.map((adopt) => (
           <div
-            key={adopt.name}
-            className={styles.charactersSection_adoptContainer_title}
-            style={{ color: getColorsBySpecie(adopt.specieName).button }}
+            key={"adopt_container_" + adopt.id}
+            className={styles.charactersSection_adoptContainer}
           >
-            {adopt.name}
-          </div>
-          <img
-            key={adopt.iconUrl}
-            src={isDefined(adopt.iconUrl) ? adopt.iconUrl : DEFAULT_ICON}
-            alt={adopt.name}
-            className={styles.charactersSection_adoptContainer_icon}
-            style={{
-              border:
-                "5px solid " + getColorsBySpecie(adopt.specieName).borderIcon,
-            }}
-          />
-          <TbSettingsFilled
-            className={styles.charactersSection_adoptContainer_settingsIcon}
-            onClick={() => handleSettingsClick(adopt)}
-            style={{
-              color: getColorsBySpecie(adopt.specieName).button,
-              filter: ` drop-shadow(${pixelSize}px 0 0 ${settingIconColor})
+            <div
+              key={adopt.name}
+              className={styles.charactersSection_adoptContainer_title}
+              style={{ color: getColorsBySpecie(adopt.specieName).button }}
+            >
+              {adopt.name}
+            </div>
+            <img
+              key={adopt.iconUrl}
+              src={isDefined(adopt.iconUrl) ? adopt.iconUrl : DEFAULT_ICON}
+              alt={adopt.name}
+              className={styles.charactersSection_adoptContainer_icon}
+              style={{
+                border:
+                  "5px solid " + getColorsBySpecie(adopt.specieName).borderIcon,
+              }}
+            />
+            <TbSettingsFilled
+              className={styles.charactersSection_adoptContainer_settingsIcon}
+              onClick={() => handleSettingsClick(adopt)}
+              style={{
+                color: getColorsBySpecie(adopt.specieName).button,
+                filter: ` drop-shadow(${pixelSize}px 0 0 ${settingIconColor})
                 drop-shadow(${pixelSize}px ${pixelSize}px 0 ${settingIconColor})
                 drop-shadow(${pixelSize}px -${pixelSize}px 0 ${settingIconColor})
                 drop-shadow(0 ${pixelSize}px 0 ${settingIconColor})
@@ -78,18 +90,36 @@ const CharactersSection = (props: CharactersSectionProps) => {
                 drop-shadow(-${pixelSize}px ${pixelSize}px 0 ${settingIconColor})
                 drop-shadow(-${pixelSize}px -${pixelSize}px 0 ${settingIconColor})
                 drop-shadow(0 -${pixelSize}px 0 ${settingIconColor})`,
-            }}
+              }}
+            />
+          </div>
+        ))}
+        {selectedAdopt && (
+          <UpdateAdoptDialog
+            open={openEditAdoptDialog}
+            handleClose={() => setOpenEditAdoptDialog(false)}
+            adopt={selectedAdopt}
           />
-        </div>
-      ))}
-      {selectedAdopt && (
-        <UpdateAdoptDialog
-          open={openEditAdoptDialog}
-          handleClose={() => setOpenEditAdoptDialog(false)}
-          adopt={selectedAdopt}
+        )}
+      </div>
+      <div className={styles.paginationFooter}>
+        <Pagination
+          className={styles.pagination}
+          page={currentPage + 1}
+          sx={{
+            "& .MuiPaginationItem-root": {
+              color: "black",
+            },
+            "& .MuiPaginationItem-root.Mui-selected": {
+              backgroundColor: colors.CTX_BUTTON_COLOR,
+            },
+          }}
+          count={Number(totalPages)}
+          onChange={(_e, value) => handlePagination(value)}
+          variant="outlined"
         />
-      )}
-    </div>
+      </div>
+    </>
   );
 };
 
