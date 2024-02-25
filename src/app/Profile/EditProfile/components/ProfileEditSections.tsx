@@ -3,6 +3,7 @@ import CharactersSection from "./EditSections/CharactersSection";
 import { FavoriteSection } from "./EditSections/FavoirteSection";
 import { IconSection } from "./EditSections/IconSection";
 import { InformationSection } from "./EditSections/InformationSection";
+import { SecuritySection } from "./EditSections/SecuritySection";
 import styles from "./ProfileEditSections.module.scss";
 
 type ProfileEditSectionsProps = {
@@ -25,7 +26,7 @@ const ProfileEditSections = (props: ProfileEditSectionsProps) => {
       case 3:
         return <FavoriteSection owner={owner} />;
       case 4:
-        return <div>Security</div>;
+        return <SecuritySection owner={owner} />;
       case 5:
         return <div>My Badges</div>;
     }
