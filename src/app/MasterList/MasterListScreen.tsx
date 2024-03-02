@@ -3,13 +3,16 @@ import MasterListHeader from "./components/MasterListHeader";
 import { getSpecie } from "../../api/species";
 import { useState } from "react";
 import MasterListFilterButtons from "./components/MasterListFilterButtons";
-import MasterListExpositorAdopts from "./components/MasterListExpositorAdopts";
+import MasterListExpositorAdopts, {
+  useMasterListExpositor,
+} from "./components/MasterListExpositorAdopts";
 import { CreationType } from "../../types/adopt";
 import { getAdopts } from "../../api/adopts";
 
 const MasterListScreen = () => {
   const [creationTypeFilter, setCreationTypeFilter] = useState("PREMADE");
   const specieId = localStorage.getItem("specieId") || "";
+  const { state } = useMasterListExpositor();
 
   const { data: specieInfo, isLoading: isSpecieInfoLoading } = useQuery({
     queryKey: ["specieInfo"],
@@ -19,13 +22,22 @@ const MasterListScreen = () => {
   });
 
   const { data: adopts, isLoading: isAdoptsLoading } = useQuery({
-    queryKey: ["adopts", specieId, creationTypeFilter, "code:ASC"],
+    queryKey: [
+      "adopts",
+      specieId,
+      creationTypeFilter,
+      "code:ASC",
+      state.currentPage,
+    ],
     queryFn: () => {
-      return getAdopts({
-        specieId: specieId,
-        creationType: creationTypeFilter as CreationType,
-        sort: "code:ASC",
-      });
+      return getAdopts(
+        {
+          specieId: specieId,
+          creationType: creationTypeFilter as CreationType,
+          sort: "code:ASC",
+        },
+        state.currentPage
+      );
     },
   });
 
@@ -36,6 +48,8 @@ const MasterListScreen = () => {
   const isLoading = () => {
     return isSpecieInfoLoading || isAdoptsLoading;
   };
+
+  const totalPages = adopts?.headers["x-pagination-total-pages"];
 
   const MainContent = () => {
     return (
@@ -50,6 +64,8 @@ const MasterListScreen = () => {
           <MasterListExpositorAdopts
             adopts={adopts?.data}
             isLoading={isLoading()}
+            totalPages={totalPages}
+            state={state}
           />
         )}
       </div>

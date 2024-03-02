@@ -25,4 +25,11 @@ export const commonEn = {
   UPDATE: "Update",
   SOCIAL_MEDIA: "Social Media",
   SAVE: "Save",
+  CHANGE_PASSWORD: "Change Password",
+  SECURITY: "Security",
+  NEW_PASSWORD: "New Password",
+  SKIP_2FA: "Skip 2FA",
+  PASSWORD_NOT_MATCH: "Passwords don't match",
+  EXIT: "Exit",
+  ARE_SURE_TO_EXIT: "Are you sure you want to exit?",
 };

@@ -10,6 +10,10 @@ import { saveFirstToken } from "../../context/UserSession/userSessionReducer";
 import TextComponent from "../../components/TextComponents/TextComponent";
 import strings from "../../l10n";
 import TextFieldComponent from "../../components/Form/TextFieldComponent";
+import useUserSession from "../../hooks/useUserSession";
+import { useNavigate } from "react-router-dom";
+import { successToast } from "../../constants/toasts";
+import { DEFAULT_PATH } from "../../routes";
 
 type LoginFormProps = {
   handleStep: (val: number) => void;
@@ -20,18 +24,24 @@ export const LoginForm = (props: LoginFormProps) => {
   const { handleStep, handleFormValue } = props;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // ! this will be implemented with the skip2fa
-  // const { _setLoginToken } = useUserSession();
-  // const navigate = useNavigate();
+  const { _setLoginToken } = useUserSession();
+  const navigate = useNavigate();
 
   const { mutate: loginMutation, isLoading: isLoginLoading } = useMutation({
     mutationFn: (data: LoginRequest) => {
       return login(data);
     },
-    onSuccess: (data) => {
-      saveFirstToken(data.token);
-      handleFormValue({ email: email, password: password });
-      handleStep(4);
+    onSuccess: (res) => {
+      if (res.canSkip2fa) {
+        _setLoginToken(res.token);
+        handleStep(0);
+        successToast(strings.LOGIN_SUCCESSFULLY);
+        navigate(DEFAULT_PATH);
+      } else {
+        saveFirstToken(res.token);
+        handleFormValue({ email: email, password: password });
+        handleStep(4);
+      }
     },
   });
 
