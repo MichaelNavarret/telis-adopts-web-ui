@@ -62,6 +62,34 @@
   }
   .favoriteContainer {
     flex: 0.8;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    .favoriteIconsContainer {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      justify-content: center;
+      height: auto;
+      .favoriteIconsSecondContainer {
+        position: relative;
+        .favoriteIcon {
+          border: 5px solid;
+          border-radius: 100%;
+          width: 120px;
+        }
+        .heartIcon {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          font-size: 40px;
+        }
+      }
+    }
+    .badgesExpositor {
+      flex: 1;
+    }
   }
 }
 
@@ -89,6 +117,18 @@
         }
         .badges {
           flex: 1;
+        }
+      }
+    }
+    .favoriteContainer {
+      .favoriteIconsContainer {
+        .favoriteIconsSecondContainer {
+          .favoriteIcon {
+            width: 90px;
+          }
+          .heartIcon {
+            font-size: 30px;
+          }
         }
       }
     }

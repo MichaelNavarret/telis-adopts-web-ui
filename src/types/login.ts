@@ -9,7 +9,7 @@ export type VerifyOtpRequest = LoginRequest & {
 
 export type LoginResponse = {
   token: string;
-  skip2fa: boolean;
+  canSkip2fa: boolean;
 };
 
 export type ResendOtpRequest = {

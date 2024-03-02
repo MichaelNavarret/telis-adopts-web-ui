@@ -1,0 +1,32 @@
+.securitySection_mainContainer {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+  .securitySection_PasswordSection {
+    border-radius: 30px;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+    .passwordSection_fieldsContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .passwordSection_submitButton {
+      align-self: center;
+    }
+  }
+  .securitySection_Skip2faSection {
+    width: auto;
+    padding: 10px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

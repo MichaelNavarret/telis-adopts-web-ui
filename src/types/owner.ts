@@ -14,6 +14,7 @@ export type OwnerInfo = {
   twitter: string;
   toyhouse: string;
   favoriteCharacters: string[];
+  skip2fa: boolean;
 };
 
 export type OwnerSingletonResponse = {
@@ -49,6 +50,8 @@ export type OwnerUpdateRequest = {
   toyhouse?: string;
   favoriteAdoptsIds?: string[];
   iconId?: string;
+  password?: string;
+  skip2fa?: boolean;
 };
 
 export type OwnerAddCharacterFavoriteRequest = {

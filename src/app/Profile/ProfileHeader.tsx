@@ -5,6 +5,10 @@ import { TbSettingsFilled } from "react-icons/tb";
 import { NetworkProfile } from "./components/NetworkProfile";
 import BadgesExpositor from "../MasterList/components/AdoptCard/BadgesExpositor";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
+import { getAdopts, getFavoriteCharacters } from "../../api/adopts";
+import DEFAULT_ICON from "../../assets/utils/not_icon.png";
+import { MdFavorite } from "react-icons/md";
 
 type ProfileHeaderProps = {
   data?: OwnerSingletonResponse;
@@ -16,6 +20,18 @@ const ProfileHeader = (props: ProfileHeaderProps) => {
   const { colors } = useTheme();
   const borderIconColor = colors.CTX_FORM_CONTAINER_COLOR;
   const navigate = useNavigate();
+  const pixelSize = "1";
+
+  const { data: favoriteCharacters } = useQuery({
+    queryKey: [
+      "favoriteCharacters",
+      data?.ownerSingletonInfo.favoriteCharacters,
+    ],
+    queryFn: () => {
+      return getFavoriteCharacters(data?.ownerSingletonInfo.id || "");
+    },
+    enabled: !!data,
+  });
 
   return (
     <div
@@ -60,7 +76,39 @@ const ProfileHeader = (props: ProfileHeaderProps) => {
           </div>
         </div>
       </div>
-      <div className={styles.favoriteContainer}></div>
+      <div className={styles.favoriteContainer}>
+        <div className={styles.favoriteIconsContainer}>
+          {favoriteCharacters?.data.map((character) => (
+            <div className={styles.favoriteIconsSecondContainer}>
+              <img
+                key={character.id}
+                src={character.iconUrl || DEFAULT_ICON}
+                alt="Favorite Character"
+                className={styles.favoriteIcon}
+                style={{
+                  borderColor: borderIconColor,
+                  backgroundColor: borderIconColor,
+                }}
+              />
+              <MdFavorite
+                className={styles.heartIcon}
+                style={{
+                  color: "#FF83B3",
+                  filter: ` drop-shadow(${pixelSize}px 0 0 ${borderIconColor})
+                  drop-shadow(${pixelSize}px ${pixelSize}px 0 ${borderIconColor})
+                  drop-shadow(${pixelSize}px -${pixelSize}px 0 ${borderIconColor})
+                  drop-shadow(0 ${pixelSize}px 0 ${borderIconColor})
+                  drop-shadow(-${pixelSize}px 0 0 ${borderIconColor})
+                  drop-shadow(-${pixelSize}px ${pixelSize}px 0 ${borderIconColor})
+                  drop-shadow(-${pixelSize}px -${pixelSize}px 0 ${borderIconColor})
+                  drop-shadow(0 -${pixelSize}px 0 ${borderIconColor})`,
+                }}
+              />
+            </div>
+          ))}
+        </div>
+        <div className={styles.badgesExpositor}></div>
+      </div>
     </div>
   );
 };
