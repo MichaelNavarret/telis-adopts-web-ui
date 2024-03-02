@@ -6,7 +6,7 @@ import { NetworkProfile } from "./components/NetworkProfile";
 import BadgesExpositor from "../MasterList/components/AdoptCard/BadgesExpositor";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
-import { getAdopts, getFavoriteCharacters } from "../../api/adopts";
+import { getFavoriteCharacters } from "../../api/adopts";
 import DEFAULT_ICON from "../../assets/utils/not_icon.png";
 import { MdFavorite } from "react-icons/md";
 
