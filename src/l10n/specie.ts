@@ -1,6 +1,7 @@
 export const specieEn = {
   SPECIE: "Specie",
   SPECIES: "Species",
+  MAIN_SPECIE: "Main specie",
   STORY: "Story",
   SPECIE_CREATED_SUCCESSFULLY: "Specie created successfully!",
   BACK_TO_SPECIES_PAGE: "Back to species page",
