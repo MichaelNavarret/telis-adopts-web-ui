@@ -11,3 +11,5 @@ export const badges = {
   valentinesDay: valentinesDay,
   sanrio: sanrio,
 };
+
+export default badges;

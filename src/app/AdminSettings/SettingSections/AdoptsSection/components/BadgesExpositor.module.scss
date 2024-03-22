@@ -1,0 +1,26 @@
+.badgesExpositor_mainContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  .badgesExpositor_badgesContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    .badgesExpositor_badgeContainer {
+      border: 1px solid black;
+      padding: 5px;
+      border-radius: 15px;
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        scale: 1.1;
+        cursor: pointer;
+      }
+      &:active {
+        scale: 0.9;
+      }
+    }
+  }
+}

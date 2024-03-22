@@ -40,6 +40,7 @@ import { TraitInfo } from "../../../../types/traits";
 import { Checkbox } from "@mui/material";
 import AdoptIconDropzone from "./components/AdoptIconDropzone";
 import SpecieFormExpositor from "./components/SpecieFormExpositor";
+import { BadgesExpositor } from "./components/BadgesExpositor";
 
 type AdoptsCreateDialogFormProps = {
   open: boolean;
@@ -72,6 +73,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
   ]);
   const availableDesignerSection =
     creationType === "MYO" || creationType === "GUEST_ARTIST";
+  const [selectedBadges, setSelectedBadges] = useState<string[]>([]);
 
   useEffect(() => {
     clearStates();
@@ -185,6 +187,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
       designers: mergeDesigners(),
       subTraits: filteredTraitsPayload(traitsPayload),
       specieFormId: specieFormId,
+      badges: selectedBadges,
     };
     createAdoptMutation(payload);
   };
@@ -439,6 +442,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
             )}
           </div>
         </div>
+
         <Container
           className={styles.designersInfoSection}
           sx={{
@@ -556,6 +560,12 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
         </Container>
       </div>
       <div className={styles.secondContainer}>
+        <Container className={styles.badgesSection}>
+          <BadgesExpositor
+            selectedBadges={selectedBadges}
+            setSelectedBadges={setSelectedBadges}
+          />
+        </Container>
         <Container
           className={styles.traitsSection}
           sx={{
@@ -651,6 +661,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
             />
           )}
         </div>
+        <div className={styles.badgesSection}></div>
       </div>
       <div className={styles.thirdContainer}>{getTraitsInformationImage()}</div>
       <div className={styles.submitButton}>

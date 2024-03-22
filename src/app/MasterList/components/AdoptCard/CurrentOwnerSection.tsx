@@ -18,7 +18,7 @@ type CurrentOwnerSectionProps = {
 const CurrentOwnerSection = (props: CurrentOwnerSectionProps) => {
   const { colors } = useTheme();
   const { currentOwnerName, onProfile, colorSpecie } = props;
-  const textColor = onProfile ? colorSpecie.text : colors.CTX_BUTTON_COLOR;
+  const textColor = onProfile ? colorSpecie.text : colors.CTX_TEXT_COLOR;
   const bubbleColor = onProfile ? colorSpecie.bubble : colors.CTX_BUBBLE_COLOR;
   const shadowColor2 = onProfile
     ? colorSpecie.buttonShadow2
