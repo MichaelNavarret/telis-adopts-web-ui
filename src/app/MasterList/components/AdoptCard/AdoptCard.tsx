@@ -136,14 +136,14 @@ const AdoptCard = (props: AdoptCardProps) => {
                   letterSpacing="0.2rem"
                 />
               </div>
-              <TextComponent
+              {/* <TextComponent
                 content={`#${adopt.code}`}
                 colorText={"black"}
                 hover={false}
                 fontSize="small"
                 animation={false}
                 letterSpacing="0.2rem"
-              />
+              /> */}
               <div className={styles.badgesContainer}>
                 <BadgesExpositor
                   badgesCode={

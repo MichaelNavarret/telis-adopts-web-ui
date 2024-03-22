@@ -4,3 +4,7 @@ export type BadgeInfo = {
   code: string;
   description: string;
 };
+
+export type BadgeCollectionResponse = {
+  badgeInfoList: BadgeInfo[];
+};

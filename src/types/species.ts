@@ -20,6 +20,7 @@ export type SpecieCollectionResponse = {
 
 export type SpecieCreateRequest = {
   name: string;
+  mainSpecieId?: string;
 };
 
 export type SpecieCreateParams = {

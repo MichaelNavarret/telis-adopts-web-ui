@@ -3,7 +3,7 @@ import request from "../tools/request";
 import {
   SpecieAddSpecieFormParams,
   SpecieCollectionResponse,
-  SpecieCreateParams,
+  SpecieCreateRequest,
   SpecieFormSingletonResponse,
   SpecieSingletonResponse,
   SpecieUpdateAssetParams,
@@ -33,20 +33,9 @@ export const getSpeciesAutocomplete = async () => {
   return data;
 };
 
-export const createSpecie = async (
-  file: File,
-  file2: File,
-  file3: File,
-  params: SpecieCreateParams
-) => {
-  const formData = new FormData();
-  formData.append("file", file);
-  formData.append("file2", file2);
-  formData.append("file3", file3);
+export const createSpecie = async (payload: SpecieCreateRequest) => {
   const data = await request
-    .post<SpecieSingletonResponse>("/species", formData, {
-      params: params,
-    })
+    .post<SpecieSingletonResponse>("/species", payload)
     .then((res) => {
       return res.data.specieSingletonInfo;
     });
