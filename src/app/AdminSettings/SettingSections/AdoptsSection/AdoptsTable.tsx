@@ -5,6 +5,7 @@ import TableComponent, {
 } from "../../../../components/Table/TableComponent";
 import { adoptsTableColumns } from "../../../../constants/TablesColumns";
 import strings from "../../../../l10n";
+import { formatAdoptsTableRows } from "./adoptsTableFormat";
 
 type AdoptsTableProps = {
   handleOpen: () => void;
@@ -31,7 +32,7 @@ const AdoptsTable = (props: AdoptsTableProps) => {
     <TableComponent
       title={strings.ADOPT}
       columns={adoptsTableColumns}
-      data={adoptsResponse?.data || []}
+      data={formatAdoptsTableRows(adoptsResponse?.data || [])}
       primaryButton={true}
       primaryButtonLabel={`${strings.ADD} ${strings.ADOPT}`}
       handlePrimaryButton={handleOpen}

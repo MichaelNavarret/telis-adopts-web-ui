@@ -15,4 +15,5 @@ export const ownerEn = {
   OWNER_CREATED_SUCCESSFULLY: "Owner created successfully",
   OWNER_UPDATED_SUCCESSFULLY: "Owner updated successfully",
   OWNER_UPDATE_ICON_PROFILE_SUCCESSFULLY: "Icon Profile updated successfully",
+  DESIGNER: "Designer",
 };

@@ -47,7 +47,9 @@ const TraitList = (props: TraitListProps) => {
                   : colors.CTX_BUTTON_SHADOW_COLOR_2,
                 letterSpacing: "0.2rem",
               }}
-            >{`${trait.mainTrait}:`}</p>
+            >
+              {trait.mainTrait}
+            </p>
 
             {/* ----------------- */}
             {trait.additionalInfo && (
@@ -60,7 +62,7 @@ const TraitList = (props: TraitListProps) => {
                     : colors.CTX_BUTTON_SHADOW_COLOR_2,
                 }}
               >
-                {trait.additionalInfo}
+                {`: ${trait.additionalInfo}`}
               </p>
             )}
             {/* ----------------- */}

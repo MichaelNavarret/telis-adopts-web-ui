@@ -7,7 +7,8 @@ export const adoptsTableColumns: ColumnsTable[] = [
   { value: "ownerName", label: strings.OWNER },
   { value: "specieName", label: strings.SPECIE },
   { value: "rarity", label: strings.RARITY },
-  { value: "designers", label: "Designers" },
+  { value: "designers", label: strings.DESIGNERS },
+  { value: "preview", label: strings.PREVIEW },
 ];
 
 export const speciesTableColumns: ColumnsTable[] = [

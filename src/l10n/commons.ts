@@ -32,4 +32,5 @@ export const commonEn = {
   PASSWORD_NOT_MATCH: "Passwords don't match",
   EXIT: "Exit",
   ARE_SURE_TO_EXIT: "Are you sure you want to exit?",
+  PREVIEW: "Preview",
 };
