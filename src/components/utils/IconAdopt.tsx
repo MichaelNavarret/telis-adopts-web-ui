@@ -6,6 +6,7 @@ import { spectraLumenColors } from "../../constants/colors/spectraLumenColors";
 import { cloudystarsColors } from "../../constants/colors/cloudyStarsColors";
 import { pluniesColors } from "../../constants/colors/pluniesColors";
 import { useTheme } from "../../context/ThemeProvider";
+import { getIconBoxShadow } from "../../tools/commons";
 
 type IconAdoptProps = {
   adopt: AdoptInfo;
@@ -45,17 +46,7 @@ const IconAdopt = (props: IconAdoptProps) => {
       src={adopt.iconUrl ? adopt.iconUrl : NOT_ICON}
       alt={"logo"}
       width={width}
-      style={{
-        filter: ` drop-shadow(3px 0 0 ${borderColor})
-                  drop-shadow(3px 3px 0 ${borderColor})
-                  drop-shadow(3px -3px 0 ${borderColor})
-                  drop-shadow(0 3px 0 ${borderColor})
-
-                  drop-shadow(-3px 0 0 ${borderColor})
-                  drop-shadow(-3px 3px 0 ${borderColor})
-                  drop-shadow(-3px -3px 0 ${borderColor})
-                  drop-shadow(0 -3px 0 ${borderColor})`,
-      }}
+      style={{ filter: getIconBoxShadow(borderColor) }}
       onClick={() => handleIconClick(adopt)}
     />
   );

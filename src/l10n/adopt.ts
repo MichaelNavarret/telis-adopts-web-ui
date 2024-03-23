@@ -9,4 +9,5 @@ export const adoptEn = {
     "Adopt icon upload failed!. You can try to update on adopt edit page.",
   ADOPT_ICON: "Adopt Icon",
   ADOPT_MARK_AS_FAVORITE_SUCCESSFULLY: "Adopt marked as favorite successfully!",
+  ADOPT_DETAILS: "Adopt Details",
 };

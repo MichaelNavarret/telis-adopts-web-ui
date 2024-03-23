@@ -7,7 +7,7 @@ import { useDropzone } from "react-dropzone";
 
 type ImageSectionProps = {
   titleSection: string;
-  imageUrl: string;
+  imageUrl?: string;
   onEdit: (files: File[]) => void;
   padding?: string;
   roundedImage?: string;

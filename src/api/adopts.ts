@@ -102,3 +102,10 @@ export const getFavoriteCharacters = async (
     });
   return data;
 };
+
+export const getAdopt = async (adoptId: string) => {
+  const data = await request
+    .get<AdoptSingletonResponse>(`/adopts/${adoptId}`)
+    .then((res) => res.data.adoptSingletonInfo);
+  return data;
+};

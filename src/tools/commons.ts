@@ -2,6 +2,11 @@ import {
   loadFirstToken,
   loadToken,
 } from "../context/UserSession/userSessionReducer";
+import NOT_ICON from "../assets/utils/not_icon.png";
+import { laniesColors } from "../constants/colors/laniesColors";
+import { spectraLumenColors } from "../constants/colors/spectraLumenColors";
+import { cloudystarsColors } from "../constants/colors/cloudyStarsColors";
+import { pluniesColors } from "../constants/colors/pluniesColors";
 
 export function isDefined<T>(arg: T | null | undefined): arg is T {
   return typeof arg != "undefined" && arg != null;
@@ -39,3 +44,30 @@ export function capitalize(str: string) {
 export function getImageFromBytes(image: ArrayBufferLike) {
   return "data:image/jpeg;base64," + image;
 }
+
+export function safeGetIcon(iconUrl?: string) {
+  if (isDefined(iconUrl)) {
+    return iconUrl;
+  }
+  return NOT_ICON;
+}
+
+export const getIconBoxShadow = (borderColor: string) => {
+  return ` drop-shadow(3px 0 0 ${borderColor})
+  drop-shadow(3px 3px 0 ${borderColor})
+  drop-shadow(3px -3px 0 ${borderColor})
+  drop-shadow(0 3px 0 ${borderColor})
+
+  drop-shadow(-3px 0 0 ${borderColor})
+  drop-shadow(-3px 3px 0 ${borderColor})
+  drop-shadow(-3px -3px 0 ${borderColor})
+  drop-shadow(0 -3px 0 ${borderColor})`;
+};
+
+export const getBorderColor = (specie?: string) => {
+  if (specie === "lanies") return laniesColors.borderIcon;
+  if (specie === "spectralumen") return spectraLumenColors.borderIcon;
+  if (specie === "cloudystars") return cloudystarsColors.borderIcon;
+  if (specie === "plunies") return pluniesColors.borderIcon;
+  return laniesColors.borderIcon;
+};

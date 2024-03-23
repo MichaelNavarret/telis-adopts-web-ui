@@ -104,7 +104,7 @@ const SpeciesDetails = (props: SpeciesDetailsProps) => {
         </div>
         {/* //-------------------------------------------------------------------------------------- Main Information */}
         <SectionComponent
-          titleSection={"Main Information"}
+          titleSection={strings.MAIN_INFORMATION}
           onEdit={() => setOpenUpdateName(true)}
         >
           <SectionField label={strings.NAME} value={specieInfo?.name} />

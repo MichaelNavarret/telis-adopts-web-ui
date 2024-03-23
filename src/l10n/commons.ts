@@ -33,4 +33,5 @@ export const commonEn = {
   EXIT: "Exit",
   ARE_SURE_TO_EXIT: "Are you sure you want to exit?",
   PREVIEW: "Preview",
+  MAIN_INFORMATION: "Main Information",
 };
