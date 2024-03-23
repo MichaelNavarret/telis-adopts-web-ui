@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { badges } from "../../../../constants/badges";
 import { isDefined } from "../../../../tools/commons";
+import { Tooltip } from "@mui/material";
 
 type BadgesExpositorProps = {
   badgesCode: string[];
@@ -39,16 +40,40 @@ const BadgesExpositor = (props: BadgesExpositorProps) => {
     }
   }, [badgesCode]);
 
+  const formatCodeBadge = (code: string) => {
+    switch (code) {
+      case "halloween":
+        return "Halloween";
+      case "christmas":
+        return "Christmas";
+      case "valentines-day":
+        return "Valentine's Day";
+      case "chinese-new-year":
+        return "Chinese New Year";
+      case "sanrio":
+        return "Sanrio";
+      default:
+        return "";
+    }
+  };
+
   return (
     <>
       {badgesArray.map((badge, index) => (
-        <img
+        <Tooltip
+          title={formatCodeBadge(badgesCode[index])}
           key={index}
-          src={badge}
-          alt="badge"
-          className="badge"
-          width={badgeSize}
-        />
+          arrow
+          placement="top-start"
+        >
+          <img
+            key={index}
+            src={badge}
+            alt="badge"
+            className="badge"
+            width={badgeSize}
+          />
+        </Tooltip>
       ))}
     </>
   );

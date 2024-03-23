@@ -2,7 +2,6 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-
   .headerContainer {
     flex: 1;
     height: 100px;
@@ -14,6 +13,13 @@
       text-align: center;
       padding: 5px;
       margin-top: 3.5%;
+    }
+    .badgesContainer {
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
     }
     .subHeaderContainer {
       display: flex;
@@ -45,16 +51,8 @@
       margin-top: 15px;
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
+      gap: 30px;
       align-items: end;
-      .badgesContainer {
-        display: flex;
-        flex-direction: row;
-        padding-right: 30px;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-      }
       .codeAdopt {
         display: flex;
         flex-direction: row;

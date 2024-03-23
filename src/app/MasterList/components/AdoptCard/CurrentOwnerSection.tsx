@@ -8,22 +8,33 @@ import { FaDeviantart, FaDiscord, FaTwitter } from "react-icons/fa";
 import { RiInstagramFill } from "react-icons/ri";
 import styles from "./CurrentOwnerSection.module.scss";
 import { Colors } from "../../../../types/commons";
+import { useQuery } from "react-query";
+import { getOwner } from "../../../../api/owners";
 
 type CurrentOwnerSectionProps = {
   currentOwnerName?: string;
+  currentOwnerId: string;
   colorSpecie: Colors;
   onProfile?: boolean;
 };
 
 const CurrentOwnerSection = (props: CurrentOwnerSectionProps) => {
   const { colors } = useTheme();
-  const { currentOwnerName, onProfile, colorSpecie } = props;
+  const { currentOwnerName, onProfile, colorSpecie, currentOwnerId } = props;
   const textColor = onProfile ? colorSpecie.text : colors.CTX_TEXT_COLOR;
   const bubbleColor = onProfile ? colorSpecie.bubble : colors.CTX_BUBBLE_COLOR;
   const shadowColor2 = onProfile
     ? colorSpecie.buttonShadow2
     : colors.CTX_BUTTON_SHADOW_COLOR_2;
   const buttonColor = onProfile ? colorSpecie.button : colors.CTX_BUTTON_COLOR;
+
+  const { data: ownerResponse } = useQuery({
+    queryKey: ["owner", currentOwnerId],
+    queryFn: () => {
+      return getOwner(currentOwnerId);
+    },
+    enabled: !!currentOwnerId,
+  });
 
   return (
     <>
@@ -65,57 +76,67 @@ const CurrentOwnerSection = (props: CurrentOwnerSectionProps) => {
           marginTop: "10px",
         }}
       >
-        <FaDeviantart
-          className={styles.iconStyles}
-          fontSize="30px"
-          style={{
-            fill: textColor,
-            background: bubbleColor,
-            padding: "5px",
-            boxShadow: `0px 0px 10px 0px ${shadowColor2}`,
-          }}
-        />
-        <FaDiscord
-          className={styles.iconStyles}
-          fontSize="30px"
-          style={{
-            fill: textColor,
-            background: bubbleColor,
-            padding: "5px",
-            boxShadow: `0px 0px 10px 0px ${shadowColor2}`,
-          }}
-        />
-        <FaTwitter
-          className={styles.iconStyles}
-          fontSize="30px"
-          style={{
-            fill: textColor,
-            background: bubbleColor,
-            padding: "5px",
-            boxShadow: `0px 0px 10px 0px ${shadowColor2}`,
-          }}
-        />
-        <RiInstagramFill
-          className={styles.iconStyles}
-          fontSize="30px"
-          style={{
-            fill: textColor,
-            background: bubbleColor,
-            padding: "5px",
-            boxShadow: `0px 0px 10px 0px ${shadowColor2}`,
-          }}
-        />
-        <ToyhouseIcon
-          className={styles.iconStyles}
-          iconColor={textColor}
-          style={{
-            background: bubbleColor,
-            padding: "3px",
-            boxShadow: `0px 0px 10px 0px ${shadowColor2}`,
-            width: "35px",
-            height: "35px",
-          }}
-        />
+        {ownerResponse?.ownerSingletonInfo.devianart && (
+          <FaDeviantart
+            className={styles.iconStyles}
+            fontSize="30px"
+            style={{
+              fill: textColor,
+              background: bubbleColor,
+              padding: "5px",
+              boxShadow: `0px 0px 10px 0px ${shadowColor2}`,
+            }}
+          />
+        )}
+        {ownerResponse?.ownerSingletonInfo.discord && (
+          <FaDiscord
+            className={styles.iconStyles}
+            fontSize="30px"
+            style={{
+              fill: textColor,
+              background: bubbleColor,
+              padding: "5px",
+              boxShadow: `0px 0px 10px 0px ${shadowColor2}`,
+            }}
+          />
+        )}
+        {ownerResponse?.ownerSingletonInfo.twitter && (
+          <FaTwitter
+            className={styles.iconStyles}
+            fontSize="30px"
+            style={{
+              fill: textColor,
+              background: bubbleColor,
+              padding: "5px",
+              boxShadow: `0px 0px 10px 0px ${shadowColor2}`,
+            }}
+          />
+        )}
+        {ownerResponse?.ownerSingletonInfo.instagram && (
+          <RiInstagramFill
+            className={styles.iconStyles}
+            fontSize="30px"
+            style={{
+              fill: textColor,
+              background: bubbleColor,
+              padding: "5px",
+              boxShadow: `0px 0px 10px 0px ${shadowColor2}`,
+            }}
+          />
+        )}
+        {ownerResponse?.ownerSingletonInfo.instagram && (
+          <ToyhouseIcon
+            className={styles.iconStyles}
+            iconColor={textColor}
+            style={{
+              background: bubbleColor,
+              padding: "3px",
+              boxShadow: `0px 0px 10px 0px ${shadowColor2}`,
+              width: "35px",
+              height: "35px",
+            }}
+          />
+        )}
       </div>
     </>
   );
