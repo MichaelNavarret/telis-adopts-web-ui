@@ -85,7 +85,14 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
     setAvailableTraits([]);
     setTraitsPayload([{}]);
     setSelectedBadges([]);
-  }, [handleClose, specie]);
+  }, [handleClose]);
+
+  useEffect(() => {
+    if (isDefined(specie) && specie.value !== "") {
+      queryClient.invalidateQueries("getSpecie");
+      queryClient.invalidateQueries("autocompleteTraits");
+    }
+  }, [specie]);
 
   const { data: ownersResponse } = useQuery({
     queryKey: ["autocompleteOwners"],
