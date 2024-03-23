@@ -6,12 +6,12 @@ import { BadgeExpositorItem } from "./BadgeExpositorItem";
 import TextComponent from "../../../../../components/TextComponents/TextComponent";
 
 type BadgesExpositorProps = {
-  selectedBadges: string[];
-  setSelectedBadges: (badges: string[]) => void;
+  selectedBadge?: string;
+  setSelectedBadge: (badges: string) => void;
 };
 
 export const BadgesExpositor = (props: BadgesExpositorProps) => {
-  const { selectedBadges, setSelectedBadges } = props;
+  const { selectedBadge, setSelectedBadge } = props;
 
   const { data: badgesCollectionResponse } = useQuery({
     queryKey: ["badges"],
@@ -21,15 +21,11 @@ export const BadgesExpositor = (props: BadgesExpositorProps) => {
   });
 
   const handleSelected = (value: string) => {
-    if (selectedBadges.includes(value)) {
-      setSelectedBadges(selectedBadges.filter((id) => id !== value));
-    } else {
-      setSelectedBadges([...selectedBadges, value]);
-    }
+    setSelectedBadge(value);
   };
 
   const isSelected = (id: string) => {
-    return selectedBadges.includes(id);
+    return selectedBadge === id;
   };
 
   return (

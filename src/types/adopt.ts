@@ -19,12 +19,13 @@ export type AdoptCreateRequest = {
   notRegisteredOwner?: boolean;
   designers: OwnerDesignerCreateRequest[];
   specieFormId?: string;
-  badges?: string[];
+  badge?: string;
 };
 
 export type AdoptUpdateRequest = {
   name: string;
   subTraits?: SubTraitUpdateRequest[];
+  specieId: string;
 };
 
 // -------- Response --------
@@ -46,6 +47,8 @@ export type AdoptInfo = {
   favoriteCharacterIndex: number;
   ownerId: string;
   specieCode: string;
+  specieFormUrl: string;
+  specieId: string;
 };
 
 export type AdoptSingletonResponse = {

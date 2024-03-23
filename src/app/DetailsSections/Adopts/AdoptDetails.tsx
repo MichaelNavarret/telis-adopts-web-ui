@@ -6,12 +6,14 @@ import strings from "../../../l10n";
 import {
   getBorderColor,
   getIconBoxShadow,
+  isDefined,
   safeGetIcon,
 } from "../../../tools/commons";
 import SectionComponent from "../../../components/SectionComponent/SectionComponent";
 import SectionField from "../../../components/SectionComponent/SectionField";
 import { useState } from "react";
-import ImageSection from "../Species/components/ImageSection";
+import ImageSection from "./components/ImageSection";
+import { EditMainInformationDialog } from "./EditDialog/EditMainInformationDialog";
 
 type AdoptDetailsProps = {
   adoptId: string;
@@ -28,57 +30,94 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
     },
   });
 
+  const getOrderedTraits = () => {
+    return adoptResponse?.traits.sort((a, b) => {
+      if (a.mainTraitDisplayPriority < b.mainTraitDisplayPriority) {
+        return -1;
+      }
+      if (a.mainTraitDisplayPriority > b.mainTraitDisplayPriority) {
+        return 1;
+      }
+      return 0;
+    });
+  };
+
   return (
-    <div className={styles.mainContainer}>
-      <div className={styles.titleSection}>
-        <TextComponent
-          content={strings.ADOPT_DETAILS}
-          hover={false}
-          animation={false}
-          fontSize="x-large"
-        />
-      </div>
-      <div className={styles.iconSection}>
-        <img
-          src={safeGetIcon(adoptResponse?.iconUrl)}
-          alt="adopt_icon"
-          width={200}
-          style={{
-            filter: getIconBoxShadow(getBorderColor(adoptResponse?.specieCode)),
-          }}
-        />
-      </div>
-      <SectionComponent
-        titleSection={strings.MAIN_INFORMATION}
-        onEdit={() => setMainInformationDialog(true)}
-      >
-        <SectionField label={strings.NAME} value={adoptResponse?.name} />
-        <SectionField label={strings.CODE} value={adoptResponse?.code} />
-        <SectionField
-          label={strings.SPECIE}
-          value={adoptResponse?.specieName}
-        />
-      </SectionComponent>
-      <div className={styles.secondContainer}>
-        <div className={styles.badgeAndFormContainer}>
-          {adoptResponse && adoptResponse.badge && (
+    <>
+      <div className={styles.mainContainer}>
+        <div className={styles.titleSection}>
+          <TextComponent
+            content={strings.ADOPT_DETAILS}
+            hover={false}
+            animation={false}
+            fontSize="x-large"
+          />
+        </div>
+        <div className={styles.iconSection}>
+          <img
+            src={safeGetIcon(adoptResponse?.iconUrl)}
+            alt="adopt_icon"
+            width={200}
+            style={{
+              filter: getIconBoxShadow(
+                getBorderColor(adoptResponse?.specieCode)
+              ),
+            }}
+          />
+        </div>
+        <SectionComponent
+          titleSection={strings.MAIN_INFORMATION}
+          onEdit={() => setMainInformationDialog(true)}
+        >
+          <SectionField label={strings.NAME} value={adoptResponse?.name} />
+          <SectionField label={strings.CODE} value={adoptResponse?.code} />
+          <SectionField
+            label={strings.SPECIE}
+            value={adoptResponse?.specieName}
+          />
+        </SectionComponent>
+        <div className={styles.secondContainer}>
+          <div className={styles.badgeAndFormContainer}>
             <ImageSection
               titleSection={strings.BADGE}
-              imageUrl={adoptResponse?.badge.badgeUrl}
+              imageUrl={
+                adoptResponse?.badge ? adoptResponse?.badge.badgeUrl : ""
+              }
               onEdit={() => {}}
+              width="50px"
+              paddingBottom="10px"
             />
-          )}
-          {adoptResponse && adoptResponse.specieFormId && (
+
             <ImageSection
               titleSection={strings.FORM}
-              imageUrl={adoptResponse?.specieFormId}
+              imageUrl={adoptResponse?.specieFormUrl}
               onEdit={() => {}}
+              width="250px"
             />
-          )}
-          <div className={styles.formContainer}>Form</div>
+          </div>
+          <div className={styles.traitsContainer}>
+            <SectionComponent
+              titleSection={strings.TRAITS}
+              onEdit={() => {}}
+              flexDirection="column"
+              alignItems="flex-start"
+            >
+              {getOrderedTraits()?.map((trait) => (
+                <SectionField
+                  key={trait.id}
+                  label={trait.mainTrait}
+                  value={trait.rarity}
+                />
+              ))}
+            </SectionComponent>
+          </div>
         </div>
-        <div className={styles.traitsContainer}>Traits</div>
       </div>
-    </div>
+      <EditMainInformationDialog
+        open={mainInformationDialog}
+        adopt={adoptResponse}
+        handleClose={() => setMainInformationDialog(false)}
+      />
+    </>
   );
 };

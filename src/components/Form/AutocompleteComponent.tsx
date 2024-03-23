@@ -14,6 +14,7 @@ type AutocompleteComponentProps = {
   handleChange: (e: any) => void;
   disabled?: boolean;
   required?: boolean;
+  value?: AutocompleteOption;
 };
 
 const AutocompleteComponent = (props: AutocompleteComponentProps) => {
@@ -24,6 +25,7 @@ const AutocompleteComponent = (props: AutocompleteComponentProps) => {
     handleChange,
     disabled = false,
     required = false,
+    value,
   } = props;
 
   return (
@@ -33,6 +35,7 @@ const AutocompleteComponent = (props: AutocompleteComponentProps) => {
         freeSolo={freeSolo}
         options={options}
         disabled={disabled}
+        value={value}
         isOptionEqualToValue={(option, value) => {
           return option.value === value.value;
         }}

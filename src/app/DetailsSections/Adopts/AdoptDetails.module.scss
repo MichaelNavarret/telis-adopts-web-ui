@@ -16,7 +16,6 @@
     border-radius: 15px;
   }
   .secondContainer {
-    border: 1px solid black;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -25,21 +24,17 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      border: 1px solid black;
       width: 100%;
       .badgeContainer {
         flex: 1;
-        border: 1px solid black;
         text-align: center;
       }
       .formContainer {
         flex: 1;
-        border: 1px solid black;
         text-align: center;
       }
     }
     .traitsContainer {
-      border: 1px solid black;
       width: 100%;
     }
   }

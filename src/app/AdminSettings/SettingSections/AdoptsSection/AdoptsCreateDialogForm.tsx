@@ -73,7 +73,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
   ]);
   const availableDesignerSection =
     creationType === "MYO" || creationType === "GUEST_ARTIST";
-  const [selectedBadges, setSelectedBadges] = useState<string[]>([]);
+  const [selectedBadge, setSelectedBadge] = useState<string>();
 
   useEffect(() => {
     clearStates();
@@ -84,7 +84,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
     setChecked([]);
     setAvailableTraits([]);
     setTraitsPayload([{}]);
-    setSelectedBadges([]);
+    setSelectedBadge("");
   }, [handleClose]);
 
   useEffect(() => {
@@ -199,7 +199,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
       designers: mergeDesigners(),
       subTraits: filteredTraitsPayload(traitsPayload),
       specieFormId: specieFormId,
-      badges: selectedBadges,
+      badge: selectedBadge,
     };
     createAdoptMutation(payload);
   };
@@ -574,8 +574,8 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
       <div className={styles.secondContainer}>
         <Container className={styles.badgesSection}>
           <BadgesExpositor
-            selectedBadges={selectedBadges}
-            setSelectedBadges={setSelectedBadges}
+            selectedBadge={selectedBadge}
+            setSelectedBadge={setSelectedBadge}
           />
         </Container>
         <Container

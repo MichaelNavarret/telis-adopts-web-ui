@@ -11,10 +11,20 @@ type ImageSectionProps = {
   onEdit: (files: File[]) => void;
   padding?: string;
   roundedImage?: string;
+  width?: string;
+  paddingBottom?: string;
 };
 
 const ImageSection = (props: ImageSectionProps) => {
-  const { titleSection, imageUrl, onEdit, padding, roundedImage } = props;
+  const {
+    titleSection,
+    imageUrl,
+    onEdit,
+    padding,
+    roundedImage,
+    width = "100%",
+    paddingBottom,
+  } = props;
   const { colors } = useTheme();
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -41,8 +51,8 @@ const ImageSection = (props: ImageSectionProps) => {
       <img
         src={imageUrl}
         alt="Logo"
-        width={"100%"}
-        style={{ borderRadius: roundedImage }}
+        width={width}
+        style={{ borderRadius: roundedImage, paddingBottom }}
       />
 
       <div {...getRootProps()}>
