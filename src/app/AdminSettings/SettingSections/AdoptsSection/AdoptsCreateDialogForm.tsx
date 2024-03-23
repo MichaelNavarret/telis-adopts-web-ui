@@ -80,7 +80,12 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
     setOwnerOption(0);
     setDesignersFields(1);
     setDesignersOption([0]);
-  }, [handleClose]);
+    setTraitsFields(undefined);
+    setChecked([]);
+    setAvailableTraits([]);
+    setTraitsPayload([{}]);
+    setSelectedBadges([]);
+  }, [handleClose, specie]);
 
   const { data: ownersResponse } = useQuery({
     queryKey: ["autocompleteOwners"],
