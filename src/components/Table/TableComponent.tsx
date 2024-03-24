@@ -100,7 +100,7 @@ export const TableComponent = (props: TableComponentProps) => {
   const debounceSetCurrentSearch = useCallback(
     debounce((value) => {
       state.setCurrentSearch(value);
-      state.setCurrentTab(0);
+      state.setCurrentPage(0);
     }, 1000),
     []
   );
