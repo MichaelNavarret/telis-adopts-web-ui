@@ -199,7 +199,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
       designers: mergeDesigners(),
       subTraits: filteredTraitsPayload(traitsPayload),
       specieFormId: specieFormId,
-      badge: selectedBadge,
+      badgeId: selectedBadge,
     };
     createAdoptMutation(payload);
   };

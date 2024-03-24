@@ -19,7 +19,7 @@ export type AdoptCreateRequest = {
   notRegisteredOwner?: boolean;
   designers: OwnerDesignerCreateRequest[];
   specieFormId?: string;
-  badge?: string;
+  badgeId?: string;
 };
 
 export type AdoptUpdateRequest = {
