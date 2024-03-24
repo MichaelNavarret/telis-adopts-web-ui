@@ -11,4 +11,6 @@ export const specieEn = {
   SPECIE_UPDATED_SUCCESSFULLY: "Specie updated successfully!",
   UPDATE_STORY: "Update story",
   SPECIE_STORY_UPDATED_SUCCESSFULLY: "Specie story updated successfully!",
+  SPECIE_NOT_HAVE_FORMS: "The specie don't have any form",
+  FORM_SPECIE: "Form specie",
 };

@@ -1,4 +1,4 @@
-import { SpecieFormInfo } from "../../../../../types/species";
+import { SpecieFormInfo } from "../../types/species";
 import styles from "./SpecieFormExpositor.module.scss";
 
 type SpecieFormItemProps = {

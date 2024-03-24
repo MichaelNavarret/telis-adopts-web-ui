@@ -39,8 +39,8 @@ import CatsLoading from "../../../../components/Loading/CatsLoading";
 import { TraitInfo } from "../../../../types/traits";
 import { Checkbox } from "@mui/material";
 import AdoptIconDropzone from "./components/AdoptIconDropzone";
-import SpecieFormExpositor from "./components/SpecieFormExpositor";
-import { BadgesExpositor } from "./components/BadgesExpositor";
+import SpecieFormExpositor from "../../../../components/surfaces/SpecieFormExpositor";
+import { BadgesExpositor } from "../../../../components/surfaces/BadgesExpositor";
 
 type AdoptsCreateDialogFormProps = {
   open: boolean;
@@ -73,7 +73,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
   ]);
   const availableDesignerSection =
     creationType === "MYO" || creationType === "GUEST_ARTIST";
-  const [selectedBadges, setSelectedBadges] = useState<string[]>([]);
+  const [selectedBadge, setSelectedBadge] = useState<string>();
 
   useEffect(() => {
     clearStates();
@@ -84,7 +84,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
     setChecked([]);
     setAvailableTraits([]);
     setTraitsPayload([{}]);
-    setSelectedBadges([]);
+    setSelectedBadge("");
   }, [handleClose]);
 
   useEffect(() => {
@@ -199,7 +199,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
       designers: mergeDesigners(),
       subTraits: filteredTraitsPayload(traitsPayload),
       specieFormId: specieFormId,
-      badges: selectedBadges,
+      badge: selectedBadge,
     };
     createAdoptMutation(payload);
   };
@@ -371,10 +371,6 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
 
   const isAvailableTrait = (traitId: string) => {
     return isDefined(availableTraits.find((trait) => trait === traitId));
-  };
-
-  const handleSpecieFormClick = (value: string) => {
-    setSpecieFormId(value);
   };
 
   const dialogContent = (
@@ -574,8 +570,8 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
       <div className={styles.secondContainer}>
         <Container className={styles.badgesSection}>
           <BadgesExpositor
-            selectedBadges={selectedBadges}
-            setSelectedBadges={setSelectedBadges}
+            selectedBadge={selectedBadge}
+            setSelectedBadge={setSelectedBadge}
           />
         </Container>
         <Container
@@ -667,9 +663,10 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
         <div className={styles.formSpecieSection}>
           {specieInfo && specieInfo.specieFormInfoList && (
             <SpecieFormExpositor
-              specieFormList={specieInfo?.specieFormInfoList || []}
+              selected={specieFormId}
+              setSelected={setSpecieFormId}
               borderColor={colors.CTX_BORDER_ICON_COLOR}
-              handleClick={handleSpecieFormClick}
+              specieId={specie?.value || ""}
             />
           )}
         </div>

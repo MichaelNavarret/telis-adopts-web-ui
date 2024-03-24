@@ -19,12 +19,15 @@ export type AdoptCreateRequest = {
   notRegisteredOwner?: boolean;
   designers: OwnerDesignerCreateRequest[];
   specieFormId?: string;
-  badges?: string[];
+  badge?: string;
 };
 
 export type AdoptUpdateRequest = {
-  name: string;
+  name?: string;
   subTraits?: SubTraitUpdateRequest[];
+  specieId?: string;
+  badgeId?: string;
+  specieFormId?: string;
 };
 
 // -------- Response --------
@@ -42,9 +45,12 @@ export type AdoptInfo = {
   iconUrl: string;
   traits: SubTraitInfo[];
   specieFormId: string;
-  badges: BadgeInfo[];
+  badge: BadgeInfo;
   favoriteCharacterIndex: number;
   ownerId: string;
+  specieCode: string;
+  specieFormUrl: string;
+  specieId: string;
 };
 
 export type AdoptSingletonResponse = {
