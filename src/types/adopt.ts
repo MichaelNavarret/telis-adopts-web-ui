@@ -23,9 +23,11 @@ export type AdoptCreateRequest = {
 };
 
 export type AdoptUpdateRequest = {
-  name: string;
+  name?: string;
   subTraits?: SubTraitUpdateRequest[];
-  specieId: string;
+  specieId?: string;
+  badgeId?: string;
+  specieFormId?: string;
 };
 
 // -------- Response --------

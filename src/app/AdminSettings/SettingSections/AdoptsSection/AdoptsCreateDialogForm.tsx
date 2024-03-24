@@ -39,8 +39,8 @@ import CatsLoading from "../../../../components/Loading/CatsLoading";
 import { TraitInfo } from "../../../../types/traits";
 import { Checkbox } from "@mui/material";
 import AdoptIconDropzone from "./components/AdoptIconDropzone";
-import SpecieFormExpositor from "./components/SpecieFormExpositor";
-import { BadgesExpositor } from "./components/BadgesExpositor";
+import SpecieFormExpositor from "../../../../components/surfaces/SpecieFormExpositor";
+import { BadgesExpositor } from "../../../../components/surfaces/BadgesExpositor";
 
 type AdoptsCreateDialogFormProps = {
   open: boolean;
@@ -373,10 +373,6 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
     return isDefined(availableTraits.find((trait) => trait === traitId));
   };
 
-  const handleSpecieFormClick = (value: string) => {
-    setSpecieFormId(value);
-  };
-
   const dialogContent = (
     <form
       onSubmit={onSubmit}
@@ -667,9 +663,10 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
         <div className={styles.formSpecieSection}>
           {specieInfo && specieInfo.specieFormInfoList && (
             <SpecieFormExpositor
-              specieFormList={specieInfo?.specieFormInfoList || []}
+              selected={specieFormId}
+              setSelected={setSpecieFormId}
               borderColor={colors.CTX_BORDER_ICON_COLOR}
-              handleClick={handleSpecieFormClick}
+              specieId={specie?.value || ""}
             />
           )}
         </div>

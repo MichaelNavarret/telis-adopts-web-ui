@@ -15,7 +15,6 @@ import { ImCross } from "react-icons/im";
 import TraitList from "./TraitsList";
 import { useQuery } from "react-query";
 import { getSpecieForm } from "../../../../api/species";
-import BadgesExpositor from "./BadgesExpositor";
 import { isDefined } from "../../../../tools/commons";
 import { getColorsBySpecie } from "../../../../constants/colors";
 
@@ -83,13 +82,15 @@ const AdoptCard = (props: AdoptCardProps) => {
               notAnimation
             />
             <div className={styles.badgesContainer}>
-              <BadgesExpositor
-                badgesCode={
-                  isDefined(adopt.badges)
-                    ? adopt.badges.map((badge) => badge.code)
-                    : []
-                }
-              />
+              {isDefined(adopt.badge) && (
+                <img
+                  key={adopt.badge.id}
+                  src={adopt.badge.badgeUrl}
+                  alt="badge"
+                  className="badge"
+                  width={40}
+                />
+              )}
             </div>
           </div>
           <div className={styles.subHeaderContainer}>

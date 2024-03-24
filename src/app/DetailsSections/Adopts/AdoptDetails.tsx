@@ -6,7 +6,6 @@ import strings from "../../../l10n";
 import {
   getBorderColor,
   getIconBoxShadow,
-  isDefined,
   safeGetIcon,
 } from "../../../tools/commons";
 import SectionComponent from "../../../components/SectionComponent/SectionComponent";
@@ -14,6 +13,8 @@ import SectionField from "../../../components/SectionComponent/SectionField";
 import { useState } from "react";
 import ImageSection from "./components/ImageSection";
 import { EditMainInformationDialog } from "./EditDialog/EditMainInformationDialog";
+import { EditBadgeDialog } from "./EditDialog/EditBadgeDialog";
+import { EditSpecieFormDialog } from "./EditDialog/EditSpecieFormDialog";
 
 type AdoptDetailsProps = {
   adoptId: string;
@@ -22,6 +23,8 @@ type AdoptDetailsProps = {
 export const AdoptDetails = (props: AdoptDetailsProps) => {
   const { adoptId } = props;
   const [mainInformationDialog, setMainInformationDialog] = useState(false);
+  const [editBadgeDialog, setEditBadgeDialog] = useState(false);
+  const [editSpecieFormDialog, setEditSpecieFormDialog] = useState(false);
 
   const { data: adoptResponse } = useQuery({
     queryKey: ["adoptDetails", adoptId],
@@ -83,7 +86,7 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
               imageUrl={
                 adoptResponse?.badge ? adoptResponse?.badge.badgeUrl : ""
               }
-              onEdit={() => {}}
+              onEdit={() => setEditBadgeDialog(true)}
               width="50px"
               paddingBottom="10px"
             />
@@ -91,7 +94,7 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
             <ImageSection
               titleSection={strings.FORM}
               imageUrl={adoptResponse?.specieFormUrl}
-              onEdit={() => {}}
+              onEdit={() => setEditSpecieFormDialog(true)}
               width="250px"
             />
           </div>
@@ -117,6 +120,16 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
         open={mainInformationDialog}
         adopt={adoptResponse}
         handleClose={() => setMainInformationDialog(false)}
+      />
+      <EditBadgeDialog
+        open={editBadgeDialog}
+        adopt={adoptResponse}
+        handleClose={() => setEditBadgeDialog(false)}
+      />
+      <EditSpecieFormDialog
+        open={editSpecieFormDialog}
+        adopt={adoptResponse}
+        handleClose={() => setEditSpecieFormDialog(false)}
       />
     </>
   );
