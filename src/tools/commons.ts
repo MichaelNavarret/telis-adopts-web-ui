@@ -71,3 +71,31 @@ export const getBorderColor = (specie?: string) => {
   if (specie === "plunies") return pluniesColors.borderIcon;
   return laniesColors.borderIcon;
 };
+
+export const formatDate = (date: string) => {
+  const ISODate = date;
+  const newDate = new Date(ISODate);
+
+  const day = newDate.getDate();
+  const month = newDate.getMonth() + 1;
+  const year = newDate.getFullYear();
+
+  const formattedMonth = month < 10 ? `0${month}` : month;
+  const formattedDay = day < 10 ? `0${day}` : day;
+
+  return `${formattedMonth}/${formattedDay}/${year}`;
+};
+
+export const formatDateToFormField = (date: string) => {
+  const ISODate = date;
+  const newDate = new Date(ISODate);
+
+  const day = newDate.getDate();
+  const month = newDate.getMonth() + 1;
+  const year = newDate.getFullYear();
+
+  const formattedMonth = month < 10 ? `0${month}` : month;
+  const formattedDay = day < 10 ? `0${day}` : day;
+
+  return `${year}-${formattedMonth}-${formattedDay}`;
+};

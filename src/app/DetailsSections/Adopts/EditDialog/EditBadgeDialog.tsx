@@ -46,6 +46,13 @@ export const EditBadgeDialog = (props: EditBadgeDialogProps) => {
     updateBadge(payload);
   };
 
+  const removeBadge = () => {
+    const payload: AdoptUpdateRequest = {
+      badgeId: "",
+    };
+    updateBadge(payload);
+  };
+
   const dialogContent = (
     <form
       onSubmit={onSubmit}
@@ -61,6 +68,18 @@ export const EditBadgeDialog = (props: EditBadgeDialogProps) => {
         content={strings.UPDATE}
         width="150px"
         height="30px"
+        disabled={isUpdateBadgeLoading}
+        loading={isUpdateBadgeLoading}
+        catsLoading={isUpdateBadgeLoading}
+        withShadow={false}
+      />
+      <Button
+        onClick={removeBadge}
+        content={strings.REMOVE}
+        width="150px"
+        height="30px"
+        colorButton="red"
+        colorTextButton="white"
         disabled={isUpdateBadgeLoading}
         loading={isUpdateBadgeLoading}
         catsLoading={isUpdateBadgeLoading}

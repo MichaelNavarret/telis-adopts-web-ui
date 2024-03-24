@@ -6,6 +6,7 @@ import TableComponent, {
 import { adoptsTableColumns } from "../../../../constants/TablesColumns";
 import strings from "../../../../l10n";
 import { formatAdoptsTableRows } from "./adoptsTableFormat";
+import { adoptTableTabs } from "./components/adoptsTableTabs";
 
 type AdoptsTableProps = {
   handleOpen: () => void;
@@ -20,9 +21,20 @@ const AdoptsTable = (props: AdoptsTableProps) => {
     isLoading,
     isFetching,
   } = useQuery({
-    queryKey: ["adopts", state.currentPage],
+    queryKey: [
+      "adopts",
+      state.currentPage,
+      state.currentTab,
+      state.currentSearch,
+    ],
     queryFn: () => {
-      return getAdopts({}, state.currentPage);
+      return getAdopts(
+        {
+          creationType: adoptTableTabs[state.currentTab].value,
+          q: state.currentSearch,
+        },
+        state.currentPage
+      );
     },
   });
 
@@ -30,6 +42,7 @@ const AdoptsTable = (props: AdoptsTableProps) => {
 
   return (
     <TableComponent
+      tabs={adoptTableTabs}
       title={strings.ADOPT}
       columns={adoptsTableColumns}
       data={formatAdoptsTableRows(adoptsResponse?.data || [])}

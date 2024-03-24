@@ -34,3 +34,54 @@
     margin-top: 10px;
   }
 }
+
+.tabsContainer {
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.searchContainer {
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 10px;
+  gap: 5px;
+  .clearSearch {
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      scale: 1.1;
+    }
+    &:active {
+      scale: 0.9;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .mainContainer {
+    .headerContainer {
+      .titleContainer {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .buttonsContainer {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  }
+
+  .searchContainer {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-right: 0;
+    gap: 5px;
+  }
+}

@@ -13,6 +13,7 @@ import { updateAdopt } from "../../../../api/adopts";
 import { successToast } from "../../../../constants/toasts";
 import { Button } from "../../../../components";
 import styles from "./EditDialog.module.scss";
+import { formatDate, formatDateToFormField } from "../../../../tools/commons";
 
 type EditMainInformationDialogProps = {
   open: boolean;
@@ -27,6 +28,7 @@ export const EditMainInformationDialog = (
   const { open, adopt, handleClose } = props;
   const [name, setName] = useState("");
   const [specie, setSpecie] = useState<AutocompleteOption>();
+  const [createdOn, setCreatedOn] = useState("");
 
   useEffect(() => {
     if (adopt) {
@@ -35,6 +37,7 @@ export const EditMainInformationDialog = (
         label: adopt.specieName,
         value: adopt.specieId,
       });
+      setCreatedOn(formatDateToFormField(adopt.createdOn));
     }
   }, [adopt, handleClose]);
 
@@ -62,6 +65,7 @@ export const EditMainInformationDialog = (
     const payload: AdoptUpdateRequest = {
       name,
       specieId: specie?.value || "",
+      createdOn,
     };
     updateInformation(payload);
   };
@@ -84,6 +88,13 @@ export const EditMainInformationDialog = (
         options={formatSpecieInfoForDropdown(speciesOptions)}
         handleChange={(value: AutocompleteOption) => setSpecie(value)}
         value={specie}
+      />
+      <TextFieldComponent
+        type="date"
+        id="createdOn"
+        label={strings.CREATED_ON}
+        value={createdOn}
+        onChange={(e) => setCreatedOn(e.target.value)}
       />
       <Button
         type="submit"

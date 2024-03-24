@@ -34,4 +34,7 @@ export const commonEn = {
   ARE_SURE_TO_EXIT: "Are you sure you want to exit?",
   PREVIEW: "Preview",
   MAIN_INFORMATION: "Main Information",
+  REMOVE: "Remove",
+  CREATED_ON: "Created On",
+  ALL: "All",
 };
