@@ -6,7 +6,7 @@ import {
   SubTraitUpdateRequest,
 } from "./subTraits";
 
-export type CreationType = "PREMADE" | "CUSTOM" | "MYO" | "GUEST_ARTIST";
+export type CreationType = "" | "PREMADE" | "CUSTOM" | "MYO" | "GUEST_ARTIST";
 
 // -------- Request --------
 export type AdoptCreateRequest = {
@@ -67,4 +67,5 @@ export type AdoptAutocompleteParams = {
   creationType?: CreationType;
   sort?: string;
   ownerId?: string;
+  q?: string;
 };

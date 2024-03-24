@@ -22,6 +22,7 @@ type ButtonProps = {
   withShadow?: boolean;
   selected?: boolean;
   notSelected?: boolean;
+  singleSelected?: boolean;
 };
 
 export const Button = (props: ButtonProps) => {
@@ -44,6 +45,7 @@ export const Button = (props: ButtonProps) => {
     withShadow = true,
     selected,
     notSelected,
+    singleSelected,
   } = props;
 
   const getLoadingIcon = () => {
@@ -54,6 +56,7 @@ export const Button = (props: ButtonProps) => {
   const boxShadow = `0 0 10px ${buttonColorShadow}`;
 
   const getBackgroundColor = () => {
+    if (singleSelected) return colors.CTX_MENUBAR_COLOR;
     if (selected) return colors.CTX_MENUBAR_HOVER_COLOR;
     if (notSelected) return "grey";
     return colorButton;

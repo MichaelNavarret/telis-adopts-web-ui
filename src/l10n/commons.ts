@@ -36,4 +36,5 @@ export const commonEn = {
   MAIN_INFORMATION: "Main Information",
   REMOVE: "Remove",
   CREATED_ON: "Created On",
+  ALL: "All",
 };

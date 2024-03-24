@@ -11,14 +11,25 @@ import styles from "./TableComponent.module.scss";
 import { Button } from "..";
 import { useTheme } from "../../context/ThemeProvider";
 import TableRowComponent from "./TableRowComponent";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import CatsLoading from "../Loading/CatsLoading";
+import { RxCrossCircled } from "react-icons/rx";
+import { debounce } from "lodash";
 
 export const useDataTable = () => {
   const [currentPage, setCurrentPage] = useState(0);
+  const [currentTab, setCurrentTab] = useState(0);
+  const [currentSearch, setCurrentSearch] = useState("");
 
   return {
-    state: { currentPage, setCurrentPage },
+    state: {
+      currentPage,
+      setCurrentPage,
+      currentTab,
+      setCurrentTab,
+      currentSearch,
+      setCurrentSearch,
+    },
   };
 };
 
@@ -43,10 +54,12 @@ type TableComponentProps = {
   fetching?: boolean;
   height?: string;
   withPagination?: boolean;
+  tabs?: any;
 };
 
 export const TableComponent = (props: TableComponentProps) => {
   const { colors } = useTheme();
+  const [inputSearch, setInputSearch] = useState("");
 
   const {
     columns = [],
@@ -62,6 +75,7 @@ export const TableComponent = (props: TableComponentProps) => {
     fetching = false,
     height,
     withPagination = true,
+    tabs,
   } = props;
 
   const NotFoundData = () => {
@@ -82,6 +96,13 @@ export const TableComponent = (props: TableComponentProps) => {
     }
     if (!loading && data.length === 0) return <NotFoundData />;
   };
+
+  const debounceSetCurrentSearch = useCallback(
+    debounce((value) => {
+      state.setCurrentSearch(value);
+    }, 1000),
+    []
+  );
 
   return (
     <div className={styles.mainContainer}>
@@ -108,6 +129,49 @@ export const TableComponent = (props: TableComponentProps) => {
           )}
         </div>
       </div>
+
+      {tabs && (
+        <div className={styles.tabsContainer}>
+          {tabs.map((tab: any, index: number) => (
+            <Button
+              className={styles.tabButton}
+              content={tab.label}
+              key={index}
+              height="30px"
+              width="180px"
+              fontSize="x-small"
+              withShadow={false}
+              singleSelected={state.currentTab === index}
+              onClick={() => state.setCurrentTab(index)}
+            >
+              {tab.label}
+            </Button>
+          ))}
+        </div>
+      )}
+
+      <div className={styles.searchContainer}>
+        <input
+          type="text"
+          value={inputSearch}
+          placeholder="Search..."
+          className={styles.searchInput}
+          onChange={(e) => {
+            setInputSearch(e.target.value);
+            debounceSetCurrentSearch(e.target.value);
+          }}
+        />
+
+        <RxCrossCircled
+          onClick={() => {
+            setInputSearch("");
+            state.setCurrentSearch("");
+          }}
+          size={25}
+          className={styles.clearSearch}
+        />
+      </div>
+
       <TableContainer
         className={styles.tableContainer}
         style={{
