@@ -5,6 +5,7 @@ import { Tooltip } from "@mui/material";
 import NOT_ICON from "../../../../assets/utils/not_icon.png";
 import { isDefined } from "../../../../tools/commons";
 import { Link } from "react-router-dom";
+import { BadgeInfo } from "../../../../types/badge";
 
 export function formatAdoptsTableRows(data: AdoptInfo[]) {
   return data.map((item) => {
@@ -12,6 +13,7 @@ export function formatAdoptsTableRows(data: AdoptInfo[]) {
       code: formatCode(item.id, item.code),
       name: item.name,
       ownerName: item.ownerName,
+      badge: formatBadge(item.badge),
       specieName: item.specieName,
       rarity: item.rarity,
       designers: item.designers,
@@ -19,6 +21,19 @@ export function formatAdoptsTableRows(data: AdoptInfo[]) {
     };
   });
 }
+
+const formatBadge = (badge: BadgeInfo) => {
+  return (
+    isDefined(badge) && (
+      <img
+        src={badge.badgeUrl}
+        alt="Logo"
+        width={30}
+        style={{ alignSelf: "center" }}
+      />
+    )
+  );
+};
 
 const formatCode = (adoptId: string, code: string) => {
   return (
