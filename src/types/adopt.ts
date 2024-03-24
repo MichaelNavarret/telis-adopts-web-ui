@@ -28,6 +28,7 @@ export type AdoptUpdateRequest = {
   specieId?: string;
   badgeId?: string;
   specieFormId?: string;
+  createdOn?: string;
 };
 
 // -------- Response --------

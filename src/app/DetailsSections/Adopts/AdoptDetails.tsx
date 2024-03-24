@@ -4,6 +4,7 @@ import styles from "./AdoptDetails.module.scss";
 import TextComponent from "../../../components/TextComponents/TextComponent";
 import strings from "../../../l10n";
 import {
+  formatDate,
   getBorderColor,
   getIconBoxShadow,
   safeGetIcon,
@@ -77,6 +78,10 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
           <SectionField
             label={strings.SPECIE}
             value={adoptResponse?.specieName}
+          />
+          <SectionField
+            label={strings.CREATED_ON}
+            value={formatDate(adoptResponse?.createdOn || "")}
           />
         </SectionComponent>
         <div className={styles.secondContainer}>
