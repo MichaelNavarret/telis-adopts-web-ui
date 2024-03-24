@@ -16,11 +16,17 @@ export function formatAdoptsTableRows(data: AdoptInfo[]) {
       badge: formatBadge(item.badge),
       specieName: item.specieName,
       rarity: item.rarity,
-      designers: item.designers,
+      designers: formatDesigners(item.designers),
       preview: formatPreviewRow(getIcon(item.iconUrl)),
     };
   });
 }
+
+const formatDesigners = (designers: string[]) => {
+  if (isDefined(designers) && designers.length > 0) {
+    return designers.join(", ");
+  }
+};
 
 const formatBadge = (badge: BadgeInfo) => {
   return (
