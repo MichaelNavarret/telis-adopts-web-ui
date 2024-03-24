@@ -13,7 +13,7 @@ import { updateAdopt } from "../../../../api/adopts";
 import { successToast } from "../../../../constants/toasts";
 import { Button } from "../../../../components";
 import styles from "./EditDialog.module.scss";
-import { formatDate, formatDateToFormField } from "../../../../tools/commons";
+import { formatDateToFormField } from "../../../../tools/commons";
 
 type EditMainInformationDialogProps = {
   open: boolean;
