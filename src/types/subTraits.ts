@@ -11,6 +11,7 @@ export type SubTraitInfo = {
   additionalInfo: string;
   rarity: string;
   mainTraitDisplayPriority: number;
+  mainTraitId: string;
 };
 
 export type SubTraitUpdateRequest = {

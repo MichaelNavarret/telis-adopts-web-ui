@@ -16,6 +16,7 @@ import ImageSection from "./components/ImageSection";
 import { EditMainInformationDialog } from "./EditDialog/EditMainInformationDialog";
 import { EditBadgeDialog } from "./EditDialog/EditBadgeDialog";
 import { EditSpecieFormDialog } from "./EditDialog/EditSpecieFormDialog";
+import EditTraitsDialog from "./EditDialog/EditTraitsDialog";
 
 type AdoptDetailsProps = {
   adoptId: string;
@@ -26,6 +27,7 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
   const [mainInformationDialog, setMainInformationDialog] = useState(false);
   const [editBadgeDialog, setEditBadgeDialog] = useState(false);
   const [editSpecieFormDialog, setEditSpecieFormDialog] = useState(false);
+  const [editTraitsDialog, setEditTraitsDialog] = useState(false);
 
   const { data: adoptResponse } = useQuery({
     queryKey: ["adoptDetails", adoptId],
@@ -106,7 +108,7 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
           <div className={styles.traitsContainer}>
             <SectionComponent
               titleSection={strings.TRAITS}
-              onEdit={() => {}}
+              onEdit={() => setEditTraitsDialog(true)}
               flexDirection="column"
               alignItems="flex-start"
             >
@@ -135,6 +137,11 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
         open={editSpecieFormDialog}
         adopt={adoptResponse}
         handleClose={() => setEditSpecieFormDialog(false)}
+      />
+      <EditTraitsDialog
+        open={editTraitsDialog}
+        adopt={adoptResponse}
+        handleClose={() => setEditTraitsDialog(false)}
       />
     </>
   );
