@@ -30,6 +30,7 @@ export type AdoptUpdateRequest = {
   specieFormId?: string;
   createdOn?: string;
   ownerId?: string;
+  designerIds?: string[];
 };
 
 // -------- Response --------

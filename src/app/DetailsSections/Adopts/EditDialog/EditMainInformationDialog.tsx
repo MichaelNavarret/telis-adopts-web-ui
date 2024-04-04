@@ -34,7 +34,6 @@ export const EditMainInformationDialog = (
   const [specie, setSpecie] = useState<AutocompleteOption>();
   const [createdOn, setCreatedOn] = useState("");
   const [owner, setOwner] = useState<AutocompleteOption>();
-  const [designes, setDesigners] = useState<AutocompleteOption[]>();
 
   useEffect(() => {
     if (adopt) {
@@ -123,6 +122,7 @@ export const EditMainInformationDialog = (
         handleChange={(value: AutocompleteOption) => setOwner(value)}
         value={owner}
       />
+
       <Button
         type="submit"
         content={strings.UPDATE}
