@@ -1,5 +1,5 @@
 import { BadgeInfo } from "./badge";
-import { OwnerDesignerCreateRequest } from "./owner";
+import { OwnerDesignerCreateRequest, OwnerInfo } from "./owner";
 import {
   SubTraitCreateRequest,
   SubTraitInfo,
@@ -39,7 +39,7 @@ export type AdoptInfo = {
   name: string;
   ownerName: string;
   specieName: string;
-  designers: string[];
+  designers: OwnerInfo[];
   createdOn: string;
   boughtOn: string;
   registeredOn: string;

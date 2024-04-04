@@ -92,7 +92,7 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
           <SectionField
             label={strings.DESIGNERS}
             value={adoptResponse?.designers
-              .map((designer) => designer)
+              .map((designer) => designer.nickName)
               .join(", ")}
           />
         </SectionComponent>

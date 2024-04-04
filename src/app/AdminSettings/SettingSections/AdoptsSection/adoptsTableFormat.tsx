@@ -6,6 +6,7 @@ import NOT_ICON from "../../../../assets/utils/not_icon.png";
 import { isDefined } from "../../../../tools/commons";
 import { Link } from "react-router-dom";
 import { BadgeInfo } from "../../../../types/badge";
+import { OwnerInfo } from "../../../../types/owner";
 
 export function formatAdoptsTableRows(data: AdoptInfo[]) {
   return data.map((item) => {
@@ -22,9 +23,9 @@ export function formatAdoptsTableRows(data: AdoptInfo[]) {
   });
 }
 
-const formatDesigners = (designers: string[]) => {
+const formatDesigners = (designers: OwnerInfo[]) => {
   if (isDefined(designers) && designers.length > 0) {
-    return designers.join(", ");
+    return designers.map((designer) => designer.nickName).join(", ");
   }
 };
 
