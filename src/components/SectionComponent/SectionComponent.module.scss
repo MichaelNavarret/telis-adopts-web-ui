@@ -14,13 +14,20 @@
     justify-content: space-between;
     padding-bottom: 5px;
   }
-  .sectionContent {
-    flex: 0.8;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 33.33%;
-    padding: 20px;
-  }
+}
+
+.gridSectionContent {
+  flex: 0.8;
+  display: grid;
+  grid-template-columns: repeat(3, 33.33%);
+  padding: 20px;
+}
+
+.flexSectionContent {
+  flex: 0.8;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
 }
 
 .sectionField {

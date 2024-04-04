@@ -6,14 +6,18 @@ import TextFieldComponent from "../../../../components/Form/TextFieldComponent";
 import AutocompleteComponent, {
   AutocompleteOption,
 } from "../../../../components/Form/AutocompleteComponent";
-import { formatSpecieInfoForDropdown } from "../../../../tools/dropdown";
+import {
+  formatOwnerInfoForDropdown,
+  formatSpecieInfoForDropdown,
+} from "../../../../tools/dropdown";
 import { getSpeciesAutocomplete } from "../../../../api/species";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { updateAdopt } from "../../../../api/adopts";
 import { successToast } from "../../../../constants/toasts";
 import { Button } from "../../../../components";
 import styles from "./EditDialog.module.scss";
-import { formatDateToFormField } from "../../../../tools/commons";
+import { formatDateToFormField, isDefined } from "../../../../tools/commons";
+import { getOwnersAutocomplete } from "../../../../api/owners";
 
 type EditMainInformationDialogProps = {
   open: boolean;
@@ -29,6 +33,7 @@ export const EditMainInformationDialog = (
   const [name, setName] = useState("");
   const [specie, setSpecie] = useState<AutocompleteOption>();
   const [createdOn, setCreatedOn] = useState("");
+  const [owner, setOwner] = useState<AutocompleteOption>();
 
   useEffect(() => {
     if (adopt) {
@@ -38,6 +43,12 @@ export const EditMainInformationDialog = (
         value: adopt.specieId,
       });
       setCreatedOn(formatDateToFormField(adopt.createdOn));
+      if (isDefined(adopt.ownerId)) {
+        setOwner({
+          label: adopt.ownerName,
+          value: adopt.ownerId,
+        });
+      }
     }
   }, [adopt, handleClose]);
 
@@ -53,6 +64,13 @@ export const EditMainInformationDialog = (
       },
     });
 
+  const { data: ownersResponse } = useQuery({
+    queryKey: ["autocompleteOwners"],
+    queryFn: () => {
+      return getOwnersAutocomplete();
+    },
+  });
+
   const { data: speciesOptions } = useQuery({
     queryKey: ["autocompleteSpecies"],
     queryFn: () => {
@@ -66,6 +84,7 @@ export const EditMainInformationDialog = (
       name,
       specieId: specie?.value || "",
       createdOn,
+      ownerId: owner?.value || "",
     };
     updateInformation(payload);
   };
@@ -88,6 +107,7 @@ export const EditMainInformationDialog = (
         options={formatSpecieInfoForDropdown(speciesOptions)}
         handleChange={(value: AutocompleteOption) => setSpecie(value)}
         value={specie}
+        required
       />
       <TextFieldComponent
         type="date"
@@ -95,6 +115,12 @@ export const EditMainInformationDialog = (
         label={strings.CREATED_ON}
         value={createdOn}
         onChange={(e) => setCreatedOn(e.target.value)}
+      />
+      <AutocompleteComponent
+        label={strings.OWNER}
+        options={formatOwnerInfoForDropdown(ownersResponse)}
+        handleChange={(value: AutocompleteOption) => setOwner(value)}
+        value={owner}
       />
       <Button
         type="submit"

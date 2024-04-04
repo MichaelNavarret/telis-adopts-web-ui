@@ -8,22 +8,20 @@ type SectionComponentProps = {
   titleSection: string;
   onEdit?: () => void;
   children: React.ReactNode;
-  flexDirection?: "row" | "column";
-  alignItems?: "center" | "flex-start" | "flex-end";
-  justifyContent?: "center" | "flex-start" | "flex-end" | "space-between";
+  displayType?: "column" | "row";
 };
 
 const SectionComponent = (props: SectionComponentProps) => {
-  const {
-    titleSection,
-    onEdit,
-    children,
-    flexDirection = "row",
-    alignItems = "center",
-    justifyContent = "flex-start",
-  } = props;
+  const { titleSection, onEdit, children, displayType = "column" } = props;
   const { colors } = useTheme();
   const borderStyle = "1px solid " + colors.CTX_MENUBAR_COLOR;
+
+  //This will use to get the styles of the section base on if is column or row.
+  const getSectionStyles = () => {
+    if (displayType === "column") return styles.gridSectionContent;
+    return styles.flexSectionContent;
+  };
+
   return (
     <div
       className={styles.sectionComponentContainer}
@@ -51,12 +49,7 @@ const SectionComponent = (props: SectionComponentProps) => {
           />
         )}
       </div>
-      <div
-        className={styles.sectionContent}
-        style={{ flexDirection, alignItems, justifyContent }}
-      >
-        {children}
-      </div>
+      <div className={getSectionStyles()}>{children}</div>
     </div>
   );
 };

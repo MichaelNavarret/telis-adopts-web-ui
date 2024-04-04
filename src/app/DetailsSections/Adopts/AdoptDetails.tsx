@@ -85,6 +85,16 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
             label={strings.CREATED_ON}
             value={formatDate(adoptResponse?.createdOn || "")}
           />
+          <SectionField
+            label={strings.OWNER}
+            value={adoptResponse?.ownerName}
+          />
+          <SectionField
+            label={strings.DESIGNERS}
+            value={adoptResponse?.designers
+              .map((designer) => designer)
+              .join(", ")}
+          />
         </SectionComponent>
         <div className={styles.secondContainer}>
           <div className={styles.badgeAndFormContainer}>
@@ -109,8 +119,7 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
             <SectionComponent
               titleSection={strings.TRAITS}
               onEdit={() => setEditTraitsDialog(true)}
-              flexDirection="column"
-              alignItems="flex-start"
+              displayType="row"
             >
               {getOrderedTraits()?.map((trait) => (
                 <SectionField
