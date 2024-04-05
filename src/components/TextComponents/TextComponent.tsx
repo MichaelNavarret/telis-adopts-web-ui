@@ -3,7 +3,7 @@ import styles from "./TextComponent.module.scss";
 import { useTheme } from "../../context/ThemeProvider";
 
 type TextComponentProps = {
-  content: string;
+  content?: string;
   className?: string;
   colorText?: string;
   colorTextHover?: string;

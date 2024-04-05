@@ -11,7 +11,7 @@ type AutocompleteComponentProps = {
   label: string;
   freeSolo?: boolean;
   options?: AutocompleteOption[];
-  handleChange: (e: any) => void;
+  handleChange?: (e: any) => void;
   disabled?: boolean;
   required?: boolean;
   value?: AutocompleteOption;
@@ -41,9 +41,9 @@ const AutocompleteComponent = (props: AutocompleteComponentProps) => {
         }}
         onChange={(_e, value) => {
           if (isDefined(value)) {
-            handleChange(value);
+            handleChange && handleChange(value);
           } else {
-            handleChange({ label: "", value: "" });
+            handleChange && handleChange({ label: "", value: "" });
           }
         }}
         style={{ width: "100%", borderRadius: "10px" }}

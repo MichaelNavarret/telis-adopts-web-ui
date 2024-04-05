@@ -17,6 +17,7 @@ import { EditMainInformationDialog } from "./EditDialog/EditMainInformationDialo
 import { EditBadgeDialog } from "./EditDialog/EditBadgeDialog";
 import { EditSpecieFormDialog } from "./EditDialog/EditSpecieFormDialog";
 import EditTraitsDialog from "./EditDialog/EditTraitsDialog";
+import DesignersSection from "./components/DesignersSection";
 
 type AdoptDetailsProps = {
   adoptId: string;
@@ -96,6 +97,10 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
               .join(", ")}
           />
         </SectionComponent>
+        <DesignersSection
+          adoptId={adoptId}
+          designers={adoptResponse?.designers || []}
+        />
         <div className={styles.secondContainer}>
           <div className={styles.badgeAndFormContainer}>
             <ImageSection
