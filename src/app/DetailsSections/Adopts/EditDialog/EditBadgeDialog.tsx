@@ -35,6 +35,8 @@ export const EditBadgeDialog = (props: EditBadgeDialogProps) => {
   useEffect(() => {
     if (isDefined(adopt) && isDefined(adopt.badge)) {
       setSelectedBadge(adopt.badge.id);
+    } else {
+      setSelectedBadge("");
     }
   }, [adopt, handleClose]);
 
@@ -53,6 +55,13 @@ export const EditBadgeDialog = (props: EditBadgeDialogProps) => {
     updateBadge(payload);
   };
 
+  const isBadgeSelected = () => {
+    if (selectedBadge !== "") {
+      return true;
+    }
+    return false;
+  };
+
   const dialogContent = (
     <form
       onSubmit={onSubmit}
@@ -68,7 +77,7 @@ export const EditBadgeDialog = (props: EditBadgeDialogProps) => {
         content={strings.UPDATE}
         width="150px"
         height="30px"
-        disabled={isUpdateBadgeLoading}
+        disabled={isUpdateBadgeLoading || !isBadgeSelected()}
         loading={isUpdateBadgeLoading}
         catsLoading={isUpdateBadgeLoading}
         withShadow={false}

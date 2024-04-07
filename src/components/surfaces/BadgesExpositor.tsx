@@ -21,7 +21,11 @@ export const BadgesExpositor = (props: BadgesExpositorProps) => {
   });
 
   const handleSelected = (value: string) => {
-    setSelectedBadge(value);
+    if (value !== selectedBadge) {
+      setSelectedBadge(value);
+    } else {
+      setSelectedBadge("");
+    }
   };
 
   const isSelected = (id: string) => {
