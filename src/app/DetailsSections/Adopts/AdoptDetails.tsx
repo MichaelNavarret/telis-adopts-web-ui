@@ -92,12 +92,6 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
             value={adoptResponse?.ownerName}
           />
           <SectionField
-            label={strings.DESIGNERS}
-            value={adoptResponse?.designers
-              .map((designer) => designer.nickName)
-              .join(", ")}
-          />
-          <SectionField
             label={strings.CREATION_TYPE}
             value={formatCreationType(adoptResponse?.creationType)}
           />
