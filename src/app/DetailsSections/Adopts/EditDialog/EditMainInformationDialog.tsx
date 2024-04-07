@@ -1,11 +1,6 @@
-import { FormEvent, useEffect, useState } from "react";
 import DialogComponent from "../../../../components/surfaces/DialogComponent";
 import strings from "../../../../l10n";
 import { AdoptInfo, AdoptUpdateRequest } from "../../../../types/adopt";
-import TextFieldComponent from "../../../../components/Form/TextFieldComponent";
-import AutocompleteComponent, {
-  AutocompleteOption,
-} from "../../../../components/Form/AutocompleteComponent";
 import {
   formatOwnerInfoForDropdown,
   formatSpecieInfoForDropdown,
@@ -16,8 +11,15 @@ import { updateAdopt } from "../../../../api/adopts";
 import { successToast } from "../../../../constants/toasts";
 import { Button } from "../../../../components";
 import styles from "./EditDialog.module.scss";
-import { formatDateToFormField, isDefined } from "../../../../tools/commons";
 import { getOwnersAutocomplete } from "../../../../api/owners";
+import { FormProvider, useForm } from "react-hook-form";
+import TextFieldComponent from "../../../../components/HookForm/TextFieldComponent";
+import AutocompleteComponent, {
+  autocompleteValue,
+} from "../../../../components/HookForm/AutocompleteComponent";
+import { formatDateToFormField } from "../../../../tools/commons";
+import DropdownComponent from "../../../../components/HookForm/DropdownComponent";
+import { CREATION_TYPE } from "../../../../constants/SelectOptions";
 
 type EditMainInformationDialogProps = {
   open: boolean;
@@ -25,32 +27,21 @@ type EditMainInformationDialogProps = {
   handleClose: () => void;
 };
 
+type UpdateAdoptFormField = {
+  name: string;
+  specieId: string;
+  createdOn: string;
+  ownerId: string;
+  creationType: string;
+};
+
 export const EditMainInformationDialog = (
   props: EditMainInformationDialogProps
 ) => {
   const queryClient = useQueryClient();
   const { open, adopt, handleClose } = props;
-  const [name, setName] = useState("");
-  const [specie, setSpecie] = useState<AutocompleteOption>();
-  const [createdOn, setCreatedOn] = useState("");
-  const [owner, setOwner] = useState<AutocompleteOption>();
-
-  useEffect(() => {
-    if (adopt) {
-      setName(adopt.name);
-      setSpecie({
-        label: adopt.specieName,
-        value: adopt.specieId,
-      });
-      setCreatedOn(formatDateToFormField(adopt.createdOn));
-      if (isDefined(adopt.ownerId)) {
-        setOwner({
-          label: adopt.ownerName,
-          value: adopt.ownerId,
-        });
-      }
-    }
-  }, [adopt, handleClose]);
+  const form = useForm<UpdateAdoptFormField>();
+  const { handleSubmit } = form;
 
   const { mutate: updateInformation, isLoading: isUpdateInformationLoading } =
     useMutation({
@@ -78,60 +69,74 @@ export const EditMainInformationDialog = (
     },
   });
 
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
+  const onSubmit = (data: UpdateAdoptFormField) => {
     const payload: AdoptUpdateRequest = {
-      name,
-      specieId: specie?.value || "",
-      createdOn,
-      ownerId: owner?.value || "",
+      name: data.name,
+      specieId: autocompleteValue(data.specieId),
+      createdOn: data.createdOn,
+      ownerId: autocompleteValue(data.ownerId),
+      creationType: data.creationType,
     };
     updateInformation(payload);
   };
 
   const dialogContent = (
-    <form
-      onSubmit={onSubmit}
-      autoComplete="off"
-      className={styles.editMainInformationFormContainer}
-    >
-      <TextFieldComponent
-        type="text"
-        id="name"
-        label={strings.NAME}
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <AutocompleteComponent
-        label={strings.SPECIE}
-        options={formatSpecieInfoForDropdown(speciesOptions)}
-        handleChange={(value: AutocompleteOption) => setSpecie(value)}
-        value={specie}
-        required
-      />
-      <TextFieldComponent
-        type="date"
-        id="createdOn"
-        label={strings.CREATED_ON}
-        value={createdOn}
-        onChange={(e) => setCreatedOn(e.target.value)}
-      />
-      <AutocompleteComponent
-        label={strings.OWNER}
-        options={formatOwnerInfoForDropdown(ownersResponse)}
-        handleChange={(value: AutocompleteOption) => setOwner(value)}
-        value={owner}
-      />
+    <FormProvider {...form}>
+      <form
+        autoComplete="off"
+        className={styles.editMainInformationFormContainer}
+      >
+        <TextFieldComponent
+          type="text"
+          name="name"
+          id="name"
+          label={strings.NAME}
+          initialValue={adopt?.name}
+        />
+        <AutocompleteComponent
+          label={strings.SPECIE}
+          options={formatSpecieInfoForDropdown(speciesOptions)}
+          name="specieId"
+          initialValue={{
+            label: adopt?.specieName || "",
+            value: adopt?.specieId || "",
+          }}
+          required
+        />
+        <TextFieldComponent
+          type="date"
+          id="createdOn"
+          label={strings.CREATED_ON}
+          name="createdOn"
+          initialValue={formatDateToFormField(adopt?.createdOn)}
+        />
+        <AutocompleteComponent
+          label={strings.OWNER}
+          options={formatOwnerInfoForDropdown(ownersResponse)}
+          name="ownerId"
+          initialValue={{
+            label: adopt?.ownerName || "",
+            value: adopt?.ownerId || "",
+          }}
+        />
+        <DropdownComponent
+          label={strings.CREATION_TYPE}
+          options={CREATION_TYPE}
+          name="creationType"
+          initialValue={adopt?.creationType}
+        />
 
-      <Button
-        type="submit"
-        content={strings.UPDATE}
-        disabled={isUpdateInformationLoading}
-        loading={isUpdateInformationLoading}
-        catsLoading={isUpdateInformationLoading}
-        withShadow={false}
-      />
-    </form>
+        <Button
+          type="submit"
+          content={strings.UPDATE}
+          onClick={handleSubmit(onSubmit)}
+          disabled={isUpdateInformationLoading}
+          loading={isUpdateInformationLoading}
+          catsLoading={isUpdateInformationLoading}
+          withShadow={false}
+        />
+      </form>
+    </FormProvider>
   );
 
   return (

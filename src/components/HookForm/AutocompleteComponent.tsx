@@ -1,5 +1,4 @@
 import { Autocomplete, TextField } from "@mui/material";
-import { isDefined } from "../../tools/commons";
 import AutocompleteLi from "../Form/AutocompleteLi";
 import { Controller, useFormContext } from "react-hook-form";
 
@@ -14,7 +13,7 @@ type AutocompleteComponentProps = {
   options?: AutocompleteOption[];
   disabled?: boolean;
   required?: boolean;
-  initialValue?: string;
+  initialValue?: AutocompleteOption;
   name: string;
 };
 
@@ -56,7 +55,7 @@ const AutocompleteComponent = (props: AutocompleteComponentProps) => {
         validate: {},
       }}
       defaultValue={initialValue}
-      render={({ field: { onChange } }) => {
+      render={({ field: { onChange, value } }) => {
         return (
           <div style={{ width: "100%", marginTop: "1.5rem" }}>
             <Autocomplete
@@ -64,13 +63,12 @@ const AutocompleteComponent = (props: AutocompleteComponentProps) => {
               freeSolo={freeSolo}
               options={options}
               disabled={disabled}
+              value={value}
               onChange={(_, newValue) => {
                 onChange(newValue);
               }}
               isOptionEqualToValue={(option, value) => {
-                return isDefined(option) && isDefined(value)
-                  ? option.value === value.value
-                  : false;
+                return option.value === value.value;
               }}
               style={{ width: "100%", borderRadius: "10px" }}
               renderInput={(params) => (

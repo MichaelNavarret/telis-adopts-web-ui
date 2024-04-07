@@ -4,6 +4,7 @@ import styles from "./AdoptDetails.module.scss";
 import TextComponent from "../../../components/TextComponents/TextComponent";
 import strings from "../../../l10n";
 import {
+  formatCreationType,
   formatDate,
   getBorderColor,
   getIconBoxShadow,
@@ -95,6 +96,10 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
             value={adoptResponse?.designers
               .map((designer) => designer.nickName)
               .join(", ")}
+          />
+          <SectionField
+            label={strings.CREATION_TYPE}
+            value={formatCreationType(adoptResponse?.creationType)}
           />
         </SectionComponent>
         <DesignersSection

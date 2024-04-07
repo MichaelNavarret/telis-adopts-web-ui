@@ -31,6 +31,7 @@ export type AdoptUpdateRequest = {
   createdOn?: string;
   ownerId?: string;
   designerIds?: string[];
+  creationType?: string;
 };
 
 // -------- Response --------
@@ -54,6 +55,7 @@ export type AdoptInfo = {
   specieCode: string;
   specieFormUrl: string;
   specieId: string;
+  creationType: string;
 };
 
 export type AdoptSingletonResponse = {
