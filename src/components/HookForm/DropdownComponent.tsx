@@ -1,4 +1,4 @@
-import { InputLabel, MenuItem, Select } from "@mui/material";
+import { InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { useTheme } from "../../context/ThemeProvider";
 import { Controller, useFormContext } from "react-hook-form";
 
@@ -40,15 +40,18 @@ const DropdownComponent = (props: DropdownComponentProps) => {
       render={({ field: { onChange, value } }) => {
         return (
           <div style={{ width: width }}>
-            <InputLabel id={`${label}Label`}>{label}</InputLabel>
-            <Select
-              labelId={`${label}Label`}
+            <TextField
               style={{ width: "100%", borderRadius: "10px" }}
               label={label}
               value={value}
+              variant="outlined"
               onChange={onChange}
               required={required}
               disabled={disabled}
+              select
+              InputProps={{
+                style: { borderRadius: "10px" },
+              }}
             >
               {options.map((option, index) => {
                 return (
@@ -66,7 +69,7 @@ const DropdownComponent = (props: DropdownComponentProps) => {
                   </MenuItem>
                 );
               })}
-            </Select>
+            </TextField>
           </div>
         );
       }}

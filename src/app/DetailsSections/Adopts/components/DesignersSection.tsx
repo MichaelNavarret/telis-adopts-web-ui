@@ -7,7 +7,7 @@ import { OwnerInfo } from "../../../../types/owner";
 import styles from "./components.module.scss";
 import { BsPersonFillAdd } from "react-icons/bs";
 import { FaDeleteLeft } from "react-icons/fa6";
-import AddDesignerBlade from "./AddDesignerBlade";
+import AddDesignerBlade from "../EditBlades/AddDesignerBlade";
 import { useMutation, useQueryClient } from "react-query";
 import { updateAdopt } from "../../../../api/adopts";
 import { successToast } from "../../../../constants/toasts";

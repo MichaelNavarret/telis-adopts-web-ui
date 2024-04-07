@@ -14,11 +14,11 @@ import SectionComponent from "../../../components/SectionComponent/SectionCompon
 import SectionField from "../../../components/SectionComponent/SectionField";
 import { useState } from "react";
 import ImageSection from "./components/ImageSection";
-import { EditMainInformationDialog } from "./EditDialog/EditMainInformationDialog";
 import { EditBadgeDialog } from "./EditDialog/EditBadgeDialog";
 import { EditSpecieFormDialog } from "./EditDialog/EditSpecieFormDialog";
 import EditTraitsDialog from "./EditDialog/EditTraitsDialog";
 import DesignersSection from "./components/DesignersSection";
+import EditMainInfoBlade from "./EditBlades/EditMainInfoBlade";
 
 type AdoptDetailsProps = {
   adoptId: string;
@@ -141,7 +141,7 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
           </div>
         </div>
       </div>
-      <EditMainInformationDialog
+      <EditMainInfoBlade
         open={mainInformationDialog}
         adopt={adoptResponse}
         handleClose={() => setMainInformationDialog(false)}

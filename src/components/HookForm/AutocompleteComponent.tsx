@@ -57,7 +57,7 @@ const AutocompleteComponent = (props: AutocompleteComponentProps) => {
       defaultValue={initialValue}
       render={({ field: { onChange, value } }) => {
         return (
-          <div style={{ width: "100%", marginTop: "1.5rem" }}>
+          <div style={{ width: "100%" }}>
             <Autocomplete
               id={label}
               freeSolo={freeSolo}

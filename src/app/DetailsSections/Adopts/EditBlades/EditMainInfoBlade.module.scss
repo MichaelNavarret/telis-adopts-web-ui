@@ -1,0 +1,28 @@
+.footerContainer {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: flex-end;
+  gap: 20px;
+  padding: 15px;
+}
+
+.mainFormContainer {
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  .firstSection {
+    display: grid;
+    grid-template-columns: repeat(2, 49.5%);
+    gap: 1%;
+    align-items: center;
+    justify-content: center;
+  }
+  .secondSection {
+    display: grid;
+    grid-template-columns: repeat(3, 33%);
+    gap: 0.5%;
+    align-items: center;
+    justify-content: center;
+  }
+}
