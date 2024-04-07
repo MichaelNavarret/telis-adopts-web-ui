@@ -17,7 +17,7 @@ const formatRarities = (rarities: string[]) => {
   return (
     <div key={uuid()} className={styles.raritiesChipContainer}>
       {rarities.map((item) => {
-        return <Chip label={item} />;
+        return <Chip key={uuid()} label={item} />;
       })}
     </div>
   );
