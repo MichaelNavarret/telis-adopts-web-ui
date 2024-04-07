@@ -4,14 +4,22 @@ import { getBadgeImage } from "../../tools/badges";
 import styles from "./BadgesExpositor.module.scss";
 import { BadgeExpositorItem } from "../../app/AdminSettings/SettingSections/AdoptsSection/components/BadgeExpositorItem";
 import TextComponent from "../TextComponents/TextComponent";
+import strings from "../../l10n";
 
 type BadgesExpositorProps = {
   selectedBadge?: string;
   setSelectedBadge: (badges: string) => void;
+  title?: string;
+  description?: string;
 };
 
 export const BadgesExpositor = (props: BadgesExpositorProps) => {
-  const { selectedBadge, setSelectedBadge } = props;
+  const {
+    selectedBadge,
+    setSelectedBadge,
+    title = strings.BADGE,
+    description,
+  } = props;
 
   const { data: badgesCollectionResponse } = useQuery({
     queryKey: ["badges"],
@@ -39,9 +47,15 @@ export const BadgesExpositor = (props: BadgesExpositorProps) => {
     >
       <TextComponent
         animation={false}
-        content="Badges"
+        content={title}
         hover={false}
         fontSize="large"
+      />
+      <TextComponent
+        animation={false}
+        content={description}
+        hover={false}
+        fontSize="x-small"
       />
       <div className={styles.badgesExpositor_badgesContainer}>
         {badgesCollectionResponse?.badgeInfoList.map((badge) => (

@@ -36,7 +36,7 @@ type EditMainInfoFormFields = {
   toyhouseLink: string;
 };
 
-export const EditMainInfoBlade = (props: EditMainInfoBladeProps) => {
+const EditMainInfoBlade = (props: EditMainInfoBladeProps) => {
   const queryClient = useQueryClient();
   const { open, adopt, handleClose } = props;
   const form = useForm<EditMainInfoFormFields>();
@@ -151,7 +151,7 @@ export const EditMainInfoBlade = (props: EditMainInfoBladeProps) => {
         disabled={isUpdateInformationLoading}
       />
       <Button
-        content={strings.EDIT}
+        content={strings.UPDATE}
         onClick={handleSubmit(onSubmit)}
         withShadow={false}
         catsLoading={isUpdateInformationLoading}
