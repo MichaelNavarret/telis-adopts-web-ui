@@ -38,8 +38,23 @@
     padding-bottom: 5px;
     letter-spacing: 0.2rem;
   }
-  .value {
-    font-family: sans-serif !important;
-    font-size: 1.5rem;
+}
+
+.value {
+  font-family: sans-serif !important;
+  font-size: 1.5rem;
+  color: #000;
+}
+
+.valueLink {
+  font-family: sans-serif !important;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: rgb(70, 70, 148);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &:hover {
+    color: rgb(25, 25, 92);
   }
 }

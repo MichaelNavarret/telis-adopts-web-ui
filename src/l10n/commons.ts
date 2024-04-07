@@ -38,4 +38,5 @@ export const commonEn = {
   CREATED_ON: "Created On",
   ALL: "All",
   CANCEL: "Cancel",
+  TOYHOUSE: "Toyhouse",
 };

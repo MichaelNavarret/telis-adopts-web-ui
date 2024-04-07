@@ -8,7 +8,7 @@ import {
 
 export type CreationType = "" | "PREMADE" | "CUSTOM" | "MYO" | "GUEST_ARTIST";
 
-// -------- Request --------
+//! -------- Request --------
 export type AdoptCreateRequest = {
   name: string;
   ownerId: string;
@@ -32,9 +32,10 @@ export type AdoptUpdateRequest = {
   ownerId?: string;
   designerIds?: string[];
   creationType?: string;
+  toyhouseLink?: string;
 };
 
-// -------- Response --------
+//! -------- Response --------
 export type AdoptInfo = {
   id: string;
   code: string;
@@ -56,6 +57,7 @@ export type AdoptInfo = {
   specieFormUrl: string;
   specieId: string;
   creationType: string;
+  toyhouseLink: string;
 };
 
 export type AdoptSingletonResponse = {

@@ -33,6 +33,7 @@ type UpdateAdoptFormField = {
   createdOn: string;
   ownerId: string;
   creationType: string;
+  toyhouseLink: string;
 };
 
 export const EditMainInformationDialog = (
@@ -76,6 +77,7 @@ export const EditMainInformationDialog = (
       createdOn: data.createdOn,
       ownerId: autocompleteValue(data.ownerId),
       creationType: data.creationType,
+      toyhouseLink: data.toyhouseLink,
     };
     updateInformation(payload);
   };
@@ -124,6 +126,14 @@ export const EditMainInformationDialog = (
           options={CREATION_TYPE}
           name="creationType"
           initialValue={adopt?.creationType}
+        />
+
+        <TextFieldComponent
+          type="text"
+          id="toyhouseLink"
+          label={strings.TOYHOUSE}
+          name="toyhouseLink"
+          initialValue={adopt?.toyhouseLink}
         />
 
         <Button

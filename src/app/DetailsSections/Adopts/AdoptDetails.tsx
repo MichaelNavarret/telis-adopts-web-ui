@@ -95,6 +95,11 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
             label={strings.CREATION_TYPE}
             value={formatCreationType(adoptResponse?.creationType)}
           />
+          <SectionField
+            label={strings.TOYHOUSE}
+            value={adoptResponse?.toyhouseLink}
+            link
+          />
         </SectionComponent>
         <DesignersSection
           adoptId={adoptId}
