@@ -114,8 +114,8 @@ const AdoptCard = (props: AdoptCardProps) => {
                 />
                 {adopt.designers.map((designer) => (
                   <DesignersSection
-                    key={designer}
-                    designer={designer}
+                    key={designer.id}
+                    designer={designer.nickName}
                     onProfile={onProfile}
                     colorSpecie={colorsSpecie}
                   />

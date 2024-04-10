@@ -33,7 +33,7 @@ export type AdoptUpdateRequest = {
   designerIds?: string[];
   creationType?: string;
   toyhouseLink?: string;
-  active: boolean;
+  active?: boolean;
 };
 
 //! ========================================== Response ==========================================
