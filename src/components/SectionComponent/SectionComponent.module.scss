@@ -14,13 +14,20 @@
     justify-content: space-between;
     padding-bottom: 5px;
   }
-  .sectionContent {
-    flex: 0.8;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 33.33%;
-    padding: 20px;
-  }
+}
+
+.gridSectionContent {
+  flex: 0.8;
+  display: grid;
+  grid-template-columns: repeat(3, 33.33%);
+  padding: 20px;
+}
+
+.flexSectionContent {
+  flex: 0.8;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
 }
 
 .sectionField {
@@ -31,8 +38,23 @@
     padding-bottom: 5px;
     letter-spacing: 0.2rem;
   }
-  .value {
-    font-family: sans-serif !important;
-    font-size: 1.5rem;
+}
+
+.value {
+  font-family: sans-serif !important;
+  font-size: 1.5rem;
+  color: #000;
+}
+
+.valueLink {
+  font-family: sans-serif !important;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: rgb(70, 70, 148);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &:hover {
+    color: rgb(25, 25, 92);
   }
 }

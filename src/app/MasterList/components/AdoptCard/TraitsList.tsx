@@ -1,3 +1,4 @@
+import { Tooltip } from "@mui/material";
 import TextComponent from "../../../../components/TextComponents/TextComponent";
 import { useTheme } from "../../../../context/ThemeProvider";
 import { Colors } from "../../../../types/commons";
@@ -53,17 +54,25 @@ const TraitList = (props: TraitListProps) => {
 
             {/* ----------------- */}
             {trait.additionalInfo && (
-              <p
-                style={{
-                  fontSize: "11px",
-                  letterSpacing: "0.2rem",
-                  color: onProfile
-                    ? colorSpecie.buttonShadow2
-                    : colors.CTX_BUTTON_SHADOW_COLOR_2,
-                }}
+              <Tooltip
+                title={trait.additionalInfo}
+                key={trait.id}
+                arrow
+                placement="top-start"
               >
-                {`: ${trait.additionalInfo}`}
-              </p>
+                <p
+                  className={styles.additionalInfo}
+                  style={{
+                    fontSize: "11px",
+                    letterSpacing: "0.2rem",
+                    color: onProfile
+                      ? colorSpecie.buttonShadow2
+                      : colors.CTX_BUTTON_SHADOW_COLOR_2,
+                  }}
+                >
+                  {`: ${trait.additionalInfo}`}
+                </p>
+              </Tooltip>
             )}
             {/* ----------------- */}
             <p

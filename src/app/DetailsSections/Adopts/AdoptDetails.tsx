@@ -4,6 +4,7 @@ import styles from "./AdoptDetails.module.scss";
 import TextComponent from "../../../components/TextComponents/TextComponent";
 import strings from "../../../l10n";
 import {
+  formatCreationType,
   formatDate,
   getBorderColor,
   getIconBoxShadow,
@@ -13,9 +14,11 @@ import SectionComponent from "../../../components/SectionComponent/SectionCompon
 import SectionField from "../../../components/SectionComponent/SectionField";
 import { useState } from "react";
 import ImageSection from "./components/ImageSection";
-import { EditMainInformationDialog } from "./EditDialog/EditMainInformationDialog";
-import { EditBadgeDialog } from "./EditDialog/EditBadgeDialog";
 import { EditSpecieFormDialog } from "./EditDialog/EditSpecieFormDialog";
+import EditTraitsDialog from "./EditDialog/EditTraitsDialog";
+import DesignersSection from "./components/DesignersSection";
+import EditMainInfoBlade from "./EditBlades/EditMainInfoBlade";
+import EditBadgeBlade from "./EditBlades/EditBadgeBlade";
 
 type AdoptDetailsProps = {
   adoptId: string;
@@ -26,6 +29,7 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
   const [mainInformationDialog, setMainInformationDialog] = useState(false);
   const [editBadgeDialog, setEditBadgeDialog] = useState(false);
   const [editSpecieFormDialog, setEditSpecieFormDialog] = useState(false);
+  const [editTraitsDialog, setEditTraitsDialog] = useState(false);
 
   const { data: adoptResponse } = useQuery({
     queryKey: ["adoptDetails", adoptId],
@@ -83,7 +87,28 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
             label={strings.CREATED_ON}
             value={formatDate(adoptResponse?.createdOn || "")}
           />
+          <SectionField
+            label={strings.OWNER}
+            value={adoptResponse?.ownerName}
+          />
+          <SectionField
+            label={strings.CREATION_TYPE}
+            value={formatCreationType(adoptResponse?.creationType)}
+          />
+          <SectionField
+            label={strings.TOYHOUSE}
+            value={adoptResponse?.toyhouseLink}
+            link
+          />
+          <SectionField
+            label={strings.STATUS}
+            value={adoptResponse?.active ? strings.ACTIVE : strings.INACTIVE}
+          />
         </SectionComponent>
+        <DesignersSection
+          adoptId={adoptId}
+          designers={adoptResponse?.designers || []}
+        />
         <div className={styles.secondContainer}>
           <div className={styles.badgeAndFormContainer}>
             <ImageSection
@@ -106,9 +131,8 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
           <div className={styles.traitsContainer}>
             <SectionComponent
               titleSection={strings.TRAITS}
-              onEdit={() => {}}
-              flexDirection="column"
-              alignItems="flex-start"
+              onEdit={() => setEditTraitsDialog(true)}
+              displayType="row"
             >
               {getOrderedTraits()?.map((trait) => (
                 <SectionField
@@ -121,12 +145,12 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
           </div>
         </div>
       </div>
-      <EditMainInformationDialog
+      <EditMainInfoBlade
         open={mainInformationDialog}
         adopt={adoptResponse}
         handleClose={() => setMainInformationDialog(false)}
       />
-      <EditBadgeDialog
+      <EditBadgeBlade
         open={editBadgeDialog}
         adopt={adoptResponse}
         handleClose={() => setEditBadgeDialog(false)}
@@ -135,6 +159,11 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
         open={editSpecieFormDialog}
         adopt={adoptResponse}
         handleClose={() => setEditSpecieFormDialog(false)}
+      />
+      <EditTraitsDialog
+        open={editTraitsDialog}
+        adopt={adoptResponse}
+        handleClose={() => setEditTraitsDialog(false)}
       />
     </>
   );

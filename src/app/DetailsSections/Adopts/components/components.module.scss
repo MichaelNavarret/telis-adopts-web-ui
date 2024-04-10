@@ -14,3 +14,53 @@
     gap: 20px;
   }
 }
+
+.designersSectionContainer {
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  .headerContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    gap: 20px;
+    .addDesignerIcon {
+      font-size: 30px;
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        cursor: pointer;
+        scale: 1.1;
+      }
+      &:active {
+        scale: 0.9;
+      }
+    }
+  }
+  .contentContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+    .designerSingletonContainer {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: baseline;
+      padding: 10px;
+      .deleteDesignerIcon {
+        font-size: 30px;
+        transition: all 0.3s ease-in-out;
+        &:hover {
+          cursor: pointer;
+          scale: 1.1;
+        }
+        &:active {
+          scale: 0.9;
+        }
+      }
+    }
+  }
+}

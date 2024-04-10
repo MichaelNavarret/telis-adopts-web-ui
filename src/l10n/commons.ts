@@ -37,4 +37,6 @@ export const commonEn = {
   REMOVE: "Remove",
   CREATED_ON: "Created On",
   ALL: "All",
+  CANCEL: "Cancel",
+  TOYHOUSE: "Toyhouse",
 };

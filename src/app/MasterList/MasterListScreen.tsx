@@ -35,6 +35,7 @@ const MasterListScreen = () => {
           specieId: specieId,
           creationType: creationTypeFilter as CreationType,
           sort: "code:ASC",
+          active: true,
         },
         state.currentPage
       );

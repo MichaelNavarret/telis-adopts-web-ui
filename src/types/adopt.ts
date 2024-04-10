@@ -1,5 +1,5 @@
 import { BadgeInfo } from "./badge";
-import { OwnerDesignerCreateRequest } from "./owner";
+import { OwnerDesignerCreateRequest, OwnerInfo } from "./owner";
 import {
   SubTraitCreateRequest,
   SubTraitInfo,
@@ -8,7 +8,7 @@ import {
 
 export type CreationType = "" | "PREMADE" | "CUSTOM" | "MYO" | "GUEST_ARTIST";
 
-// -------- Request --------
+//! ========================================== Request ==========================================
 export type AdoptCreateRequest = {
   name: string;
   ownerId: string;
@@ -29,16 +29,21 @@ export type AdoptUpdateRequest = {
   badgeId?: string;
   specieFormId?: string;
   createdOn?: string;
+  ownerId?: string;
+  designerIds?: string[];
+  creationType?: string;
+  toyhouseLink?: string;
+  active: boolean;
 };
 
-// -------- Response --------
+//! ========================================== Response ==========================================
 export type AdoptInfo = {
   id: string;
   code: string;
   name: string;
   ownerName: string;
   specieName: string;
-  designers: string[];
+  designers: OwnerInfo[];
   createdOn: string;
   boughtOn: string;
   registeredOn: string;
@@ -52,6 +57,9 @@ export type AdoptInfo = {
   specieCode: string;
   specieFormUrl: string;
   specieId: string;
+  creationType: string;
+  toyhouseLink: string;
+  active: boolean;
 };
 
 export type AdoptSingletonResponse = {
@@ -62,10 +70,13 @@ export type AdoptCollectionResponse = {
   adoptInfoList: AdoptInfo[];
 };
 
+// !========================================== PARAMS ===================================================
+
 export type AdoptAutocompleteParams = {
   specieId?: string;
   creationType?: CreationType;
   sort?: string;
   ownerId?: string;
   q?: string;
+  active?: boolean;
 };

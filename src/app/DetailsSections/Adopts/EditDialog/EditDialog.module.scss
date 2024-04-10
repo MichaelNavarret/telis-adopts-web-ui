@@ -20,3 +20,50 @@
   align-items: center;
   gap: 1rem;
 }
+
+.titleTraitsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.formTraitsContainer {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  .traitsContainer {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: auto;
+    .traitContainer {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      .titleTraitContainer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        cursor: pointer;
+      }
+      .additionalInfo {
+        width: 100%;
+      }
+    }
+  }
+  .submitButton {
+    align-self: center;
+  }
+}
+
+.designersContainer {
+  padding: 15px;
+  border-radius: 20px;
+}

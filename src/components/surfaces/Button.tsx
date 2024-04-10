@@ -3,7 +3,7 @@ import styles from "./Button.module.scss";
 import { useTheme } from "../../context/ThemeProvider";
 import CatsLoading from "../Loading/CatsLoading";
 
-type ButtonProps = {
+export type ButtonProps = {
   colorButton?: string;
   colorTextButton?: string;
   buttonColorShadow?: string;

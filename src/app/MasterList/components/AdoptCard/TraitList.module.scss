@@ -14,5 +14,11 @@
     align-items: center;
     gap: 10px;
     margin-bottom: 5px;
+    .additionalInfo {
+      width: 250px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 }

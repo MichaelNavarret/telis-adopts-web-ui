@@ -7,6 +7,8 @@ import { laniesColors } from "../constants/colors/laniesColors";
 import { spectraLumenColors } from "../constants/colors/spectraLumenColors";
 import { cloudystarsColors } from "../constants/colors/cloudyStarsColors";
 import { pluniesColors } from "../constants/colors/pluniesColors";
+import { AutocompleteOption } from "../components/Form/AutocompleteComponent";
+import strings from "../l10n";
 
 export function isDefined<T>(arg: T | null | undefined): arg is T {
   return typeof arg != "undefined" && arg != null;
@@ -86,7 +88,8 @@ export const formatDate = (date: string) => {
   return `${formattedMonth}/${formattedDay}/${year}`;
 };
 
-export const formatDateToFormField = (date: string) => {
+export const formatDateToFormField = (date?: string) => {
+  if (!isDefined(date)) return "-";
   const ISODate = date;
   const newDate = new Date(ISODate);
 
@@ -98,4 +101,32 @@ export const formatDateToFormField = (date: string) => {
   const formattedDay = day < 10 ? `0${day}` : day;
 
   return `${year}-${formattedMonth}-${formattedDay}`;
+};
+
+export const clearAutocompleteValues = (values?: AutocompleteOption[]) => {
+  //?Clear null values
+  const clearValues = values?.filter(
+    (d) => isDefined(d.value) && d.value != ""
+  );
+  //*Remove duplicates
+  const uniqueValues = clearValues?.filter(
+    (value, index) =>
+      clearValues.findIndex((d) => d.value === value.value) === index
+  );
+  return uniqueValues?.map((designer) => designer.value) || [];
+};
+
+export const formatCreationType = (creationType?: string) => {
+  switch (creationType) {
+    case "PREMADE":
+      return strings.PREMADE;
+    case "CUSTOM":
+      return strings.CUSTOM;
+    case "MYO":
+      return strings.MYO;
+    case "GUEST_ARTIST":
+      return strings.GUEST_ARTIST;
+    default:
+      return "-";
+  }
 };
