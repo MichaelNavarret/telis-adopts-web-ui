@@ -13,3 +13,8 @@ export const CREATION_TYPE = [
   { value: "MYO", label: strings.MYO },
   { value: "GUEST_ARTIST", label: strings.GUEST_ARTIST },
 ];
+
+export const ACTIVE_STATUS_OPTIONS = [
+  { value: "0", label: strings.INACTIVE },
+  { value: "1", label: strings.ACTIVE },
+];

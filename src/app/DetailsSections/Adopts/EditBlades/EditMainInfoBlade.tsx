@@ -17,7 +17,10 @@ import {
 } from "../../../../tools/dropdown";
 import { formatDateToFormField } from "../../../../tools/commons";
 import DropdownComponent from "../../../../components/HookForm/DropdownComponent";
-import { CREATION_TYPE } from "../../../../constants/SelectOptions";
+import {
+  ACTIVE_STATUS_OPTIONS,
+  CREATION_TYPE,
+} from "../../../../constants/SelectOptions";
 import { Button, Container } from "../../../../components";
 import Blade from "../../../../components/fc_components/Blade";
 
@@ -34,6 +37,7 @@ type EditMainInfoFormFields = {
   ownerId: string;
   creationType: string;
   toyhouseLink: string;
+  active: string;
 };
 
 const EditMainInfoBlade = (props: EditMainInfoBladeProps) => {
@@ -76,10 +80,11 @@ const EditMainInfoBlade = (props: EditMainInfoBladeProps) => {
       ownerId: autocompleteValue(data.ownerId),
       creationType: data.creationType,
       toyhouseLink: data.toyhouseLink,
+      active: data.active === "1" ? true : false,
     };
     updateInformation(payload);
   };
-
+  console.table(adopt);
   const bladeContent = (
     <FormProvider {...form}>
       <Container className={styles.mainFormContainer}>
@@ -120,7 +125,6 @@ const EditMainInfoBlade = (props: EditMainInfoBladeProps) => {
             name="createdOn"
             initialValue={formatDateToFormField(adopt?.createdOn)}
           />
-
           <DropdownComponent
             label={strings.CREATION_TYPE}
             options={CREATION_TYPE}
@@ -128,13 +132,18 @@ const EditMainInfoBlade = (props: EditMainInfoBladeProps) => {
             initialValue={adopt?.creationType}
           />
         </Container>
-
         <TextFieldComponent
           type="text"
           id="toyhouseLink"
           label={strings.TOYHOUSE}
           name="toyhouseLink"
           initialValue={adopt?.toyhouseLink}
+        />
+        <DropdownComponent
+          label={strings.STATUS}
+          options={ACTIVE_STATUS_OPTIONS}
+          name="active"
+          initialValue={adopt?.active ? "1" : "0"}
         />
       </Container>
     </FormProvider>

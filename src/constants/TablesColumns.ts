@@ -10,6 +10,7 @@ export const adoptsTableColumns: ColumnsTable[] = [
   { value: "rarity", label: strings.RARITY },
   { value: "designers", label: strings.DESIGNERS },
   { value: "preview", label: strings.PREVIEW },
+  { value: "active", label: strings.ACTIVE },
 ];
 
 export const speciesTableColumns: ColumnsTable[] = [

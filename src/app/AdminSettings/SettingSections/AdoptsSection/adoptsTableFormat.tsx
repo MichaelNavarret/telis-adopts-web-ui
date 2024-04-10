@@ -1,14 +1,16 @@
 import { AdoptInfo } from "../../../../types/adopt";
 import { FaEye } from "react-icons/fa";
 import styles from "./adoptsTableFormat.module.scss";
-import { Tooltip } from "@mui/material";
+import { Chip, Tooltip } from "@mui/material";
 import NOT_ICON from "../../../../assets/utils/not_icon.png";
 import { isDefined } from "../../../../tools/commons";
 import { Link } from "react-router-dom";
 import { BadgeInfo } from "../../../../types/badge";
 import { OwnerInfo } from "../../../../types/owner";
+import strings from "../../../../l10n";
 
 export function formatAdoptsTableRows(data: AdoptInfo[]) {
+  console.table(data);
   return data.map((item) => {
     return {
       code: formatCode(item.id, item.code),
@@ -19,9 +21,14 @@ export function formatAdoptsTableRows(data: AdoptInfo[]) {
       rarity: item.rarity,
       designers: formatDesigners(item.designers),
       preview: formatPreviewRow(getIcon(item.iconUrl)),
+      active: formatActiveStatus(item.active),
     };
   });
 }
+
+const formatActiveStatus = (status: boolean) => {
+  return <Chip label={status ? strings.ACTIVE : strings.INACTIVE} />;
+};
 
 const formatDesigners = (designers: OwnerInfo[]) => {
   if (isDefined(designers) && designers.length > 0) {

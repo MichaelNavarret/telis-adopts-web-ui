@@ -8,7 +8,7 @@ import {
 
 export type CreationType = "" | "PREMADE" | "CUSTOM" | "MYO" | "GUEST_ARTIST";
 
-//! -------- Request --------
+//! ========================================== Request ==========================================
 export type AdoptCreateRequest = {
   name: string;
   ownerId: string;
@@ -33,9 +33,10 @@ export type AdoptUpdateRequest = {
   designerIds?: string[];
   creationType?: string;
   toyhouseLink?: string;
+  active: boolean;
 };
 
-//! -------- Response --------
+//! ========================================== Response ==========================================
 export type AdoptInfo = {
   id: string;
   code: string;
@@ -58,6 +59,7 @@ export type AdoptInfo = {
   specieId: string;
   creationType: string;
   toyhouseLink: string;
+  active: boolean;
 };
 
 export type AdoptSingletonResponse = {
@@ -68,10 +70,13 @@ export type AdoptCollectionResponse = {
   adoptInfoList: AdoptInfo[];
 };
 
+// !========================================== PARAMS ===================================================
+
 export type AdoptAutocompleteParams = {
   specieId?: string;
   creationType?: CreationType;
   sort?: string;
   ownerId?: string;
   q?: string;
+  active?: boolean;
 };

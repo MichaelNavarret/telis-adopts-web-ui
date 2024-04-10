@@ -100,6 +100,10 @@ export const AdoptDetails = (props: AdoptDetailsProps) => {
             value={adoptResponse?.toyhouseLink}
             link
           />
+          <SectionField
+            label={strings.STATUS}
+            value={adoptResponse?.active ? strings.ACTIVE : strings.INACTIVE}
+          />
         </SectionComponent>
         <DesignersSection
           adoptId={adoptId}
