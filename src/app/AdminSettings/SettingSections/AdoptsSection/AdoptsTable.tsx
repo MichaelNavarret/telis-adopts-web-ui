@@ -43,7 +43,7 @@ const AdoptsTable = (props: AdoptsTableProps) => {
   return (
     <TableComponent
       tabs={adoptTableTabs}
-      title={strings.ADOPT}
+      title={strings.ADOPTS}
       columns={adoptsTableColumns}
       data={formatAdoptsTableRows(adoptsResponse?.data || [])}
       primaryButton={true}

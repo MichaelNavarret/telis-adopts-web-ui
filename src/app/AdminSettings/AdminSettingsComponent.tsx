@@ -7,6 +7,7 @@ import AdoptsSection from "./SettingSections/AdoptsSection/AdoptsSection";
 import TraitsSection from "./SettingSections/TraitsSection/TraitsSection";
 import OwnersSection from "./SettingSections/OwnersSection/OwnersSection";
 import useUserSession from "../../hooks/useUserSession";
+import BadgesSection from "./SettingSections/BadgesSection/BadgesSection";
 
 const AdminSettingsComponent = () => {
   const [step, setStep] = useState<number>(0);
@@ -31,6 +32,8 @@ const AdminSettingsComponent = () => {
         return <AdoptsSection />;
       case 3:
         return <OwnersSection />;
+      case 4:
+        return <BadgesSection />;
       default:
         return <OwnersSection />;
     }

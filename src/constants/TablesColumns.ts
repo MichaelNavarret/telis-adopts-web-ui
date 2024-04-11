@@ -28,3 +28,11 @@ export const ownersTableColumns: ColumnsTable[] = [
   { value: "email", label: strings.EMAIL },
   { value: "status", label: strings.STATUS },
 ];
+
+export const badgesTableColumns: ColumnsTable[] = [
+  { value: "badgeUrl", label: strings.BADGE },
+  { value: "name", label: strings.NAME },
+  { value: "code", label: strings.CODE },
+  { value: "createdOn", label: strings.CREATED_ON },
+  { value: "active", label: strings.ACTIVE },
+];

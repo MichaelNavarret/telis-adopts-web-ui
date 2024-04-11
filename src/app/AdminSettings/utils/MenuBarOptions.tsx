@@ -5,6 +5,7 @@ const adminSettingsOptions = [
   { label: strings.TRAITS, value: 1 },
   { label: strings.ADOPTS, value: 2 },
   { label: strings.OWNERS, value: 3 },
+  { label: strings.BADGES, value: 4 },
 ];
 
 export default adminSettingsOptions;
