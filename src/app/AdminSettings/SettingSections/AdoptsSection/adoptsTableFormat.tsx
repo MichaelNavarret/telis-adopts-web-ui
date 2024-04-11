@@ -26,7 +26,15 @@ export function formatAdoptsTableRows(data: AdoptInfo[]) {
 }
 
 const formatActiveStatus = (status: boolean) => {
-  return <Chip label={status ? strings.ACTIVE : strings.INACTIVE} />;
+  return (
+    <Chip
+      style={{
+        backgroundColor: status ? "#31CE8C" : "#E85667",
+        color: "white",
+      }}
+      label={status ? strings.ACTIVE : strings.INACTIVE}
+    />
+  );
 };
 
 const formatDesigners = (designers: OwnerInfo[]) => {

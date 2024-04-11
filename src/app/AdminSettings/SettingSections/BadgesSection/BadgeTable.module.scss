@@ -1,0 +1,10 @@
+.badgeIconRow {
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    scale: (1.1);
+  }
+  &:active {
+    scale: (0.9);
+  }
+}

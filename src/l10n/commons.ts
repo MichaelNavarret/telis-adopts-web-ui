@@ -39,4 +39,5 @@ export const commonEn = {
   ALL: "All",
   CANCEL: "Cancel",
   TOYHOUSE: "Toyhouse",
+  DESCRIPTION: "Description",
 };

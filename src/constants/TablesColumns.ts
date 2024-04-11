@@ -30,7 +30,7 @@ export const ownersTableColumns: ColumnsTable[] = [
 ];
 
 export const badgesTableColumns: ColumnsTable[] = [
-  { value: "badgeUrl", label: strings.BADGE },
+  { value: "badgeUrl", label: strings.BADGE + " (click to edit)" },
   { value: "name", label: strings.NAME },
   { value: "code", label: strings.CODE },
   { value: "createdOn", label: strings.CREATED_ON },
