@@ -1,57 +1,47 @@
 import { FormProvider, useForm } from "react-hook-form";
-import { BadgeInfo, BadgeUpdateRequest } from "../../../../types/badge";
+import { BadgeCreateRequest } from "../../../../types/badge";
 import { Button, Container } from "../../../../components";
+import TextFieldComponent from "../../../../components/HookForm/TextFieldComponent";
 import strings from "../../../../l10n";
+import { useState } from "react";
 import styles from "./BadgeBlades.module.scss";
 import Blade from "../../../../components/fc_components/Blade";
-import TextFieldComponent from "../../../../components/HookForm/TextFieldComponent";
-import DropdownComponent from "../../../../components/HookForm/DropdownComponent";
-import { ACTIVE_STATUS_OPTIONS } from "../../../../constants/SelectOptions";
-import { useEffect, useState } from "react";
-import { isDefined } from "../../../../tools/commons";
 import { useMutation, useQueryClient } from "react-query";
-import { updateBadge, uploadBadgeImage } from "../../../../api/badges";
+import { createBadge, uploadBadgeImage } from "../../../../api/badges";
 import { errorToast, successToast } from "../../../../constants/toasts";
+import { isDefined } from "../../../../tools/commons";
 import { BadgeDropzone } from "./BadgeImageUpdateDropzone";
 
-type BadgeUpdateBladeProps = {
+type BadgeCreateBladeProps = {
   open: boolean;
   handleClose: () => void;
-  badge?: BadgeInfo;
 };
 
-type BladeUpdateFormFields = {
+type CreateBadgeFieldsForm = {
   name: string;
   code: string;
   description: string;
-  active: string;
 };
 
-export const BadgeUpdateBlade = (props: BadgeUpdateBladeProps) => {
-  const { open, handleClose, badge } = props;
+export const BadgeCreateBlade = (props: BadgeCreateBladeProps) => {
+  const { open, handleClose } = props;
   const [badgeImage, setBadgeImage] = useState<File | undefined>();
-  const form = useForm<BladeUpdateFormFields>();
+  const form = useForm<CreateBadgeFieldsForm>();
   const { handleSubmit } = form;
   const queryClient = useQueryClient();
 
-  useEffect(() => {
-    if (isDefined(badge)) {
-      setFormValues(badge);
-    }
-  }, [badge]);
-
-  const { mutate: updateBadgeMutation, isLoading: isUpdateBadgeLoading } =
+  const { mutate: createBadgeMutation, isLoading: isCreateBadgeLoading } =
     useMutation({
-      mutationFn: (payload: BadgeUpdateRequest) => {
-        return updateBadge(badge?.id || "", payload);
+      mutationFn: (data: BadgeCreateRequest) => {
+        return createBadge(data);
       },
       onSuccess: (data) => {
-        successToast(strings.BADGE_UPDATED_SUCCESSFULLY);
-        setFormValues(data);
+        successToast(strings.BADGE_CREATED_SUCCESSFULLY);
+
         if (isDefined(badgeImage)) {
-          uploadBadgeImageMutation(badge?.id || "");
+          uploadBadgeImageMutation(data.id);
         } else {
-          finishUpdateFlowActions();
+          finishCreateFlowActions();
         }
       },
     });
@@ -65,42 +55,35 @@ export const BadgeUpdateBlade = (props: BadgeUpdateBladeProps) => {
     },
     onSuccess: () => {
       successToast(strings.BADGE_IMAGE_UPDATED_SUCCESSFULLY);
-      finishUpdateFlowActions();
+      finishCreateFlowActions();
     },
     onError: () => {
       errorToast(strings.BADGE_IMAGE_UPLOAD_FAILED);
-      finishUpdateFlowActions();
+      finishCreateFlowActions();
     },
   });
 
-  function finishUpdateFlowActions() {
+  function finishCreateFlowActions() {
     setBadgeImage(undefined);
+    form.reset();
     queryClient.invalidateQueries(["badges"]);
     handleClose();
   }
 
-  const onSubmit = (data: BladeUpdateFormFields) => {
-    const payload: BadgeUpdateRequest = {
+  const onSubmit = (data: CreateBadgeFieldsForm) => {
+    const payload: BadgeCreateRequest = {
       name: data.name,
       code: data.code,
       description: data.description,
-      active: data.active === "1" ? true : false,
     };
-    updateBadgeMutation(payload);
+    createBadgeMutation(payload);
   };
 
-  const setFormValues = (badge: BadgeInfo) => {
-    form.setValue("name", badge.name);
-    form.setValue("code", badge.code);
-    form.setValue("description", badge.description);
-    form.setValue("active", badge.active ? "1" : "0");
-  };
-
-  const isLoading = isUpdateBadgeLoading || isUploadBadgeImageLoading;
+  const isLoading = isCreateBadgeLoading || isUploadBadgeImageLoading;
 
   const bladeContent = (
     <FormProvider {...form}>
-      <Container className={styles.editBadgeBladeFormContainer}>
+      <Container className={styles.createBadgeBladeFormContainer}>
         <div>
           <BadgeDropzone
             handleDrop={(files) => {
@@ -115,12 +98,14 @@ export const BadgeUpdateBlade = (props: BadgeUpdateBladeProps) => {
           name="name"
           type="text"
           label={strings.NAME}
+          required
         />
         <TextFieldComponent
           id="code"
           name="code"
           type="text"
           label={strings.CODE}
+          required
         />
         <TextFieldComponent
           id="description"
@@ -129,11 +114,6 @@ export const BadgeUpdateBlade = (props: BadgeUpdateBladeProps) => {
           label={strings.DESCRIPTION}
           multiline={true}
           rows={10}
-        />
-        <DropdownComponent
-          label={strings.STATUS}
-          options={ACTIVE_STATUS_OPTIONS}
-          name="active"
         />
       </Container>
     </FormProvider>
@@ -150,7 +130,7 @@ export const BadgeUpdateBlade = (props: BadgeUpdateBladeProps) => {
         disabled={isLoading}
       />
       <Button
-        content={strings.UPDATE}
+        content={strings.CREATE}
         onClick={handleSubmit(onSubmit)}
         withShadow={false}
         width="130px"
@@ -166,7 +146,7 @@ export const BadgeUpdateBlade = (props: BadgeUpdateBladeProps) => {
     <Blade
       open={open}
       onClose={handleClose}
-      title={strings.UPDATE + " " + strings.BADGE}
+      title={`${strings.CREATE} ${strings.BADGE}`}
       bodyNode={bladeContent}
       footerNode={bladeFooter}
     />

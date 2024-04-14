@@ -16,6 +16,7 @@ export const commonEn = {
   LOGO: "Logo",
   DRAG_AND_DROP: "Drag and drop",
   DROP_ICON: "Drop icon here",
+  DROP_BADGE: "Drop badge here",
   NICKNAME: "Nickname",
   EMAIL: "Email",
   STATUS: "Status",

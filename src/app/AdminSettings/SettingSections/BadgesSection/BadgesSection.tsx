@@ -1,12 +1,17 @@
 import { useState } from "react";
 import BadgesTable from "./BadgesTable";
+import { BadgeCreateBlade } from "./BadgeCreateBlade";
 
 const BadgesSection = () => {
-  const [_showBlade, setShowBlade] = useState(false);
+  const [showCreateBlade, setShowCreateBlade] = useState(false);
 
   return (
     <>
-      <BadgesTable handleOpen={() => setShowBlade(true)} />
+      <BadgesTable handleOpen={() => setShowCreateBlade(true)} />
+      <BadgeCreateBlade
+        open={showCreateBlade}
+        handleClose={() => setShowCreateBlade(false)}
+      />
     </>
   );
 };

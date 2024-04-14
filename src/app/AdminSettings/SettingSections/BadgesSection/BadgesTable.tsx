@@ -6,7 +6,7 @@ import { getBadgesCollection } from "../../../../api/badges";
 import strings from "../../../../l10n";
 import { badgesTableColumns } from "../../../../constants/TablesColumns";
 import { BadgeInfo } from "../../../../types/badge";
-import { isDefined } from "../../../../tools/commons";
+import { formatDate, isDefined } from "../../../../tools/commons";
 import { useState } from "react";
 import { BadgeUpdateBlade } from "./BadgeUpdateBlade";
 import styles from "./BadgeTable.module.scss";
@@ -48,10 +48,15 @@ const BadgesTable = (props: BadgesTableProps) => {
         badgeUrl: getBadgeImage(badge),
         name: badge.name,
         code: badge.code,
-        createdOn: badge.createdOn !== null ? badge.createdOn : "-",
+        createdOn: formatBadgeCreatedOn(badge.createdOn),
         active: formatActiveStatus(badge.active),
       };
     });
+  };
+
+  const formatBadgeCreatedOn = (createdOn?: string) => {
+    if (!isDefined(createdOn) || createdOn === "") return "-";
+    return formatDate(createdOn);
   };
 
   const getBadgeImage = (badge: BadgeInfo) => {

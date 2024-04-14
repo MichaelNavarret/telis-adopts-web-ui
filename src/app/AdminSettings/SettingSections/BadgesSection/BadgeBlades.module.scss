@@ -12,3 +12,19 @@
   flex-direction: column;
   gap: 5%;
 }
+
+.createBadgeBladeFormContainer {
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5%;
+}
+
+.badgeImageField {
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}

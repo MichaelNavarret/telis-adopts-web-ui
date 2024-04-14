@@ -1,3 +1,4 @@
+import { BadgeInfo } from "./badge";
 import { RoleInfo } from "./role";
 
 export type OwnerInfo = {
@@ -19,7 +20,7 @@ export type OwnerInfo = {
 
 export type OwnerSingletonResponse = {
   ownerSingletonInfo: OwnerInfo;
-  badgesCode: string[];
+  badges: BadgeInfo[];
 };
 
 export type OwnerRequest = {

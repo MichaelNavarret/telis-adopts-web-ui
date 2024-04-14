@@ -27,6 +27,12 @@ export type BadgeUpdateRequest = {
   active?: boolean;
 };
 
+export type BadgeCreateRequest = {
+  name?: string;
+  code?: string;
+  description?: string;
+};
+
 // !======================= PARAMS =================================
 export type BadgeCollectionParams = {
   sort?: string;

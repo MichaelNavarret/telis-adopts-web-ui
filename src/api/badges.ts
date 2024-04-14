@@ -3,6 +3,7 @@ import request from "../tools/request";
 import {
   BadgeCollectionParams,
   BadgeCollectionResponse,
+  BadgeCreateRequest,
   BadgeSingletonResponse,
   BadgeUpdateRequest,
 } from "../types/badge";
@@ -52,5 +53,21 @@ export const updateBadge = async (
     .then((res) => {
       return res.data.badgeInfo;
     });
+  return data;
+};
+
+export const createBadge = async (payload: BadgeCreateRequest) => {
+  const data = request
+    .post<BadgeSingletonResponse>(`/badges`, payload)
+    .then((res) => res.data.badgeInfo);
+  return data;
+};
+
+export const uploadBadgeImage = async (file: File, badgeId: string) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  const data = await request
+    .put<BadgeSingletonResponse>(`/badges/${badgeId}/badgeImage`, formData)
+    .then((res) => res.data.badgeInfo);
   return data;
 };
