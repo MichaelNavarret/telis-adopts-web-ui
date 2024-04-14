@@ -9,6 +9,7 @@ import { useQuery } from "react-query";
 import { getFavoriteCharacters } from "../../api/adopts";
 import DEFAULT_ICON from "../../assets/utils/not_icon.png";
 import { MdFavorite } from "react-icons/md";
+import { getIconBoxShadow } from "../../tools/commons";
 
 type ProfileHeaderProps = {
   data?: OwnerSingletonResponse;
@@ -20,7 +21,7 @@ const ProfileHeader = (props: ProfileHeaderProps) => {
   const { colors } = useTheme();
   const borderIconColor = colors.CTX_FORM_CONTAINER_COLOR;
   const navigate = useNavigate();
-  const pixelSize = "1";
+  const pixelSize = 1;
 
   const { data: favoriteCharacters } = useQuery({
     queryKey: [
@@ -69,17 +70,17 @@ const ProfileHeader = (props: ProfileHeaderProps) => {
           </div>
           <NetworkProfile className={styles.socialNetworks} owner={data} />
           <div className={styles.badges}>
-            <BadgesExpositor
-              badgesCode={data?.badgesCode || []}
-              badgeSize={50}
-            />
+            <BadgesExpositor badges={data?.badges || []} badgeSize={50} />
           </div>
         </div>
       </div>
       <div className={styles.favoriteContainer}>
         <div className={styles.favoriteIconsContainer}>
           {favoriteCharacters?.data.map((character) => (
-            <div className={styles.favoriteIconsSecondContainer}>
+            <div
+              className={styles.favoriteIconsSecondContainer}
+              key={"div: " + character.id}
+            >
               <img
                 key={character.id}
                 src={character.iconUrl || DEFAULT_ICON}
@@ -94,14 +95,7 @@ const ProfileHeader = (props: ProfileHeaderProps) => {
                 className={styles.heartIcon}
                 style={{
                   color: "#FF83B3",
-                  filter: ` drop-shadow(${pixelSize}px 0 0 ${borderIconColor})
-                  drop-shadow(${pixelSize}px ${pixelSize}px 0 ${borderIconColor})
-                  drop-shadow(${pixelSize}px -${pixelSize}px 0 ${borderIconColor})
-                  drop-shadow(0 ${pixelSize}px 0 ${borderIconColor})
-                  drop-shadow(-${pixelSize}px 0 0 ${borderIconColor})
-                  drop-shadow(-${pixelSize}px ${pixelSize}px 0 ${borderIconColor})
-                  drop-shadow(-${pixelSize}px -${pixelSize}px 0 ${borderIconColor})
-                  drop-shadow(0 -${pixelSize}px 0 ${borderIconColor})`,
+                  filter: getIconBoxShadow(borderIconColor, pixelSize),
                 }}
               />
             </div>

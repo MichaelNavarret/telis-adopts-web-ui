@@ -13,5 +13,13 @@ export function formatOwnersTableRows(data: OwnerInfo[]) {
 }
 
 const formatStatus = (status: boolean) => {
-  return <Chip label={status ? strings.ACTIVE : strings.INACTIVE} />;
+  return (
+    <Chip
+      style={{
+        backgroundColor: status ? "#31CE8C" : "#E85667",
+        color: "white",
+      }}
+      label={status ? strings.ACTIVE : strings.INACTIVE}
+    />
+  );
 };

@@ -1,6 +1,5 @@
 import { useQuery } from "react-query";
 import { getBadges } from "../../api/badges";
-import { getBadgeImage } from "../../tools/badges";
 import styles from "./BadgesExpositor.module.scss";
 import { BadgeExpositorItem } from "../../app/AdminSettings/SettingSections/AdoptsSection/components/BadgeExpositorItem";
 import TextComponent from "../TextComponents/TextComponent";
@@ -61,7 +60,7 @@ export const BadgesExpositor = (props: BadgesExpositorProps) => {
         {badgesCollectionResponse?.badgeInfoList.map((badge) => (
           <BadgeExpositorItem
             key={badge.id}
-            img={getBadgeImage(badge.code)}
+            img={badge.badgeUrl}
             selected={isSelected(badge.id)}
             badgeCode={badge.code}
             id={badge.id}

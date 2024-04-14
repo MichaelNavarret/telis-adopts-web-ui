@@ -54,16 +54,19 @@ export function safeGetIcon(iconUrl?: string) {
   return NOT_ICON;
 }
 
-export const getIconBoxShadow = (borderColor: string) => {
-  return ` drop-shadow(3px 0 0 ${borderColor})
-  drop-shadow(3px 3px 0 ${borderColor})
-  drop-shadow(3px -3px 0 ${borderColor})
-  drop-shadow(0 3px 0 ${borderColor})
+export const getIconBoxShadow = (
+  borderColor: string,
+  pixelSize: number = 3
+) => {
+  return ` drop-shadow(${pixelSize}px 0 0 ${borderColor})
+  drop-shadow(${pixelSize}px ${pixelSize}px 0 ${borderColor})
+  drop-shadow(${pixelSize}px -${pixelSize}px 0 ${borderColor})
+  drop-shadow(0 ${pixelSize}px 0 ${borderColor})
 
-  drop-shadow(-3px 0 0 ${borderColor})
-  drop-shadow(-3px 3px 0 ${borderColor})
-  drop-shadow(-3px -3px 0 ${borderColor})
-  drop-shadow(0 -3px 0 ${borderColor})`;
+  drop-shadow(-${pixelSize}px 0 0 ${borderColor})
+  drop-shadow(-${pixelSize}px ${pixelSize}px 0 ${borderColor})
+  drop-shadow(-${pixelSize}px -${pixelSize}px 0 ${borderColor})
+  drop-shadow(0 -${pixelSize}px 0 ${borderColor})`;
 };
 
 export const getBorderColor = (specie?: string) => {
