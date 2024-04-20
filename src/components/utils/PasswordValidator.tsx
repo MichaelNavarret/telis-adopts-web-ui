@@ -3,7 +3,7 @@ import styles from "./PasswordValidator.module.scss";
 import DoneIcon from "@mui/icons-material/Done";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { Tooltip } from "@mui/material";
-import { MAIN_BUTTON_COLOR } from "../../constants/colors/mainColors";
+import { DEFAULT_PRIMARY } from "../../constants/colors/mainColors";
 
 const PasswordValidatorForwardRef = forwardRef((props: any, ref: any) => {
   return (
@@ -106,7 +106,7 @@ const PasswordValidator = (props: PasswordValidatorProps) => {
         tooltip: {
           style: {
             backgroundColor: "#fef1df",
-            color: MAIN_BUTTON_COLOR,
+            color: DEFAULT_PRIMARY,
             fontSize: "1rem",
             border: "1px solid #F784A1",
             borderRadius: "35px",

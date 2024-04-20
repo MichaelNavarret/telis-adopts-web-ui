@@ -18,7 +18,7 @@ export const BadgeExpositorItem = (props: BadgesExpositorProps) => {
       className={styles.badgesExpositor_badgeContainer}
       style={{
         border: selected
-          ? "2px solid " + colors.CTX_BORDER_ICON_COLOR
+          ? "2px solid " + colors.primary_color
           : "2px solid transparent",
       }}
       key={id}

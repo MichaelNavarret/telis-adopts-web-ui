@@ -71,7 +71,7 @@ const MasterListExpositorAdopts = (props: MasterListExpositorAdoptsProps) => {
               variant="circular"
               width={190}
               height={190}
-              style={{ backgroundColor: colors.CTX_BUTTON_COLOR }}
+              style={{ backgroundColor: colors.primary_color }}
             />
           ) : (
             <div key={adopt.id} className={styles.adoptIconContainer}>
@@ -80,8 +80,8 @@ const MasterListExpositorAdopts = (props: MasterListExpositorAdoptsProps) => {
                 style={{
                   color: onProfile
                     ? getColorsBySpecie(adopt.specieName.toLocaleLowerCase())
-                        .button
-                    : colors.CTX_BUTTON_COLOR,
+                        .primary_color
+                    : colors.primary_color,
                 }}
               >
                 {`#${adopt.code}`}
@@ -124,7 +124,7 @@ const MasterListExpositorAdopts = (props: MasterListExpositorAdoptsProps) => {
               color: "black",
             },
             "& .MuiPaginationItem-root.Mui-selected": {
-              backgroundColor: colors.CTX_BUTTON_COLOR,
+              backgroundColor: colors.primary_color,
             },
           }}
           count={Number(totalPages)}

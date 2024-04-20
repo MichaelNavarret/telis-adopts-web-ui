@@ -26,26 +26,18 @@ export type BaseResponse = {
 };
 
 export type Colors = {
-  text: string;
-  titleText: string;
-  button: string;
-  bubble: string;
-  bubbleIcon: string;
-  container: string;
-  secondContainer: string;
-  buttonShadow: string;
-  bubbleHome: string;
-  menubar: string;
-  menubarHover: string;
-  tableHeader: string;
-  tableHeaderText: string;
-  tableRowHover: string;
-  tableRowHoverText: string;
-  formContainer: string;
-  formTitle: string;
-  buttonShadow2: string;
-  formButton: string;
-  tableTitle: string;
-  menubarText: string;
-  borderIcon: string;
+  //Color used to menus and buttons
+  primary_color: string;
+  //Color used to backgrounds and forms
+  secondary_color: string;
+  //Color used to selected options
+  selected_color: string;
+  //Color used to shadows
+  shadow_color: string;
+  //Color used to normal texts. Used on Backgrounds - forms
+  text_color: string;
+  //Color used on Button/Menus text
+  text_02_color: string;
+  //Color used to titles or highlighted texts.
+  text_03_color: string;
 };

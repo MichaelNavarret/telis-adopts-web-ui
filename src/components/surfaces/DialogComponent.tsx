@@ -61,10 +61,10 @@ const DialogComponent = (props: DialogComponentProps) => {
           width: "5px",
         },
         "&::-webkit-scrollbar-track": {
-          background: colors.CTX_FORM_CONTAINER_COLOR,
+          background: colors.secondary_color,
         },
         "&::-webkit-scrollbar-thumb": {
-          background: colors.CTX_MENUBAR_COLOR,
+          background: colors.primary_color,
         },
       }}
     >
@@ -84,7 +84,7 @@ const DialogComponent = (props: DialogComponentProps) => {
         style: {
           backgroundColor: backgroundColor
             ? backgroundColor
-            : colors.CTX_FORM_CONTAINER_COLOR,
+            : colors.secondary_color,
           borderRadius,
           width: width ? width : fullScreen ? "" : "auto",
           height: height ? height : fullScreen ? "" : "auto",
@@ -109,7 +109,7 @@ const DialogComponent = (props: DialogComponentProps) => {
             content={dialogTitle}
             animation={false}
             hover={false}
-            colorText={colorTitle ? colorTitle : colors.CTX_FORM_TITLE_COLOR}
+            colorText={colorTitle ? colorTitle : colors.text_03_color}
           />
         )}
       </DialogTitle>

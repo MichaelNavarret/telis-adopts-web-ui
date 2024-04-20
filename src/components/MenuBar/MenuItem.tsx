@@ -29,10 +29,8 @@ const MenuItem = (props: MenuItem) => {
       className={`${currentClassName} ${className}`}
       style={{
         backgroundColor:
-          hover || selected
-            ? colors.CTX_MENUBAR_HOVER_COLOR
-            : colors.CTX_MENUBAR_COLOR,
-        color: colors.CTX_MENUBAR_TEXT_COLOR,
+          hover || selected ? colors.selected_color : colors.primary_color,
+        color: colors.text_02_color,
       }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}

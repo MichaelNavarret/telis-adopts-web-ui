@@ -58,7 +58,7 @@ export const SecuritySection = (props: SecuritySectionProps) => {
         autoComplete="off"
         className={styles.securitySection_PasswordSection}
         style={{
-          border: "1px dashed " + colors.CTX_BORDER_ICON_COLOR,
+          border: "1px dashed " + colors.primary_color,
         }}
       >
         <TextComponent
@@ -98,7 +98,7 @@ export const SecuritySection = (props: SecuritySectionProps) => {
       <div
         className={styles.securitySection_Skip2faSection}
         style={{
-          border: "1px dashed " + colors.CTX_BORDER_ICON_COLOR,
+          border: "1px dashed " + colors.primary_color,
         }}
       >
         <TextComponent
@@ -112,11 +112,11 @@ export const SecuritySection = (props: SecuritySectionProps) => {
           onChange={(e) => handleSwitch(e.target.checked)}
           disabled={isOwnerSecurityLoading}
           style={{
-            color: colors.CTX_BORDER_ICON_COLOR,
+            color: colors.primary_color,
           }}
           sx={{
             "& .MuiSwitch-track": {
-              backgroundColor: colors.CTX_BORDER_ICON_COLOR,
+              backgroundColor: colors.primary_color,
             },
           }}
         />

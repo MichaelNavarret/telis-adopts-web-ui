@@ -156,7 +156,7 @@ const EditTraitsDialog = (props: EditTraitsDialogProps) => {
               <p
                 style={{
                   color: isAvailableTrait(trait.id)
-                    ? colors.CTX_MENUBAR_COLOR
+                    ? colors.primary_color
                     : "gray",
                   fontSize: "11px",
                   letterSpacing: "0.1rem",
@@ -202,8 +202,8 @@ const EditTraitsDialog = (props: EditTraitsDialogProps) => {
         width="150px"
         height="35px"
         withShadow={false}
-        colorButton={colors.CTX_FORM_BUTTON_COLOR}
-        buttonColorShadow={colors.CTX_BUTTON_SHADOW_COLOR_2}
+        colorButton={colors.primary_color}
+        buttonColorShadow={colors.shadow_color}
         className={styles.submitButton}
         loading={isUpdateTraitsMutation}
         disabled={isUpdateTraitsMutation}

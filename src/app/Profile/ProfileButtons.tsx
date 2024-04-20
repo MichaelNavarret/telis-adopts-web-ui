@@ -27,6 +27,7 @@ const ProfileButtons = (props: ProfileButtonsProps) => {
           selected={activeButton !== "" && button === activeButton}
           notSelected={activeButton !== "" && button !== activeButton}
           onClick={() => handleSelection(button)}
+          disabled={button === "Trade Center"}
         />
       ))}
     </div>

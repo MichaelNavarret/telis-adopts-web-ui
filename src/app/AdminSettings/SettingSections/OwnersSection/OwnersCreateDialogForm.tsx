@@ -64,7 +64,7 @@ const OwnersCreateDialogForm = (props: OwnersCreateDialogFormProps) => {
         />
         <div
           className={styles.infoContainer}
-          style={{ border: "2px dashed " + colors.CTX_BUTTON_COLOR }}
+          style={{ border: "2px dashed " + colors.primary_color }}
         >
           <FaCircleInfo fontSize={"21px"} />
           <p className={styles.infoMessage}>{strings.OWNER_PASSWORD_MESSAGE}</p>
@@ -74,8 +74,8 @@ const OwnersCreateDialogForm = (props: OwnersCreateDialogFormProps) => {
           content={strings.CREATE}
           width="150px"
           height="35px"
-          colorButton={colors.CTX_FORM_BUTTON_COLOR}
-          buttonColorShadow={colors.CTX_BUTTON_SHADOW_COLOR_2}
+          colorButton={colors.primary_color}
+          buttonColorShadow={colors.shadow_color}
           disabled={isCreateOwnerLoading}
           loading={isCreateOwnerLoading}
           catsLoading={isCreateOwnerLoading}

@@ -9,11 +9,7 @@ type DotLoadingProps = {
 
 const DotLoading = (props: DotLoadingProps) => {
   const { colors } = useTheme();
-  const {
-    dotNumber = 3,
-    size = "20px",
-    color = colors.CTX_MENUBAR_TEXT_COLOR,
-  } = props;
+  const { dotNumber = 3, size = "20px", color = colors.text_02_color } = props;
 
   return (
     <div className={styles.dotLoading}>

@@ -16,8 +16,8 @@ const NavigationBubbles = () => {
   const [showDialog, setShowDialog] = useState(false);
 
   const styleConfig = {
-    backgroundColor: colors.CTX_BUBBLE_COLOR,
-    color: colors.CTX_BUBBLE_ICON_COLOR,
+    backgroundColor: colors.primary_color,
+    color: colors.text_02_color,
   };
 
   const dialogContent = (

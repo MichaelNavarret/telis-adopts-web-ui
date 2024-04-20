@@ -18,7 +18,7 @@ const ActionIcon = (props: ActionIconComponentProps) => {
   const { colors } = useTheme();
   const {
     fontsize = "small",
-    iconColor = colors.CTX_BUTTON_SHADOW_COLOR_2,
+    iconColor = colors.shadow_color,
     Icon,
     handleClick,
     disabled = false,

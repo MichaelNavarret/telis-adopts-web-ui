@@ -19,7 +19,7 @@ type ProfileHeaderProps = {
 const ProfileHeader = (props: ProfileHeaderProps) => {
   const { data, canEdit } = props;
   const { colors } = useTheme();
-  const borderIconColor = colors.CTX_FORM_CONTAINER_COLOR;
+  const borderIconColor = colors.secondary_color;
   const navigate = useNavigate();
   const pixelSize = 1;
 
@@ -37,13 +37,13 @@ const ProfileHeader = (props: ProfileHeaderProps) => {
   return (
     <div
       className={styles.headerContainer}
-      style={{ background: colors.CTX_MENUBAR_COLOR }}
+      style={{ background: colors.primary_color }}
     >
       <div className={styles.informationContainer}>
         {canEdit && (
           <TbSettingsFilled
             className={styles.settingsIcon}
-            style={{ color: colors.CTX_MENUBAR_HOVER_COLOR }}
+            style={{ color: colors.selected_color }}
             onClick={() => navigate("edit")}
           />
         )}
@@ -60,11 +60,11 @@ const ProfileHeader = (props: ProfileHeaderProps) => {
 
         <div
           className={styles.information}
-          style={{ background: colors.CTX_FORM_CONTAINER_COLOR }}
+          style={{ background: colors.secondary_color }}
         >
           <div
             className={styles.nickname}
-            style={{ color: colors.CTX_FORM_TITLE_COLOR }}
+            style={{ color: colors.text_03_color }}
           >
             {data?.ownerSingletonInfo?.nickName}
           </div>

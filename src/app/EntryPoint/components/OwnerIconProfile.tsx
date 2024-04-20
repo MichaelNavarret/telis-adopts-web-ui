@@ -24,7 +24,7 @@ const OwnerIconProfile = () => {
   return (
     <div
       className={styles.ownerIconProfile_MainContainer}
-      style={{ border: `12px solid ${colors.CTX_BUBBLE_COLOR}` }}
+      style={{ border: `12px solid ${colors.primary_color}` }}
       onClick={() => navigate(`profile/${ownerInfo?.id}`)}
     >
       <img

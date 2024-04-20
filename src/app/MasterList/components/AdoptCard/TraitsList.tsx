@@ -27,12 +27,12 @@ const TraitList = (props: TraitListProps) => {
       <TextComponent
         className={styles.titleTrait}
         content={rarity}
-        colorText={onProfile ? colorSpecie.text : colors.CTX_TEXT_COLOR}
+        colorText={onProfile ? colorSpecie.text_02_color : colors.text_02_color}
         animation={false}
         hover={false}
         fontSize="large"
         backgroundColor={
-          onProfile ? colorSpecie.button : colors.CTX_BUTTON_COLOR
+          onProfile ? colorSpecie.primary_color : colors.primary_color
         }
         letterSpacing="0.3rem"
       />
@@ -44,8 +44,8 @@ const TraitList = (props: TraitListProps) => {
               style={{
                 fontSize: "11px",
                 color: onProfile
-                  ? colorSpecie.buttonShadow2
-                  : colors.CTX_BUTTON_SHADOW_COLOR_2,
+                  ? colorSpecie.shadow_color
+                  : colors.shadow_color,
                 letterSpacing: "0.2rem",
               }}
             >
@@ -66,8 +66,8 @@ const TraitList = (props: TraitListProps) => {
                     fontSize: "11px",
                     letterSpacing: "0.2rem",
                     color: onProfile
-                      ? colorSpecie.buttonShadow2
-                      : colors.CTX_BUTTON_SHADOW_COLOR_2,
+                      ? colorSpecie.shadow_color
+                      : colors.shadow_color,
                   }}
                 >
                   {`: ${trait.additionalInfo}`}
@@ -77,10 +77,12 @@ const TraitList = (props: TraitListProps) => {
             {/* ----------------- */}
             <p
               style={{
-                color: onProfile ? colorSpecie.text : colors.CTX_TEXT_COLOR,
+                color: onProfile
+                  ? colorSpecie.text_02_color
+                  : colors.text_02_color,
                 backgroundColor: onProfile
-                  ? colorSpecie.button
-                  : colors.CTX_BUTTON_COLOR,
+                  ? colorSpecie.primary_color
+                  : colors.primary_color,
                 padding: "6px",
                 paddingLeft: "10px",
                 paddingRight: "10px",

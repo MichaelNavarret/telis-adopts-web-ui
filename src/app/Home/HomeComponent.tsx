@@ -8,7 +8,6 @@ import DialogComponent from "../../components/surfaces/DialogComponent";
 import { useEffect, useState } from "react";
 import ImageDialog from "./components/ImageDialog";
 import FaqsDialog from "./components/FaqsDialog";
-import { getMainCharacter } from "../../tools/assets";
 
 const HomeComponent = () => {
   const navigate = useNavigate();
@@ -17,7 +16,7 @@ const HomeComponent = () => {
   const [openFaq, setOpenFaq] = useState(false);
   const specieId = localStorage.getItem("specieId") || "";
 
-  const { data: specieInfo } = useQuery({
+  const { data: specieInfo, isLoading } = useQuery({
     queryKey: ["specieInfo"],
     queryFn: () => {
       return getSpecie(specieId);
@@ -80,7 +79,7 @@ const HomeComponent = () => {
 
   return (
     <>
-      {specieInfo && (
+      {specieInfo && !isLoading && (
         <>
           <img
             src={specieInfo?.logoUrl || ""}
@@ -88,7 +87,7 @@ const HomeComponent = () => {
             className={styles.speciesLogoContainer}
           />
           <img
-            src={getMainCharacter(specieInfo?.code || "")}
+            src={specieInfo?.characterUrl || ""}
             alt="character"
             className={styles.mainCharacter}
           />

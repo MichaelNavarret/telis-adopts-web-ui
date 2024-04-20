@@ -9,7 +9,7 @@ type ProfileEditHeaderProps = {
 const ProfileEditHeader = (props: ProfileEditHeaderProps) => {
   const { owner } = props;
   const { colors } = useTheme();
-  const borderIconColor = colors.CTX_BUTTON_COLOR;
+  const borderIconColor = colors.primary_color;
   return (
     <>
       <img

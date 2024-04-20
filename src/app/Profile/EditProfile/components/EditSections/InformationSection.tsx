@@ -115,8 +115,8 @@ export const InformationSection = (props: InformationSectionProps) => {
                 className={styles.informationSection_socialMedia_icon}
                 fontSize="40px"
                 style={{
-                  fill: colors.CTX_TEXT_COLOR,
-                  background: colors.CTX_BUBBLE_COLOR,
+                  fill: colors.text_02_color,
+                  background: colors.primary_color,
                   padding: "5px",
                 }}
               />
@@ -135,8 +135,8 @@ export const InformationSection = (props: InformationSectionProps) => {
                 className={styles.informationSection_socialMedia_icon}
                 fontSize="40px"
                 style={{
-                  fill: colors.CTX_TEXT_COLOR,
-                  background: colors.CTX_BUBBLE_COLOR,
+                  fill: colors.text_02_color,
+                  background: colors.primary_color,
                   padding: "5px",
                 }}
               />
@@ -155,8 +155,8 @@ export const InformationSection = (props: InformationSectionProps) => {
                 className={styles.informationSection_socialMedia_icon}
                 fontSize="40px"
                 style={{
-                  fill: colors.CTX_TEXT_COLOR,
-                  background: colors.CTX_BUBBLE_COLOR,
+                  fill: colors.text_02_color,
+                  background: colors.primary_color,
                   padding: "5px",
                 }}
               />
@@ -175,8 +175,8 @@ export const InformationSection = (props: InformationSectionProps) => {
                 className={styles.informationSection_socialMedia_icon}
                 fontSize="40px"
                 style={{
-                  fill: colors.CTX_TEXT_COLOR,
-                  background: colors.CTX_BUBBLE_COLOR,
+                  fill: colors.text_02_color,
+                  background: colors.primary_color,
                   padding: "5px",
                 }}
               />
@@ -193,9 +193,9 @@ export const InformationSection = (props: InformationSectionProps) => {
             >
               <ToyhouseIcon
                 className={styles.informationSection_socialMedia_icon}
-                iconColor={colors.CTX_TEXT_COLOR}
+                iconColor={colors.text_02_color}
                 style={{
-                  background: colors.CTX_BUBBLE_COLOR,
+                  background: colors.primary_color,
                   padding: "3px",
                   width: "45px",
                   height: "45px",

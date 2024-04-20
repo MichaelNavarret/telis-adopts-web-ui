@@ -16,10 +16,8 @@ const TableCellComponent = (props: TableCellComponentProps) => {
       align="center"
       className={styles.tableCell}
       style={{
-        backgroundColor: columnHeader
-          ? colors.CTX_TABLE_HEADER_COLOR
-          : undefined,
-        color: columnHeader ? colors.CTX_TABLE_HEADER_TEXT_COLOR : textColor,
+        backgroundColor: columnHeader ? colors.selected_color : undefined,
+        color: columnHeader ? colors.text_02_color : textColor,
         fontWeight: columnHeader ? "bold" : undefined,
         fontSize: columnHeader ? "1rem" : undefined,
       }}

@@ -1,8 +1,6 @@
 import styles from "./LoginForm.module.scss";
 import { FormEvent, useState } from "react";
 import Button from "../../components/surfaces/Button";
-// import useUserSession from "../../hooks/useUserSession";
-// import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import { LoginRequest } from "../../types/login";
 import { login } from "../../api/login";
@@ -14,6 +12,10 @@ import useUserSession from "../../hooks/useUserSession";
 import { useNavigate } from "react-router-dom";
 import { successToast } from "../../constants/toasts";
 import { DEFAULT_PATH } from "../../routes";
+import {
+  DEFAULT_SELECTED,
+  DEFAULT_TEXT_02,
+} from "../../constants/colors/mainColors";
 
 type LoginFormProps = {
   handleStep: (val: number) => void;
@@ -86,6 +88,8 @@ export const LoginForm = (props: LoginFormProps) => {
           loading={isLoginLoading}
           marginTop="50px"
           catsLoading={isLoginLoading}
+          colorButton={DEFAULT_SELECTED}
+          colorTextButton={DEFAULT_TEXT_02}
         >
           <p>{strings.LOGIN}</p>
         </Button>

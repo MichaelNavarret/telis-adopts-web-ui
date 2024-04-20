@@ -22,10 +22,10 @@ type DesignersSectionProps = {
 const DesignersSection = (props: DesignersSectionProps) => {
   const { adoptId, designers, disabled } = props;
   const { colors } = useTheme();
-  const border = "1px solid " + colors.CTX_MENUBAR_COLOR;
-  const textColor = colors.CTX_FORM_TITLE_COLOR;
+  const border = "1px solid " + colors.primary_color;
+  const textColor = colors.text_03_color;
   const disableColor = "#E5E5E5";
-  const borderBottom = "1px solid " + colors.CTX_MENUBAR_COLOR;
+  const borderBottom = "1px solid " + colors.primary_color;
   const [openAddDesignerBlade, setOpenAddDesignerBlade] = useState(false);
   const queryClient = useQueryClient();
 

@@ -27,10 +27,10 @@ const Dropzone = (props: DropzoneProps) => {
       {...getRootProps()}
       style={{
         width: "500px",
-        backgroundColor: colors.CTX_TABLE_ROW_HOVER_COLOR,
+        backgroundColor: colors.selected_color,
         padding: "10px",
         borderRadius: "15px",
-        border: "5px dashed" + colors.CTX_MENUBAR_COLOR,
+        border: "5px dashed" + colors.primary_color,
         textAlign: "center",
         cursor: disabled ? "progress" : "pointer",
         filter: disabled ? "grayscale(100%)" : "none",

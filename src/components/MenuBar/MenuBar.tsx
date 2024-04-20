@@ -35,8 +35,7 @@ const MenuBar = (props: MenuBar) => {
     <div
       className={`${styles.menuBarContainer} ${className}`}
       style={{
-        backgroundColor: colors.CTX_MENUBAR_COLOR,
-        color: colors.CTX_MENUBAR_TEXT_COLOR,
+        backgroundColor: colors.primary_color,
       }}
     >
       <ul className={`${styles.ulMenuBar} ${menuListClassName} `}>

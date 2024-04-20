@@ -27,8 +27,8 @@ export const TextComponent = (props: TextComponentProps) => {
   const { colors } = useTheme();
   const {
     content,
-    colorText = colors.CTX_TITLE_TEXT_COLOR,
-    colorTextHover = colors.CTX_TEXT_COLOR,
+    colorText = colors.text_color,
+    colorTextHover = colors.text_03_color,
     onClick,
     animation = true,
     hover = true,

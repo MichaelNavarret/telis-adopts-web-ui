@@ -99,7 +99,7 @@ const SpeciesDetails = (props: SpeciesDetailsProps) => {
             animation={false}
             hover={false}
             fontSize="xx-large"
-            colorText={colors.CTX_FORM_TITLE_COLOR}
+            colorText={colors.text_03_color}
           />
         </div>
         {/* //-------------------------------------------------------------------------------------- Main Information */}

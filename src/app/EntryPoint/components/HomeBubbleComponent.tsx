@@ -22,13 +22,13 @@ const HomeBubbleComponent = () => {
         tooltip: {
           style: {
             fontSize: "1rem",
-            backgroundColor: colors.CTX_BUBBLE_COLOR,
-            color: colors.CTX_BUBBLE_ICON_COLOR,
+            backgroundColor: colors.primary_color,
+            color: colors.text_02_color,
           },
         },
         arrow: {
           style: {
-            color: colors.CTX_BUBBLE_COLOR,
+            color: colors.primary_color,
           },
         },
       }}
@@ -36,15 +36,15 @@ const HomeBubbleComponent = () => {
       <div
         className={styles.homeBubbleContainer}
         style={{
-          backgroundColor: colors.CTX_BUBBLE_HOME_COLOR,
-          boxShadow: `0 0 10px ${colors.CTX_BUTTON_SHADOW_COLOR}`,
+          backgroundColor: colors.primary_color,
+          boxShadow: `0 0 10px ${colors.shadow_color}`,
         }}
         onClick={handleClick}
       >
         <HomeRoundedIcon
           className={styles.bubble}
           style={{
-            color: colors.CTX_BUBBLE_ICON_COLOR,
+            color: colors.primary_color,
           }}
         />
       </div>

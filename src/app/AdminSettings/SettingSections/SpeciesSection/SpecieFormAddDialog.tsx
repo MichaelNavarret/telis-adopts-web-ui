@@ -132,7 +132,7 @@ const SpecieFormAddDialog = (props: SpecieFormAddDialogProps) => {
       })}
       <FaCirclePlus
         className={styles.addIcon}
-        style={{ color: colors.CTX_MENUBAR_COLOR }}
+        style={{ color: colors.primary_color }}
         onClick={() => addSpecieForm()}
       />
       <Button

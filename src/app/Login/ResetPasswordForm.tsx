@@ -10,6 +10,10 @@ import { updatePasswordByLink } from "../../api/login";
 import strings from "../../l10n";
 import { successToast } from "../../constants/toasts";
 import TextFieldComponent from "../../components/Form/TextFieldComponent";
+import {
+  DEFAULT_SELECTED,
+  DEFAULT_TEXT_02,
+} from "../../constants/colors/mainColors";
 
 type ResetPasswordFormProps = {
   handleStep: (val: number) => void;
@@ -110,6 +114,8 @@ export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
         height="80px"
         width="350px"
         marginTop="50px"
+        colorButton={DEFAULT_SELECTED}
+        colorTextButton={DEFAULT_TEXT_02}
       >
         <p>{strings.RESET_PASSWORD}</p>
       </Button>

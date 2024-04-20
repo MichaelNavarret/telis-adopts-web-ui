@@ -17,7 +17,7 @@ const HistorySection = (props: HistorySectionProps) => {
     <Container
       className={styles.historySection}
       style={{
-        border: `1px solid ${colors.CTX_BUTTON_COLOR}`,
+        border: `1px solid ${colors.primary_color}`,
       }}
       sx={{
         //-webkit-scrollbar
@@ -25,10 +25,10 @@ const HistorySection = (props: HistorySectionProps) => {
           width: "5px",
         },
         "&::-webkit-scrollbar-track": {
-          background: colors.CTX_FORM_CONTAINER_COLOR,
+          background: colors.secondary_color,
         },
         "&::-webkit-scrollbar-thumb": {
-          background: colors.CTX_MENUBAR_COLOR,
+          background: colors.primary_color,
         },
       }}
     >
@@ -39,7 +39,7 @@ const HistorySection = (props: HistorySectionProps) => {
           hover={false}
           fontSize="large"
           className={styles.titleLogo}
-          colorText={colors.CTX_FORM_TITLE_COLOR}
+          colorText={colors.text_03_color}
         />
       </div>
       <pre className={styles.history}>{history}</pre>
@@ -47,7 +47,7 @@ const HistorySection = (props: HistorySectionProps) => {
         className={styles.editHistoryIcon}
         onClick={onEdit}
         style={{
-          color: colors.CTX_BUTTON_COLOR,
+          color: colors.primary_color,
         }}
       />
     </Container>

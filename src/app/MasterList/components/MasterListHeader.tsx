@@ -19,7 +19,7 @@ const MasterListHeader = (props: MasterListHeaderProps) => {
   return (
     <div className={styles.masterListHeaderContainer}>
       <BackArrowIcon
-        iconColor={colors.CTX_BUTTON_COLOR}
+        iconColor={colors.primary_color}
         className={styles.backArrowButton}
         handleClick={() => navigate(-1)}
       />
@@ -30,14 +30,14 @@ const MasterListHeader = (props: MasterListHeaderProps) => {
           animation={false}
           fontSize="x-large"
           letterSpacing="15px"
-          colorText={colors.CTX_MENUBAR_TEXT_COLOR}
+          colorText={colors.text_02_color}
         />
         <TextComponent
           content={`${creationType}`}
           hover={false}
           animation={false}
           letterSpacing="10px"
-          colorText={colors.CTX_MENUBAR_TEXT_COLOR}
+          colorText={colors.text_03_color}
           fontSize="x-large"
         />
       </div>
