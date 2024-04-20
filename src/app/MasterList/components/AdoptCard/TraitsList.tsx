@@ -27,7 +27,7 @@ const TraitList = (props: TraitListProps) => {
       <TextComponent
         className={styles.titleTrait}
         content={rarity}
-        colorText={onProfile ? colorSpecie.text_03_color : colors.text_03_color}
+        colorText={onProfile ? colorSpecie.text_02_color : colors.text_02_color}
         animation={false}
         hover={false}
         fontSize="large"
@@ -78,8 +78,8 @@ const TraitList = (props: TraitListProps) => {
             <p
               style={{
                 color: onProfile
-                  ? colorSpecie.text_03_color
-                  : colors.text_03_color,
+                  ? colorSpecie.text_02_color
+                  : colors.text_02_color,
                 backgroundColor: onProfile
                   ? colorSpecie.primary_color
                   : colors.primary_color,

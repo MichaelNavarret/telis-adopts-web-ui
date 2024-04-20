@@ -21,7 +21,7 @@ export const NetworkProfile = (props: NetworkProfileProps) => {
   };
 
   const style = {
-    fill: colors.text_color,
+    fill: colors.text_02_color,
     background: colors.primary_color,
     padding: "5px",
     boxShadow: `0px 0px 10px 0px ${colors.shadow_color}`,
@@ -64,14 +64,14 @@ export const NetworkProfile = (props: NetworkProfileProps) => {
           onClick={() => handleIconClick(owner?.ownerSingletonInfo.devianart)}
         />
       )}
-      {owner?.ownerSingletonInfo.discord && (
+      {/* {owner?.ownerSingletonInfo.discord && (
         <FaDiscord
           className={styles.iconStyles}
           fontSize="30px"
           style={getCurrentStyle(isDefined(owner?.ownerSingletonInfo.discord))}
           onClick={() => handleIconClick(owner?.ownerSingletonInfo.discord)}
         />
-      )}
+      )} */}
       {owner?.ownerSingletonInfo.twitter && (
         <FaTwitter
           className={styles.iconStyles}
@@ -95,7 +95,7 @@ export const NetworkProfile = (props: NetworkProfileProps) => {
           className={styles.iconStyles}
           iconColor={
             isDefined(owner?.ownerSingletonInfo.toyhouse)
-              ? colors.text_color
+              ? colors.text_02_color
               : "gray"
           }
           style={getCurrentStyleForToyhouse(

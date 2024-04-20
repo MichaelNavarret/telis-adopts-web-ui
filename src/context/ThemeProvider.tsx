@@ -2,15 +2,6 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 import { getBackground } from "../constants/backgrounds";
 import { getColors } from "../constants/colors";
 import { getLogo } from "../constants/logos";
-import {
-  DEFAULT_PRIMARY,
-  DEFAULT_SECONDARY,
-  DEFAULT_SELECTED,
-  DEFAULT_SHADOW,
-  DEFAULT_TEXT,
-  DEFAULT_TEXT_02,
-  DEFAULT_TEXT_03,
-} from "../constants/colors/mainColors";
 import { Colors } from "../types/commons";
 
 interface ThemeContextProps {
@@ -32,32 +23,33 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
+  const DEFAULT = getColors();
   const defaultBackground = getBackground();
   const defaultLogo = getLogo();
   const [colors, setColors] = useState({
-    primary_color: DEFAULT_PRIMARY,
-    secondary_color: DEFAULT_SECONDARY,
-    selected_color: DEFAULT_SELECTED,
-    shadow_color: DEFAULT_SHADOW,
-    text_color: DEFAULT_TEXT,
-    text_02_color: DEFAULT_TEXT_02,
-    text_03_color: DEFAULT_TEXT_03,
+    primary_color: DEFAULT.primary_color,
+    secondary_color: DEFAULT.secondary_color,
+    selected_color: DEFAULT.selected_color,
+    shadow_color: DEFAULT.shadow_color,
+    text_color: DEFAULT.text_color,
+    text_02_color: DEFAULT.text_02_color,
+    text_03_color: DEFAULT.text_03_color,
   });
   const [background, setBackground] = useState(defaultBackground);
   const [logo, setLogo] = useState(defaultLogo);
   //this method will be call to reload the theme when click in some button
   const reloadTheme = () => {
-    const colors = getColors();
+    const COLORS = getColors();
     const background = getBackground();
     const logo = getLogo();
     setColors({
-      primary_color: colors.primary_color,
-      secondary_color: colors.secondary_color,
-      selected_color: colors.selected_color,
-      shadow_color: colors.shadow_color,
-      text_color: colors.text_color,
-      text_02_color: colors.text_02_color,
-      text_03_color: colors.text_03_color,
+      primary_color: COLORS.primary_color,
+      secondary_color: COLORS.secondary_color,
+      selected_color: COLORS.selected_color,
+      shadow_color: COLORS.shadow_color,
+      text_color: COLORS.text_color,
+      text_02_color: COLORS.text_02_color,
+      text_03_color: COLORS.text_03_color,
     });
     setBackground(background);
     setLogo(logo);

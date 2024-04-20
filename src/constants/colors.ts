@@ -7,6 +7,7 @@ import { spectraLumenColors } from "./colors/spectraLumenColors";
 
 export function getColors() {
   const species = getCurrentSpecie();
+  console.log("SP: ", species);
   switch (species) {
     case "lanies":
       return laniesColors;

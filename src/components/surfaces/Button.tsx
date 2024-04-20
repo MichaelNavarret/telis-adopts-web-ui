@@ -2,6 +2,7 @@ import { CircularProgress } from "@mui/material";
 import styles from "./Button.module.scss";
 import { useTheme } from "../../context/ThemeProvider";
 import CatsLoading from "../Loading/CatsLoading";
+import { hexToRGBA } from "../../tools/commons";
 
 export type ButtonProps = {
   colorButton?: string;
@@ -29,7 +30,7 @@ export const Button = (props: ButtonProps) => {
   const { colors } = useTheme();
   const {
     colorButton = colors.primary_color,
-    colorTextButton = colors.text_color,
+    colorTextButton = colors.text_02_color,
     buttonColorShadow = colors.shadow_color,
     children,
     content,
@@ -58,7 +59,7 @@ export const Button = (props: ButtonProps) => {
   const getBackgroundColor = () => {
     if (singleSelected) return colors.primary_color;
     if (selected) return colors.selected_color;
-    if (notSelected) return "grey";
+    if (notSelected) return hexToRGBA(colors.primary_color, 0.4);
     return colorButton;
   };
 

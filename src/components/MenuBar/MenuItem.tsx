@@ -30,7 +30,7 @@ const MenuItem = (props: MenuItem) => {
       style={{
         backgroundColor:
           hover || selected ? colors.selected_color : colors.primary_color,
-        color: colors.text_color,
+        color: colors.text_02_color,
       }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}

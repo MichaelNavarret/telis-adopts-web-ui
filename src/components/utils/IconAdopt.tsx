@@ -7,6 +7,7 @@ import { cloudystarsColors } from "../../constants/colors/cloudyStarsColors";
 import { pluniesColors } from "../../constants/colors/pluniesColors";
 import { getIconBoxShadow } from "../../tools/commons";
 import { DEFAULT_PRIMARY } from "../../constants/colors/mainColors";
+import { useTheme } from "../../context/ThemeProvider";
 
 type IconAdoptProps = {
   adopt: AdoptInfo;
@@ -27,6 +28,8 @@ const IconAdopt = (props: IconAdoptProps) => {
     onProfile,
   } = props;
 
+  const { colors } = useTheme();
+
   const getBorderColor = () => {
     if (specie === "lanies") return laniesColors.primary_color;
     if (specie === "spectralumen") return spectraLumenColors.primary_color;
@@ -35,7 +38,7 @@ const IconAdopt = (props: IconAdoptProps) => {
     return DEFAULT_PRIMARY;
   };
 
-  const borderColor = onProfile ? getBorderColor() : DEFAULT_PRIMARY;
+  const borderColor = onProfile ? getBorderColor() : colors.primary_color;
 
   return (
     <img

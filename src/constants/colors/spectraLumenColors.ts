@@ -6,7 +6,7 @@ const SP_SELECTED = "#000000";
 const SP_SHADOW = "#9d7e9e";
 const SP_TEXT = "#745275";
 const SP_TEXT_02 = "#ffffff";
-const SP_TEXT_03 = "#fbedfb";
+const SP_TEXT_03 = "#fb77fe";
 
 export const spectraLumenColors: Colors = {
   primary_color: SP_PRIMARY,

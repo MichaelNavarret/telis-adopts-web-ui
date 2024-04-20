@@ -19,7 +19,7 @@ type ProfileHeaderProps = {
 const ProfileHeader = (props: ProfileHeaderProps) => {
   const { data, canEdit } = props;
   const { colors } = useTheme();
-  const borderIconColor = colors.primary_color;
+  const borderIconColor = colors.secondary_color;
   const navigate = useNavigate();
   const pixelSize = 1;
 

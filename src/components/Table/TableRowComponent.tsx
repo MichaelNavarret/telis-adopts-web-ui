@@ -3,6 +3,7 @@ import { useState } from "react";
 import TableCellComponent from "./TableCellComponent";
 import { useTheme } from "../../context/ThemeProvider";
 import { ColumnsTable } from "./TableComponent";
+import { hexToRGBA } from "../../tools/commons";
 
 type TableRowComponentProps = {
   row: any;
@@ -14,11 +15,12 @@ const TableRowComponent = (props: TableRowComponentProps) => {
   const { row, columns, index } = props;
   const [hover, setHover] = useState(false);
   const { colors } = useTheme();
+  const selectedColor = hexToRGBA(colors.selected_color, 0.1);
 
   return (
     <TableRow
       style={{
-        backgroundColor: hover ? colors.selected_color : undefined,
+        backgroundColor: hover ? selectedColor : undefined,
       }}
       key={`${row}_${index}`}
       sx={{
@@ -32,7 +34,7 @@ const TableRowComponent = (props: TableRowComponentProps) => {
           <TableCellComponent
             key={`${column.value}_${index}`}
             content={row[column.value]}
-            textColor={hover ? colors.text_03_color : undefined}
+            textColor={hover ? colors.text_color : undefined}
           />
         );
       })}

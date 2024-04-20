@@ -1,6 +1,6 @@
 import { Colors } from "../../types/commons";
 
-const LN_PRIMARY = "#81b7e5";
+const LN_PRIMARY = "#f7829f";
 const LN_SECONDARY = "#fef1e0";
 const LN_SELECTED = "#db5f7e";
 const LN_SHADOW = "#F682A0";
