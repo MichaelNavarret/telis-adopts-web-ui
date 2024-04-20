@@ -8,6 +8,7 @@ export type SpecieInfo = {
   specieFormInfoList: SpecieFormInfo[];
   history: string;
   guideSheetUrl: string;
+  characterUrl: string;
 };
 
 export type SpecieSingletonResponse = {
