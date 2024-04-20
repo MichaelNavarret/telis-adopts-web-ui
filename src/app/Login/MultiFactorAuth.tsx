@@ -13,7 +13,10 @@ import { OwnerRequest } from "../../types/owner";
 import TextComponent from "../../components/TextComponents/TextComponent";
 import strings from "../../l10n";
 import { successToast } from "../../constants/toasts";
-import { DEFAULT_PRIMARY } from "../../constants/colors/mainColors";
+import {
+  DEFAULT_SELECTED,
+  DEFAULT_TEXT_02,
+} from "../../constants/colors/mainColors";
 
 type MultiFactorAuthProps = {
   formValue: { email: string; password: string };
@@ -88,7 +91,7 @@ const MultiFactorAuth = (props: MultiFactorAuthProps) => {
             separator={
               <AutoAwesomeIcon
                 className={styles.sparksIcon}
-                style={{ color: DEFAULT_PRIMARY }}
+                style={{ color: DEFAULT_SELECTED }}
               />
             }
           />
@@ -118,6 +121,8 @@ const MultiFactorAuth = (props: MultiFactorAuthProps) => {
         catsLoading={isVerifyOtpLoading}
         onClick={handleOtpVerify}
         marginTop="50px"
+        colorButton={DEFAULT_SELECTED}
+        colorTextButton={DEFAULT_TEXT_02}
       >
         {strings.LOGIN}
       </Button>

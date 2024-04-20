@@ -6,7 +6,7 @@ import MultiFactorAuth from "./MultiFactorAuth";
 import styles from "./LoginComponent.module.scss";
 import { MAIN_LOGO } from "../../constants/logos";
 import FormContainer from "./components/FormContainer";
-import { DEFAULT_SECONDARY } from "../../constants/colors/mainColors";
+import { DEFAULT_PRIMARY } from "../../constants/colors/mainColors";
 
 type LoginComponentProps = {
   currentStep: number;
@@ -45,7 +45,7 @@ export const LoginComponent = (props: LoginComponentProps) => {
     <>
       <div className={styles.loginComponentContainer}>
         <img src={MAIN_LOGO} alt="logo" className={styles.logo} />
-        <FormContainer backGroundColor={DEFAULT_SECONDARY}>
+        <FormContainer backGroundColor={DEFAULT_PRIMARY}>
           <FormComponent step={step} />
         </FormContainer>
       </div>

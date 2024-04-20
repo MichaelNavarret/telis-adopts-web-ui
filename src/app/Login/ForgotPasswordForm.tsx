@@ -8,6 +8,10 @@ import TextComponent from "../../components/TextComponents/TextComponent";
 import strings from "../../l10n";
 import { successToast } from "../../constants/toasts";
 import TextFieldComponent from "../../components/Form/TextFieldComponent";
+import {
+  DEFAULT_SELECTED,
+  DEFAULT_TEXT_02,
+} from "../../constants/colors/mainColors";
 
 type ResetPasswordFormProps = {
   handleStep: (val: number) => void;
@@ -51,16 +55,17 @@ export const ForgotPasswordForm = (props: ResetPasswordFormProps) => {
           content={strings.BACK_TO_LOGIN}
           onClick={() => handleStep(0)}
         />
+        <Button
+          height="80px"
+          marginTop="50px"
+          disabled={resetPasswordLoading}
+          loading={resetPasswordLoading}
+          catsLoading={resetPasswordLoading}
+          colorButton={DEFAULT_SELECTED}
+          colorTextButton={DEFAULT_TEXT_02}
+          content={strings.RECOVER_PASSWORD}
+        />
       </div>
-      <Button
-        height="90px"
-        marginTop="50px"
-        disabled={resetPasswordLoading}
-        loading={resetPasswordLoading}
-        catsLoading={resetPasswordLoading}
-      >
-        <p>{strings.RECOVER_PASSWORD}</p>
-      </Button>
     </form>
   );
 };
