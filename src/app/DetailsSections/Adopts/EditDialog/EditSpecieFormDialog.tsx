@@ -57,7 +57,7 @@ export const EditSpecieFormDialog = (props: EditSpecieFormDialogProps) => {
       <SpecieFormExpositor
         selected={selectedForm}
         setSelected={setSelectedForm}
-        borderColor={colors.CTX_BORDER_ICON_COLOR}
+        borderColor={colors.primary_color}
         specieId={adopt?.specieId || ""}
       />
       <Button

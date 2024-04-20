@@ -20,7 +20,7 @@ type FavoriteSectionProps = {
 export const FavoriteSection = (props: FavoriteSectionProps) => {
   const { owner } = props;
   const { colors } = useTheme();
-  const iconFavoriteColor = colors.CTX_FORM_CONTAINER_COLOR;
+  const iconFavoriteColor = colors.secondary_color;
   const queryClient = useQueryClient();
   const pixelSize = "1";
   const [currentPage, setCurrentPage] = useState(0);
@@ -102,7 +102,7 @@ export const FavoriteSection = (props: FavoriteSectionProps) => {
                 style={{
                   border:
                     "5px solid " +
-                    getColorsBySpecie(character.specieName).borderIcon,
+                    getColorsBySpecie(character.specieName).primary_color,
                 }}
               />
               <MdFavorite
@@ -125,7 +125,7 @@ export const FavoriteSection = (props: FavoriteSectionProps) => {
         </div>
         <div
           className={styles.favoriteSection_contentContainer}
-          style={{ borderTop: "1px solid " + colors.CTX_BORDER_ICON_COLOR }}
+          style={{ borderTop: "1px solid " + colors.primary_color }}
         >
           {ownerAdopts?.data.map((adopt) => (
             <div
@@ -142,7 +142,7 @@ export const FavoriteSection = (props: FavoriteSectionProps) => {
                 style={{
                   border:
                     "5px solid " +
-                    getColorsBySpecie(adopt.specieName).borderIcon,
+                    getColorsBySpecie(adopt.specieName).primary_color,
                 }}
               />
               {isFavorite(adopt.id) && (
@@ -175,7 +175,7 @@ export const FavoriteSection = (props: FavoriteSectionProps) => {
               color: "black",
             },
             "& .MuiPaginationItem-root.Mui-selected": {
-              backgroundColor: colors.CTX_BUTTON_COLOR,
+              backgroundColor: colors.primary_color,
             },
           }}
           count={Number(totalPages)}

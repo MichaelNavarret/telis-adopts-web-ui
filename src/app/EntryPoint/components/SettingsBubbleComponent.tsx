@@ -19,14 +19,14 @@ const SettingsBubbleComponent = () => {
           style={{
             width: "60px",
             height: "60px",
-            color: colors.CTX_BUBBLE_ICON_COLOR,
+            color: colors.text_02_color,
           }}
         />
       }
       tooltipText={strings.SETTINGS}
       bottom="1%"
       left="1%"
-      bubbleColor={colors.CTX_BUBBLE_COLOR}
+      bubbleColor={colors.primary_color}
       handleClick={handleNavigate}
       position="fixed"
     />

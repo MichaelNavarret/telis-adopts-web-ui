@@ -34,13 +34,11 @@ const ItemButton = (props: itemButtonProps) => {
       style={{
         backgroundColor:
           hover || (selected && !disabled)
-            ? colors.CTX_MENUBAR_HOVER_COLOR
-            : colors.CTX_MENUBAR_COLOR,
-        color: colors.CTX_MENUBAR_TEXT_COLOR,
+            ? colors.selected_color
+            : colors.primary_color,
+        color: colors.text_02_color,
         border:
-          selected && !disabled
-            ? `5px dashed ${colors.CTX_BUTTON_SHADOW_COLOR_2}`
-            : "",
+          selected && !disabled ? `5px dashed ${colors.shadow_color}` : "",
         fontSize: "0.8rem",
         filter: disabled ? "grayscale(100%)" : "",
       }}

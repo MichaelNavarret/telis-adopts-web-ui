@@ -1,4 +1,4 @@
-import { MAIN_BUTTON_COLOR } from "../../../constants/colors/mainColors";
+import { DEFAULT_PRIMARY } from "../../../constants/colors/mainColors";
 import styles from "./EntryPointContainer.module.scss";
 
 type EntryPointContainerProps = {
@@ -7,7 +7,7 @@ type EntryPointContainerProps = {
 };
 
 export const EntryPointContainer = (props: EntryPointContainerProps) => {
-  const { backGroundColor = MAIN_BUTTON_COLOR, children } = props;
+  const { backGroundColor = DEFAULT_PRIMARY, children } = props;
   return (
     <div
       className={styles.mainContainer}

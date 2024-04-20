@@ -38,7 +38,7 @@ const ImageSection = (props: ImageSectionProps) => {
   return (
     <div
       className={styles.imageContainer}
-      style={{ border: `1px solid ${colors.CTX_BUTTON_COLOR}`, padding }}
+      style={{ border: `1px solid ${colors.primary_color}`, padding }}
     >
       <TextComponent
         content={titleSection}
@@ -46,7 +46,7 @@ const ImageSection = (props: ImageSectionProps) => {
         hover={false}
         fontSize="large"
         className={styles.titleImage}
-        colorText={colors.CTX_FORM_TITLE_COLOR}
+        colorText={colors.text_03_color}
       />
       <img
         src={imageUrl}
@@ -60,7 +60,7 @@ const ImageSection = (props: ImageSectionProps) => {
         <FaEdit
           className={styles.editImageIcon}
           style={{
-            color: colors.CTX_BUTTON_COLOR,
+            color: colors.primary_color,
           }}
         />
       </div>

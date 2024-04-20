@@ -64,9 +64,7 @@ export const MainContainer = () => {
           <NavigationBubbles />
         )}
         <EntryPointContainer
-          backGroundColor={
-            isAuth ? colors.CTX_SECOND_CONTAINER_COLOR : "transparent"
-          }
+          backGroundColor={isAuth ? colors.secondary_color : "transparent"}
         >
           {mainContent}
           {isAdmin && <SettingsBubbleComponent />}

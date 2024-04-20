@@ -15,7 +15,7 @@ const AutocompleteLi = (props: AutocompleteLiProps) => {
     <li
       {...props}
       style={{
-        backgroundColor: hover ? colors.CTX_TABLE_ROW_HOVER_COLOR : undefined,
+        backgroundColor: hover ? colors.selected_color : undefined,
       }}
       key={option}
       onMouseEnter={() => setHover(true)}

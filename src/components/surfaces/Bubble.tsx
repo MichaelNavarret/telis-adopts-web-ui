@@ -24,16 +24,16 @@ const Bubble = (props: BubbleProps) => {
   const {
     tooltipText,
     tooltipPlacement = "top",
-    tooltipTextColor = colors.CTX_BUBBLE_ICON_COLOR,
-    tooltipBackgroundColor = colors.CTX_BUBBLE_COLOR,
+    tooltipTextColor = colors.text_02_color,
+    tooltipBackgroundColor = colors.primary_color,
     icon,
     handleClick,
     top,
     bottom,
     left,
     right,
-    bubbleColor = colors.CTX_BUBBLE_HOME_COLOR,
-    bubbleShadowColor = colors.CTX_BUTTON_SHADOW_COLOR,
+    bubbleColor = colors.primary_color,
+    bubbleShadowColor = colors.shadow_color,
     position,
   } = props;
 

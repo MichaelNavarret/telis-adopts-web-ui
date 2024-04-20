@@ -90,7 +90,7 @@ export const TableComponent = (props: TableComponentProps) => {
     if (loading) {
       return (
         <div className={styles.notFoundData}>
-          <CatsLoading colorDots={colors.CTX_MENUBAR_COLOR} withDots />
+          <CatsLoading colorDots={colors.primary_color} withDots />
         </div>
       );
     }
@@ -109,11 +109,9 @@ export const TableComponent = (props: TableComponentProps) => {
     <div className={styles.mainContainer}>
       <div className={styles.headerContainer}>
         <div className={styles.titleContainer}>
-          {title && (
-            <h1 style={{ color: colors.CTX_TABLE_TITLE_COLOR }}>{title}</h1>
-          )}
+          {title && <h1 style={{ color: colors.text_03_color }}>{title}</h1>}
           {fetching && (
-            <CatsLoading withDots colorDots={colors.CTX_MENUBAR_COLOR} />
+            <CatsLoading withDots colorDots={colors.primary_color} />
           )}
         </div>
         <div className={styles.buttonsContainer}>
@@ -123,7 +121,7 @@ export const TableComponent = (props: TableComponentProps) => {
               height="auto"
               width="auto"
               onClick={handlePrimaryButton}
-              buttonColorShadow={colors.CTX_BUTTON_SHADOW_COLOR_2}
+              buttonColorShadow={colors.shadow_color}
             >
               {primaryButtonLabel}
             </Button>
@@ -184,10 +182,10 @@ export const TableComponent = (props: TableComponentProps) => {
             width: "5px",
           },
           "&::-webkit-scrollbar-track": {
-            background: colors.CTX_FORM_CONTAINER_COLOR,
+            background: colors.secondary_color,
           },
           "&::-webkit-scrollbar-thumb": {
-            background: colors.CTX_MENUBAR_COLOR,
+            background: colors.primary_color,
           },
         }}
       >
@@ -230,7 +228,7 @@ export const TableComponent = (props: TableComponentProps) => {
               color: "black",
             },
             "& .MuiPaginationItem-root.Mui-selected": {
-              backgroundColor: colors.CTX_BUTTON_COLOR,
+              backgroundColor: colors.primary_color,
             },
           }}
           count={Number(totalPages)}

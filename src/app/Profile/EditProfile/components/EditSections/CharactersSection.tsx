@@ -20,7 +20,7 @@ const CharactersSection = (props: CharactersSectionProps) => {
   const { owner } = props;
   const { colors } = useTheme();
   const pixelSize = "1";
-  const settingIconColor = colors.CTX_FORM_CONTAINER_COLOR;
+  const settingIconColor = colors.secondary_color;
   const [openEditAdoptDialog, setOpenEditAdoptDialog] = useState(false);
   const [selectedAdopt, setSelectedAdopt] = useState<AdoptInfo | undefined>(
     undefined
@@ -63,7 +63,9 @@ const CharactersSection = (props: CharactersSectionProps) => {
             <div
               key={adopt.name}
               className={styles.charactersSection_adoptContainer_title}
-              style={{ color: getColorsBySpecie(adopt.specieName).button }}
+              style={{
+                color: getColorsBySpecie(adopt.specieName).primary_color,
+              }}
             >
               {adopt.name}
             </div>
@@ -74,14 +76,15 @@ const CharactersSection = (props: CharactersSectionProps) => {
               className={styles.charactersSection_adoptContainer_icon}
               style={{
                 border:
-                  "5px solid " + getColorsBySpecie(adopt.specieName).borderIcon,
+                  "5px solid " +
+                  getColorsBySpecie(adopt.specieName).primary_color,
               }}
             />
             <TbSettingsFilled
               className={styles.charactersSection_adoptContainer_settingsIcon}
               onClick={() => handleSettingsClick(adopt)}
               style={{
-                color: getColorsBySpecie(adopt.specieName).button,
+                color: getColorsBySpecie(adopt.specieName).primary_color,
                 filter: ` drop-shadow(${pixelSize}px 0 0 ${settingIconColor})
                 drop-shadow(${pixelSize}px ${pixelSize}px 0 ${settingIconColor})
                 drop-shadow(${pixelSize}px -${pixelSize}px 0 ${settingIconColor})
@@ -111,7 +114,7 @@ const CharactersSection = (props: CharactersSectionProps) => {
               color: "black",
             },
             "& .MuiPaginationItem-root.Mui-selected": {
-              backgroundColor: colors.CTX_BUTTON_COLOR,
+              backgroundColor: colors.primary_color,
             },
           }}
           count={Number(totalPages)}

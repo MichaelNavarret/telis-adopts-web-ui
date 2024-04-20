@@ -21,12 +21,18 @@ type CurrentOwnerSectionProps = {
 const CurrentOwnerSection = (props: CurrentOwnerSectionProps) => {
   const { colors } = useTheme();
   const { currentOwnerName, onProfile, colorSpecie, currentOwnerId } = props;
-  const textColor = onProfile ? colorSpecie.text : colors.CTX_TEXT_COLOR;
-  const bubbleColor = onProfile ? colorSpecie.bubble : colors.CTX_BUBBLE_COLOR;
+  const textColor = onProfile
+    ? colorSpecie.text_02_color
+    : colors.text_02_color;
+  const bubbleColor = onProfile
+    ? colorSpecie.primary_color
+    : colors.primary_color;
   const shadowColor2 = onProfile
-    ? colorSpecie.buttonShadow2
-    : colors.CTX_BUTTON_SHADOW_COLOR_2;
-  const buttonColor = onProfile ? colorSpecie.button : colors.CTX_BUTTON_COLOR;
+    ? colorSpecie.shadow_color
+    : colors.shadow_color;
+  const buttonColor = onProfile
+    ? colorSpecie.primary_color
+    : colors.primary_color;
 
   const { data: ownerResponse } = useQuery({
     queryKey: ["owner", currentOwnerId],

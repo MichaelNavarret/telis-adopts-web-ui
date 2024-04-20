@@ -57,13 +57,13 @@ const AdoptCard = (props: AdoptCardProps) => {
       PaperProps={{
         style: {
           backgroundColor: onProfile
-            ? colorsSpecie.formContainer
-            : colors.CTX_FORM_CONTAINER_COLOR,
+            ? colorsSpecie.secondary_color
+            : colors.secondary_color,
           borderRadius: "100px",
           width: "750px",
           height: "500px",
           border: `15px solid ${
-            onProfile ? colorsSpecie.borderIcon : colors.CTX_BORDER_ICON_COLOR
+            onProfile ? colorsSpecie.primary_color : colors.primary_color
           }`,
           overflow: "hidden",
         },
@@ -106,9 +106,15 @@ const AdoptCard = (props: AdoptCardProps) => {
               <div className={styles.listDesignersContainer}>
                 <Label
                   label={strings.DESIGNERS}
-                  color={onProfile ? colorsSpecie.text : colors.CTX_TEXT_COLOR}
+                  color={
+                    onProfile
+                      ? colorsSpecie.text_02_color
+                      : colors.text_02_color
+                  }
                   backgroundColor={
-                    onProfile ? colorsSpecie.button : colors.CTX_BUTTON_COLOR
+                    onProfile
+                      ? colorsSpecie.primary_color
+                      : colors.primary_color
                   }
                   fontSize="11px"
                 />
@@ -137,9 +143,7 @@ const AdoptCard = (props: AdoptCardProps) => {
                 <TextComponent
                   content={`${adopt.name}`}
                   colorText={
-                    onProfile
-                      ? colorsSpecie.buttonShadow2
-                      : colors.CTX_BUTTON_SHADOW_COLOR_2
+                    onProfile ? colorsSpecie.shadow_color : colors.shadow_color
                   }
                   hover={false}
                   fontSize="small"
@@ -178,8 +182,8 @@ const AdoptCard = (props: AdoptCardProps) => {
                 <CircularProgress
                   style={{
                     color: onProfile
-                      ? colorsSpecie.button
-                      : colors.CTX_BUTTON_COLOR,
+                      ? colorsSpecie.primary_color
+                      : colors.primary_color,
                   }}
                 />
               ) : (
@@ -200,16 +204,16 @@ const AdoptCard = (props: AdoptCardProps) => {
         <div className={styles.footerContainer}>
           <ToyhouseIcon
             className={styles.iconStyles}
-            iconColor={onProfile ? colorsSpecie.text : colors.CTX_TEXT_COLOR}
+            iconColor={
+              onProfile ? colorsSpecie.text_02_color : colors.text_02_color
+            }
             style={{
               background: onProfile
-                ? colorsSpecie.bubble
-                : colors.CTX_BUBBLE_COLOR,
+                ? colorsSpecie.primary_color
+                : colors.primary_color,
               padding: "5px",
               boxShadow: `0px 0px 10px 0px ${
-                onProfile
-                  ? colorsSpecie.buttonShadow2
-                  : colors.CTX_BUTTON_SHADOW_COLOR_2
+                onProfile ? colorsSpecie.shadow_color : colors.shadow_color
               }`,
               width: "40px",
               height: "40px",
@@ -220,7 +224,9 @@ const AdoptCard = (props: AdoptCardProps) => {
             className={styles.iconStyles}
             style={{
               marginBottom: "5px",
-              color: onProfile ? colorsSpecie.bubble : colors.CTX_BUBBLE_COLOR,
+              color: onProfile
+                ? colorsSpecie.primary_color
+                : colors.primary_color,
             }}
             onClick={handleClose}
           />

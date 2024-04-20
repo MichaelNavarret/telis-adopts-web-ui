@@ -50,7 +50,7 @@ const DropdownComponent = (props: DropdownComponentProps) => {
               sx={{
                 //hover
                 "&:hover": {
-                  backgroundColor: colors.CTX_TABLE_ROW_HOVER_COLOR,
+                  backgroundColor: colors.selected_color,
                 },
               }}
             >

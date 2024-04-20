@@ -28,9 +28,9 @@ export type ButtonProps = {
 export const Button = (props: ButtonProps) => {
   const { colors } = useTheme();
   const {
-    colorButton = colors.CTX_BUTTON_COLOR,
-    colorTextButton = colors.CTX_TEXT_COLOR,
-    buttonColorShadow = colors.CTX_BUTTON_SHADOW_COLOR_2,
+    colorButton = colors.primary_color,
+    colorTextButton = colors.text_color,
+    buttonColorShadow = colors.shadow_color,
     children,
     content,
     type = "submit",
@@ -56,8 +56,8 @@ export const Button = (props: ButtonProps) => {
   const boxShadow = `0 0 10px ${buttonColorShadow}`;
 
   const getBackgroundColor = () => {
-    if (singleSelected) return colors.CTX_MENUBAR_COLOR;
-    if (selected) return colors.CTX_MENUBAR_HOVER_COLOR;
+    if (singleSelected) return colors.primary_color;
+    if (selected) return colors.selected_color;
     if (notSelected) return "grey";
     return colorButton;
   };

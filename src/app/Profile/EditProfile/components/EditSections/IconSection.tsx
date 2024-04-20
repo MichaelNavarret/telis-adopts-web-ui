@@ -56,7 +56,7 @@ export const IconSection = (props: IconSectionProps) => {
           className={styles.iconSection_iconContainer}
           style={{
             border: isCurrentIcon(icon.iconUrl)
-              ? `5px solid ${colors.CTX_BORDER_ICON_COLOR}`
+              ? `5px solid ${colors.primary_color}`
               : "none",
           }}
         >

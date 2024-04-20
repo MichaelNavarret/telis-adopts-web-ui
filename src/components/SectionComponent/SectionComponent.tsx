@@ -14,7 +14,7 @@ type SectionComponentProps = {
 const SectionComponent = (props: SectionComponentProps) => {
   const { titleSection, onEdit, children, displayType = "column" } = props;
   const { colors } = useTheme();
-  const borderStyle = "1px solid " + colors.CTX_MENUBAR_COLOR;
+  const borderStyle = "1px solid " + colors.primary_color;
 
   //This will use to get the styles of the section base on if is column or row.
   const getSectionStyles = () => {
@@ -36,7 +36,7 @@ const SectionComponent = (props: SectionComponentProps) => {
           animation={false}
           hover={false}
           fontSize="medium"
-          colorText={colors.CTX_FORM_TITLE_COLOR}
+          colorText={colors.secondary_color}
         />
         {onEdit && (
           <Button

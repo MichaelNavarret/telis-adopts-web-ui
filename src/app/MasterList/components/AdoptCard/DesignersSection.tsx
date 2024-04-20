@@ -23,7 +23,7 @@ const DesignersSection = (props: DesignersSectionProps) => {
     >
       <StarRoundedIcon
         style={{
-          color: onProfile ? colorSpecie?.button : colors.CTX_BUTTON_COLOR,
+          color: onProfile ? colorSpecie?.primary_color : colors.primary_color,
           fontSize: "25px",
           marginRight: "5px",
         }}
@@ -32,11 +32,7 @@ const DesignersSection = (props: DesignersSectionProps) => {
         content={designer}
         hover={false}
         animation={false}
-        colorText={
-          onProfile
-            ? colorSpecie?.buttonShadow2
-            : colors.CTX_BUTTON_SHADOW_COLOR_2
-        }
+        colorText={onProfile ? colorSpecie?.shadow_color : colors.shadow_color}
         letterSpacing="0.2rem"
         fontSize="small"
       />

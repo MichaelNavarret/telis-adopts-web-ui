@@ -30,7 +30,7 @@ const ImageSection = (props: ImageSectionProps) => {
   return (
     <div
       className={styles.imageContainer}
-      style={{ border: `1px solid ${colors.CTX_BUTTON_COLOR}`, padding }}
+      style={{ border: `1px solid ${colors.primary_color}`, padding }}
     >
       <div className={styles.titleContainer}>
         <TextComponent
@@ -38,7 +38,7 @@ const ImageSection = (props: ImageSectionProps) => {
           animation={false}
           hover={false}
           fontSize="large"
-          colorText={colors.CTX_FORM_TITLE_COLOR}
+          colorText={colors.text_03_color}
         />
         {onEdit && (
           <Button

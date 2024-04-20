@@ -15,7 +15,7 @@ const SpecieFormSection = (props: SpecieFormSectionProps) => {
   return (
     <div
       className={styles.specieFormSectionContainer}
-      style={{ border: "1px solid" + colors.CTX_BUTTON_COLOR }}
+      style={{ border: "1px solid" + colors.primary_color }}
     >
       <TextComponent
         content={"Forms"}
@@ -25,7 +25,7 @@ const SpecieFormSection = (props: SpecieFormSectionProps) => {
       />
       <IoMdAddCircle
         className={styles.addIcon}
-        style={{ color: colors.CTX_BUTTON_COLOR }}
+        style={{ color: colors.primary_color }}
       />
       <div className={styles.specieFormsContainer}>
         {specieFormList.map((specieForm) => {
@@ -33,7 +33,7 @@ const SpecieFormSection = (props: SpecieFormSectionProps) => {
             <div
               key={specieForm.id + "_container"}
               className={styles.specieFormItemContainer}
-              style={{ border: "1px solid" + colors.CTX_BUTTON_COLOR }}
+              style={{ border: "1px solid" + colors.primary_color }}
             >
               <img
                 src={specieForm.imageUrl}
@@ -43,7 +43,7 @@ const SpecieFormSection = (props: SpecieFormSectionProps) => {
               />
               <MdRemoveCircle
                 className={styles.removeIcon}
-                style={{ color: colors.CTX_BUTTON_COLOR }}
+                style={{ color: colors.primary_color }}
               />
             </div>
           );

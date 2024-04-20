@@ -1,49 +1,19 @@
 import { Colors } from "../../types/commons";
 
-export const PLUNIES_TEXT_COLOR = "#FEF1DF";
-export const PLUNIES_TITLE_TEXT_COLOR = "#C35578";
-export const PLUNIES_BUTTON_COLOR = "#C35578";
-export const PLUNIES_BUBBLE_COLOR = "#77072D";
-export const PLUNIES_BUBBLE_ICON_COLOR = "#FEF1DF";
-export const PLUNIES_CONTAINER_COLOR = "#C35578";
-export const PLUNIES_SECOND_CONTAINER_COLOR = "#FEF1DF";
-export const PLUNIES_BUTTON_SHADOW_COLOR = "#C35578";
-export const PLUNIES_BUBBLE_HOME_COLOR = "#C35578";
-export const PLUNIES_MENUBAR_COLOR = "#77072D";
-export const PLUNIES_MENUBAR_HOVER_COLOR = "#C35578";
-export const PLUNIES_TABLE_HEADER_COLOR = "#77072D";
-export const PLUNIES_TABLE_HEADER_TEXT_COLOR = "#FEF1DF";
-export const PLUNIES_TABLE_ROW_HOVER_COLOR = "#F9D1B7";
-export const PLUNIES_TABLE_ROW_HOVER_TEXT_COLOR = "#000000";
-export const PLUNIES_FORM_CONTAINER_COLOR = "#FEF1DF";
-export const PLUNIES_FORM_TITLE_COLOR = "#C6537A";
-export const PLUNIES_BUTTON_SHADOW_COLOR_2 = "#983456";
-export const PLUNIES_FORM_BUTTON_COLOR = "#C6537A";
-export const PLUNIES_TABLE_TITLE_COLOR = "#C35374";
-export const PLUNIES_MENUBAR_TEXT_COLOR = "#FEF1DF";
-export const PLUNIES_BORDER_ICON_COLOR = "#C3557A";
+const PL_PRIMARY = "#9d224b";
+const PL_SECONDARY = "#fef1e0";
+const PL_SELECTED = "#c35578";
+const PL_SHADOW = "#C35578";
+const PL_TEXT = "#7c3a50";
+const PL_TEXT_02 = "#fef1e0";
+const PL_TEXT_03 = "#9d224b";
 
 export const pluniesColors: Colors = {
-  text: PLUNIES_TEXT_COLOR,
-  titleText: PLUNIES_TITLE_TEXT_COLOR,
-  button: PLUNIES_BUTTON_COLOR,
-  bubble: PLUNIES_BUBBLE_COLOR,
-  bubbleIcon: PLUNIES_BUBBLE_ICON_COLOR,
-  container: PLUNIES_CONTAINER_COLOR,
-  secondContainer: PLUNIES_SECOND_CONTAINER_COLOR,
-  buttonShadow: PLUNIES_BUTTON_SHADOW_COLOR,
-  bubbleHome: PLUNIES_BUBBLE_HOME_COLOR,
-  menubar: PLUNIES_MENUBAR_COLOR,
-  menubarHover: PLUNIES_MENUBAR_HOVER_COLOR,
-  tableHeader: PLUNIES_TABLE_HEADER_COLOR,
-  tableHeaderText: PLUNIES_TABLE_HEADER_TEXT_COLOR,
-  tableRowHover: PLUNIES_TABLE_ROW_HOVER_COLOR,
-  tableRowHoverText: PLUNIES_TABLE_ROW_HOVER_TEXT_COLOR,
-  formContainer: PLUNIES_FORM_CONTAINER_COLOR,
-  formTitle: PLUNIES_FORM_TITLE_COLOR,
-  buttonShadow2: PLUNIES_BUTTON_SHADOW_COLOR_2,
-  formButton: PLUNIES_FORM_BUTTON_COLOR,
-  tableTitle: PLUNIES_TABLE_TITLE_COLOR,
-  menubarText: PLUNIES_MENUBAR_TEXT_COLOR,
-  borderIcon: PLUNIES_BORDER_ICON_COLOR,
+  primary_color: PL_PRIMARY,
+  secondary_color: PL_SECONDARY,
+  selected_color: PL_SELECTED,
+  shadow_color: PL_SHADOW,
+  text_color: PL_TEXT,
+  text_02_color: PL_TEXT_02,
+  text_03_color: PL_TEXT_03,
 };

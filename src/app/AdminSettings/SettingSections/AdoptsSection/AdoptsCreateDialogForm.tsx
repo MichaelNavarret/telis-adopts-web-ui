@@ -335,7 +335,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
           <CatsLoading
             withDots={true}
             width="150px"
-            colorDots={colors.CTX_MENUBAR_HOVER_COLOR}
+            colorDots={colors.selected_color}
           />
         );
       } else {
@@ -459,10 +459,10 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
               width: "5px",
             },
             "&::-webkit-scrollbar-track": {
-              background: colors.CTX_FORM_CONTAINER_COLOR,
+              background: colors.secondary_color,
             },
             "&::-webkit-scrollbar-thumb": {
-              background: colors.CTX_MENUBAR_COLOR,
+              background: colors.primary_color,
             },
           }}
         >
@@ -496,7 +496,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                 key={`designer_container${index}`}
                 className={styles.designerContainer}
                 style={{
-                  border: `1px dashed ${colors.CTX_MENUBAR_COLOR}`,
+                  border: `1px dashed ${colors.primary_color}`,
                   borderRadius: "5px",
                 }}
               >
@@ -582,10 +582,10 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
               width: "5px",
             },
             "&::-webkit-scrollbar-track": {
-              background: colors.CTX_FORM_CONTAINER_COLOR,
+              background: colors.secondary_color,
             },
             "&::-webkit-scrollbar-thumb": {
-              background: colors.CTX_MENUBAR_COLOR,
+              background: colors.primary_color,
             },
           }}
         >
@@ -610,7 +610,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
                   <p
                     style={{
                       color: isAvailableTrait(trait.id)
-                        ? colors.CTX_MENUBAR_COLOR
+                        ? colors.primary_color
                         : "gray",
                       fontSize: "11px",
                       letterSpacing: "0.1rem",
@@ -665,7 +665,7 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
             <SpecieFormExpositor
               selected={specieFormId}
               setSelected={setSpecieFormId}
-              borderColor={colors.CTX_BORDER_ICON_COLOR}
+              borderColor={colors.primary_color}
               specieId={specie?.value || ""}
             />
           )}
@@ -679,8 +679,8 @@ const AdoptsCreateDialogForm = (props: AdoptsCreateDialogFormProps) => {
           content={strings.CREATE}
           width="150px"
           height="35px"
-          colorButton={colors.CTX_FORM_BUTTON_COLOR}
-          buttonColorShadow={colors.CTX_BUTTON_SHADOW_COLOR_2}
+          colorButton={colors.primary_color}
+          buttonColorShadow={colors.shadow_color}
           loading={isLoading || isUploadIconLoading}
           disabled={isLoading || isUploadIconLoading}
           catsLoading={isLoading || isUploadIconLoading}

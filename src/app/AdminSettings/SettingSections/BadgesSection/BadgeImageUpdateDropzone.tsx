@@ -40,8 +40,8 @@ export const BadgeDropzone = (props: BadgeDropzoneProps) => {
       {...getRootProps()}
       className={className}
       style={{
-        backgroundColor: colors.CTX_TABLE_ROW_HOVER_COLOR,
-        border: "5px dashed" + colors.CTX_MENUBAR_COLOR,
+        backgroundColor: colors.selected_color,
+        border: "5px dashed" + colors.primary_color,
         cursor: disabled ? "progress" : "pointer",
         filter: disabled ? "grayscale(100%)" : "none",
         position: "relative",

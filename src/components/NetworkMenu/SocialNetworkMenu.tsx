@@ -10,9 +10,9 @@ export type SocialNetworkMenuProps = {
 export const SocialNetworksMenu = (props: SocialNetworkMenuProps) => {
   const { colors } = useTheme();
   const {
-    colorIcon = colors.CTX_BUBBLE_ICON_COLOR,
-    colorBubble = colors.CTX_BUBBLE_COLOR,
-    shadowBubbleColor = colors.CTX_BUTTON_SHADOW_COLOR,
+    colorIcon = colors.text_02_color,
+    colorBubble = colors.primary_color,
+    shadowBubbleColor = colors.shadow_color,
   } = props;
   const width = "30";
   const height = "23";

@@ -156,7 +156,7 @@ const Blade = (props: BladeProps) => {
       PaperProps={{
         sx: {
           width: width,
-          backgroundColor: colors.CTX_FORM_CONTAINER_COLOR,
+          backgroundColor: colors.secondary_color,
         },
       }}
       variant={variant}

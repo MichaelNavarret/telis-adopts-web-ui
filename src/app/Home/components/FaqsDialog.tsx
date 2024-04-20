@@ -36,7 +36,7 @@ const FaqsDialog = (props: FaqsDialogProps) => {
       PaperProps={{
         style: {
           borderRadius: "20px",
-          backgroundColor: colors.CTX_FORM_CONTAINER_COLOR,
+          backgroundColor: colors.secondary_color,
         },
         sx: {
           //-webkit-scrollbar
@@ -46,7 +46,7 @@ const FaqsDialog = (props: FaqsDialogProps) => {
           },
 
           "&::-webkit-scrollbar-thumb": {
-            background: colors.CTX_MENUBAR_COLOR,
+            background: colors.primary_color,
             borderRadius: "20px",
           },
         },
@@ -55,7 +55,7 @@ const FaqsDialog = (props: FaqsDialogProps) => {
       <Container className={styles.faqsContainer}>
         <AiFillCloseCircle
           className={styles.exitIcon}
-          style={{ color: colors.CTX_BUTTON_COLOR }}
+          style={{ color: colors.primary_color }}
           onClick={handleClose}
         />
         {faqsData?.map((faq, index) => {
@@ -63,11 +63,11 @@ const FaqsDialog = (props: FaqsDialogProps) => {
             <div
               className={styles.faqContainer}
               key={index}
-              style={{ borderBottom: `1px dashed ${colors.CTX_BUTTON_COLOR}` }}
+              style={{ borderBottom: `1px dashed ${colors.primary_color}` }}
             >
               <p
                 className={styles.question}
-                style={{ color: colors.CTX_FORM_TITLE_COLOR }}
+                style={{ color: colors.text_03_color }}
               >
                 {faq.question}
               </p>
@@ -76,8 +76,8 @@ const FaqsDialog = (props: FaqsDialogProps) => {
                 <div
                   className={styles.warningContainer}
                   style={{
-                    backgroundColor: colors.CTX_BUTTON_COLOR,
-                    color: colors.CTX_TEXT_COLOR,
+                    backgroundColor: colors.primary_color,
+                    color: colors.text_02_color,
                   }}
                 >
                   <IoIosWarning className={styles.warningIcon} />

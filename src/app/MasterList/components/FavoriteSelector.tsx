@@ -16,7 +16,7 @@ type FavoriteSelectorProps = {
 const FavoriteSelector = (props: FavoriteSelectorProps) => {
   const { isFavorite = false, owner, adoptId } = props;
   const { colors } = useTheme();
-  const iconFavoriteColor = colors.CTX_FORM_CONTAINER_COLOR;
+  const iconFavoriteColor = colors.secondary_color;
   const pixelSize = "1";
   const queryClient = useQueryClient();
 

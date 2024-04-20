@@ -21,10 +21,10 @@ export const NetworkProfile = (props: NetworkProfileProps) => {
   };
 
   const style = {
-    fill: colors.CTX_TEXT_COLOR,
-    background: colors.CTX_BUBBLE_COLOR,
+    fill: colors.text_color,
+    background: colors.primary_color,
     padding: "5px",
-    boxShadow: `0px 0px 10px 0px ${colors.CTX_BUTTON_SHADOW_COLOR_2}`,
+    boxShadow: `0px 0px 10px 0px ${colors.shadow_color}`,
   };
 
   const getCurrentStyle = (disabled: boolean) => {
@@ -95,7 +95,7 @@ export const NetworkProfile = (props: NetworkProfileProps) => {
           className={styles.iconStyles}
           iconColor={
             isDefined(owner?.ownerSingletonInfo.toyhouse)
-              ? colors.CTX_TEXT_COLOR
+              ? colors.text_color
               : "gray"
           }
           style={getCurrentStyleForToyhouse(

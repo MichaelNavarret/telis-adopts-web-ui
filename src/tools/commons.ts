@@ -9,6 +9,7 @@ import { cloudystarsColors } from "../constants/colors/cloudyStarsColors";
 import { pluniesColors } from "../constants/colors/pluniesColors";
 import { AutocompleteOption } from "../components/Form/AutocompleteComponent";
 import strings from "../l10n";
+import { mainColors } from "../constants/colors/mainColors";
 
 export function isDefined<T>(arg: T | null | undefined): arg is T {
   return typeof arg != "undefined" && arg != null;
@@ -70,11 +71,11 @@ export const getIconBoxShadow = (
 };
 
 export const getBorderColor = (specie?: string) => {
-  if (specie === "lanies") return laniesColors.borderIcon;
-  if (specie === "spectralumen") return spectraLumenColors.borderIcon;
-  if (specie === "cloudystars") return cloudystarsColors.borderIcon;
-  if (specie === "plunies") return pluniesColors.borderIcon;
-  return laniesColors.borderIcon;
+  if (specie === "lanies") return laniesColors.primary_color;
+  if (specie === "spectralumen") return spectraLumenColors.primary_color;
+  if (specie === "cloudystars") return cloudystarsColors.primary_color;
+  if (specie === "plunies") return pluniesColors.primary_color;
+  return mainColors.primary_color;
 };
 
 export const formatDate = (date: string) => {

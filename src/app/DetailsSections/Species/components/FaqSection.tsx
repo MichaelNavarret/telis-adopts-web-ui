@@ -51,7 +51,7 @@ const FaqSection = (props: FaqSectionProps) => {
     <div
       className={styles.faqSectionContainer}
       style={{
-        border: `1px solid ${colors.CTX_BUTTON_COLOR}`,
+        border: `1px solid ${colors.primary_color}`,
       }}
     >
       <TextComponent content="FAQs" animation={false} hover={false} />
@@ -60,11 +60,11 @@ const FaqSection = (props: FaqSectionProps) => {
           <div
             className={styles.faqContainer}
             key={index}
-            style={{ borderBottom: `1px dashed ${colors.CTX_BUTTON_COLOR}` }}
+            style={{ borderBottom: `1px dashed ${colors.primary_color}` }}
           >
             <p
               className={styles.question}
-              style={{ color: colors.CTX_FORM_TITLE_COLOR }}
+              style={{ color: colors.text_02_color }}
             >
               {faq.question}
             </p>
@@ -73,8 +73,8 @@ const FaqSection = (props: FaqSectionProps) => {
               <div
                 className={styles.warningContainer}
                 style={{
-                  backgroundColor: colors.CTX_BUTTON_COLOR,
-                  color: colors.CTX_TEXT_COLOR,
+                  backgroundColor: colors.primary_color,
+                  color: colors.text_color,
                 }}
               >
                 <IoIosWarning className={styles.warningIcon} />
@@ -85,7 +85,7 @@ const FaqSection = (props: FaqSectionProps) => {
               <FaEdit
                 className={styles.actionIcon}
                 style={{
-                  color: colors.CTX_BUTTON_COLOR,
+                  color: colors.primary_color,
                 }}
                 onClick={() => {
                   setSelectedFaq(faq);
@@ -95,7 +95,7 @@ const FaqSection = (props: FaqSectionProps) => {
               <MdDelete
                 className={styles.actionIcon}
                 style={{
-                  color: colors.CTX_BUTTON_COLOR,
+                  color: colors.primary_color,
                 }}
                 onClick={() => {
                   setSelectedFaq(faq);
@@ -122,7 +122,7 @@ const FaqSection = (props: FaqSectionProps) => {
       <IoAddCircleSharp
         className={styles.addFaqButton}
         style={{
-          color: colors.CTX_BUTTON_COLOR,
+          color: colors.primary_color,
         }}
         onClick={() => setOpenCreateFaqDialog(true)}
       />

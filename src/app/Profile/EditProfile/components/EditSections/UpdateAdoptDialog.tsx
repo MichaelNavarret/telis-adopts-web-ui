@@ -75,13 +75,15 @@ const UpdateAdoptDialog = (props: UpdateAdoptDialogProps) => {
             src={adopt?.iconUrl ? adopt.iconUrl : DEFAULT_ICON}
             alt={adopt?.name}
             className={styles.updateAdoptDialog_formHeader_left_icon}
-            style={{ border: "5px solid " + speciesColors.borderIcon }}
+            style={{ border: "5px solid " + speciesColors.primary_color }}
           />
         </div>
         <div className={styles.updateAdoptDialog_formHeader_right}>
           <div
             className={styles.updateAdoptDialog_formHeader_right_name_container}
-            style={{ borderBottom: "1px dashed " + speciesColors.borderIcon }}
+            style={{
+              borderBottom: "1px dashed " + speciesColors.primary_color,
+            }}
           >
             <TextComponent
               className={
@@ -90,7 +92,7 @@ const UpdateAdoptDialog = (props: UpdateAdoptDialogProps) => {
               content={strings.NAME}
               hover={false}
               animation={false}
-              colorText={speciesColors.button}
+              colorText={speciesColors.primary_color}
               fontSize="large"
             />
             <TextFieldComponent
@@ -113,8 +115,8 @@ const UpdateAdoptDialog = (props: UpdateAdoptDialogProps) => {
               content={adopt?.rarity || ""}
               hover={false}
               animation={false}
-              backgroundColor={speciesColors.button}
-              colorText={speciesColors.text}
+              backgroundColor={speciesColors.primary_color}
+              colorText={speciesColors.text_02_color}
             />
           </div>
         </div>
@@ -124,7 +126,7 @@ const UpdateAdoptDialog = (props: UpdateAdoptDialogProps) => {
         traits.length > 0 && (
           <div
             className={styles.updateAdoptDialog_formContent}
-            style={{ border: "2px dashed " + speciesColors.borderIcon }}
+            style={{ border: "2px dashed " + speciesColors.primary_color }}
           >
             {orderTraitsByDisplayPriority(adopt?.traits).map((trait, index) => (
               <div
@@ -135,7 +137,7 @@ const UpdateAdoptDialog = (props: UpdateAdoptDialogProps) => {
                   content={trait.mainTrait}
                   hover={false}
                   animation={false}
-                  colorText={speciesColors.button}
+                  colorText={speciesColors.primary_color}
                   className={
                     styles.updateAdoptDialog_formContent_trait_mainTrait
                   }
@@ -170,8 +172,8 @@ const UpdateAdoptDialog = (props: UpdateAdoptDialogProps) => {
                     content={trait.rarity}
                     hover={false}
                     animation={false}
-                    colorText={speciesColors.text}
-                    backgroundColor={speciesColors.button}
+                    colorText={speciesColors.text_02_color}
+                    backgroundColor={speciesColors.primary_color}
                     fontSize="small"
                   />
                 </div>
@@ -184,8 +186,8 @@ const UpdateAdoptDialog = (props: UpdateAdoptDialogProps) => {
           className={styles.updateAdoptDialog_formButton}
           content={strings.UPDATE}
           type="submit"
-          colorButton={speciesColors.button}
-          colorTextButton={speciesColors.text}
+          colorButton={speciesColors.primary_color}
+          colorTextButton={speciesColors.text_02_color}
           withShadow={false}
           width="130px"
           height="40px"
@@ -201,9 +203,9 @@ const UpdateAdoptDialog = (props: UpdateAdoptDialogProps) => {
       dialogTitle="Update Adopt Info"
       content={dialogContent}
       maxWidth="xl"
-      border={"5px solid " + speciesColors.borderIcon}
-      colorTitle={speciesColors.button}
-      backgroundColor={speciesColors.formContainer}
+      border={"5px solid " + speciesColors.primary_color}
+      colorTitle={speciesColors.text_03_color}
+      backgroundColor={speciesColors.secondary_color}
       borderRadius="40px"
     />
   );
